@@ -7,19 +7,21 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
     .when("/database", {
         templateUrl : "../dist/templates/database.html",
         controller : "databaseCtrl",
-        controllerAs : "db",
+        controllerAs : "db"
     })
-    .otherwise({
-        redirectTo: "/database"
+    .when("/user", {
+        templateUrl : "../dist/templates/user.html",
+        controller : "userCtrl",
+        controllerAs : "user"
     });
 });
-app.service('mainUrl', function($window) {
-    this.devMode = maghazamConfigData.dev_mode;
-    this.get = function () {
-      return maghazamConfigData.url;
+app.service('mainAsset', function($window) {
+    this.devMode = assetPanelData.devMode;
+    this.getUrl = function () {
+      return assetPanelData.serverUrl;
     };
     this.getUploadUrl = function () {
-      return maghazamConfigData.upload_url;
+      return assetPanelData.uploadUrl;
     };
     this.errorFunction = function (err,status) {
       switch(status){
