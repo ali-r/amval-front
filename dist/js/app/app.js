@@ -2,6 +2,12 @@ var app = angular.module("assetAdminPanel", ["ngRoute"]);
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
+app.config(function ($httpProvider) {
+  /*$httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};*/
+});
 angular.module("assetAdminPanel").config(function($routeProvider) {
     $routeProvider
     .when("/database", {

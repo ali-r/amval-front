@@ -1060,7 +1060,7 @@ h2 {
     position: relative;
     width: 100%;
     margin-bottom: 10px;
-    padding: 10px 17px;
+    padding: 5px 10px;
     display: inline-block;
     background: #fff;
     border: 1px solid #E6E9ED;
@@ -2013,7 +2013,7 @@ button,
 .buttons,
 .btn,
 .modal-footer .btn+.btn {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     margin-right: 5px
 }
 .btn-group-vertical .btn,

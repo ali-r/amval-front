@@ -1,2 +1,2 @@
 var assetPanelData = {};
-assetPanelData.serverUrl = "http://104.131.100.25:8000/";
+assetPanelData.serverUrl = "http://amval.gandom.co:8080/api/v1/";
