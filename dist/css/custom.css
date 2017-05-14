@@ -1752,7 +1752,8 @@ span.right {
 }
 .dashboard_graph {
     background: #fff;
-    padding: 7px 10px
+    padding: 10px 10px;
+    margin-top: 20%;
 }
 .dashboard_graph .col-md-9,
 .dashboard_graph .col-md-3 {
@@ -4282,4 +4283,14 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 .filter-form{
   text-align: center;
+}
+.makan{
+  margin-right: 250px;
+}
+.matn{
+  text-align: center;
+}
+.main{
+  margin-right: 15%;
+  margin-left: 15%;
 }
