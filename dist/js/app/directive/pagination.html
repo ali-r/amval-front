@@ -1,0 +1,33 @@
+<div class="paging-simple" ng-if = "!load">
+  <ul class="pagination business-pagination">
+
+    <li class="paginate_button previou" ng-class="{'disabled' : pagination('first')}">
+      <a ng-click = "pageSet('first')" href>اول</a>
+    </li>
+    <li class="paginate_button" ng-hide="pagination('first')">
+      <a ng-click = "pageSet('first')" href>1</a>
+    </li>
+    <li class="paginate_button" ng-hide="pagination('first')">
+      <a>....</a>
+    </li>
+    <li class="paginate_button" ng-hide="pagination('new')">
+      <a ng-click = "pageSet('new')" href>{{page-1}}</a>
+    </li>
+    <li class="paginate_button active">
+      <a href>{{page}}</a>
+    </li>
+    <li class="paginate_button" ng-hide="pagination('old')">
+      <a ng-click = "pageSet('old')" href>{{page+1}}</a>
+    </li>
+    <li class="paginate_button" ng-hide="pagination('end')">
+      <a>....</a>
+    </li>
+    <li class="paginate_button" ng-hide="pagination('end')">
+      <a ng-click = "pageSet('end')" href>{{meta.pages}}</a>
+    </li>
+    <li class="paginate_button next" ng-class="{'disabled' : pagination('end')}">
+      <a ng-click = "pageSet('end')" href>آخر</a>
+    </li>
+
+  </ul>
+</div>

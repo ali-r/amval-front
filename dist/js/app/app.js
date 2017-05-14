@@ -1,4 +1,4 @@
-var app = angular.module("assetAdminPanel", ["ngRoute"]);
+var app = angular.module("assetAdminPanel", ["ngRoute","ngCookies"]);
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
@@ -36,14 +36,65 @@ app.service('mainAsset', function($window) {
           break;
         }
     };
+    this.pagination = function(status,meta){
+      var pageMeta = meta;
+      switch (status) {
+        case 'old':
+          if (pageMeta.next === null) {
+            return true;
+          }else{
+            return false;
+          };
+          break;
+        case 'new':
+          if (pageMeta.prev == null) {
+            return true;
+          }else{
+            return false;
+          };
+          break;
+        case 'end':
+          if (pageMeta.pages > 1 && pageMeta.page < pageMeta.pages -1 ) {
+            return false;
+          }else{
+            return true;
+          };
+          break;
+        case 'first':
+          if (pageMeta.page > 2) {
+            return false;
+          }else{
+            return true;
+          };
+          break;
+      };
+    };
+
+    this.pageSet = function(mode,page,meta){
+      switch (mode) {
+        case 'new':
+          page -=1;
+          break;
+        case 'old':
+          page +=1;
+          break;
+        case 'first':
+          page = 1;
+          break;
+        case 'end':
+          page = meta.pages;
+          break;
+      }
+      return page;
+    };
 });
 app.filter('jalaliDate', function () {
-              return function (inputDate, format) {
-                moment.loadPersian();
-                var date = moment(inputDate).utcOffset(420);
-                return date.format(format);
-            }
-        });
+      return function (inputDate, format) {
+        moment.loadPersian();
+        var date = moment(inputDate).utcOffset(420);
+        return date.format(format);
+    }
+});
 app.filter('homePage', function() {
   return function(input) {
     var output;
@@ -59,5 +110,13 @@ app.filter('homePage', function() {
         break;
     }
     return output;
+  }
+});
+app.directive('reqPagination', function() {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : true,
+    templateUrl: '/dist/js/app/directive/pagination.html'
   }
 });
