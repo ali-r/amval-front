@@ -14,6 +14,8 @@ angular.module("assetAdminPanel").controller('loginCtrl', function($scope,$http,
     loginData.password = controller.pass;
     $http.post(controller.loginUrl, loginData,{headers: $scope.header})
     .then(function successCallback(response) {
+        $cookieStore.put('per', response.data.permissions);
+        delete response.data.permissions;
         $cookieStore.put('assetData', response.data);
         NProgress.done();
         $window.location.href = '/panel/#/user';
