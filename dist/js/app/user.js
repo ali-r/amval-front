@@ -9,6 +9,7 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
   this.sortType = "";
   this.sortOrder = "";
   $scope.load = false;
+  $scope.editMode = false;
 
   $scope.serverUrl = mainAsset.getUrl();
   this.getUrl = $scope.serverUrl + "user?page=1&per_page=10";
@@ -31,6 +32,14 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
     return url;
   }
 
+  this.openModal = function () {
+    $('#userModal').modal({
+        backdrop: 'static',
+        keyboard: false
+      });
+    $('#userModal').modal('show');
+  }
+
   this.getData = function(){
     NProgress.start();
     $scope.load = true;
@@ -49,6 +58,7 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
   this.getData();
 
   this.getOptionChange = function(){
+    $scope.page = 1;
     controller.getUrl = controller.makeUrl();
     this.getData();
   };

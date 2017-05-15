@@ -1623,5 +1623,5 @@ $(document).ready(function() {
 		init_CustomNotification();
 		init_autosize();
 		init_autocomplete();
-
+    
 	});

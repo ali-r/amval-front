@@ -495,7 +495,7 @@ body {
     color: #73879C;
     background: #2A3F54;
     font-family: IRANSans,"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1.471
 }
@@ -2210,7 +2210,7 @@ legend {
     padding-right: 45px
 }
 .form-group {
-    margin-bottom: 10px
+    margin-bottom: 15px
 }
 .validate {
     margin-top: 10px
@@ -4253,9 +4253,20 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
   display: inline;
   width: 17%;
 }
+.seller-search-option{
+  display: inline;
+  width: 18%;
+  margin-bottom: 5px;
+}
 .filter-option{
   display: inline;
   width: 20%;
+  vertical-align: top;
+  padding: 2px 15px;
+}
+.seller-filter-option{
+  display: inline;
+  width: 15%;
   vertical-align: top;
   padding: 2px 15px;
 }
@@ -4293,4 +4304,11 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .main{
   margin-right: 15%;
   margin-left: 15%;
+}
+select.form-control{
+  padding: 4px 12px;
+}
+.load-spinner{
+  vertical-align: bottom;
+  padding: 2px 4px;
 }
