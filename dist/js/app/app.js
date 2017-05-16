@@ -19,6 +19,11 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
         templateUrl : "../dist/templates/user.html",
         controller : "userCtrl",
         controllerAs : "user"
+    })
+    .when("/changePassword", {
+        templateUrl : "../dist/templates/changePassword.html",
+        controller : "changePassword",
+        controllerAs : "password"
     });
 });
 app.service('mainAsset', function($window) {
