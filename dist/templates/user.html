@@ -45,20 +45,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat = "users in user.note">
+            <tr ng-repeat = "list in user.note">
               <td>{{$index + 1}}</td>
-              <td>{{users.first_name}}</td>
-              <td>{{users.last_name}}</td>
-              <td>{{users.card_no}}</td>
-              <td>{{users.user_type}}</td>
-              <td style="direction:ltr;">{{users.phone}}</td>
+              <td>{{list.first_name}}</td>
+              <td>{{list.last_name}}</td>
+              <td>{{list.card_no}}</td>
+              <td>{{list.user_type}}</td>
+              <td style="direction:ltr;">{{list.phone}}</td>
               <td>
                 <a href>
                   <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
               </td>
               <td>
-                <a href>
+                <a ng-click="user.toDeleteId = list.id; user.toDeleteTitle = list.card_no" data-toggle="modal" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -176,3 +176,29 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف کاربر</h4>
+      </div>
+      <div class="modal-body">
+        آیا مایل به حذف کاربر
+        "{{user.toDeleteTitle}}"
+        هستید؟
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
+        <button type="button" class="btn btn-success" ng-click="user.deleteObject(user.toDeleteId)">بله!</button>
+      </div>
+    </div>
+  </div>
+</div>
