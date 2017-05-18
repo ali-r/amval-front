@@ -57,6 +57,19 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
 
   this.getData();
 
+  this.deleteObject = function(id){
+    $scope.loadModal = true;
+    $http.delete($scope.serverUrl + "user/" + id , {headers: $scope.header})
+      .then(function successCallback(response) {
+        controller.getData();
+        $('#deleteModal').modal('hide');
+        $scope.loadModal = false;
+      }, function errorCallback(response) {
+
+        $scope.loadModal = false;
+      });
+  };
+
   this.getOptionChange = function(){
     $scope.page = 1;
     controller.getUrl = controller.makeUrl();
