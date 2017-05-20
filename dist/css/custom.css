@@ -4284,13 +4284,32 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .filter-form{
   text-align: center;
 }
-.placeArrengment{
-  margin-right: 250px;
+.dataBaseplaceArrengment{
+  margin-right: 36%;
 }
-.mainText{
+.dataBaseMainText{
   text-align: center;
 }
-.main{
+.dataBaseMainArrengment{
   margin-right: 15%;
   margin-left: 15%;
+}
+input.ng-not-empty{
+  background-color: #A8C9CE;
+}
+.changePasswordArrengment{
+  padding: 2% 2%;
+}
+.changePasswordButton{
+  margin-right: 0;
+}
+.changePasswordCheckButton{
+  margin-right: 20%;
+}
+.changePasswordInput{
+  width: 100%;
+  border-style: outset;
+}
+.changePasswordMainArrengment{
+  margin-left: 40%;
 }

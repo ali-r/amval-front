@@ -1,25 +1,32 @@
-angular.module("assetAdminPanel").controller('changePassword', function($scope,$http){
+angular.module("assetAdminPanel").controller('changePassword', function($scope,$http,mainAsset,$cookieStore){
 
     var begir = this;
+    $scope.assetData = $cookieStore.get("assetData")
+    $scope.serverUrl = "http://api.gandom.co/api/v1/" ;
+    $scope.header = {'Content-Type': 'application/json' , 'Access-Token':$scope.assetData.access_token} ;
 
-    $scope.serverUrl = "https://api.gandom.co/api/v1/user/:user_id/password" ;
-    $scope.header = {'Content-Type': 'application/json'} ;
-
+    this.check=function(){
+      if(begir.newPass === begir.newPassAgain)
+      {
+        return false;
+      }
+      else {
+        {
+          return true;
+        }
+      }
+      }
     this.sendPassword = function(){
     var userPasswordData = {}
-    userPasswordData.old_password = begir.oldPassword;
-    userPasswordData.new_password = begir.newPassword;
-    userPasswordData.newPasswordConfig = begir.oldPasswordAgain;
-    $http.put($scope.serverUrl + "user/:user_id/password", userPasswordData , {headers: $scope.header})
-    .success(function(data){
-      if(data.new_password === data.newPasswordConfig)
-      {
-        userPasswordData.old_password = userPasswordData.new_password ;
-      }
-      .error(function(error,status)
-      {
+    userPasswordData.old_password = begir.oldPass;
+    userPasswordData.new_password = begir.newPass;
+    $http.put($scope.serverUrl + "user/" + $scope.assetData.id + "/password", userPasswordData , {headers: $scope.header})
+    .then(function successCallback(response)
+    {
 
-      });
+    },
+    function errorCallback(response)
+    {
 
     });
   }
