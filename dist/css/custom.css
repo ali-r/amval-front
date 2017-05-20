@@ -4312,3 +4312,7 @@ select.form-control{
   vertical-align: bottom;
   padding: 2px 4px;
 }
+.form-ltr{
+  direction: ltr;
+  text-align: left;
+}

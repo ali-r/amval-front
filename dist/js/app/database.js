@@ -1,4 +1,4 @@
-angular.module("assetAdminPanel").controller('databaseCtrl', function($scope,$http){
+angular.module("assetAdminPanel").controller('databaseCtrl', function($scope,$http,mainUrl){
 
   var begir = this ;
 

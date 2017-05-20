@@ -50,10 +50,10 @@
               <td>{{list.first_name}}</td>
               <td>{{list.last_name}}</td>
               <td>{{list.card_no}}</td>
-              <td>{{list.user_type}}</td>
+              <td>{{list.clearance_level | userType}}</td>
               <td style="direction:ltr;">{{list.phone}}</td>
               <td>
-                <a href>
+                <a ng-click="user.getObject(list.id)" href>
                   <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -78,13 +78,16 @@
       <div class="modal-header">
         <div class="pull-left">
           <button type="button" ng-disabled="!userForm.$valid" class="btn btn-success">ذخیره</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
         <h3 class="modal-title" ng-hide="editMode">افزودن کاربر جدید</h3>
         <h3 class="modal-title" ng-show="editMode">ویرایش کاربر</h3>
       </div>
       <div class="modal-body">
-        <form name="userForm" role="form" novalidate>
+        <form name="userForm" role="form" ng-hide="loadModal" novalidate>
           <div class="box-body">
             <div class="row">
               <div class="col-md-4">
@@ -110,13 +113,13 @@
                   <input type="text" class="form-control" placeholder="نام" ng-model = "user.firstName" required>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" ng-hide="editMode">
                 <div class="form-group">
                   <label>تکرار گذرواژه</label>
                   <input type="password" class="form-control" placeholder="تکرار گذرواژه" ng-model = "user.confirmPass" required>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" ng-hide="editMode">
                 <div class="form-group">
                   <label>گذرواژه</label>
                   <input type="password" class="form-control" placeholder="گذرواژه" ng-model = "user.pass" required>
@@ -125,13 +128,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>شماره کارت (نام کاربری)</label>
-                  <input type="text" class="form-control" placeholder="شماره کارت" ng-model = "user.cardNo" required>
+                  <input type="text" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.cardNo" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>شماره تماس</label>
-                  <input type="text" class="form-control" placeholder="شماره تماس" ng-model = "user.phone" required>
+                  <input type="text" class="form-control form-ltr" placeholder="شماره تماس" ng-model = "user.phone" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -156,7 +159,7 @@
                   <button type="button" class="btn btn-info" name="button">بارگذاری تصویر</button>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" ng-show = "user.clearanceLevel == 1">
                 <div class="form-group">
                   <label>انبار</label>
                   <div class="input-group">

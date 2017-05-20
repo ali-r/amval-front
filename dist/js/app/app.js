@@ -100,18 +100,21 @@ app.filter('jalaliDate', function () {
         return date.format(format);
     }
 });
-app.filter('homePage', function() {
+app.filter('userType', function() {
   return function(input) {
     var output;
     switch(input){
-        case 'business':
-          output = "کسب و کار";
+        case 3:
+          output = "مدیر";
         break;
-        case 'collection':
-          output = "مجموعه";
+        case 2:
+          output = "انباردار مرکزی";
         break;
-        case 'product':
-          output = "محصول";
+        case 1:
+          output = "انباردار";
+        break;
+        case 0:
+          output = "کاربر";
         break;
     }
     return output;
