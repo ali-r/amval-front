@@ -27,7 +27,7 @@
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa fa-users"></i> کاربران</h2>
-        <button type="button" class="btn btn-success btn-sm pull-left" ng-click="user.openModal()" name="button">کاربر جدید</button>
+        <button type="button" class="btn btn-success btn-sm pull-left" ng-click="user.openModal('#userModal')" name="button">کاربر جدید</button>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -42,19 +42,25 @@
               <th>شماره تلفن </th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat = "list in user.note">
-              <td>{{$index + 1}}</td>
-              <td>{{list.first_name}}</td>
-              <td>{{list.last_name}}</td>
-              <td>{{list.card_no}}</td>
-              <td>{{list.clearance_level | userType}}</td>
-              <td style="direction:ltr;">{{list.phone}}</td>
+              <td ng-click="user.getObject(list.id)">{{$index + 1}}</td>
+              <td ng-click="user.getObject(list.id)">{{list.first_name}}</td>
+              <td ng-click="user.getObject(list.id)">{{list.last_name}}</td>
+              <td ng-click="user.getObject(list.id)">{{list.card_no}}</td>
+              <td ng-click="user.getObject(list.id)">{{list.clearance_level | userType}}</td>
+              <td ng-click="user.getObject(list.id)" style="direction:ltr;">{{list.phone}}</td>
               <td>
                 <a ng-click="user.getObject(list.id)" href>
                   <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td>
+                <a ng-click = "user.openResetPassModal(list.id)" data-toggle="modal" href>
+                  <i class="fa fa-lg fa-key" aria-hidden="true"></i>
                 </a>
               </td>
               <td>
@@ -201,6 +207,38 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
         <button type="button" class="btn btn-success" ng-click="user.deleteObject(user.toDeleteId)">بله!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- reset pass Modal -->
+<div class="modal fade" id="resetPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">تغییر کلمه عبور کاربر</h4>
+      </div>
+      <div class="modal-body">
+        <form name="resetPassForm" novalidate>
+          <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine }">
+            <label for="pass">کلمه عبور جدید</label>
+            <input type="password" class="form-control form-ltr" name="pass" ng-pattern = "/^[a-z0-9]{8,15}$/"
+            ng-minlength="8" ng-maxlength="15" ng-model="user.passToReset" required>
+            <p ng-show="resetPassForm.pass.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
+            <p ng-show="resetPassForm.pass.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+        <button type="button" class="btn btn-success" ng-disabled="resetPassForm.$invalid" ng-click="user.resetPass(user.toResetPassId)">ذخیره</button>
       </div>
     </div>
   </div>

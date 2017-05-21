@@ -4316,3 +4316,17 @@ select.form-control{
   direction: ltr;
   text-align: left;
 }
+.input-error-p:before{
+  color: #c31616;
+  font-size: 1.3em;
+  content: '*';
+  margin: 3px 3px;
+}
+.input-error-p{
+  color: #c31616;
+  font-size: 0.8em;
+  margin: 3px 5px;
+}
+.input-error{
+  border-color: #c31616;
+}

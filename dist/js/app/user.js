@@ -42,12 +42,12 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$
 
   }
 
-  this.openModal = function () {
-    $('#userModal').modal({
+  this.openModal = function (modal) {
+    $(modal).modal({
         backdrop: 'static',
         keyboard: false
       });
-    $('#userModal').modal('show');
+    $(modal).modal('show');
   }
 
   this.getData = function(){
@@ -72,7 +72,7 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$
     $scope.toEditId = id;
     $scope.editMode = true;
     $scope.loadModal = true;
-    controller.openModal();
+    controller.openModal('#userModal');
 
     $http.get($scope.serverUrl + 'user/' + id ,{headers: $scope.header})
     .then(function successCallback(response) {
@@ -110,6 +110,36 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$
     $scope.page = 1;
     controller.getUrl = controller.makeUrl();
     this.getData();
+  };
+
+  this.resetPass = function(id){
+    $scope.loadModal = true;
+    $http.put($scope.serverUrl + 'user/' + id + '/password' , {'new_password':controller.passToReset},{headers: $scope.header})
+    .then(function successCallback(response) {
+      $('#resetPassModal').modal('hide');
+      $scope.loadModal = false;
+      new PNotify({
+      title: 'موفق',
+      text: 'تغییر کلمه عبور با موفقیت انجام شد',
+      type: 'success'
+      });
+
+    }, function errorCallback(response) {
+      $scope.loadModal = false;
+      new PNotify({
+      title: 'خطا',
+      text: 'عملیات موفقیت آمیز نبود',
+      type: 'error'
+      });
+    });
+  }
+
+  this.openResetPassModal = function(id)
+  {
+    controller.toResetPassId = id;
+    controller.passToReset = null;
+    $scope.resetPassForm.pass.$pristine = true;
+    controller.openModal('#resetPassModal');
   };
 
   $scope.pageSet = function(mode){
