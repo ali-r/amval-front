@@ -2,20 +2,22 @@ angular.module("assetAdminPanel").controller('changePassword', function($scope,$
 
     var begir = this;
     $scope.assetData = $cookieStore.get("assetData")
-    $scope.serverUrl = "http://api.gandom.co/api/v1/" ;
-    $scope.header = {'Content-Type': 'application/json' , 'Access-Token':$scope.assetData.access_token} ;
+    $scope.serverUrl = mainAsset.getUrl();
+    $scope.header = {'Content-Type': 'application/json' , 'Access-Token': $scope.assetData.access_token} ;
 
-    this.check=function(){
+
+      this.check=function(){
       if(begir.newPass === begir.newPassAgain)
       {
         return false;
       }
-      else {
+      else
         {
           return true;
         }
-      }
-      }
+
+      };
+
     this.sendPassword = function(){
     var userPasswordData = {}
     userPasswordData.old_password = begir.oldPass;
