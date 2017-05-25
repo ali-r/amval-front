@@ -82,7 +82,7 @@ angular.module("assetAdminPanel").controller('producerCtrl', function($scope, $h
 
   this.getData();
 
-  this.getOptionChange = function(){
+  this.getFilteredData = function(){
     $scope.page = 1;
     controller.getUrl = controller.makeUrl();
     this.getData();

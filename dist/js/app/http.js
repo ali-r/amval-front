@@ -23,10 +23,20 @@ app.service('requestHelper', function($http) {
   this.successCallback = function(response, callback) {
     console.log(response.data);
     callback(response)
+    new PNotify({
+      title: 'موفق',
+      text: 'تغییر کلمه عبور با موفقیت انجام شد',
+      type: 'success'
+    });
     service.hideModalLoading();
   }
 
   this.errorCallback = function(response) {
+    new PNotify({
+      title: 'خطا',
+      text: 'عملیات موفقیت آمیز نبود.',
+      type: 'error'
+    });
     this.hideModalLoading();
   }
 
@@ -35,6 +45,18 @@ app.service('requestHelper', function($http) {
     this.showModalLoading();
 
     $http.get(url , {headers: headers})
+      .then(function(response) {
+        service.successCallback(response, callback)
+      },
+      this.errorCallback
+    );
+  };
+
+  this.put = function(url, json, scope, callback) {
+    this.init(scope);
+    this.showModalLoading();
+
+    $http.put(url, json, {headers: headers})
       .then(function(response) {
         service.successCallback(response, callback)
       },
