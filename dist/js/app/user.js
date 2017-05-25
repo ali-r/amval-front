@@ -1,6 +1,7 @@
-angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,mainAsset){
+angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$cookieStore,mainAsset){
 
   var controller = this;
+  $scope.assetData = $cookieStore.get('assetData');
   $scope.page = 1;
   this.perPage = 10;
   this.firstNameSearch = "";
@@ -10,10 +11,11 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
   this.sortOrder = "";
   $scope.load = false;
   $scope.editMode = false;
+  $scope.loadModal = false;
 
   $scope.serverUrl = mainAsset.getUrl();
   this.getUrl = $scope.serverUrl + "user?page=1&per_page=10";
-  $scope.header = {'Content-Type': 'application/json; charset=UTF-8'};
+  $scope.header = {'Content-Type': 'application/json; charset=UTF-8','Access-Token':$scope.assetData.access_token};
 
   this.makeUrl = function(){
     var url = this.getUrl = $scope.serverUrl + "user?page=" + $scope.page + "&per_page=" + controller.perPage;
@@ -32,12 +34,20 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
     return url;
   }
 
-  this.openModal = function () {
-    $('#userModal').modal({
+  $scope.reset = function(){
+
+    $scope.load = false;
+    $scope.loadModal = false;
+    $scope.editMode = false;
+
+  }
+
+  this.openModal = function (modal) {
+    $(modal).modal({
         backdrop: 'static',
         keyboard: false
       });
-    $('#userModal').modal('show');
+    $(modal).modal('show');
   }
 
   this.getData = function(){
@@ -57,6 +67,32 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
 
   this.getData();
 
+  this.getObject = function(id){
+
+    $scope.toEditId = id;
+    $scope.editMode = true;
+    $scope.loadModal = true;
+    controller.openModal('#userModal');
+
+    $http.get($scope.serverUrl + 'user/' + id ,{headers: $scope.header})
+    .then(function successCallback(response) {
+      console.log(response.data);
+      controller.firstName = response.data.first_name;
+      controller.lastName = response.data.last_name;
+      controller.cardNo = response.data.card_no;
+      controller.phone = response.data.phone;
+      controller.clearanceLevel = response.data.clearance_level + '';
+      controller.serviceCategory = response.data.service_category;
+      controller.serviceSituation = response.data.service_situation + '';
+      controller.scannedSignature = response.data.scanned_signature;
+      $scope.loadModal = false;
+
+      }, function errorCallback(response) {
+
+      $scope.loadModal = false;
+    });
+  };
+
   this.deleteObject = function(id){
     $scope.loadModal = true;
     $http.delete($scope.serverUrl + "user/" + id , {headers: $scope.header})
@@ -74,6 +110,36 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,m
     $scope.page = 1;
     controller.getUrl = controller.makeUrl();
     this.getData();
+  };
+
+  this.resetPass = function(id){
+    $scope.loadModal = true;
+    $http.put($scope.serverUrl + 'user/' + id + '/password' , {'new_password':controller.passToReset},{headers: $scope.header})
+    .then(function successCallback(response) {
+      $('#resetPassModal').modal('hide');
+      $scope.loadModal = false;
+      new PNotify({
+      title: 'موفق',
+      text: 'تغییر کلمه عبور با موفقیت انجام شد',
+      type: 'success'
+      });
+
+    }, function errorCallback(response) {
+      $scope.loadModal = false;
+      new PNotify({
+      title: 'خطا',
+      text: 'عملیات موفقیت آمیز نبود',
+      type: 'error'
+      });
+    });
+  }
+
+  this.openResetPassModal = function(id)
+  {
+    controller.toResetPassId = id;
+    controller.passToReset = null;
+    $scope.resetPassForm.pass.$pristine = true;
+    controller.openModal('#resetPassModal');
   };
 
   $scope.pageSet = function(mode){
