@@ -51,19 +51,13 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$
     $(modal).modal('show');
   }
 
-  this.getData = function(){
-    NProgress.start();
-    $scope.load = true;
-    $http.get(controller.getUrl,{headers: $scope.header})
-    .then(function successCallback(response) {
+  this.getData = function(id){
+    requestHelper.get(
+      $scope.apiUrl,  $scope,
+      function(response) {
         $scope.meta = response.data.meta;
         controller.note = response.data.users;
-        NProgress.done();
-        $scope.load = false;
-      }, function errorCallback(response) {
-        NProgress.done();
-        $scope.load = false;
-    });
+      });
   };
 
   this.getData();
@@ -71,15 +65,12 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$
   this.getObject = function(id){
     $scope.toEditId = id;
     $scope.editMode = true;
-    $scope.loadModal = true;
     controller.openModal('#userModal');
 
     requestHelper.get(
       $scope.apiUrl + "/" + id,  $scope,
       function(response) {
-        console.log(response.data);
         controller.obj = response.data
-        $scope.loadModal = false;
       });
   };
 

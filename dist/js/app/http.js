@@ -9,11 +9,21 @@ app.service('requestHelper', function($http) {
   }
 
   this.showModalLoading = function() {
+    NProgress.start();
+    this.scope.load = true;
     this.scope.loadModal = true;
   }
 
   this.hideModalLoading = function() {
+    NProgress.done();
+    this.scope.load = false;
     this.scope.loadModal = false;
+  }
+
+  this.successCallback = function(response, callback) {
+    console.log(response.data);
+    callback(response)
+    service.hideModalLoading();
   }
 
   this.errorCallback = function(response) {
@@ -26,8 +36,7 @@ app.service('requestHelper', function($http) {
 
     $http.get(url , {headers: headers})
       .then(function(response) {
-        callback(response)
-        service.hideModalLoading();
+        service.successCallback(response, callback)
       },
       this.errorCallback
     );
@@ -39,8 +48,7 @@ app.service('requestHelper', function($http) {
 
     $http.delete(url , {headers: headers})
       .then(function(response) {
-        callback(response)
-        service.hideModalLoading();
+        service.successCallback(response, callback)
       },
       this.errorCallback
     );

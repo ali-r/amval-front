@@ -99,11 +99,11 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>نوع کاربر</label>
-                  <select class="form-control" ng-model="user.clearanceLevel">
-                    <option value="0">کاربر</option>
-                    <option value="1">انباردار</option>
-                    <option value="2">انباردار مرکزی</option>
-                    <option value="3">مدیر</option>
+                  <select class="form-control" ng-model="user.obj.clearance_level">
+                    <option ng-value="0">کاربر</option>
+                    <option ng-value="1">انباردار</option>
+                    <option ng-value="2">انباردار مرکزی</option>
+                    <option ng-value="3">مدیر</option>
                   </select>
                 </div>
               </div>
@@ -153,8 +153,8 @@
                 <div class="form-group">
                   <label>وضعیت خدمت</label>
                   <select class="form-control" ng-model = "user.obj.service_situation">
-                    <option value="0">در حال کار</option>
-                    <option value="1">جدا شده</option>
+                    <option ng-value="0">در حال کار</option>
+                    <option ng-value="1">جدا شده</option>
                   </select>
                 </div>
               </div>
