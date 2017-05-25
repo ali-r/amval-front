@@ -1,4 +1,4 @@
-angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$cookieStore,mainAsset){
+angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$cookieStore,mainAsset, requestHelper){
 
   var controller = this;
   $scope.assetData = $cookieStore.get('assetData');
@@ -14,6 +14,7 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$
   $scope.loadModal = false;
 
   $scope.serverUrl = mainAsset.getUrl();
+  $scope.apiUrl = mainAsset.getUrl() + "user";
   this.getUrl = $scope.serverUrl + "user?page=1&per_page=10";
   $scope.header = {'Content-Type': 'application/json; charset=UTF-8','Access-Token':$scope.assetData.access_token};
 
@@ -68,41 +69,26 @@ angular.module("assetAdminPanel").controller('userCtrl', function($scope,$http,$
   this.getData();
 
   this.getObject = function(id){
-
     $scope.toEditId = id;
     $scope.editMode = true;
     $scope.loadModal = true;
     controller.openModal('#userModal');
 
-    $http.get($scope.serverUrl + 'user/' + id ,{headers: $scope.header})
-    .then(function successCallback(response) {
-      console.log(response.data);
-      controller.firstName = response.data.first_name;
-      controller.lastName = response.data.last_name;
-      controller.cardNo = response.data.card_no;
-      controller.phone = response.data.phone;
-      controller.clearanceLevel = response.data.clearance_level + '';
-      controller.serviceCategory = response.data.service_category;
-      controller.serviceSituation = response.data.service_situation + '';
-      controller.scannedSignature = response.data.scanned_signature;
-      $scope.loadModal = false;
-
-      }, function errorCallback(response) {
-
-      $scope.loadModal = false;
-    });
+    requestHelper.get(
+      $scope.apiUrl + "/" + id,  $scope,
+      function(response) {
+        console.log(response.data);
+        controller.obj = response.data
+        $scope.loadModal = false;
+      });
   };
 
   this.deleteObject = function(id){
-    $scope.loadModal = true;
-    $http.delete($scope.serverUrl + "user/" + id , {headers: $scope.header})
-      .then(function successCallback(response) {
+    requestHelper.delete(
+      $scope.apiUrl + "/" + id,  $scope,
+      function(response) {
         controller.getData();
         $('#deleteModal').modal('hide');
-        $scope.loadModal = false;
-      }, function errorCallback(response) {
-
-        $scope.loadModal = false;
       });
   };
 

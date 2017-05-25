@@ -31,7 +31,7 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
         controllerAs : "producer"
     });
 });
-app.service('mainAsset', function($window) {
+app.service('mainAsset', function($window, $http) {
     this.devMode = assetPanelData.devMode;
     this.getUrl = function () {
       return assetPanelData.serverUrl;

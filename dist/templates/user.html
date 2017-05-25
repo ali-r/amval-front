@@ -110,49 +110,49 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>نام خانوادگی</label>
-                  <input type="text" class="form-control" placeholder="نام خانوادگی" ng-model = "user.lastName" required>
+                  <input type="text" class="form-control" placeholder="نام خانوادگی" ng-model = "user.obj.last_name" required>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label>نام</label>
-                  <input type="text" class="form-control" placeholder="نام" ng-model = "user.firstName" required>
+                  <input type="text" class="form-control" placeholder="نام" ng-model = "user.obj.first_name" required>
                 </div>
               </div>
               <div class="col-md-6" ng-hide="editMode">
                 <div class="form-group">
                   <label>تکرار گذرواژه</label>
-                  <input type="password" class="form-control" placeholder="تکرار گذرواژه" ng-model = "user.confirmPass" required>
+                  <input type="password" class="form-control" placeholder="تکرار گذرواژه" ng-model = "user.obj.confirm_pass" required>
                 </div>
               </div>
               <div class="col-md-6" ng-hide="editMode">
                 <div class="form-group">
                   <label>گذرواژه</label>
-                  <input type="password" class="form-control" placeholder="گذرواژه" ng-model = "user.pass" required>
+                  <input type="password" class="form-control" placeholder="گذرواژه" ng-model = "user.obj.pass" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>شماره کارت (نام کاربری)</label>
-                  <input type="text" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.cardNo" required>
+                  <input type="text" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.obj.card_no" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>شماره تماس</label>
-                  <input type="text" class="form-control form-ltr" placeholder="شماره تماس" ng-model = "user.phone" required>
+                  <input type="text" class="form-control form-ltr" placeholder="شماره تماس" ng-model = "user.obj.phone" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>دسته خدمتی</label>
-                  <input type="text" class="form-control" placeholder="دسته خدمتی" ng-model = "user.serviceCategory" required>
+                  <input type="text" class="form-control" placeholder="دسته خدمتی" ng-model = "user.obj.service_category" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>وضعیت خدمت</label>
-                  <select class="form-control" ng-model = "user.serviceSituation">
+                  <select class="form-control" ng-model = "user.obj.service_situation">
                     <option value="0">در حال کار</option>
                     <option value="1">جدا شده</option>
                   </select>
@@ -165,7 +165,7 @@
                   <button type="button" class="btn btn-info" name="button">بارگذاری تصویر</button>
                 </div>
               </div>
-              <div class="col-md-6" ng-show = "user.clearanceLevel == 1">
+              <div class="col-md-6" ng-show = "user.obj.clearance_level == 1">
                 <div class="form-group">
                   <label>انبار</label>
                   <div class="input-group">
