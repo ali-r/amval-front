@@ -53,6 +53,13 @@ app.service('mainAsset', function($window, $http) {
         });
       $(modal).modal('show');
     }
+    this.closeModal = function (modal) {
+      $(modal).modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+      $(modal).modal('hide');
+    }
 });
 app.filter('jalaliDate', function () {
       return function (inputDate, format) {

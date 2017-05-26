@@ -15,7 +15,7 @@ app.service('pagination', function() {
     };
   }
 
-  this.pagination = function(status,meta) {
+  this.pagination = function(status, meta) {
     var pageMeta = meta;
     switch (status) {
       case 'old':

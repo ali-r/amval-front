@@ -2,12 +2,13 @@ angular.module("assetAdminPanel").controller('userCtrl',
   function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud) {
 
   var controller = this;
+  var apiName = 'user';
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
 
-  $scope.apiUrl = mainAsset.getUrl() + "user";
-  controller.getUrl = pagination.makeUrl($scope)
+  $scope.apiUrl = mainAsset.getUrl() + apiName;
+  $scope.getUrl = pagination.makeUrl($scope)
 
   this.makeUrl = function() {
     return pagination.makeUrl($scope, {
@@ -18,8 +19,8 @@ angular.module("assetAdminPanel").controller('userCtrl',
     })
   }
 
-  crud.initModals($scope, controller, 'user')
-  crud.init($scope, controller, 'user')
+  crud.initModals($scope, controller, apiName)
+  crud.init($scope, controller, apiName)
   pagination.initPagination($scope, controller)
 
   this.resetPass = function(id) {

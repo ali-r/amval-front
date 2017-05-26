@@ -11,13 +11,11 @@ app.service('requestHelper', function($http) {
   this.showModalLoading = function() {
     NProgress.start();
     this.scope.load = true;
-    this.scope.loadModal = true;
   }
 
   this.hideModalLoading = function() {
     NProgress.done();
     this.scope.load = false;
-    this.scope.loadModal = false;
   }
 
   this.successCallback = function(response, callback, notifyEnable=true) {

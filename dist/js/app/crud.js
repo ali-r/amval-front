@@ -21,7 +21,7 @@ app.service('crud', function(requestHelper, mainAsset) {
   this.init = function(scope, controller, name) {
     controller.getData = function() {
       requestHelper.get(
-        controller.getUrl, scope,
+        scope.getUrl, scope,
         function(response) {
           scope.meta = response.data.meta;
           controller.note = response.data[name + 's'];
@@ -31,7 +31,7 @@ app.service('crud', function(requestHelper, mainAsset) {
 
     controller.getFilteredData = function() {
       scope.page = 1;
-      controller.getUrl = controller.makeUrl();
+      scope.getUrl = controller.makeUrl();
       controller.getData();
     };
 
@@ -55,14 +55,14 @@ app.service('crud', function(requestHelper, mainAsset) {
       if(editMode) {
         requestHelper.put(scope.apiUrl + "/" + scope.toEditId , obj, scope,
         function(response) {
-          $('#sellerModal').modal('hide');
+          $('#' + name + 'Modal').modal('hide');
           controller.getData();
           scope.reset();
         });
       } else {
         requestHelper.post(scope.apiUrl , obj, scope,
         function(response) {
-          $('#sellerModal').modal('hide');
+          $('#' + name + 'Modal').modal('hide');
           controller.getData();
           scope.reset();
         });
