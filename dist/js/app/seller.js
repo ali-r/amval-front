@@ -8,7 +8,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl',
   $scope.assetData = $cookieStore.get('assetData');
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope)
+  $scope.getUrl = pagination.makeUrl($scope);
 
   this.makeUrl = function() {
     return pagination.makeUrl($scope, {
@@ -29,7 +29,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl',
     controller.obj.phone,
     controller.obj.cellphone,
     controller.obj.address
-  ])
-  crud.init($scope, controller, apiName)
-  pagination.initPagination($scope, controller)
+  ]);
+  crud.init($scope, controller, apiName);
+  pagination.initPagination($scope, controller);
 });

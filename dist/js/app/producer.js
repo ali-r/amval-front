@@ -8,7 +8,7 @@ angular.module("assetAdminPanel").controller('producerCtrl',
   $scope.assetData = $cookieStore.get('assetData');
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope)
+  $scope.getUrl = pagination.makeUrl($scope);
 
   this.makeUrl = function() {
     return pagination.makeUrl($scope, {
@@ -19,7 +19,7 @@ angular.module("assetAdminPanel").controller('producerCtrl',
   controller.obj = {}
   crud.initModals($scope, controller, apiName, [
     controller.obj.brand_name
-  ])
-  crud.init($scope, controller, apiName)
-  pagination.initPagination($scope, controller)
+  ]);
+  crud.init($scope, controller, apiName);
+  pagination.initPagination($scope, controller);
 });
