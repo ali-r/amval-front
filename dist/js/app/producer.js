@@ -1,10 +1,10 @@
-angular.module("assetAdminPanel").controller('sellerCtrl', function($scope,$http,mainAsset){
+angular.module("assetAdminPanel").controller('producerCtrl', function($scope, $http, mainAsset) {
 
   var controller = this;
   $scope.page = 1;
   this.perPage = 10;
-  $scope.serverUrl = mainAsset.getUrl();
-  this.getUrl = $scope.serverUrl + "seller?page=1&per_page=10";
+  $scope.apiUrl = mainAsset.getUrl() + "seller";
+  this.getUrl = $scope.apiUrl + "?page=1&per_page=10";
   $scope.header = {'Content-Type': 'application/json; charset=UTF-8'};
 
   /* sort and change thing */
@@ -35,7 +35,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl', function($scope,$http
   $scope.reset();
 
   this.makeUrl = function(){
-    var url = this.getUrl = $scope.serverUrl + "seller?page=" + $scope.page + "&per_page=" + controller.perPage;
+    var url = this.getUrl = $scope.apiUrl + "?page=" + $scope.page + "&per_page=" + controller.perPage;
     if (controller.firstNameSearch !== "") {
       url += "&first_name__contains=" + controller.firstNameSearch;
     }
@@ -95,7 +95,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl', function($scope,$http
     $scope.loadModal = true;
     controller.openModal();
 
-    $http.get($scope.serverUrl + 'seller/' + id ,{headers: $scope.header})
+    $http.get($scope.apiUrl + '/' + id ,{headers: $scope.header})
     .then(function successCallback(response) {
 
       controller.firstName = response.data.first_name;
@@ -123,7 +123,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl', function($scope,$http
     /* console.log(sendData);*/
     if(editMode){
       $scope.loadModal = true;
-      $http.put($scope.serverUrl + "seller/" + $scope.toEditId  ,sendData,{headers: $scope.header})
+      $http.put($scope.apiUrl + "/" + $scope.toEditId  ,sendData,{headers: $scope.header})
       .then(function successCallback(response) {
 
         $('#sellerModal').modal('hide');
@@ -137,7 +137,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl', function($scope,$http
 
     }else{
       $scope.loadModal = true;
-      $http.post($scope.serverUrl + "seller"  ,sendData,{headers: $scope.header})
+      $http.post($scope.apiUrl + ""  ,sendData,{headers: $scope.header})
       .then(function successCallback(response) {
         $('#sellerModal').modal('hide');
         controller.getData();
@@ -151,7 +151,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl', function($scope,$http
 
   this.deleteObject = function(id){
     $scope.loadModal = true;
-    $http.delete($scope.serverUrl + "seller/" + id , {headers: $scope.header})
+    $http.delete($scope.apiUrl + "/" + id , {headers: $scope.header})
       .then(function successCallback(response) {
         controller.getData();
         $('#deleteModal').modal('hide');
@@ -162,13 +162,13 @@ angular.module("assetAdminPanel").controller('sellerCtrl', function($scope,$http
       });
   };
 
-  $scope.pageSet = function(mode){
+  $scope.pageSet = function(mode) {
     if (!$scope.pagination(mode)) {
       $scope.page = mainAsset.pageSet(mode,$scope.page,$scope.meta);
       this.getUrl = controller.makeUrl();
       controller.getData();
     };
-    };
+  };
 
   $scope.pagination = function(status){
     return mainAsset.pagination(status,$scope.meta);

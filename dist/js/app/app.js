@@ -24,9 +24,14 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
         templateUrl : "../dist/templates/seller.html",
         controller : "sellerCtrl",
         controllerAs : "seller"
+    })
+    .when("/producer", {
+        templateUrl : "../dist/templates/producer.html",
+        controller : "producerCtrl",
+        controllerAs : "producer"
     });
 });
-app.service('mainAsset', function($window) {
+app.service('mainAsset', function($window, $http) {
     this.devMode = assetPanelData.devMode;
     this.getUrl = function () {
       return assetPanelData.serverUrl;
@@ -41,57 +46,13 @@ app.service('mainAsset', function($window) {
           break;
         }
     };
-    this.pagination = function(status,meta){
-      var pageMeta = meta;
-      switch (status) {
-        case 'old':
-          if (pageMeta.next === null) {
-            return true;
-          }else{
-            return false;
-          };
-          break;
-        case 'new':
-          if (pageMeta.prev == null) {
-            return true;
-          }else{
-            return false;
-          };
-          break;
-        case 'end':
-          if (pageMeta.pages > 1 && pageMeta.page < pageMeta.pages -1 ) {
-            return false;
-          }else{
-            return true;
-          };
-          break;
-        case 'first':
-          if (pageMeta.page > 2) {
-            return false;
-          }else{
-            return true;
-          };
-          break;
-      };
-    };
-
-    this.pageSet = function(mode,page,meta){
-      switch (mode) {
-        case 'new':
-          page -=1;
-          break;
-        case 'old':
-          page +=1;
-          break;
-        case 'first':
-          page = 1;
-          break;
-        case 'end':
-          page = meta.pages;
-          break;
-      }
-      return page;
-    };
+    this.openModal = function (modal) {
+      $(modal).modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+      $(modal).modal('show');
+    }
 });
 app.filter('jalaliDate', function () {
       return function (inputDate, format) {
