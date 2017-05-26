@@ -1,4 +1,20 @@
 app.service('pagination', function() {
+  paginationService = this
+
+  this.initPagination = function(scope, controller) {
+    scope.pageSet = function(mode) {
+      if (!scope.pagination(mode)) {
+        scope.page = paginationService.pageSet(mode, scope.page, scope.meta);
+        controller.getUrl = controller.makeUrl();
+        controller.getData();
+      };
+    };
+
+    scope.pagination = function(status) {
+      return paginationService.pagination(status, scope.meta);
+    };
+  }
+
   this.pagination = function(status,meta) {
     var pageMeta = meta;
     switch (status) {
@@ -52,17 +68,15 @@ app.service('pagination', function() {
   };
 
   this.notEmpty = function(string) {
-    return typeof(string) != "undefined" && string !== "" && !isNaN(string);
+    return (typeof(string) != "undefined") && (string !== "") && (string + "" != 'NaN');
   }
 
   this.makeUrl = function(scope, keys={}) {
     var url = scope.apiUrl + "?page=" + scope.page + "&per_page=10";
-
     for (name in keys) {
       if (this.notEmpty(keys[name]))
         url += "&" + name + "=" + keys[name];
     }
-    
     return url;
   }
 });

@@ -30,7 +30,7 @@
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa fa-address-card"></i> فروشنده ها</h2>
-        <button type="button" class="btn btn-success btn-sm pull-left" name="button" ng-click="seller.openModal()">
+        <button type="button" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
           فروشنده جدید
         </button>
         <div class="clearfix"></div>
@@ -96,27 +96,27 @@
           <div class="box-body">
             <div class="form-group">
               <label>نام</label>
-              <input type="text" class="form-control" placeholder="نام" ng-model = "seller.firstName" required>
+              <input type="text" class="form-control" placeholder="نام" ng-model = "seller.obj.first_name" required>
             </div>
             <div class="form-group">
               <label>نام خانوادگی</label>
-              <input type="text" class="form-control" placeholder="نام خانوادگی" ng-model = "seller.lastName" required>
+              <input type="text" class="form-control" placeholder="نام خانوادگی" ng-model = "seller.obj.last_name" required>
             </div>
             <div class="form-group">
               <label>نام فروشگاه</label>
-              <input type="text" class="form-control" placeholder="نام فروشگاه" ng-model = "seller.storeName" required>
+              <input type="text" class="form-control" placeholder="نام فروشگاه" ng-model = "seller.obj.store_name" required>
             </div>
             <div class="form-group">
               <label>شماره تماس</label>
-              <input type="text" class="form-control" placeholder="شماره تماس" ng-model = "seller.phone" required>
+              <input type="text" class="form-control" placeholder="شماره تماس" ng-model = "seller.obj.phone" required>
             </div>
             <div class="form-group">
               <label>شماره موبایل</label>
-              <input type="text" class="form-control" placeholder="شماره موبایل" ng-model = "seller.cellphone" required>
+              <input type="text" class="form-control" placeholder="شماره موبایل" ng-model = "seller.obj.cellphone" required>
             </div>
             <div class="form-group">
               <label>آدرس</label>
-              <textarea class="form-control" placeholder="آدرس" ng-model="seller.address" rows="3" required></textarea>
+              <textarea class="form-control" placeholder="آدرس" ng-model="seller.obj.address" rows="3" required></textarea>
             </div>
           </div>
       </form>
