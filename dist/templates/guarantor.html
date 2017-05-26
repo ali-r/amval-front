@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_content">
+        <form class="filter-form">
+          <input type="text" class="form-control search-option" id="firstname" placeholder="نام دبیر" ng-model="guarantor.secretaryFirstNameSearch">
+          <input type="text" class="form-control search-option" id="firstname" placeholder="نام خانوادگی دبیر" ng-model="guarantor.secretaryLastNameSearch">
+          <input type="text" class="form-control search-option" id="firstname" placeholder="شماره تلفن" ng-model="guarantor.officePhoneSearch">
+          <input type="text" class="form-control search-option" id="firstname" placeholder="آدرس" ng-model="guarantor.addressSearch">
+          <button type="submit" class="btn btn-info filter-btn" ng-click = "guarantor.getFilteredData()">جستجو</button>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa"></i>گارانتی‌ها</h2>
+        <button type="button" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
+          گارانتی جدید
+        </button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table table-striped jambo_table asset-tables">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>نام دبیر</th>
+              <th>نام خانوادگی دبیر</th>
+              <th>شماره تلفن</th>
+              <th>آدرس</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ng-hide="load">
+            <tr ng-repeat = "list in guarantor.note">
+              <td>{{$index + 1}}</td>
+              <td>{{list.secretary_first_name}}</td>
+              <td>{{list.secretary_last_name}}</td>
+              <td>{{list.office_phone}}</td>
+              <td>{{list.address}}</td>
+              <td>
+                <a ng-click="guarantor.getObject(list.id)" href>
+                  <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td>
+                <a ng-click="guarantor.toDeleteId = list.id; guarantor.toDeleteTitle = list.secretary_first_name" data-toggle="modal" data-target="#deleteModal" href>
+                  <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <req-pagination></req-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- guarantor Modal -->
+<div class="modal fade" id="guarantorModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" ng-disabled="!guarantorForm.$valid" ng-click="guarantor.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h3 class="modal-title" ng-hide="editMode">افزودن گارانتی جدید</h3>
+        <h3 class="modal-title" ng-show="editMode">ویرایش گارانتی</h3>
+      </div>
+      <div class="modal-body">
+        <form name="guarantorForm" role="form" ng-hide="loadModal" novalidate>
+          <div class="box-body">
+            <div class="form-group">
+              <label>نام دبیر</label>
+              <input type="text" class="form-control" placeholder="نام دبیر" ng-model = "guarantor.obj.secretary_first_name" required>
+            </div>
+            <div class="form-group">
+              <label>نام خانوادگی دبیر</label>
+              <input type="text" class="form-control" placeholder="نام خانوادگی دبیر" ng-model = "guarantor.obj.secretary_last_name" required>
+            </div>
+            <div class="form-group">
+              <label>شماره تلفن</label>
+              <input type="text" class="form-control" placeholder="شماره تلفن" ng-model = "guarantor.obj.office_phone" required>
+            </div>
+            <div class="form-group">
+              <label>آدرس</label>
+              <input type="text" class="form-control" placeholder="آدرس" ng-model = "guarantor.obj.address" required>
+            </div>
+          </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف گارانتی</h4>
+      </div>
+      <div class="modal-body">
+        آیا مایل به حذف گارانتی
+        "{{guarantor.toDeleteTitle}}"
+        هستید؟
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
+        <button type="button" class="btn btn-success" ng-click="guarantor.deleteObject(guarantor.toDeleteId)">بله</button>
+      </div>
+    </div>
+  </div>
+</div>
