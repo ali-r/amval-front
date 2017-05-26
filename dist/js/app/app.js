@@ -34,6 +34,11 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
         templateUrl : "../dist/templates/guarantor.html",
         controller : "guarantorCtrl",
         controllerAs : "guarantor"
+    })
+    .when("/warehouse", {
+        templateUrl : "../dist/templates/warehouse.html",
+        controller : "warehouseCtrl",
+        controllerAs : "warehouse"
     });
 });
 app.service('mainAsset', function($window, $http) {
