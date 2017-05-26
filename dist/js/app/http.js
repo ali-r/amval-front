@@ -1,6 +1,6 @@
 app.service('requestHelper', function($http) {
   scope = null
-  service = this
+  httpService = this
   headers = {'Content-Type': 'application/json; charset=UTF-8'}
 
   this.init = function(scope) {
@@ -20,15 +20,16 @@ app.service('requestHelper', function($http) {
     this.scope.loadModal = false;
   }
 
-  this.successCallback = function(response, callback) {
+  this.successCallback = function(response, callback, notifyEnable=true) {
     console.log(response.data);
     callback(response)
-    new PNotify({
-      title: 'موفق',
-      text: 'تغییر کلمه عبور با موفقیت انجام شد',
-      type: 'success'
-    });
-    service.hideModalLoading();
+    if (notifyEnable)
+      new PNotify({
+        title: 'موفق',
+        text: 'تغییر کلمه عبور با موفقیت انجام شد',
+        type: 'success'
+      });
+    httpService.hideModalLoading();
   }
 
   this.errorCallback = function(response) {
@@ -46,7 +47,7 @@ app.service('requestHelper', function($http) {
 
     $http.get(url , {headers: headers})
       .then(function(response) {
-        service.successCallback(response, callback)
+        httpService.successCallback(response, callback, false)
       },
       this.errorCallback
     );
@@ -58,7 +59,19 @@ app.service('requestHelper', function($http) {
 
     $http.put(url, json, {headers: headers})
       .then(function(response) {
-        service.successCallback(response, callback)
+        httpService.successCallback(response, callback)
+      },
+      this.errorCallback
+    );
+  };
+
+  this.post = function(url, json, scope, callback) {
+    this.init(scope);
+    this.showModalLoading();
+
+    $http.post(url, json, {headers: headers})
+      .then(function(response) {
+        httpService.successCallback(response, callback)
       },
       this.errorCallback
     );
@@ -70,7 +83,7 @@ app.service('requestHelper', function($http) {
 
     $http.delete(url , {headers: headers})
       .then(function(response) {
-        service.successCallback(response, callback)
+        httpService.successCallback(response, callback)
       },
       this.errorCallback
     );
