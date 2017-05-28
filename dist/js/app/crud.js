@@ -25,7 +25,7 @@ app.service('crud', function(requestHelper, mainAsset) {
         function(response) {
           scope.meta = response.data.meta;
           controller.note = response.data[name + 's'];
-        });
+        },true);
     };
     controller.getData();
 
@@ -38,12 +38,14 @@ app.service('crud', function(requestHelper, mainAsset) {
     controller.getObject = function(id) {
       scope.toEditId = id;
       scope.editMode = true;
+      scope.loadModal = true;
       mainAsset.openModal('#' + name + 'Modal');
 
       requestHelper.get(
         scope.apiUrl + "/" + id,  scope,
         function(response) {
           controller.obj = response.data
+          scope.loadModal = false;
         });
     };
 
@@ -51,6 +53,7 @@ app.service('crud', function(requestHelper, mainAsset) {
       var obj = new Object();
       obj = controller.obj;
       delete obj['id'];
+      scope.loadModal = true;
 
       if(editMode) {
         requestHelper.put(scope.apiUrl + "/" + scope.toEditId , obj, scope,

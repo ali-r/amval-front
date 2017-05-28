@@ -8,14 +8,17 @@ app.service('requestHelper', function($http) {
     headers['Access-Token'] = scope.assetData.access_token
   }
 
-  this.showModalLoading = function() {
-    NProgress.start();
-    this.scope.load = true;
+  this.startLoading = function(needProgressBar=false) {
+    if (needProgressBar) {
+      NProgress.start();
+      this.scope.load = true;
+    }
   }
 
-  this.hideModalLoading = function() {
+  this.stopLoading = function() {
     NProgress.done();
     this.scope.load = false;
+    this.scope.loadModal = false;
   }
 
   this.successCallback = function(response, callback, notifyEnable=true) {
@@ -24,10 +27,10 @@ app.service('requestHelper', function($http) {
     if (notifyEnable)
       new PNotify({
         title: 'موفق',
-        text: 'تغییر کلمه عبور با موفقیت انجام شد',
+        text: 'عملیات موفقیت آمیز بود',
         type: 'success'
       });
-    httpService.hideModalLoading();
+    httpService.stopLoading();
   }
 
   this.errorCallback = function(response) {
@@ -36,12 +39,13 @@ app.service('requestHelper', function($http) {
       text: 'عملیات موفقیت آمیز نبود.',
       type: 'error'
     });
-    this.hideModalLoading();
+    console.log(response);
+    httpService.stopLoading();
   }
 
-  this.get = function(url, scope, callback) {
+  this.get = function(url, scope, callback ,progressBar) {
     this.init(scope);
-    this.showModalLoading();
+    this.startLoading(progressBar);
 
     $http.get(url , {headers: headers})
       .then(function(response) {
@@ -51,9 +55,9 @@ app.service('requestHelper', function($http) {
     );
   };
 
-  this.put = function(url, json, scope, callback) {
+  this.put = function(url, json, scope, callback,progressBar) {
     this.init(scope);
-    this.showModalLoading();
+    this.startLoading(progressBar);
 
     $http.put(url, json, {headers: headers})
       .then(function(response) {
@@ -63,9 +67,9 @@ app.service('requestHelper', function($http) {
     );
   };
 
-  this.post = function(url, json, scope, callback) {
+  this.post = function(url, json, scope, callback, progressBar) {
     this.init(scope);
-    this.showModalLoading();
+    this.startLoading(progressBar);
 
     $http.post(url, json, {headers: headers})
       .then(function(response) {
@@ -75,9 +79,9 @@ app.service('requestHelper', function($http) {
     );
   };
 
-  this.delete = function(url, scope, callback) {
+  this.delete = function(url, scope, callback, progressBar) {
     this.init(scope);
-    this.showModalLoading();
+    this.startLoading(progressBar);
 
     $http.delete(url , {headers: headers})
       .then(function(response) {

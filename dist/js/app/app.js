@@ -9,37 +9,17 @@ app.config(function ($httpProvider) {
   $httpProvider.defaults.headers.patch = {};*/
 });
 angular.module("assetAdminPanel").config(function($routeProvider) {
-    $routeProvider
-    .when("/database", {
-        templateUrl : "../dist/templates/database.html",
-        controller : "databaseCtrl",
-        controllerAs : "db"
-    })
-    .when("/user", {
-        templateUrl : "../dist/templates/user.html",
-        controller : "userCtrl",
-        controllerAs : "user"
-    })
-    .when("/seller", {
-        templateUrl : "../dist/templates/seller.html",
-        controller : "sellerCtrl",
-        controllerAs : "seller"
-    })
-    .when("/producer", {
-        templateUrl : "../dist/templates/producer.html",
-        controller : "producerCtrl",
-        controllerAs : "producer"
-    })
-    .when("/guarantor", {
-        templateUrl : "../dist/templates/guarantor.html",
-        controller : "guarantorCtrl",
-        controllerAs : "guarantor"
-    })
-    .when("/warehouse", {
-        templateUrl : "../dist/templates/warehouse.html",
-        controller : "warehouseCtrl",
-        controllerAs : "warehouse"
-    });
+
+    var assetPages = ['database','user','seller','producer','guarantor'];
+
+    for (var i = 0; i < assetPages.length; i++) {
+      $routeProvider.when("/" + assetPages[i] , {
+          templateUrl : "../dist/templates/" + assetPages[i] + ".html",
+          controller : assetPages[i] + "Ctrl",
+          controllerAs : assetPages[i]
+      });
+    };
+
 });
 app.service('mainAsset', function($window, $http) {
     this.devMode = assetPanelData.devMode;
@@ -64,10 +44,6 @@ app.service('mainAsset', function($window, $http) {
       $(modal).modal('show');
     }
     this.closeModal = function (modal) {
-      $(modal).modal({
-          backdrop: 'static',
-          keyboard: false
-        });
       $(modal).modal('hide');
     }
 });
