@@ -1,0 +1,34 @@
+<div class="row changePasswordMainArrengment">
+  <div class="col-md-offset-4 col-md-4 changePasswordArrengment panel panel-default">
+    <div class="panel-body">
+      <form name="passForm" novalidate>
+        <p class="dataBaseMainText">
+          لطفا اطلاعات خود را با توجه به مقادیر فیلد ها وارد نمایید
+        </p>
+        <br>
+        <div class="form-group">
+          <input name="oldpass" type="password" id="password" ng-model="changepass.obj.old_password" class="form-control" placeholder="رمز عبور فعلی" required>
+        </div>
+        <div class="form-group" ng-class=" {'has-error' : passForm.pass.$invalid && !passForm.pass.$pristine,
+          'has-success' : !passForm.password.$invalid && !passForm.pass.$pristine}  ">
+          <input name="pass" type="password" id="password" ng-model="changepass.obj.new_password" class="form-control" ng-maxlength="15" ng-minlength="8"
+          ng-pattern = "/[a-z0-9]/" placeholder="رمز عبور جدید" required>
+          <p ng-show="passForm.pass.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
+          <p ng-show="passForm.pass.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
+          <p ng-show="passForm.pass.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
+        </div>
+        <div class="form-group" ng-class=" {'has-error' : passForm.confPass.$invalid && !passForm.confPass.$pristine,
+          'has-success' : changepass.tmp.newPassConf === changepass.obj.new_password && !passForm.confPass.$pristine}  ">
+          <input name="confPass" type="password" id="password" ng-model="changepass.tmp.newPassConf" class="form-control" placeholder="تکرار رمز عبور جدید" required>
+          <p ng-show="changepass.tmp.newPassConf !== changepass.obj.new_password && !passForm.confPass.$pristine"
+          class="input-error-p">با کلمه عبور مطابقت ندارد</p>
+        </div>
+
+        <button type="submit" ng-click="changepass.changePassword()" class="btn btn-primary changePasswordButton"
+          ng-disabled = "!passForm.$valid || changepass.obj.new_password !== changepass.tmp.newPassConf"> ارسال </button>
+        <input type="checkbox" name="checkBox" class="changePasswordCheckButton" onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'">  نمایش رمز عبور فعلی </input>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>

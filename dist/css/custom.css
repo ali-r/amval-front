@@ -4341,29 +4341,14 @@ select.form-control{
   border-bottom-left-radius: 4px !important;
   margin-right: 0px;
   border-right-width: 0px;
-
-input.ng-not-empty{
-  background-color: #A8C9CE;
-}
-input.ng-invalid{
-  background-color: #ECF2F6;
 }
 .changePasswordArrengment{
-  padding: 2% 2%;
+  padding: 10px 10px;
+  margin-top: 5%;
 }
 .changePasswordButton{
   margin-right: 0;
 }
 .changePasswordCheckButton{
   margin-right: 20%;
-}
-.changePasswordInput{
-  width: 100%;
-  border-style: outset;
-}
-.changePasswordMainArrengment{
-  margin-left: 40%;
-}
-.border{
-  border: 1px dashed gray;
 }
