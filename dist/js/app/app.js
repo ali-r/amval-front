@@ -1,4 +1,4 @@
-var app = angular.module("assetAdminPanel", ["ngRoute","ngCookies"]);
+var app = angular.module("assetAdminPanel", ["ngRoute","ngCookies","ngFileUpload"]);
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
@@ -10,7 +10,7 @@ app.config(function ($httpProvider) {
 });
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
-    var assetPages = ['database','user','seller','producer','guarantor'];
+    var assetPages = ['database','user','seller','producer','guarantor','warehouse'];
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {

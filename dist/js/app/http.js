@@ -1,4 +1,4 @@
-app.service('requestHelper', function($http) {
+app.service('requestHelper', function($http,Upload,mainAsset) {
   scope = null
   httpService = this
   headers = {'Content-Type': 'application/json; charset=UTF-8'}
@@ -22,7 +22,7 @@ app.service('requestHelper', function($http) {
   }
 
   this.successCallback = function(response, callback, notifyEnable=true) {
-    console.log(response.data);
+    /*console.log(response.data);*/
     callback(response)
     if (notifyEnable)
       new PNotify({
@@ -41,6 +41,7 @@ app.service('requestHelper', function($http) {
     });
     console.log(response);
     httpService.stopLoading();
+    mainAsset.errorFunction(response,response.status);
   }
 
   this.get = function(url, scope, callback ,progressBar) {
@@ -90,4 +91,24 @@ app.service('requestHelper', function($http) {
       this.errorCallback
     );
   };
+
+  this.uploadFileReq = function(file, type, scope, callback){
+    scope.uploading = true;
+    Upload.upload({
+        url: mainAsset.getUploadUrl(),
+        data: {image: file, 'type': type}
+    }).then(function (resp) {
+        console.log('Success ' + 'uploaded. Response: ' + resp.data);
+        scope.uploadPercentage = 0;
+        callback(resp.data);
+        scope.uploading = false;
+    }, function (resp) {
+        scope.uploading = false;
+        scope.uploadPercentage = 0;
+        this.errorCallback(resp.status);
+    }, function (evt) {
+        scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total) + '%';
+    });
+  }
+
 });

@@ -6,6 +6,8 @@ app.service('crud', function(requestHelper, mainAsset) {
       scope.load = false;
       scope.loadModal = false;
       scope.editMode = false;
+      scope.uploadPercentage = 0;
+      scope.uploading = false;
 
       controller.obj = {}
       for (variable in variables)
@@ -54,7 +56,7 @@ app.service('crud', function(requestHelper, mainAsset) {
       obj = controller.obj;
       delete obj['id'];
       scope.loadModal = true;
-
+      console.log(obj);
       if(editMode) {
         requestHelper.put(scope.apiUrl + "/" + scope.toEditId , obj, scope,
         function(response) {

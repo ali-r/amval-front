@@ -5,7 +5,7 @@ app.service('pagination', function() {
     scope.pageSet = function(mode) {
       if (!scope.pagination(mode)) {
         scope.page = paginationService.pageSet(mode, scope.page, scope.meta);
-        controller.getUrl = controller.makeUrl();
+        scope.getUrl = controller.makeUrl();
         controller.getData();
       };
     };

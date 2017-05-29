@@ -83,7 +83,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-disabled="!userForm.$valid" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-disabled="!userForm.$valid || user.obj.password !== user.confirm_pass"
+          ng-click="user.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
@@ -99,7 +100,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>نوع کاربر</label>
-                  <select class="form-control" ng-model="user.obj.clearance_level">
+                  <select class="form-control" ng-model="user.obj.clearance_level" required>
                     <option ng-value="0">کاربر</option>
                     <option ng-value="1">انباردار</option>
                     <option ng-value="2">انباردار مرکزی</option>
@@ -120,15 +121,22 @@
                 </div>
               </div>
               <div class="col-md-6" ng-hide="editMode">
-                <div class="form-group">
+                <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$invalid && !userForm.confPass.$pristine,
+                  'has-success' : user.confirm_pass === user.obj.password && !userForm.confPass.$pristine}  ">
                   <label>تکرار گذرواژه</label>
-                  <input type="password" class="form-control" placeholder="تکرار گذرواژه" ng-model = "user.obj.confirm_pass" required>
+                  <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه" ng-model = "user.confirm_pass" ng-required = "!editMode">
+                  <p ng-show="user.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
                 </div>
               </div>
               <div class="col-md-6" ng-hide="editMode">
-                <div class="form-group">
+                <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && !userForm.password.$pristine,
+                  'has-success' : !userForm.password.$invalid }  ">
                   <label>گذرواژه</label>
-                  <input type="password" class="form-control" placeholder="گذرواژه" ng-model = "user.obj.pass" required>
+                  <input type="password" class="form-control" name="password" placeholder="گذرواژه" ng-pattern = "/[a-z0-9]+/"
+                  ng-model = "user.obj.password" ng-required = "!editMode" ng-minlength="8" ng-maxlength="15">
+                  <p ng-show="userForm.password.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
+                  <p ng-show="userForm.password.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
+                  <p ng-show="userForm.password.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
                 </div>
               </div>
               <div class="col-md-6">
@@ -152,7 +160,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>وضعیت خدمت</label>
-                  <select class="form-control" ng-model = "user.obj.service_situation">
+                  <select class="form-control" ng-model = "user.obj.service_situation" required>
                     <option ng-value="0">در حال کار</option>
                     <option ng-value="1">جدا شده</option>
                   </select>
@@ -162,17 +170,23 @@
                 <div class="form-group">
                   <label>تصویر امضا</label>
                   <br/>
-                  <button type="button" class="btn btn-info" name="button">بارگذاری تصویر</button>
+                  <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'image/*'"
+                    ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature" ng-required="!user.obj.scanned_signature">بارگذاری تصویر امضا</div>
+                  <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature"
+                  ng-click=" user.obj.scanned_signature = ''">حذف تصویر</button>
+                  <br/>
+                  <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
+                  ng-if="user.obj.scanned_signature">
                 </div>
               </div>
               <div class="col-md-6" ng-show = "user.obj.clearance_level == 1">
                 <div class="form-group">
                   <label>انبار</label>
                   <div class="input-group">
+                    <input type="text" class="form-control" ng-model="user.obj.warehouse" ng-required="user.obj.clearance_level == 1" disabled>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary">انتخاب انبار</button>
+                      <button type="button" class="btn btn-primary btn-beside-input">انتخاب انبار</button>
                     </span>
-                    <input type="text" class="form-control" ng-model="user.warehouse">
                   </div>
                 </div>
               </div>
@@ -181,6 +195,27 @@
       </form>
       </div>
       <div class="modal-footer">
+        <div class="">
+          <p ng-show = "uploading">
+            <i class="fa fa-refresh fa-spin fa-lg"></i>
+            در حال  بارگذاری ...
+          </p>
+        </div>
+        <div class="progress active" ng-hide = "uploadPercentage === 0">
+          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+          aria-valuemin="0" id="uploadPercentBox" aria-valuemax="100" ng-style="{ 'width' : uploadPercentage }">
+          {{uploadPercentage}}
+          </div>
+        </div>
+        <!--
+        <ul>
+          <li ng-repeat="(key, errors) in userForm.$error track by $index"> <strong>{{ key }}</strong> errors
+            <ul>
+              <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+            </ul>
+          </li>
+        </ul>
+      -->
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

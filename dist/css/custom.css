@@ -4330,3 +4330,15 @@ select.form-control{
 .input-error{
   border-color: #c31616;
 }
+.img-sig{
+  width: 90%;
+  margin: 20px auto 10px auto;
+}
+.btn-beside-input{
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+  margin-right: 0px;
+  border-right-width: 0px;
+}

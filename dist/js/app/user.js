@@ -37,4 +37,11 @@ angular.module("assetAdminPanel").controller('userCtrl',
     $scope.resetPassForm.pass.$pristine = true;
     mainAsset.openModal('#resetPassModal');
   };
+
+  controller.obj.scanned_signature = '';
+  this.uploadPic = function() {
+    requestHelper.uploadFileReq(controller.sigFile, 'signature', $scope, function(data){
+      controller.obj.scanned_signature = data.file_url;
+    });
+  }
 });
