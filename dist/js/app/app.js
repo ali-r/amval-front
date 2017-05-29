@@ -10,7 +10,7 @@ app.config(function ($httpProvider) {
 });
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
-    var assetPages = ['database','user','seller','producer','guarantor','warehouse'];
+    var assetPages = ['database','user','seller','producer','guarantor','warehouse','changepass'];
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {
@@ -19,7 +19,6 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
           controllerAs : assetPages[i]
       });
     };
-
 });
 app.service('mainAsset', function($window, $http) {
     this.devMode = assetPanelData.devMode;
