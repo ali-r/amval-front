@@ -7,7 +7,8 @@
       <div class="col-md-6 col-md-offset-3">
         <div style="text-align:center">
           <button type="submit" ng-click="database.download()" class="btn btn-success"> دریافت </button>
-          <button type="submit" ng-click="database.upload()" class="btn btn-success"> ارسال </button>
+          <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file"
+            ngf-max-size="2MB">ارسال</div>
         </div>
       </div>
     </div>
