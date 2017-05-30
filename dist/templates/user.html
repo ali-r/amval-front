@@ -83,8 +83,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-disabled="!userForm.$valid || user.obj.password !== user.confirm_pass"
-          ng-click="user.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-disabled="!userForm.$valid || user.obj.password !== user.tmp.confirm_pass"
+          ng-click="user.sendOrEdit(editMode)" ng-show = "stage == 0" class="btn btn-success">ذخیره</button>
+          <button type="button" class="btn btn-info" ng-show = "stage == 1" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
@@ -94,9 +95,9 @@
         <h3 class="modal-title" ng-show="editMode">ویرایش کاربر</h3>
       </div>
       <div class="modal-body">
-        <form name="userForm" role="form" ng-hide="loadModal" novalidate>
           <div class="box-body">
-            <div class="row">
+            <div class="row" ng-show = "stage == 0">
+              <form name="userForm" role="form" ng-hide="loadModal" novalidate>
               <div class="col-md-4">
                 <div class="form-group">
                   <label>نوع کاربر</label>
@@ -120,12 +121,13 @@
                   <input type="text" class="form-control" placeholder="نام" ng-model = "user.obj.first_name" required>
                 </div>
               </div>
+              <div class="clearfix"></div>
               <div class="col-md-6" ng-hide="editMode">
                 <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$invalid && !userForm.confPass.$pristine,
-                  'has-success' : user.confirm_pass === user.obj.password && !userForm.confPass.$pristine}  ">
+                  'has-success' : user.tmp.confirm_pass === user.obj.password && !userForm.confPass.$pristine}  ">
                   <label>تکرار گذرواژه</label>
-                  <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه" ng-model = "user.confirm_pass" ng-required = "!editMode">
-                  <p ng-show="user.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
+                  <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه" ng-model = "user.tmp.confirm_pass" ng-required = "!editMode">
+                  <p ng-show="user.tmp.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
                 </div>
               </div>
               <div class="col-md-6" ng-hide="editMode">
@@ -139,6 +141,7 @@
                   <p ng-show="userForm.password.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
                 </div>
               </div>
+              <div class="clearfix"></div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>شماره کارت (نام کاربری)</label>
@@ -151,6 +154,7 @@
                   <input type="text" class="form-control form-ltr" placeholder="شماره تماس" ng-model = "user.obj.phone" required>
                 </div>
               </div>
+              <div class="clearfix"></div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>دسته خدمتی</label>
@@ -166,6 +170,7 @@
                   </select>
                 </div>
               </div>
+              <div class="clearfix"></div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>تصویر امضا</label>
@@ -173,7 +178,7 @@
                   <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'image/*'"
                     ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature" ng-required="!user.obj.scanned_signature">بارگذاری تصویر امضا</div>
                   <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature"
-                  ng-click=" user.obj.scanned_signature = ''">حذف تصویر</button>
+                  ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
                   <br/>
                   <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
                   ng-if="user.obj.scanned_signature">
@@ -183,16 +188,66 @@
                 <div class="form-group">
                   <label>انبار</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" ng-model="user.obj.warehouse" ng-required="user.obj.clearance_level == 1" disabled>
+                    <input type="text" class="form-control" ng-model="user.obj.warehouse.title" ng-required="user.obj.clearance_level == 1" disabled>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary btn-beside-input">انتخاب انبار</button>
+                      <button type="button" class="btn btn-primary btn-beside-input" ng-click="stage = 1">انتخاب انبار</button>
                     </span>
                   </div>
                 </div>
               </div>
+            </form>
             </div>
+            <!-- end of Stage 1 -->
+            <div class="row" ng-show = "stage == 1">
+              <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    انتخاب انبار
+                  </div>
+                  <div class="panel-body">
+                    <form name="searchForm" role="form" novalidate>
+                          <div class="input-group">
+                            <input type="text" class="form-control" name="searchText" ng-model="user.tmp.searchQuery" required>
+                            <span class="input-group-btn">
+                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="user.search('warehouse','title')">جستجوی انبار</button>
+                            </span>
+                          </div>
+                      </form>
+                      <table class="table table-hover table-border" ng-hide = "user.tmp.searchResult == '' || loadSearch">
+                        <tbody>
+                          <tr>
+                            <th>ردیف</th>
+                            <th>عنوان</th>
+                            <th>توضیحات</th>
+                            <th>انتخاب</th>
+                          </tr>
+
+                          <tr ng-repeat = "list in user.tmp.searchResult">
+                            <td>{{$index+1}}</td>
+                            <td>
+                              {{list.title}}
+                            </td>
+                            <td>
+                              {{list.text | limitTo : 25}}
+                            </td>
+                            <td>
+                              <a ng-click="user.selectTarget(list.id, list.title, 'title', 'warehouse')" href>
+                                <i class="fa fa-check-square-o fa-lg"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              <div class="overlay" ng-show = "loadSearch">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
           </div>
-      </form>
+            </div>
+            <!-- end of Stage 2 -->
+          </div>
       </div>
       <div class="modal-footer">
         <div class="">

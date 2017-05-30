@@ -19,8 +19,16 @@ angular.module("assetAdminPanel").controller('userCtrl',
     })
   }
 
+  controller.objConfig = function (obj) {
+
+    if (obj.warehouse) {
+      obj.warehouse = obj.warehouse.id;
+    }
+    return obj;
+  };
+
   crud.initModals($scope, controller, apiName)
-  crud.init($scope, controller, apiName)
+  crud.init($scope, controller, apiName, controller.objConfig)
   pagination.initPagination($scope, controller)
 
   this.resetPass = function(id) {

@@ -5,11 +5,14 @@ app.service('crud', function(requestHelper, mainAsset) {
     scope.reset = function() {
       scope.load = false;
       scope.loadModal = false;
+      scope.loadSearch = false;
       scope.editMode = false;
       scope.uploadPercentage = 0;
       scope.uploading = false;
+      scope.stage = 0;
 
-      controller.obj = {}
+      controller.obj = {};
+      controller.tmp = {};
       for (variable in variables)
         variable = "";
     }
@@ -20,7 +23,7 @@ app.service('crud', function(requestHelper, mainAsset) {
     }
   }
 
-  this.init = function(scope, controller, name) {
+  this.init = function(scope, controller, name, objConfig = function(obj){return obj;}) {
     controller.getData = function() {
       requestHelper.get(
         scope.getUrl, scope,
@@ -35,6 +38,13 @@ app.service('crud', function(requestHelper, mainAsset) {
       scope.page = 1;
       scope.getUrl = controller.makeUrl();
       controller.getData();
+    };
+
+    controller.selectTarget = function(id, title, titleFiled, variable){
+      controller.obj[variable] = {};
+      controller.obj[variable][titleFiled] = title;
+      controller.obj[variable].id = id;
+      scope.stage = 0;
     };
 
     controller.getObject = function(id) {
@@ -56,6 +66,7 @@ app.service('crud', function(requestHelper, mainAsset) {
       obj = controller.obj;
       delete obj['id'];
       scope.loadModal = true;
+      obj = objConfig(obj);
       console.log(obj);
       if(editMode) {
         requestHelper.put(scope.apiUrl + "/" + scope.toEditId , obj, scope,
@@ -80,6 +91,17 @@ app.service('crud', function(requestHelper, mainAsset) {
         function(response) {
           controller.getData();
           $('#deleteModal').modal('hide');
+        });
+    };
+
+    controller.search = function(cat,field){
+      scope.loadSearch = true;
+      var searchUrl = mainAsset.getUrl() + cat + '?' + field + '__contains=' + controller.tmp.searchQuery;
+      requestHelper.get(
+        searchUrl, scope,
+        function(response) {
+          controller.tmp.searchResult = response.data[cat + 's'];
+          scope.loadSearch = false;
         });
     };
   }

@@ -19,6 +19,7 @@ app.service('requestHelper', function($http,Upload,mainAsset) {
     NProgress.done();
     this.scope.load = false;
     this.scope.loadModal = false;
+    this.scope.loadSearch = false;
   }
 
   this.successCallback = function(response, callback, notifyEnable=true) {

@@ -1,21 +1,23 @@
-angular.module("assetAdminPanel").controller('databaseCtrl', function($scope,$http,mainUrl){
+angular.module("assetAdminPanel").controller('databaseCtrl',
+  function($scope, $http, $cookieStore, mainAsset, requestHelper){
 
-  var begir = this ;
+    var controller = this;
+    $scope.assetData = $cookieStore.get("assetData");
+    $scope.serverUrl = mainAsset.getUrl();
 
-  this.download = function(){
+    this.databaseUrl = $scope.serverUrl + 'database';
 
-    $scope.serverUrl = "https://api.gandom.co/api/api/v1" ;
-    $scope.header = {'Access-Token':'User Request-Access token given after login'} ;
+    this.download = function(){
+      requestHelper.get(controller.databaseUrl + '/backup', $scope, function(data) {
+        console.log(data);
+      },true)
+    }
 
-    $http.get($scope.serverUrl + "/database" + {headers: $scope.header})
-  }
+    this.upload = function(){
 
-  this.upload = function(){
+      $scope.header = {'Access-Token':'User Request-Access token given after login'} ;
 
-    $scope.serverUrl = "https://api.gandom.co/api/api/v1" ;
-    $scope.header = {'Access-Token':'User Request-Access token given after login'} ;
+      $http.post($scope.serverUrl + "/database" + {headers: $scope.header}) ;
 
-    $http.post($scope.serverUrl + "/database" + {headers: $scope.header}) ;
-
-  }
+    }
 });

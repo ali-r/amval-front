@@ -4295,15 +4295,13 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .filter-form{
   text-align: center;
 }
-.dataBaseplaceArrengment{
-  margin-right: 36%;
+.dataBaseplace-box{
+  background-color: #ffffff;
+  margin-top: 10%;
+  padding: 20px 20px;
 }
 .dataBaseMainText{
   text-align: center;
-}
-.dataBaseMainArrengment{
-  margin-right: 15%;
-  margin-left: 15%;
 }
 select.form-control{
   padding: 4px 12px;
