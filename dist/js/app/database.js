@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('databaseCtrl',
-  function($scope, $http, $cookieStore, mainAsset, requestHelper, $window){
+  function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload){
 
     var controller = this;
     $scope.assetData = $cookieStore.get("assetData");
@@ -26,9 +26,19 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
       },true)
     }
 
+    requestHelper.init($scope);
     this.upload = function(){
-      requestHelper.put(controller.databaseUrl, {'database' : controller.file}, $scope, function() {
-
-      },true);
+      requestHelper.startLoading(true);
+      Upload.upload({
+          url: controller.databaseUrl,
+          method : 'PUT',
+          headers: {'Access-Token': $scope.assetData.access_token},
+          data: {'database' : controller.file}
+      }).then(function (resp) {
+          requestHelper.successCallback();
+      }, function (resp) {
+          requestHelper.errorCallback(resp.status);
+      }, function (evt) {
+      });
     }
 });

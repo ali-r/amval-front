@@ -22,7 +22,7 @@ app.service('requestHelper', function($http,Upload,mainAsset) {
     this.scope.loadSearch = false;
   }
 
-  this.successCallback = function(response, callback, notifyEnable=true) {
+  this.successCallback = function(response, callback = function(){}, notifyEnable=true) {
     /*console.log(response.data);*/
     callback(response)
     if (notifyEnable)
