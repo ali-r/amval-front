@@ -222,7 +222,7 @@ body{
     margin-bottom: 5px
 }
 .nav-sm ul.nav.child_menu {
-    left: 100%;
+    right: 100%;
     position: absolute;
     top: 0;
     width: 210px;
@@ -234,7 +234,7 @@ body{
     padding: 0 10px
 }
 .nav-sm ul.nav.child_menu li a {
-    text-align: left !important
+    text-align: right !important
 }
 .nav-sm .profile {
     display: none
@@ -2411,7 +2411,8 @@ a.btn-danger {
 textarea {
     padding: 10px;
     vertical-align: top;
-    width: 200px
+    width: 200px;
+    resize: none;
 }
 textarea:focus {
     outline-style: solid;

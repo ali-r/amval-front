@@ -43,12 +43,12 @@
                 </a>
               </td>
               <td>
-                <a ng-click = "user.openResetPassModal(list.id)" data-toggle="modal" href>
+                <a ng-click = "user.openResetPassModal(list.id)" data-toggle="modal" ng-if="assetData.id !== list.id" href>
                   <i class="fa fa-lg fa-key" aria-hidden="true"></i>
                 </a>
               </td>
               <td>
-                <a ng-click="user.toDeleteId = list.id; user.toDeleteTitle = list.card_no" data-toggle="modal" data-target="#deleteModal" href>
+                <a ng-click="user.toDeleteId = list.id; user.toDeleteTitle = list.card_no" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
