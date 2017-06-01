@@ -4074,7 +4074,8 @@ ul.verticle_bars li {
 .alert-success {
     color: #ffffff;
     background-color: rgba(38, 185, 154, 0.88);
-    border-color: rgba(38, 185, 154, 0.88)
+    border-color: rgba(38, 185, 154, 0.88);
+    font-weight: normal;
 }
 .alert-info {
     color: #E9EDEF;
