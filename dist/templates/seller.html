@@ -3,26 +3,7 @@
     <div class="x_panel">
 
       <div class="x_content">
-        <form class="filter-form">
-          <input type="text" class="form-control seller-search-option" id="firstname" placeholder="نام" ng-model="seller.firstNameSearch">
-          <input type="text" class="form-control seller-search-option" id="lastname" placeholder="نام خانوادگی" ng-model="seller.lastNameSearch">
-          <input type="text" class="form-control seller-search-option" id="storename" placeholder="نام فروشگاه" ng-model="seller.storeNameSearch">
-          <input type="text" class="form-control seller-search-option" id="cardno" placeholder="شماره تلفن" ng-model="seller.phoneSearch">
-          <input type="text" class="form-control seller-search-option" id="cardno" placeholder="شماره موبایل" ng-model="seller.cellPhoneSearch">
-          <select class="form-control seller-filter-option" ng-model="seller.sortType">
-            <option value="">مرتب سازی</option>
-            <option value="first_name">نام</option>
-            <option value="last_name">نام خانوادگی</option>
-            <option value="store_name">نام فروشگاه</option>
-            <option value="phone">شماره تلفن</option>
-            <option value="cellphone">شماره موبایل</option>
-          </select>
-          <select class="form-control sort-option" ng-model="seller.sortOrder">
-            <option value="">صعودی</option>
-            <option value="-">  نزولی</option>
-          </select>
-          <button type="submit" class="btn btn-info filter-btn" ng-click = "seller.getFilteredData()">جستجو</button>
-        </form>
+        <search-tools sobject="seller.searchObject" scontroller="seller"></search-tools>
       </div>
     </div>
   </div>

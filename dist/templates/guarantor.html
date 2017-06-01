@@ -2,13 +2,7 @@
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_content">
-        <form class="filter-form">
-          <input type="text" class="form-control search-option" id="firstname" placeholder="نام دبیر" ng-model="guarantor.secretaryFirstNameSearch">
-          <input type="text" class="form-control search-option" id="firstname" placeholder="نام خانوادگی دبیر" ng-model="guarantor.secretaryLastNameSearch">
-          <input type="text" class="form-control search-option" id="firstname" placeholder="شماره تلفن" ng-model="guarantor.officePhoneSearch">
-          <input type="text" class="form-control search-option" id="firstname" placeholder="آدرس" ng-model="guarantor.addressSearch">
-          <button type="submit" class="btn btn-info filter-btn" ng-click = "guarantor.getFilteredData()">جستجو</button>
-        </form>
+        <search-tools sobject="guarantor.searchObject" scontroller="guarantor"></search-tools>
       </div>
       </div>
     </div>

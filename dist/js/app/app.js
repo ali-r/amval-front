@@ -81,3 +81,14 @@ app.directive('reqPagination', function() {
     templateUrl: '/dist/js/app/directive/pagination.html'
   }
 });
+app.directive('searchTools', function() {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      sobject : '=',
+      scontroller : '='
+    },
+    templateUrl: '/dist/js/app/directive/search.html'
+  }
+});

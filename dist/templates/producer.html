@@ -3,10 +3,7 @@
     <div class="x_panel">
 
       <div class="x_content">
-        <form class="filter-form">
-          <input type="text" class="form-control search-option" id="firstname" placeholder="نام برند" ng-model="producer.brandNameSearch">
-          <button type="submit" class="btn btn-info filter-btn" ng-click = "producer.getFilteredData()">جستجو</button>
-        </form>
+        <search-tools sobject="producer.searchObject" scontroller="producer"></search-tools>
       </div>
       </div>
     </div>

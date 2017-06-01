@@ -4,6 +4,14 @@ angular.module("assetAdminPanel").controller('sellerCtrl',
   var controller = this;
   var apiName = 'seller';
 
+  controller.searchObject = [
+    {'fname' : 'نام', 'field' : 'first_name'},
+    {'fname' : 'نام خانوادگی', 'field' : 'last_name'},
+    {'fname' : 'نام فروشگاه', 'field' : 'store_name'},
+    {'fname' : 'تلفن', 'field' : 'phone'},
+    {'fname' : 'شماره موبایل', 'field' : 'cellphone'}
+  ];
+
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
 
@@ -11,14 +19,7 @@ angular.module("assetAdminPanel").controller('sellerCtrl',
   $scope.getUrl = pagination.makeUrl($scope);
 
   this.makeUrl = function() {
-    return pagination.makeUrl($scope, {
-      'first_name__contains': controller.firstNameSearch,
-      'last_name__contains': controller.lastNameSearch,
-      'store_name__contains': controller.storeNameSearch,
-      'phone__contains': controller.phoneSearch,
-      'cellphone__contains': controller.cellPhoneSearch,
-      'sort': controller.sortOrder + controller.sortType,
-    })
+    return pagination.makeUrl($scope, controller.searchObject, controller.searchValue)
   }
 
   controller.obj = {}

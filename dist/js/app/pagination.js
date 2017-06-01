@@ -68,10 +68,15 @@ app.service('pagination', function() {
   };
 
   this.notEmpty = function(string) {
-    return (typeof(string) != "undefined") && (string !== "") && (string + "" != 'NaN');
+    return (typeof(string) != "undefined") && (string !== "") && (string + "" != 'undefined') && (string + "" != 'NaN');
   }
 
-  this.makeUrl = function(scope, keys={}) {
+  this.makeUrl = function(scope, searchObj={}, searchValue={}) {
+    var keys = {};
+    for (var i = 0; i < searchObj.length; i++) {
+      keys[searchObj[i].field + '__contains'] = searchValue[searchObj[i].field];
+    }
+    keys.sort = searchValue.order + searchValue.type
     var url = scope.apiUrl + "?page=" + scope.page + "&per_page=10";
     for (name in keys) {
       if (this.notEmpty(keys[name]))

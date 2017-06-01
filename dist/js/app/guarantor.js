@@ -4,6 +4,12 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
   var controller = this;
   var apiName = 'guarantor';
 
+  controller.searchObject = [
+    {'fname' : 'نام دبیر', 'field' : 'secretary_first_name'},
+    {'fname' : 'نام خانوادگی دبیر', 'field' : 'secretary_last_name'},
+    {'fname' : 'شماره تلفن', 'field' : 'office_phone'}
+  ];
+
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
 
@@ -11,12 +17,7 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
   $scope.getUrl = pagination.makeUrl($scope);
 
   this.makeUrl = function() {
-    return pagination.makeUrl($scope, {
-      'secretary_first_name__contains': controller.secretaryFirstNameSearch,
-      'secretary_last_name__contains': controller.secretaryLastNameSearch,
-      'office_phone__contains': controller.officePhoneSearch,
-      'address__contains': controller.addressSearch
-    })
+    return pagination.makeUrl($scope, controller.searchObject, controller.searchValue);
   }
 
   controller.obj = {}

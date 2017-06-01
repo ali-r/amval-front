@@ -3,23 +3,7 @@
     <div class="x_panel">
 
       <div class="x_content">
-        <form class="filter-form">
-          <input type="text" class="form-control search-option" id="firstname" placeholder="نام" ng-model="user.firstNameSearch">
-          <input type="text" class="form-control search-option" id="lastname" placeholder="نام خانوادگی" ng-model="user.lastNameSearch">
-          <input type="text" class="form-control search-option" id="cardno" placeholder="شماره کارت" ng-model="user.cardNoSearch">
-          <select class="form-control filter-option" ng-model="user.sortType">
-            <option value="">مرتب سازی بر اساس</option>
-            <option value="first_name">نام</option>
-            <option value="last_name">نام خانوادگی</option>
-            <option value="card_no">نام کاربری</option>
-            <option value="phone">شماره تماس</option>
-          </select>
-          <select class="form-control sort-option" ng-model="user.sortOrder">
-            <option value="">صعودی</option>
-            <option value="-">  نزولی</option>
-          </select>
-          <button type="submit" class="btn btn-info filter-btn" ng-click = "user.getFilteredData()">جستجو</button>
-        </form>
+        <search-tools sobject="user.searchObject" scontroller="user"></search-tools>
       </div>
     </div>
   </div>

@@ -4,6 +4,10 @@ angular.module("assetAdminPanel").controller('producerCtrl',
   var controller = this;
   var apiName = 'producer';
 
+  controller.searchObject = [
+    {'fname' : 'نام برند', 'field' : 'brand_name'}
+  ];
+
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
 
@@ -11,9 +15,7 @@ angular.module("assetAdminPanel").controller('producerCtrl',
   $scope.getUrl = pagination.makeUrl($scope);
 
   this.makeUrl = function() {
-    return pagination.makeUrl($scope, {
-      'brand_name__contains': controller.brandNameSearch,
-    })
+    return pagination.makeUrl($scope, controller.searchObject, controller.searchValue)
   }
 
   controller.obj = {}

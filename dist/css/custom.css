@@ -4252,6 +4252,8 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .search-option{
   display: inline;
   width: 17%;
+  margin-left: 4px;
+  margin-top: 4px;
 }
 .seller-search-option{
   display: inline;
@@ -4263,6 +4265,7 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
   width: 20%;
   vertical-align: top;
   padding: 2px 15px;
+  margin-top: 4px;
 }
 .seller-filter-option{
   display: inline;
@@ -4275,10 +4278,12 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
   width: 12%;
   vertical-align: top;
   padding: 2px 15px;
+  margin-top: 4px;
 }
 .filter-btn{
   height: 34px;
   vertical-align: top;
+  margin-top: 4px;
 }
 .asset-tables > thead > tr > th{
   text-align: center;

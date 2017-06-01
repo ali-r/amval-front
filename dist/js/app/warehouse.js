@@ -4,6 +4,10 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   var controller = this;
   var apiName = 'warehouse';
 
+  controller.searchObject = [
+    {'fname' : 'انبار', 'field' : 'title'}
+  ];
+
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
 
@@ -11,12 +15,8 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   $scope.getUrl = pagination.makeUrl($scope);
 
   this.makeUrl = function() {
-    return pagination.makeUrl($scope, {
-      'title__contains': controller.titleSearch,
-      'location__contains': controller.locationSearch,
-      'phone__contains': controller.phoneSearch
-    })
-  }
+    return pagination.makeUrl($scope, controller.searchObject, controller.searchValue)
+  };
 
   controller.obj = {}
   crud.initModals($scope, controller, apiName, [

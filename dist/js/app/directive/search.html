@@ -1,0 +1,15 @@
+<form class="filter-form">
+  <input type="text" ng-repeat="opt in sobject" class="form-control search-option" id="{{opt.field}}" placeholder="{{opt.fname}}" ng-model="scontroller.searchValue[opt.field]">
+  <select class="form-control filter-option" ng-model="scontroller.searchValue['type']">
+    <option value="">مرتب سازی بر اساس</option>
+    <option ng-repeat="opt in sobject" value="{{opt.field}}">
+      {{opt.fname}}
+    </option>
+
+  </select>
+  <select class="form-control sort-option" ng-init = " scontroller.searchValue['order'] = ''" ng-model="scontroller.searchValue['order']">
+    <option value="">صعودی</option>
+    <option value="-">  نزولی</option>
+  </select>
+  <button type="submit" class="btn btn-info filter-btn" ng-click = "scontroller.getFilteredData()">جستجو</button>
+</form>
