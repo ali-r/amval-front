@@ -65,19 +65,20 @@ var setContentHeight = function () {
 
 	// normalize content
 	contentHeight -= $NAV_MENU.height() + footerHeight;
-
-	$RIGHT_COL.css('min-height', contentHeight);
+	$RIGHT_COL.css('min-height', '90vh');
 };
 
   $SIDEBAR_MENU.find('a').on('click', function(ev) {
 	  console.log('clicked - sidebar_menu');
         var $li = $(this).parent();
+        var $liParent = $(this).parent().parent();
 
         if ($li.is('.active')) {
             $li.removeClass('active active-sm');
             $('ul:first', $li).slideUp(function() {
                 setContentHeight();
             });
+            console.log('here');
         } else {
             // prevent closing menu if we are on child menu
             if (!$li.parent().is('.child_menu')) {
@@ -90,6 +91,7 @@ var setContentHeight = function () {
 					$SIDEBAR_MENU.find( "li" ).removeClass( "active active-sm" );
 					$SIDEBAR_MENU.find( "li ul" ).slideUp();
 				}
+        $liParent.find( "li" ).removeClass( "active" );
 			}
             $li.addClass('active');
 

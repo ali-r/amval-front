@@ -19,7 +19,8 @@
         </div>
         <div class="form-group" ng-class=" {'has-error' : passForm.confPass.$invalid && !passForm.confPass.$pristine,
           'has-success' : changepass.tmp.newPassConf === changepass.obj.new_password && !passForm.confPass.$pristine}  ">
-          <input name="confPass" type="password" id="password" ng-model="changepass.tmp.newPassConf" class="form-control" placeholder="تکرار رمز عبور جدید" required>
+          <input name="confPass" type="password" id="password" ng-model="changepass.tmp.newPassConf" class="form-control" ng-maxlength="15" ng-minlength="8"
+          ng-pattern = "/[a-z0-9]/" placeholder="تکرار رمز عبور جدید" required>
           <p ng-show="changepass.tmp.newPassConf !== changepass.obj.new_password && !passForm.confPass.$pristine"
           class="input-error-p">با کلمه عبور مطابقت ندارد</p>
         </div>
