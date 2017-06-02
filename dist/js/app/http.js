@@ -1,11 +1,21 @@
-app.service('requestHelper', function($http,Upload,mainAsset) {
+app.service('requestHelper', function($http, Upload, mainAsset, $window, $cookieStore) {
   scope = null
   httpService = this
   headers = {'Content-Type': 'application/json; charset=UTF-8'}
 
   this.init = function(scope) {
     this.scope = scope
-    headers['Access-Token'] = scope.assetData.access_token
+    if(scope.assetData === null || typeof(scope.assetData) === "undefined")
+    {
+      setTimeout(
+      function () {
+        $cookieStore.put('assetData', null);
+        $cookieStore.put('per', null);
+      },500);
+      $window.location.href = "../index.html";
+    }else{
+      headers['Access-Token'] = scope.assetData.access_token;
+    }
   }
 
   this.startLoading = function(needProgressBar=false) {
@@ -41,6 +51,13 @@ app.service('requestHelper', function($http,Upload,mainAsset) {
       type: 'error'
     });
     console.log(response);
+    if (response.status === 401) {
+      $cookieStore.put('assetData', null);
+      $cookieStore.put('per', null);
+      setTimeout(function () {
+        $window.location.href = "../index.html";
+      },5000);
+    };
     httpService.stopLoading();
     mainAsset.errorFunction(response,response.status);
   }
