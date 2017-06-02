@@ -110,8 +110,8 @@
                 <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$invalid && !userForm.confPass.$pristine,
                   'has-success' : user.tmp.confirm_pass === user.obj.password && !userForm.confPass.$pristine}  ">
                   <label>تکرار گذرواژه</label>
-                  <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه" ng-model = "user.tmp.confirm_pass"
-                  ng-required = "!editMode" ng-minlength="8" ng-maxlength="15">
+                  <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه" ng-pattern = "/^[a-z0-9]+$/"
+                  ng-model = "user.tmp.confirm_pass" ng-required = "!editMode" ng-minlength="8" ng-maxlength="15">
                   <p ng-show="user.tmp.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
                 </div>
               </div>
@@ -119,7 +119,7 @@
                 <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && !userForm.password.$pristine,
                   'has-success' : !userForm.password.$invalid }  ">
                   <label>گذرواژه</label>
-                  <input type="password" class="form-control" name="password" placeholder="گذرواژه" ng-pattern = "/[a-z0-9]+/"
+                  <input type="password" class="form-control" name="password" placeholder="گذرواژه" ng-pattern = "/^[a-z0-9]+$/"
                   ng-model = "user.obj.password" ng-required = "!editMode" ng-minlength="8" ng-maxlength="15">
                   <p ng-show="userForm.password.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
                   <p ng-show="userForm.password.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
