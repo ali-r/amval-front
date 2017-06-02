@@ -8,8 +8,8 @@ angular.module("assetAdminPanel").controller('logoutCtrl',
 
     if ($scope.assetData !== null) {
       requestHelper.delete(controller.logoutUrl, $scope, function() {
-        $cookieStore.put('assetData', null);
-        $cookieStore.put('per', null);
+        $cookieStore.remove('assetData');
+        $cookieStore.remove('per');
       });
     }
 });

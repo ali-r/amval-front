@@ -1,4 +1,5 @@
-angular.module("assetAdminPanel").controller('loginCtrl', function($scope,$http,$cookieStore,$window,mainAsset){
+angular.module("assetAdminPanel").controller('loginCtrl',
+  function( $scope, $http, $cookieStore, $window, mainAsset){
 
   var controller = this;
   $scope.serverUrl = mainAsset.getUrl();
@@ -6,6 +7,10 @@ angular.module("assetAdminPanel").controller('loginCtrl', function($scope,$http,
   $scope.header = {'Content-Type': 'application/json; charset=UTF-8'};
   this.user = "";
   this.pass = "";
+
+  if ($cookieStore.get('assetData')) {
+    $window.location.href = '/panel/#/user';
+  }
 
   this.login = function(){
     NProgress.start();

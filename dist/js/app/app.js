@@ -9,7 +9,6 @@ app.config(function ($httpProvider) {
   }
   $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
   $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
-  $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 });
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
@@ -30,13 +29,6 @@ app.service('mainAsset', function($window, $http) {
     };
     this.getUploadUrl = function () {
       return assetPanelData.uploadUrl;
-    };
-    this.errorFunction = function (err,status) {
-      switch(status){
-          case 401:
-            $window.location.href = "../index.html";
-          break;
-        }
     };
     this.openModal = function (modal) {
       $(modal).modal({
