@@ -1,4 +1,4 @@
-app.service('crud', function(requestHelper, mainAsset) {
+app.service('crud', function($localStorage,requestHelper, mainAsset) {
   crudService = this
 
   this.initModals = function(scope, controller, name, variables) {
@@ -24,6 +24,15 @@ app.service('crud', function(requestHelper, mainAsset) {
   }
 
   this.init = function(scope, controller, name, objConfig = function(obj){return obj;}) {
+
+    scope.checkWrite = function(param){
+      if( $localStorage.assetData.permissions[param] == 'write'){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     controller.getData = function() {
       requestHelper.get(
         scope.getUrl, scope,

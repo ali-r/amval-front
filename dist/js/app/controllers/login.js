@@ -21,9 +21,10 @@ angular.module("assetAdminPanel").controller('loginCtrl',
     .then(function successCallback(response) {
 
       $localStorage.assetData = response.data;
+      /*$localStorage.assetData.permissions.user = 'read';*/
       NProgress.done();
       $window.location.href = '/panel/#/user';
-      
+
       }, function errorCallback(response) {
         NProgress.done();
         new PNotify({

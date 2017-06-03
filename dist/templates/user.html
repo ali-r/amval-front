@@ -11,7 +11,7 @@
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa fa-users"></i> کاربران</h2>
-        <button type="button" class="btn btn-success btn-sm pull-left" ng-click="openModal('#userModal')" name="button">کاربر جدید</button>
+        <button type="button" ng-if = "checkWrite('user')" class="btn btn-success btn-sm pull-left" ng-click="openModal('#userModal')" name="button">کاربر جدید</button>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -25,8 +25,8 @@
               <th>نوع کاربر</th>
               <th>شماره تلفن </th>
               <th></th>
-              <th></th>
-              <th></th>
+              <th ng-if = "checkWrite('user')"></th>
+              <th ng-if = "checkWrite('user')"></th>
             </tr>
           </thead>
           <tbody>
@@ -42,12 +42,12 @@
                   <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
               </td>
-              <td>
+              <td ng-if = "checkWrite('user')">
                 <a ng-click = "user.openResetPassModal(list.id)" data-toggle="modal" ng-if="assetData.id !== list.id" href>
                   <i class="fa fa-lg fa-key" aria-hidden="true"></i>
                 </a>
               </td>
-              <td>
+              <td ng-if = "checkWrite('user')">
                 <a ng-click="user.toDeleteId = list.id; user.toDeleteTitle = list.card_no" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
@@ -68,7 +68,7 @@
       <div class="modal-header">
         <div class="pull-left">
           <button type="button" ng-disabled="!userForm.$valid || user.obj.password !== user.tmp.confirm_pass"
-          ng-click="user.sendOrEdit(editMode)" ng-show = "stage == 0" class="btn btn-success">ذخیره</button>
+          ng-click="user.sendOrEdit(editMode)" ng-show = "stage == 0" ng-if = "checkWrite('user')" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-info" ng-show = "stage == 1" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
@@ -165,8 +165,8 @@
                   <label>تصویر امضا*</label>
                   <br/>
                   <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'image/*'"
-                    ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature" ng-required="!user.obj.scanned_signature">بارگذاری تصویر امضا</div>
-                  <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature"
+                    ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature">بارگذاری تصویر امضا</div>
+                  <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature && checkWrite('user')"
                   ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
                   <br/>
                   <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
@@ -179,7 +179,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary btn-beside-input" ng-click="stage = 1">انتخاب انبار</button>
+                      <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="stage = 1">انتخاب انبار</button>
                     </span>
                   </div>
                 </div>

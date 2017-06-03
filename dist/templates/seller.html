@@ -11,7 +11,7 @@
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa"></i>فروشنده‌ها</h2>
-        <button type="button" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
+        <button type="button" ng-if = "checkWrite('seller')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
           فروشنده جدید
         </button>
         <div class="clearfix"></div>
@@ -27,7 +27,7 @@
               <th>شماره موبایل</th>
               <th>شماره تلفن </th>
               <th></th>
-              <th></th>
+              <th ng-if = "checkWrite('seller')"></th>
             </tr>
           </thead>
           <tbody ng-hide="load">
@@ -43,7 +43,7 @@
                   <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
               </td>
-              <td>
+              <td ng-if = "checkWrite('seller')">
                 <a ng-click="seller.toDeleteId = list.id; seller.toDeleteTitle = list.store_name" data-toggle="modal" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
@@ -63,7 +63,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-disabled="!sellerForm.$valid" ng-click="seller.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-if = "checkWrite('seller')" ng-disabled="!sellerForm.$valid" ng-click="seller.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
