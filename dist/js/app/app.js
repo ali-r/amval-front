@@ -87,3 +87,20 @@ app.directive('searchTools', function() {
     templateUrl: '/dist/js/app/directive/search.html'
   }
 });
+angular.module("assetAdminPanel").controller('mainCtrl',
+  function( $scope, $http, $localStorage){
+
+    $scope.per = $localStorage.assetData.permissions;
+    console.log($scope.per);
+
+    this.checkPer = function (param){
+      if( $scope.per[param] == 'none' || typeof(param) == "undefined"){
+        return false;
+      }else{
+        return true;
+      }
+    }
+
+
+
+});

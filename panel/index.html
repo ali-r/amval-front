@@ -39,6 +39,8 @@
   <body class="nav-md" ng-app = "assetAdminPanel">
     <div class="container body">
       <div class="main_container">
+        <div ng-controller="mainCtrl as main">
+
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
@@ -70,20 +72,20 @@
                 -->
                   <li><a><i class="fa fa-user"></i>کاربران <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#user">مدیریت کاربران</a></li>
+                      <li ng-if="main.checkPer('user')"><a href="#user">مدیریت کاربران</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> اطلاعات <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#warehouse">انبار</a></li>
-                      <li><a href="#seller">فروشنده</a></li>
-                      <li><a href="#guarantor">گارانتی</a></li>
-                      <li><a href="#producer">تولید کننده</a></li>
+                      <li ng-if="main.checkPer('warehouse')"><a href="#warehouse">انبار</a></li>
+                      <li ng-if="main.checkPer('seller')"><a href="#seller">فروشنده</a></li>
+                      <li ng-if="main.checkPer('guarantor')"><a href="#guarantor">گارانتی</a></li>
+                      <li ng-if="main.checkPer('producer')"><a href="#producer">تولید کننده</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-database"></i> دیتابیس <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#database">مدیریت دیتابیس</a></li>
+                      <li ng-if="main.checkPer('db')"><a href="#database">مدیریت دیتابیس</a></li>
                     </ul>
                   </li>
                   <!--
@@ -218,6 +220,7 @@
           </div>
         </div>
         <!-- /top navigation -->
+      </div>
 
         <!-- page content -->
         <div class="right_col" role="main">
