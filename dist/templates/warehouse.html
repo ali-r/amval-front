@@ -84,6 +84,13 @@
               <label>شماره تلفن</label>
               <input type="text" class="form-control" placeholder="شماره تلفن" ng-model = "warehouse.obj.phone" required>
             </div>
+            <label>انباردار</label>
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="user.obj.clerk.first_name + user.obj.clerk.last_name" disabled>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-beside-input" ng-click="stage = 1">انتخاب کاربر</button>
+              </span>
+            </div>
           </div>
       </form>
       </div>
