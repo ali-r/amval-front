@@ -14,10 +14,6 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   $scope.getUrl = pagination.makeUrl($scope);
 
-  this.makeUrl = function() {
-    return pagination.makeUrl($scope, controller.searchObject, controller.searchValue)
-  };
-
   controller.obj = {}
   crud.initModals($scope, controller, apiName, [
     controller.obj.title,
