@@ -59,7 +59,6 @@ app.service('requestHelper', function($cookieStore, $http, Upload, mainAsset, $w
       },500);
     };
     httpService.stopLoading();
-    mainAsset.errorFunction(response,response.status);
   }
 
   this.get = function(url, scope, callback ,progressBar) {
