@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('loginCtrl',
-  function( $scope, $http, $localStorage, $window, mainAsset){
+  function( $scope, $http, $localStorage, $window, mainAsset, requestHelper){
 
   var controller = this;
   $scope.serverUrl = mainAsset.getUrl();
@@ -21,11 +21,16 @@ angular.module("assetAdminPanel").controller('loginCtrl',
     .then(function successCallback(response) {
 
       $localStorage.assetData = response.data;
-      console.log(response.data.access_token);
       NProgress.done();
       $window.location.href = '/panel/#/user';
+      
       }, function errorCallback(response) {
         NProgress.done();
+        new PNotify({
+          title: 'خطا ' + response.status ,
+          text: 'عملیات موفقیت آمیز نبود.',
+          type: 'error'
+        });
     });
 
   };
