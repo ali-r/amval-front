@@ -192,6 +192,9 @@
                 <div class="panel panel-info">
                   <div class="panel-heading">
                     انتخاب انبار
+                    <div class="pull-left">
+                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                    </div>
                   </div>
                   <div class="panel-body">
                     <form name="searchForm" role="form" novalidate>
@@ -229,9 +232,6 @@
                     </table>
                   </div>
                 </div>
-              <div class="overlay" ng-show = "loadSearch">
-                <i class="fa fa-refresh fa-spin"></i>
-              </div>
               <!-- /.box-body -->
           </div>
             </div>

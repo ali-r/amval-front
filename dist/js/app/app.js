@@ -90,8 +90,9 @@ app.directive('searchTools', function() {
 angular.module("assetAdminPanel").controller('mainCtrl',
   function( $scope, $http, $localStorage){
 
+    $scope.userData = $localStorage.assetData;
     $scope.per = $localStorage.assetData.permissions;
-    console.log($scope.per);
+    /*console.log($localStorage.assetData);*/
 
     this.checkPer = function (param){
       if( $scope.per[param] == 'none' || typeof(param) == "undefined"){

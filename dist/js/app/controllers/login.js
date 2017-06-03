@@ -33,6 +33,10 @@ angular.module("assetAdminPanel").controller('loginCtrl',
           type: 'error'
         });
     });
-
   };
+
+  this.makeTargetUrl = function (perList, baseUrl) {
+    
+
+  }
 });
