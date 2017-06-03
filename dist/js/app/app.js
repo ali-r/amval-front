@@ -1,4 +1,4 @@
-var app = angular.module("assetAdminPanel", ["ngRoute","ngCookies","ngFileUpload"]);
+var app = angular.module("assetAdminPanel", ["ngRoute","ngCookies","ngStorage","ngFileUpload"]);
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);

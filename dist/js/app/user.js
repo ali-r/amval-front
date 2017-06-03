@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('userCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud) {
+  function($scope, mainAsset, requestHelper, pagination, crud) {
 
   var controller = this;
   var apiName = 'user';
@@ -11,7 +11,6 @@ angular.module("assetAdminPanel").controller('userCtrl',
   ];
 
   $scope.page = 1;
-  $scope.assetData = $cookieStore.get('assetData');
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   $scope.getUrl = pagination.makeUrl($scope)

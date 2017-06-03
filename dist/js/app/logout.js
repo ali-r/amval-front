@@ -1,15 +1,18 @@
 angular.module("assetAdminPanel").controller('logoutCtrl',
-  function($scope, $cookieStore, requestHelper, mainAsset){
+  function($scope, $localStorage, requestHelper, mainAsset){
 
     var controller = this;
     $scope.serverUrl = mainAsset.getUrl();
-    $scope.assetData = $cookieStore.get('assetData');
+    $scope.assetData = $localStorage.assetData;
     this.logoutUrl = $scope.serverUrl + "user/logout";
 
-    if ($scope.assetData !== null) {
+    /*delete $localStorage.assetData;
+    $localStorage.$reset();*/
+
+    if ($scope.assetData) {
       requestHelper.delete(controller.logoutUrl, $scope, function() {
-        $cookieStore.remove('assetData');
-        $cookieStore.remove('per');
+        localStorage.removeItem('ngStorage-assetData');
+        console.log('ok!');
       });
     }
 });

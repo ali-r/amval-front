@@ -1,14 +1,14 @@
-app.service('requestHelper', function($cookieStore, $http, Upload, mainAsset, $window) {
+app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $window, $cookies) {
   scope = null
   httpService = this
   headers = {'Content-Type': 'application/json; charset=UTF-8'}
 
   this.init = function(scope) {
     this.scope = scope
-    if(scope.assetData === null || typeof(scope.assetData) === "undefined")
+    scope.assetData = $localStorage.assetData;
+    if(!scope.assetData)
     {
-      $cookieStore.remove('assetData');
-      $cookieStore.remove('per');
+      $localStorage.$reset();
       setTimeout(
       function () {
         $window.location.href = "../index.html";
@@ -52,8 +52,7 @@ app.service('requestHelper', function($cookieStore, $http, Upload, mainAsset, $w
     });
     console.log(response);
     if (response.status === 401) {
-      $cookieStore.remove('assetData');
-      $cookieStore.remove('per');
+      $localStorage.$reset();
       setTimeout(function () {
         $window.location.href = "../index.html";
       },500);
