@@ -135,12 +135,12 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group" ng-class=" {'has-error' : userForm.phone.$invalid && user.obj.phone,
-                  'has-success' : userForm.phone.$valid && userForm.phone.$dirty } ">
+                  'has-success' : userForm.phone.$valid && user.obj.phone } ">
                   <label>شماره تماس*</label>
                   <input type="text" class="form-control form-ltr" name="phone" placeholder="شماره تماس" ng-model = "user.obj.phone"
                   ng-pattern = "/^[0-9-+]+$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }" required>
                   <p ng-show="userForm.phone.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
-                  <p ng-show="userForm.phone.$error.pattern" class="input-error-p">فقط اعداد و علامت + و − مجاز است</p>
+                  <p ng-show="userForm.phone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -254,7 +254,7 @@
           {{uploadPercentage}}
           </div>
         </div>
-
+        <!--
         <ul>
           <li ng-repeat="(key, errors) in userForm.$error track by $index"> <strong>{{ key }}</strong> errors
             <ul>
@@ -262,7 +262,7 @@
             </ul>
           </li>
         </ul>
-
+      -->
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

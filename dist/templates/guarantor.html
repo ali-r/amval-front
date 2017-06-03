@@ -73,26 +73,33 @@
       <div class="modal-body">
         <form name="guarantorForm" role="form" ng-hide="loadModal" novalidate>
           <div class="box-body">
-            <div class="form-group">
-              <label>نام دبیر</label>
-              <input type="text" class="form-control" placeholder="نام دبیر" ng-model = "guarantor.obj.secretary_first_name" required>
+            <div class="form-group" ng-class="{'has-success' : guarantorForm.name.$valid && guarantor.obj.secretary_first_name}">
+              <label>نام دبیر*</label>
+              <input type="text" class="form-control" name="name" placeholder="نام دبیر" ng-model = "guarantor.obj.secretary_first_name" required>
             </div>
-            <div class="form-group">
-              <label>نام خانوادگی دبیر</label>
-              <input type="text" class="form-control" placeholder="نام خانوادگی دبیر" ng-model = "guarantor.obj.secretary_last_name" required>
+            <div class="form-group" ng-class="{'has-success' : guarantorForm.lastname.$valid && guarantor.obj.secretary_last_name}">
+              <label>نام خانوادگی دبیر*</label>
+              <input type="text" class="form-control" placeholder="نام خانوادگی دبیر" name="lastname" ng-model = "guarantor.obj.secretary_last_name" required>
             </div>
-            <div class="form-group">
-              <label>شماره تلفن</label>
-              <input type="text" class="form-control" placeholder="شماره تلفن" ng-model = "guarantor.obj.office_phone" required>
+            <div class="form-group" ng-class=" {'has-error' : guarantorForm.phone.$invalid && guarantor.obj.office_phone,
+              'has-success' : guarantorForm.phone.$valid && guarantor.obj.office_phone } ">
+              <label>شماره تلفن*</label>
+              <input type="text" class="form-control" name="phone" placeholder="شماره تلفن" ng-model = "guarantor.obj.office_phone"
+              ng-pattern = "/^[0-9-+]+$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }" required>
+              <p ng-show="guarantorForm.phone.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
+              <p ng-show="guarantorForm.phone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>
             </div>
-            <div class="form-group">
-              <label>آدرس</label>
-              <input type="text" class="form-control" placeholder="آدرس" ng-model = "guarantor.obj.address" required>
+            <div class="form-group" ng-class="{'has-success' : guarantorForm.address.$valid && guarantor.obj.address}">
+              <label>آدرس*</label>
+              <textarea class="form-control" placeholder="آدرس" name="address" ng-model="guarantor.obj.address" rows="3" required></textarea>
             </div>
           </div>
       </form>
       </div>
       <div class="modal-footer">
+        <p> −
+          پر کردن فیلد هایی که با * مشخص شده اجباری است
+        </p>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -68,14 +68,17 @@
       <div class="modal-body">
         <form name="producerForm" role="form" ng-hide="loadModal" novalidate>
           <div class="box-body">
-            <div class="form-group">
-              <label>نام برند</label>
-              <input type="text" class="form-control" placeholder="نام برند" ng-model = "producer.obj.brand_name" required>
+            <div class="form-group" ng-class="{'has-success' : producerForm.brandname.$valid && producer.obj.brand_name}">
+              <label>نام برند*</label>
+              <input type="text" class="form-control" name="brandname" placeholder="نام برند" ng-model = "producer.obj.brand_name" required>
             </div>
           </div>
       </form>
       </div>
       <div class="modal-footer">
+        <p> −
+          پر کردن فیلد هایی که با * مشخص شده اجباری است
+        </p>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
