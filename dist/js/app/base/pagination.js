@@ -15,7 +15,7 @@ app.service('pagination', function() {
     };
 
     controller.makeUrl = function() {
-      return paginationService.makeUrl($scope, controller.searchObject, controller.searchValue);
+      return paginationService.makeUrl(scope, controller.searchObject, controller.searchValue);
     }
   }
 
