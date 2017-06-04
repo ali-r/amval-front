@@ -103,12 +103,13 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         });
     };
 
-    controller.search = function(cat,field){
+    controller.search = function(cat, field){
       scope.loadSearch = true;
       var searchUrl = mainAsset.getUrl() + cat + '?' + field + '__contains=' + controller.tmp.searchQuery;
       requestHelper.get(
         searchUrl, scope,
         function(response) {
+          console.log(response);
           controller.tmp.searchResult = response.data[cat + 's'];
           scope.loadSearch = false;
         });

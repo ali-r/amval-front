@@ -14,12 +14,18 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   $scope.getUrl = pagination.makeUrl($scope);
 
+  controller.objConfig = function (obj) {
+    if (obj.clerk)
+      obj.clerk = obj.clerk.id;
+    return obj;
+  };
+
   controller.obj = {}
   crud.initModals($scope, controller, apiName, [
     controller.obj.title,
     controller.obj.location,
     controller.obj.phone
   ]);
-  crud.init($scope, controller, apiName);
+  crud.init($scope, controller, apiName, controller.objConfig)
   pagination.initPagination($scope, controller);
 });

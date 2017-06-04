@@ -16,9 +16,8 @@ angular.module("assetAdminPanel").controller('userCtrl',
   $scope.getUrl = pagination.makeUrl($scope)
 
   controller.objConfig = function (obj) {
-    if (obj.warehouse) {
+    if (obj.warehouse)
       obj.warehouse = obj.warehouse.id;
-    }
     return obj;
   };
 
