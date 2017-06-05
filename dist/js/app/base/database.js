@@ -9,9 +9,10 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
 
     this.download = function(){
       requestHelper.post(controller.databaseUrl + '/backup', {}, $scope, function(response) {
-        requestHelper.get(response.data.download_url, $scope, function(res) {
-          /*uriContent = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(res.data);
-          $window.open(uriContent,'file.txt');*/
+        $window.open(response.data.download_url, '_blanck');
+        /*requestHelper.get(response.data.download_url, $scope, function(res) {
+          //uriContent = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(res.data);
+          //$window.open(uriContent,'file.txt');
           var str = res.data;
           var uri = 'data:text/csv;charset=utf-8,' + str;
           var d = new Date();
@@ -22,7 +23,7 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
           document.body.appendChild(downloadLink);
           downloadLink.click();
           document.body.removeChild(downloadLink);
-        },true)
+        },true)*/
       },true)
     }
 
