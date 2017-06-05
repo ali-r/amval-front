@@ -13,6 +13,10 @@ app.service('pagination', function() {
     scope.pagination = function(status) {
       return paginationService.pagination(status, scope.meta);
     };
+
+    controller.makeUrl = function() {
+      return paginationService.makeUrl(scope, controller.searchObject, controller.searchValue);
+    }
   }
 
   this.pagination = function(status, meta) {

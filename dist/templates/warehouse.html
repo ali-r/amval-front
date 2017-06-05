@@ -60,7 +60,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-disabled="!warehouseForm.$valid" ng-click="warehouse.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-disabled="!warehouseForm.$valid" ng-click="warehouse.sendOrEdit(editMode)" class="btn btn-success" ng-show = "stage == 0">ذخیره</button>
+          <button type="button" class="btn btn-info" ng-show = "stage == 1" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
@@ -70,29 +71,80 @@
         <h3 class="modal-title" ng-show="editMode">ویرایش انبار</h3>
       </div>
       <div class="modal-body">
-        <form name="warehouseForm" role="form" ng-hide="loadModal" novalidate>
-          <div class="box-body">
-            <div class="form-group">
-              <label>تیتر</label>
-              <input type="text" class="form-control" placeholder="تیتر" ng-model = "warehouse.obj.title" required>
-            </div>
-            <div class="form-group">
-              <label>محل</label>
-              <input type="text" class="form-control" placeholder="محل" ng-model = "warehouse.obj.location" required>
-            </div>
-            <div class="form-group">
-              <label>شماره تلفن</label>
-              <input type="text" class="form-control" placeholder="شماره تلفن" ng-model = "warehouse.obj.phone" required>
-            </div>
-            <label>انباردار</label>
-            <div class="input-group">
-              <input type="text" class="form-control" ng-model="user.obj.clerk.first_name + user.obj.clerk.last_name" disabled>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-beside-input" ng-click="stage = 1">انتخاب کاربر</button>
-              </span>
-            </div>
+          <div class="row" ng-show = "stage == 0">
+            <form name="warehouseForm" role="form" ng-hide="loadModal" novalidate>
+              <div class="box-body">
+                <div class="form-group">
+                  <label>تیتر</label>
+                  <input type="text" class="form-control" placeholder="تیتر" ng-model = "warehouse.obj.title" required>
+                </div>
+                <div class="form-group">
+                  <label>محل</label>
+                  <input type="text" class="form-control" placeholder="محل" ng-model = "warehouse.obj.location" required>
+                </div>
+                <div class="form-group">
+                  <label>شماره تلفن</label>
+                  <input type="text" class="form-control" placeholder="شماره تلفن" ng-model = "warehouse.obj.phone" required>
+                </div>
+                <label>انباردار</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="warehouse.obj.clerk.last_name" disabled>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary btn-beside-input" ng-click="stage = 1">انتخاب کاربر</button>
+                  </span>
+                </div>
+              </div>
+            </form>
           </div>
-      </form>
+        <div class="row" ng-show = "stage == 1">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                انتخاب کاربر
+                <div class="pull-left">
+                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                </div>
+              </div>
+              <div class="panel-body">
+                <form name="searchForm" role="form" novalidate>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="searchText" ng-model="warehouse.tmp.searchQuery" required>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="warehouse.search('user','last_name')">جستجوی کاربر</button>
+                        </span>
+                      </div>
+                  </form>
+                  <table class="table table-hover table-border" ng-hide = "warehouse.tmp.searchResult == '' || loadSearch">
+                    <tbody>
+                      <tr>
+                        <th>ردیف</th>
+                        <th>نام</th>
+                        <th>نام خانوادگی</th>
+                        <th>انتخاب</th>
+                      </tr>
+
+                      <tr ng-repeat = "list in warehouse.tmp.searchResult">
+                        <td>{{$index+1}}</td>
+                        <td>
+                          {{list.first_name}}
+                        </td>
+                        <td>
+                          {{list.last_name}}
+                        </td>
+                        <td>
+                          <a ng-click="warehouse.selectTarget(list.id, list.last_name, 'last_name', 'clerk')" href>
+                            <i class="fa fa-check-square-o fa-lg"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          <!-- /.box-body -->
+          </div>
+        </div>
+      </div>
       </div>
       <div class="modal-footer">
       </div>

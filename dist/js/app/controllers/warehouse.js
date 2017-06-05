@@ -14,8 +14,10 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   $scope.getUrl = pagination.makeUrl($scope);
 
-  this.makeUrl = function() {
-    return pagination.makeUrl($scope, controller.searchObject, controller.searchValue)
+  controller.objConfig = function (obj) {
+    if (obj.clerk)
+      obj.clerk = obj.clerk.id;
+    return obj;
   };
 
   controller.obj = {}
@@ -24,6 +26,6 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     controller.obj.location,
     controller.obj.phone
   ]);
-  crud.init($scope, controller, apiName);
+  crud.init($scope, controller, apiName, controller.objConfig)
   pagination.initPagination($scope, controller);
 });
