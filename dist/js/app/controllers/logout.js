@@ -12,7 +12,10 @@ angular.module("assetAdminPanel").controller('logoutCtrl',
     if ($scope.assetData) {
       requestHelper.delete(controller.logoutUrl, $scope, function() {
         localStorage.removeItem('ngStorage-assetData');
+        while ($localStorage.assetData) {
+          delete $localStorage.assetData;
+        }
         console.log('ok!');
-      });
+      },true);
     }
 });
