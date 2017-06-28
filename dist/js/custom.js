@@ -518,10 +518,13 @@ $(document).ready(function() {
     };
 
 	$(document).ready(function() {
+
     PNotify.prototype.options.styling = "bootstrap3";
     PNotify.prototype.options.addclass = "stack-bottomleft";
     PNotify.prototype.options.stack = stack_bottomleft;
     PNotify.prototype.options.buttons.sticker = false;
+
+    $('#preLoader').hide();
 
 		init_sidebar();
 		init_wysiwyg();

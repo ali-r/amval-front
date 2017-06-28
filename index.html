@@ -34,6 +34,17 @@
   </head>
 
   <body class="login" ng-controller = "loginCtrl as login">
+    <div id="preLoader" class="pre-loader">
+      <h3>
+        سامانه مدیریت اموال
+      </h3>
+      <br>
+        <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+      <br><br>
+      <h5>
+        در حال بارگذاری ....
+      </h5>
+    </div>
     <div>
       <div class="login_wrapper">
         <div class="animate form login_form">
@@ -89,6 +100,7 @@
 
     <!-- App -->
     <script src="config.js"></script>
+    <script src="../dist/js/custom.js"></script>
     <script src="../dist/js/app/app.js"></script>
     <script src="../dist/js/app/base/http.js"></script>
     <script src="../dist/js/app/controllers/login.js"></script>
