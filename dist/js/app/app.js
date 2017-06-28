@@ -90,9 +90,18 @@ app.directive('searchTools', function() {
 angular.module("assetAdminPanel").controller('mainCtrl',
   function( $scope, $http, $localStorage){
 
-    $scope.userData = $localStorage.assetData;
-    $scope.per = $localStorage.assetData.permissions;
+
     /*console.log($localStorage.assetData);*/
+    if(!$localStorage.assetData)
+    {
+      setTimeout(
+      function () {
+        $window.location.href = "../index.html";
+      },500);
+    }else{
+      $scope.userData = $localStorage.assetData;
+      $scope.per = $localStorage.assetData.permissions;
+    }
 
     this.checkPer = function (param){
       if( $scope.per[param] == 'none' || typeof(param) == "undefined"){
@@ -101,7 +110,5 @@ angular.module("assetAdminPanel").controller('mainCtrl',
         return true;
       }
     }
-
-
 
 });
