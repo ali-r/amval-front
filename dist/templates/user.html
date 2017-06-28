@@ -239,16 +239,16 @@
           </div>
       </div>
       <div class="modal-footer">
-        <p> −
+        <p ng-show = "stage === 0"> −
           پر کردن فیلد هایی که با * مشخص شده اجباری است
         </p>
-        <div class="">
+        <div ng-show = "stage === 0">
           <p ng-show = "uploading">
             <i class="fa fa-refresh fa-spin fa-lg"></i>
             در حال  بارگذاری ...
           </p>
         </div>
-        <div class="progress active" ng-hide = "uploadPercentage === 0">
+        <div class="progress active" ng-hide = "uploadPercentage == 0 || stage == 0">
           <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
           aria-valuemin="0" id="uploadPercentBox" aria-valuemax="100" ng-style="{ 'width' : uploadPercentage }">
           {{uploadPercentage}}
