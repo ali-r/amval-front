@@ -1,9 +1,9 @@
 angular.module("assetAdminPanel").controller('changepassCtrl',
-  function($scope, $http, mainAsset, $cookieStore, requestHelper){
+  function($scope, $http, mainAsset, $localStorage, requestHelper){
 
     var controller = this;
 
-    $scope.assetData = $cookieStore.get("assetData");
+    $scope.assetData = $localStorage.assetData;
     $scope.serverUrl = mainAsset.getUrl();
 
     this.changePassUrl = $scope.serverUrl + 'user/' + $scope.assetData.id + '/password';

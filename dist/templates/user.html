@@ -309,18 +309,28 @@
       </div>
       <div class="modal-body">
         <form name="resetPassForm" novalidate>
-          <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine }">
+          <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine ,
+            'has-success' : !resetPassForm.password.$invalid && !resetPassForm.pass.$pristine }">
             <label for="pass">کلمه عبور جدید</label>
             <input type="password" class="form-control form-ltr" name="pass" ng-pattern = "/^[a-z0-9]+$/"
-            ng-minlength="8" ng-maxlength="15" ng-model="user.passToReset" required>
+            ng-minlength="8" ng-maxlength="15" ng-model="user.passToReset" ng-model-options="{ allowInvalid: true }" required>
             <p ng-show="resetPassForm.pass.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
             <p ng-show="resetPassForm.pass.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
+            <p ng-show="resetPassForm.pass.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
+          </div>
+          <div class="form-group" ng-class=" {'has-error' : user.passToResetConf !== user.passToReset && user.passToResetConf,
+            'has-success' : user.passToResetConf == user.passToReset && !resetPassForm.confPass.$pristine}  ">
+            <label for="pass">تکرار کلمه عبور جدید</label>
+            <input name="confPass" type="password" id="password" ng-model="user.passToResetConf" class="form-control form-ltr" ng-maxlength="15" ng-minlength="8"
+            ng-pattern = "/^[a-z0-9]+$/" ng-model-options="{ allowInvalid: true }" required>
+            <p ng-show="user.passToResetConf !== user.passToReset && user.passToResetConf"
+            class="input-error-p">با کلمه عبور مطابقت ندارد</p>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
-        <button type="button" class="btn btn-success" ng-disabled="resetPassForm.$invalid" ng-click="user.resetPass(user.toResetPassId)">ذخیره</button>
+        <button type="button" class="btn btn-success" ng-disabled="resetPassForm.$invalid || user.passToResetConf !== user.passToReset" ng-click="user.resetPass(user.toResetPassId)">ذخیره</button>
       </div>
     </div>
   </div>
