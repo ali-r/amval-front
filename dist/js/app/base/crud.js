@@ -95,9 +95,14 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     };
 
     controller.deleteObject = function(id) {
+
       requestHelper.delete(
         scope.apiUrl + "/" + id,  scope,
         function(response) {
+          if( controller.note.length == 1 ){
+            scope.page -= 1;
+            scope.getUrl = controller.makeUrl();
+          }
           controller.getData();
           $('#deleteModal').modal('hide');
         });
