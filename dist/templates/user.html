@@ -29,9 +29,9 @@
               <th ng-if = "checkWrite('user')"></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody ng-hide = "load">
             <tr ng-repeat = "list in user.note">
-              <td ng-click="user.getObject(list.id)">{{$index + 1}}</td>
+              <td ng-click="user.getObject(list.id)">{{ (page-1)*10 + $index + 1 }}</td>
               <td ng-click="user.getObject(list.id)">{{list.first_name}}</td>
               <td ng-click="user.getObject(list.id)">{{list.last_name}}</td>
               <td ng-click="user.getObject(list.id)">{{list.card_no}}</td>

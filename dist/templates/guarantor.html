@@ -30,7 +30,7 @@
           </thead>
           <tbody ng-hide="load">
             <tr ng-repeat = "list in guarantor.note">
-              <td>{{$index + 1}}</td>
+              <td>{{ (page-1)*10 + $index + 1 }}</td>
               <td>{{list.secretary_first_name}}</td>
               <td>{{list.secretary_last_name}}</td>
               <td>{{list.office_phone}}</td>
