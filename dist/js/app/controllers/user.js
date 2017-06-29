@@ -43,8 +43,12 @@ angular.module("assetAdminPanel").controller('userCtrl',
 
   controller.obj.scanned_signature = '';
   this.uploadPic = function() {
-    requestHelper.uploadFileReq(controller.sigFile, 'signature', $scope, function(data){
-      controller.obj.scanned_signature = data.file_url;
-    });
+    console.log($scope.userForm.file.$error)
+    if(!$scope.userForm.file.$error.maxSize && controller.sigFile)
+    {
+      requestHelper.uploadFileReq(controller.sigFile, 'signature', $scope, function(data){
+        controller.obj.scanned_signature = data.file_url;
+      });
+    }
   }
 });

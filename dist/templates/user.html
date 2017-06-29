@@ -164,11 +164,13 @@
                 <div class="form-group">
                   <label>تصویر امضا*</label>
                   <br/>
-                  <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'image/*'"
-                    ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature">بارگذاری تصویر امضا</div>
+                  <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'" 
+                    ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature" ng-disabled="uploading">بارگذاری تصویر امضا</div>
                   <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature && checkWrite('user')"
                   ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
                   <br/>
+                  <p ng-show="userForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
+                  <p ng-show="userForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
                   <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
                   ng-if="user.obj.scanned_signature">
                 </div>
@@ -241,9 +243,13 @@
       <div class="modal-footer">
         <p ng-show = "stage === 0"> −
           پر کردن فیلد هایی که با * مشخص شده اجباری است
+          <br>
+          -
+          حداکثر حجم مجاز برای آپلود تصویر ۲ مگابایت است.
+          <hr>
         </p>
         <div ng-show = "stage === 0">
-          <p ng-show = "uploading">
+          <p ng-show = "uploading" style="text-align : center;">
             <i class="fa fa-refresh fa-spin fa-lg"></i>
             در حال  بارگذاری ...
           </p>
