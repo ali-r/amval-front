@@ -28,4 +28,11 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   ]);
   crud.init($scope, controller, apiName, controller.objConfig)
   pagination.initPagination($scope, controller);
+
+  controller.selectUser = function(){
+    $scope.stage = 1;
+    controller.tmp.searchQuery = '';
+    controller.search('user','last_name');
+  }
+
 });

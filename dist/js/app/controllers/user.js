@@ -51,4 +51,10 @@ angular.module("assetAdminPanel").controller('userCtrl',
       });
     }
   }
+
+  controller.selectWareHouse = function() {
+    $scope.stage = 1;
+    controller.tmp.searchQuery = '';
+    controller.search('warehouse','title');
+  }
 });

@@ -164,7 +164,7 @@
                 <div class="form-group">
                   <label>تصویر امضا*</label>
                   <br/>
-                  <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'" 
+                  <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
                     ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature" ng-disabled="uploading">بارگذاری تصویر امضا</div>
                   <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature && checkWrite('user')"
                   ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
@@ -181,7 +181,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
                     <span class="input-group-btn">
-                      <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="stage = 1">انتخاب انبار</button>
+                      <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectWareHouse()">انتخاب انبار</button>
                     </span>
                   </div>
                 </div>
@@ -246,7 +246,7 @@
           <br>
           -
           حداکثر حجم مجاز برای آپلود تصویر ۲ مگابایت است.
-          <hr>
+          <hr ng-show = "stage === 0">
         </p>
         <div ng-show = "stage === 0">
           <p ng-show = "uploading" style="text-align : center;">
