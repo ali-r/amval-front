@@ -32,7 +32,7 @@
               <td>{{list.brand_name}}</td>
               <td>
                 <a ng-click="producer.getObject(list.id)" href>
-                  <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
+                  <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('producer') , 'fa-eye' : !checkWrite('producer')}" aria-hidden="true"></i>
                 </a>
               </td>
               <td ng-if = "checkWrite('producer')">
@@ -66,12 +66,14 @@
       </div>
       <div class="modal-body">
         <form name="producerForm" role="form" ng-hide="loadModal" novalidate>
-          <div class="box-body">
-            <div class="form-group" ng-class="{'has-success' : producerForm.brandname.$valid && producer.obj.brand_name}">
-              <label>نام برند*</label>
-              <input type="text" class="form-control" name="brandname" placeholder="نام برند" ng-model = "producer.obj.brand_name" required>
+          <fieldset ng-disabled ="!checkWrite('producer')">
+            <div class="box-body">
+              <div class="form-group" ng-class="{'has-success' : producerForm.brandname.$valid && producer.obj.brand_name}">
+                <label>نام برند*</label>
+                <input type="text" class="form-control" name="brandname" placeholder="نام برند" ng-model = "producer.obj.brand_name" required>
+              </div>
             </div>
-          </div>
+          </fieldset>
       </form>
       </div>
       <div class="modal-footer">

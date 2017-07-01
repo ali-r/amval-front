@@ -39,7 +39,7 @@
               <td ng-click="user.getObject(list.id)" style="direction:ltr;">{{list.phone}}</td>
               <td>
                 <a ng-click="user.getObject(list.id)" href>
-                  <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
+                  <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('user') , 'fa-eye' : !checkWrite('user')}" aria-hidden="true"></i>
                 </a>
               </td>
               <td ng-if = "checkWrite('user')">
@@ -82,110 +82,112 @@
           <div class="box-body">
             <div class="row" ng-show = "stage == 0">
               <form name="userForm" role="form" ng-hide="loadModal" novalidate>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>نوع کاربر*</label>
-                  <select class="form-control" ng-model="user.obj.clearance_level" required>
-                    <option ng-value="0">کاربر</option>
-                    <option ng-value="1">انباردار</option>
-                    <option ng-value="2">انباردار مرکزی</option>
-                    <option ng-value="3">مدیر</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group" ng-class="{'has-success' : userForm.lastname.$valid && user.obj.last_name}">
-                  <label>نام خانوادگی*</label>
-                  <input type="text" class="form-control" name="lastname" placeholder="نام خانوادگی" ng-model = "user.obj.last_name" required>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group" ng-class="{'has-success' : userForm.firstname.$valid && user.obj.first_name}">
-                  <label>نام*</label>
-                  <input type="text" class="form-control" name="firstname" placeholder="نام" ng-model = "user.obj.first_name" required>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
-                <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$dirty && user.tmp.confirm_pass !== user.obj.password,
-                  'has-success' : user.tmp.confirm_pass === user.obj.password && user.tmp.confirm_pass}">
-                  <label>تکرار گذرواژه*</label>
-                  <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه"
-                  ng-model = "user.tmp.confirm_pass" ng-required = "!editMode && user.obj.clearance_level !== 0" ng-model-options="{ allowInvalid: true }">
-                  <p ng-show="user.tmp.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
-                </div>
-              </div>
-              <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
-                <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && user.obj.password,
-                  'has-success' : !userForm.password.$invalid }  ">
-                  <label>گذرواژه*</label>
-                  <input type="password" class="form-control" name="password" placeholder="گذرواژه" ng-pattern = "/^[a-z0-9]+$/"
-                  ng-model = "user.obj.password" ng-required = "!editMode && user.obj.clearance_level !== 0" ng-minlength="8" ng-maxlength="15" ng-model-options="{ allowInvalid: true }">
-                  <p ng-show="userForm.password.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
-                  <p ng-show="userForm.password.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
-                  <p ng-show="userForm.password.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-md-6">
-                <div class="form-group" ng-class="{'has-success' : userForm.cardno.$valid && user.obj.card_no}">
-                  <label>شماره کارت (نام کاربری)*</label>
-                  <input type="text" name = "cardno" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.obj.card_no" required>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group" ng-class=" {'has-error' : userForm.phone.$invalid && user.obj.phone,
-                  'has-success' : userForm.phone.$valid && user.obj.phone } ">
-                  <label>شماره تماس*</label>
-                  <input type="text" class="form-control form-ltr" name="phone" placeholder="شماره تماس" ng-model = "user.obj.phone"
-                  ng-pattern = "/^[0-9-+]+$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }" required>
-                  <p ng-show="userForm.phone.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
-                  <p ng-show="userForm.phone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-md-6">
-                <div class="form-group" ng-class="{'has-success' : userForm.cat.$valid && user.obj.service_category}">
-                  <label>دسته خدمتی*</label>
-                  <input type="text" class="form-control" name="cat" placeholder="دسته خدمتی" ng-model = "user.obj.service_category" required>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>وضعیت خدمت*</label>
-                  <select class="form-control" ng-model = "user.obj.service_situation" required>
-                    <option ng-value="0">در حال کار</option>
-                    <option ng-value="1">جدا شده</option>
-                  </select>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>تصویر امضا*</label>
-                  <br/>
-                  <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                    ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature" ng-disabled="uploading">بارگذاری تصویر امضا</div>
-                  <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature && checkWrite('user')"
-                  ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
-                  <br/>
-                  <p ng-show="userForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
-                  <p ng-show="userForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
-                  <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
-                  ng-if="user.obj.scanned_signature">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>انبار</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
-                    <span class="input-group-btn">
-                      <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectWareHouse()">انتخاب انبار</button>
-                    </span>
+                <fieldset>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>نوع کاربر*</label>
+                      <select class="form-control" ng-model="user.obj.clearance_level" required>
+                        <option ng-value="0">کاربر</option>
+                        <option ng-value="1">انباردار</option>
+                        <option ng-value="2">انباردار مرکزی</option>
+                        <option ng-value="3">مدیر</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-              </div>
+                  <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : userForm.lastname.$valid && user.obj.last_name}">
+                      <label>نام خانوادگی*</label>
+                      <input type="text" class="form-control" name="lastname" placeholder="نام خانوادگی" ng-model = "user.obj.last_name" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : userForm.firstname.$valid && user.obj.first_name}">
+                      <label>نام*</label>
+                      <input type="text" class="form-control" name="firstname" placeholder="نام" ng-model = "user.obj.first_name" required>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
+                    <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$dirty && user.tmp.confirm_pass !== user.obj.password,
+                      'has-success' : user.tmp.confirm_pass === user.obj.password && user.tmp.confirm_pass}">
+                      <label>تکرار گذرواژه*</label>
+                      <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه"
+                      ng-model = "user.tmp.confirm_pass" ng-required = "!editMode && user.obj.clearance_level !== 0" ng-model-options="{ allowInvalid: true }">
+                      <p ng-show="user.tmp.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
+                    <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && user.obj.password,
+                      'has-success' : !userForm.password.$invalid }  ">
+                      <label>گذرواژه*</label>
+                      <input type="password" class="form-control" name="password" placeholder="گذرواژه" ng-pattern = "/^[a-z0-9]+$/"
+                      ng-model = "user.obj.password" ng-required = "!editMode && user.obj.clearance_level !== 0" ng-minlength="8" ng-maxlength="15" ng-model-options="{ allowInvalid: true }">
+                      <p ng-show="userForm.password.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
+                      <p ng-show="userForm.password.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
+                      <p ng-show="userForm.password.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-success' : userForm.cardno.$valid && user.obj.card_no}">
+                      <label>شماره کارت (نام کاربری)*</label>
+                      <input type="text" name = "cardno" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.obj.card_no" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group" ng-class=" {'has-error' : userForm.phone.$invalid && user.obj.phone,
+                      'has-success' : userForm.phone.$valid && user.obj.phone } ">
+                      <label>شماره تماس*</label>
+                      <input type="text" class="form-control form-ltr" name="phone" placeholder="شماره تماس" ng-model = "user.obj.phone"
+                      ng-pattern = "/^[0-9-+]+$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }" required>
+                      <p ng-show="userForm.phone.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
+                      <p ng-show="userForm.phone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-success' : userForm.cat.$valid && user.obj.service_category}">
+                      <label>دسته خدمتی*</label>
+                      <input type="text" class="form-control" name="cat" placeholder="دسته خدمتی" ng-model = "user.obj.service_category" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>وضعیت خدمت*</label>
+                      <select class="form-control" ng-model = "user.obj.service_situation" required>
+                        <option ng-value="0">در حال کار</option>
+                        <option ng-value="1">جدا شده</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>تصویر امضا*</label>
+                      <br/>
+                      <div class="btn btn-info btn-sm" ngf-select="user.uploadPic()" ng-model="user.sigFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
+                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature" ng-disabled="uploading">بارگذاری تصویر امضا</div>
+                      <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature && checkWrite('user')"
+                      ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
+                      <br/>
+                      <p ng-show="userForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
+                      <p ng-show="userForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
+                      ng-if="user.obj.scanned_signature">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>انبار</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectWareHouse()">انتخاب انبار</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
             </form>
             </div>
             <!-- end of Stage 1 -->
