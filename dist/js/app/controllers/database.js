@@ -29,17 +29,19 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
 
     requestHelper.init($scope);
     this.upload = function(){
-      requestHelper.startLoading(true);
-      Upload.upload({
-          url: controller.databaseUrl,
-          method : 'PUT',
-          headers: {'Access-Token': $scope.assetData.access_token},
-          data: {'database' : controller.file}
-      }).then(function (resp) {
-          requestHelper.successCallback();
-      }, function (resp) {
-          requestHelper.errorCallback(resp.status);
-      }, function (evt) {
-      });
+      if (!$scope.databaseForm.file.$error.pattern && controller.file) {
+        requestHelper.startLoading(true);
+        Upload.upload({
+            url: controller.databaseUrl,
+            method : 'PUT',
+            headers: {'Access-Token': $scope.assetData.access_token},
+            data: {'database' : controller.file}
+        }).then(function (resp) {
+            requestHelper.successCallback();
+        }, function (resp) {
+            requestHelper.errorCallback(resp.status);
+        }, function (evt) {
+        });
+      }
     }
 });

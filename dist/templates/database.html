@@ -6,10 +6,13 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div style="text-align:center">
-          <button type="submit" ng-click="database.download()" class="btn btn-success"> دریافت </button>
-          <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file"
-            ngf-max-size="2MB">ارسال</div>
+          <form name='databaseForm'>
+            <button type="submit" ng-click="database.download()" class="btn btn-success"> دریافت </button>
+            <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'"
+              ngf-max-size="2MB">ارسال</div>
+          </form>
         </div>
+        <p ng-show="databaseForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
       </div>
     </div>
   </div>
