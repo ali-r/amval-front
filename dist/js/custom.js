@@ -203,76 +203,6 @@ $(document).ready(function() {
         });
     }
 });
-// /Switchery
-
-
-// iCheck
-$(document).ready(function() {
-    if ($("input.flat")[0]) {
-        $(document).ready(function () {
-            $('input.flat').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-        });
-    }
-});
-// /iCheck
-
-// Table
-$('table input').on('ifChecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
-});
-$('table input').on('ifUnchecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
-
-var checkState = '';
-
-$('.bulk_action input').on('ifChecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
-});
-$('.bulk_action input').on('ifUnchecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifChecked', function () {
-    checkState = 'all';
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifUnchecked', function () {
-    checkState = 'none';
-    countChecked();
-});
-
-function countChecked() {
-    if (checkState === 'all') {
-        $(".bulk_action input[name='table_records']").iCheck('check');
-    }
-    if (checkState === 'none') {
-        $(".bulk_action input[name='table_records']").iCheck('uncheck');
-    }
-
-    var checkCount = $(".bulk_action input[name='table_records']:checked").length;
-
-    if (checkCount) {
-        $('.column-title').hide();
-        $('.bulk-actions').show();
-        $('.action-cnt').html(checkCount + ' Records Selected');
-    } else {
-        $('.column-title').show();
-        $('.bulk-actions').hide();
-    }
-}
-
-
 
 // Accordion
 $(document).ready(function() {
@@ -423,100 +353,6 @@ $(document).ready(function() {
 
 		    };
 
-		/* SELECT2 */
-
-		function init_select2() {
-
-			if( typeof (select2) === 'undefined'){ return; }
-			console.log('init_toolbox');
-
-			$(".select2_single").select2({
-			  placeholder: "Select a state",
-			  allowClear: true
-			});
-			$(".select2_group").select2({});
-			$(".select2_multiple").select2({
-			  maximumSelectionLength: 4,
-			  placeholder: "With Max Selection limit 4",
-			  allowClear: true
-			});
-
-		};
-
-	   /* WYSIWYG EDITOR */
-
-		function init_wysiwyg() {
-
-		if( typeof ($.fn.wysiwyg) === 'undefined'){ return; }
-		console.log('init_wysiwyg');
-
-        function init_ToolbarBootstrapBindings() {
-          var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
-              'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-              'Times New Roman', 'Verdana'
-            ],
-            fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-          $.each(fonts, function(idx, fontName) {
-            fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
-          });
-          $('a[title]').tooltip({
-            container: 'body'
-          });
-          $('.dropdown-menu input').click(function() {
-              return false;
-            })
-            .change(function() {
-              $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');
-            })
-            .keydown('esc', function() {
-              this.value = '';
-              $(this).change();
-            });
-
-          $('[data-role=magic-overlay]').each(function() {
-            var overlay = $(this),
-              target = $(overlay.data('target'));
-            overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-          });
-
-          if ("onwebkitspeechchange" in document.createElement("input")) {
-            var editorOffset = $('#editor').offset();
-
-            $('.voiceBtn').css('position', 'absolute').offset({
-              top: editorOffset.top,
-              left: editorOffset.left + $('#editor').innerWidth() - 35
-            });
-          } else {
-            $('.voiceBtn').hide();
-          }
-        }
-
-        function showErrorAlert(reason, detail) {
-          var msg = '';
-          if (reason === 'unsupported-file-type') {
-            msg = "Unsupported format " + detail;
-          } else {
-            console.log("error uploading file", reason, detail);
-          }
-          $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
-            '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
-        }
-
-       $('.editor-wrapper').each(function(){
-			var id = $(this).attr('id');	//editor-one
-
-			$(this).wysiwyg({
-				toolbarSelector: '[data-target="#' + id + '"]',
-				fileUploadError: showErrorAlert
-			});
-		});
-
-
-        window.prettyPrint;
-        prettyPrint();
-
-    };
-
 	$(document).ready(function() {
 
     PNotify.prototype.options.styling = "bootstrap3";
@@ -527,10 +363,8 @@ $(document).ready(function() {
     $('#preLoader').hide();
 
 		init_sidebar();
-		init_wysiwyg();
 		init_TagsInput();
 		init_parsley();
 		init_skycons();
-		init_select2();
 
 	});
