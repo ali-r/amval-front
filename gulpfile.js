@@ -1,6 +1,7 @@
 
 var gulp = require('gulp'),
-  connect = require('gulp-connect');
+    inject = require('gulp-inject'),
+    connect = require('gulp-connect');
 
 gulp.task('connect', function() {
   connect.server({
@@ -16,6 +17,10 @@ gulp.task('html', function () {
 
 gulp.task('watch', function () {
   gulp.watch(['dist/templates/*.html'], ['html']);
+});
+
+gulp.task('index',function(){
+
 });
 
 gulp.task('default', ['connect', 'watch']);
