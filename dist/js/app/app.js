@@ -12,7 +12,7 @@ app.config(function ($httpProvider) {
 });
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
-    var assetPages = ['database','user','seller','producer','guarantor','warehouse','changepass'];
+    var assetPages = ['home','database','user','seller','producer','guarantor','warehouse','changepass'];
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {
@@ -104,7 +104,7 @@ angular.module("assetAdminPanel").controller('mainCtrl',
     }
 
     this.checkPer = function (param){
-      if( $scope.per[param] == 'none' || typeof(param) == "undefined"){
+      if( $scope.per[param] == 'none' || typeof($scope.per[param]) == "undefined"){
         return false;
       }else{
         return true;

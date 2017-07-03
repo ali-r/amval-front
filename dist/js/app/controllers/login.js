@@ -23,7 +23,7 @@ angular.module("assetAdminPanel").controller('loginCtrl',
       $localStorage.assetData = response.data;
       /*$localStorage.assetData.permissions.user = 'read';*/
       NProgress.done();
-      $window.location.href = '/panel/#/user';
+      $window.location.href = '/panel/#/home';
 
       }, function errorCallback(response) {
         NProgress.done();
@@ -36,7 +36,7 @@ angular.module("assetAdminPanel").controller('loginCtrl',
   };
 
   this.makeTargetUrl = function (perList, baseUrl) {
-    
+
 
   }
 });
