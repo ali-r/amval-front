@@ -75,7 +75,16 @@ app.service('pagination', function() {
     return (typeof(string) != "undefined") && (string !== "") && (string + "" != 'undefined') && (string + "" != 'NaN');
   }
 
-  this.makeUrl = function(scope, searchObj={}, searchValue={}) {
+  this.makeUrl = function(scope, searchObj, searchValue) {
+
+    if ( typeof(searchObj) == 'undefined' ) {
+      searchObj = {};
+    }
+
+    if ( typeof(searchValue) == 'undefined' ) {
+      searchValue = {};
+    }
+
     var keys = {};
     for (var i = 0; i < searchObj.length; i++) {
       keys[searchObj[i].field + '__contains'] = searchValue[searchObj[i].field];

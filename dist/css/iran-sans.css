@@ -2,12 +2,12 @@
 
 @font-face {
 	font-family: 'IRANSans';
-        src: url('IRANSans-web.eot');
- 
-	src: url('IRANSans-web.eot?#iefix') format('eot'),  /* IE6–8 */
-url('IRANSans-web.woff2') format('woff2'),  /* Chrome36+, Opera24+*/
-url('IRANSans-web.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-url('IRANSans-web.ttf') format('ttf');  
+        src: url('../fonts/IRANSans-web.eot');
+
+	src: url('../fonts/IRANSans-web.eot?#iefix') format('eot'),  /* IE6–8 */
+url('../fonts/IRANSans-web.woff2') format('woff2'),  /* Chrome36+, Opera24+*/
+url('../fonts/IRANSans-web.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+url('../fonts/IRANSans-web.ttf') format('ttf');
 	font-weight: normal;
 }
 
@@ -62,4 +62,3 @@ url('IRANSans-web.ttf') format('ttf');
 	border-bottom-color: #FFF;
 	font-weight: normal;
 }
-

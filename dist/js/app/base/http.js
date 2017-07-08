@@ -18,7 +18,10 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }
   }
 
-  this.startLoading = function(needProgressBar=false) {
+  this.startLoading = function(needProgressBar) {
+    if ( typeof(needProgressBar) == 'undefined' ) {
+      needProgressBar = false;
+    }
     if (needProgressBar) {
       NProgress.start();
       this.scope.load = true;
@@ -32,7 +35,15 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     this.scope.loadSearch = false;
   }
 
-  this.successCallback = function(response, callback = function(){}, notifyEnable=true) {
+  this.successCallback = function(response, callback , notifyEnable) {
+
+    if ( typeof(callback) == 'undefined' ) {
+      callback = function(){};
+    }
+
+    if ( typeof(notifyEnable) == 'undefined' ) {
+      notifyEnable = true;
+    }
     /*console.log(response.data);*/
     callback(response)
     if (notifyEnable)

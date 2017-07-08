@@ -23,7 +23,11 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
   }
 
-  this.init = function(scope, controller, name, objConfig = function(obj){return obj;}) {
+  this.init = function(scope, controller, name, objConfig) {
+
+    if ( typeof(objConfig) == 'undefined' ) {
+      objConfig = function(obj){return obj;};
+    }
 
     scope.checkWrite = function(param){
       if( $localStorage.assetData.permissions[param] == 'write'){

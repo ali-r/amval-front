@@ -2,8 +2,15 @@
 var gulp = require('gulp'),
     inject = require('gulp-inject'),
     es = require('event-stream'),
+    newer = require('gulp-newer'),
+    uglify = require('gulp-uglify'),
+    stripdebug = require('gulp-strip-debug'),
+    gutil = require('gulp-util'),
+    minify = require('gulp-minify-css'),
     concat = require('gulp-concat'),
     connect = require('gulp-connect');
+
+var devMode = false;
 
 var css = {
   in : {
@@ -24,6 +31,11 @@ js = {
     controllers : 'dist/js/app/controllers/*.js'
   },
   out : 'dist/js/build'
+},
+
+fonts = {
+  in : ['vendors/plugins/font-awesome/fonts/*.*','vendors/plugins/bootstrap/dist/fonts/*.*','dist/fonts/*.*'],
+  out : 'dist/css/fonts'
 };
 
 
@@ -32,20 +44,34 @@ function index(pathIn,fileName) {
       cssSources = gulp.src(
     [
       css.in.vendors,css.in.project
-    ], {read: false})
+    ])
       jsSources = gulp.src(
     [
       js.in.config ,js.in.vbase ,js.in.plugins ,js.in.custom,
       js.in.app ,js.in.base ,js.in.controllers
-    ], {read: false});
+    ]);
 
-  /*cssSources = cssSources
-    .pipe(concat('main.css'))
-    .pipe(gulp.dest(css.out));*/
+    if (!devMode) {
+      cssSources = cssSources
+        .pipe(concat('main.css'))
+        .pipe(minify())
+        .pipe(gulp.dest(css.out));
+
+      jsSources = jsSources
+        .pipe(concat('main.js'))
+        .pipe(uglify({ mangle: false }).on('error',gutil.log))
+        .pipe(gulp.dest(js.out));
+    }
 
   return target.pipe(inject(es.merge(cssSources,jsSources)))
     .pipe(gulp.dest(pathIn));
 }
+
+gulp.task('copyFonts', function(){
+  return gulp.src(fonts.in)
+          .pipe(newer(fonts.out))
+		      .pipe(gulp.dest(fonts.out));
+});
 
 gulp.task('connect', function() {
   connect.server({
@@ -63,8 +89,9 @@ gulp.task('watch', function () {
   gulp.watch(['dist/templates/*.html'], ['html']);
 });
 
-gulp.task('index',function(){
+gulp.task('index',['copyFonts'] ,function(){
   return index('panel/','index.html'),index('','index.html');
 });
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['index','connect', 'watch'] ,function(){
+});
