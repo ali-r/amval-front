@@ -1737,10 +1737,10 @@ pre code {
   left: auto;
 }
 .col-xs-offset-12 {
-  margin-left: 100%;
+  margin-right: 100%;
 }
 .col-xs-offset-11 {
-  margin-left: 91.66666667%;
+  margin-right: 91.66666667%;
 }
 .col-xs-offset-10 {
   margin-left: 83.33333333%;
@@ -1764,7 +1764,7 @@ pre code {
   margin-left: 33.33333333%;
 }
 .col-xs-offset-3 {
-  margin-left: 25%;
+  margin-right: 25%;
 }
 .col-xs-offset-2 {
   margin-left: 16.66666667%;
@@ -1921,7 +1921,7 @@ pre code {
     margin-left: 33.33333333%;
   }
   .col-sm-offset-3 {
-    margin-left: 25%;
+    margin-right: 25%;
   }
   .col-sm-offset-2 {
     margin-left: 16.66666667%;
@@ -2079,13 +2079,13 @@ pre code {
     margin-left: 33.33333333%;
   }
   .col-md-offset-3 {
-    margin-left: 25%;
+    margin-right: 25%;
   }
   .col-md-offset-2 {
     margin-left: 16.66666667%;
   }
   .col-md-offset-1 {
-    margin-left: 8.33333333%;
+    margin-right: 8.33333333%;
   }
   .col-md-offset-0 {
     margin-left: 0;
@@ -2237,7 +2237,7 @@ pre code {
     margin-left: 33.33333333%;
   }
   .col-lg-offset-3 {
-    margin-left: 25%;
+    margin-right: 25%;
   }
   .col-lg-offset-2 {
     margin-left: 16.66666667%;

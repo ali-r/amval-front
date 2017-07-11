@@ -84,6 +84,18 @@
               <form name="userForm" role="form" ng-hide="loadModal" novalidate>
                 <fieldset>
                   <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : userForm.firstname.$valid && user.obj.first_name}">
+                      <label>نام*</label>
+                      <input type="text" class="form-control" name="firstname" placeholder="نام" ng-model = "user.obj.first_name" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : userForm.lastname.$valid && user.obj.last_name}">
+                      <label>نام خانوادگی*</label>
+                      <input type="text" class="form-control" name="lastname" placeholder="نام خانوادگی" ng-model = "user.obj.last_name" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label>نوع کاربر*</label>
                       <select class="form-control" ng-model="user.obj.clearance_level" required>
@@ -94,28 +106,9 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group" ng-class="{'has-success' : userForm.lastname.$valid && user.obj.last_name}">
-                      <label>نام خانوادگی*</label>
-                      <input type="text" class="form-control" name="lastname" placeholder="نام خانوادگی" ng-model = "user.obj.last_name" required>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group" ng-class="{'has-success' : userForm.firstname.$valid && user.obj.first_name}">
-                      <label>نام*</label>
-                      <input type="text" class="form-control" name="firstname" placeholder="نام" ng-model = "user.obj.first_name" required>
-                    </div>
-                  </div>
+                  
+                  
                   <div class="clearfix"></div>
-                  <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
-                    <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$dirty && user.tmp.confirm_pass !== user.obj.password,
-                      'has-success' : user.tmp.confirm_pass === user.obj.password && user.tmp.confirm_pass}">
-                      <label>تکرار گذرواژه*</label>
-                      <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه"
-                      ng-model = "user.tmp.confirm_pass" ng-required = "!editMode && user.obj.clearance_level !== 0" ng-model-options="{ allowInvalid: true }">
-                      <p ng-show="user.tmp.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
-                    </div>
-                  </div>
                   <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
                     <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && user.obj.password,
                       'has-success' : !userForm.password.$invalid }  ">
@@ -127,13 +120,16 @@
                       <p ng-show="userForm.password.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <div class="col-md-6">
-                    <div class="form-group" ng-class="{'has-success' : userForm.cardno.$valid && user.obj.card_no}">
-                      <label>شماره کارت (نام کاربری)*</label>
-                      <input type="text" name = "cardno" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.obj.card_no" required>
+                  <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
+                    <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$dirty && user.tmp.confirm_pass !== user.obj.password,
+                      'has-success' : user.tmp.confirm_pass === user.obj.password && user.tmp.confirm_pass}">
+                      <label>تکرار گذرواژه*</label>
+                      <input type="password" class="form-control" name="confPass" placeholder="تکرار گذرواژه"
+                      ng-model = "user.tmp.confirm_pass" ng-required = "!editMode && user.obj.clearance_level !== 0" ng-model-options="{ allowInvalid: true }">
+                      <p ng-show="user.tmp.confirm_pass !== user.obj.password && !userForm.confPass.$pristine" class="input-error-p">با کلمه عبور مطابقت ندارد</p>
                     </div>
                   </div>
+                  <div class="clearfix"></div>
                   <div class="col-md-6">
                     <div class="form-group" ng-class=" {'has-error' : userForm.phone.$invalid && user.obj.phone,
                       'has-success' : userForm.phone.$valid && user.obj.phone } ">
@@ -144,13 +140,14 @@
                       <p ng-show="userForm.phone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
                   <div class="col-md-6">
-                    <div class="form-group" ng-class="{'has-success' : userForm.cat.$valid && user.obj.service_category}">
-                      <label>دسته خدمتی*</label>
-                      <input type="text" class="form-control" name="cat" placeholder="دسته خدمتی" ng-model = "user.obj.service_category" required>
+                    <div class="form-group" ng-class="{'has-success' : userForm.cardno.$valid && user.obj.card_no}">
+                      <label>شماره کارت (نام کاربری)*</label>
+                      <input type="text" name = "cardno" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.obj.card_no" required>
                     </div>
                   </div>
+                  
+                  <div class="clearfix"></div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>وضعیت خدمت*</label>
@@ -160,7 +157,24 @@
                       </select>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-success' : userForm.cat.$valid && user.obj.service_category}">
+                      <label>دسته خدمتی*</label>
+                      <input type="text" class="form-control" name="cat" placeholder="دسته خدمتی" ng-model = "user.obj.service_category" required>
+                    </div>
+                  </div>
                   <div class="clearfix"></div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>انبار</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectWareHouse()">انتخاب انبار</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>تصویر امضا*</label>
@@ -176,17 +190,7 @@
                       ng-if="user.obj.scanned_signature">
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>انبار</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectWareHouse()">انتخاب انبار</button>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </fieldset>
             </form>
             </div>

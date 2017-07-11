@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     connect = require('gulp-connect');
 
-var devMode = false;
+var devMode = true;
 
 var css = {
   in : {
@@ -90,7 +90,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('index',['copyFonts'] ,function(){
-  return index('panel/','index.html'),index('','index.html');
+  return index('panel/','index.html') ,index('','index.html') ,index('','logout.html');
 });
 
 gulp.task('default', ['index','connect', 'watch'] ,function(){

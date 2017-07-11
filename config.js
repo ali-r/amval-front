@@ -1,4 +1,4 @@
 var assetPanelData = {};
-assetPanelData.serverUrl = "http://amval.gandom.co/api/v1/";
+assetPanelData.serverUrl = "http://devapi.amvalapp.ir/api/v1/";
 assetPanelData.uploadUrl = "http://fsamval.gandom.co/";
 assetPanelData.devMode = true;
