@@ -1,0 +1,52 @@
+<div class="row" ng-show = "stage == showStage">
+  <div class="col-md-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        انتخاب نگهدارنده
+        <div class="pull-left">
+          <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+        </div>
+      </div>
+      <div class="panel-body">
+        <form name="searchForm" role="form" novalidate>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="نام خانوادگی کاربر" name="searchText" ng-model="product.tmp.searchQuery" required>
+                <span class="input-group-btn">
+                  <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('user','last_name')">جستجوی کاربر</button>
+                </span>
+              </div>
+          </form>
+          <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
+            <tbody>
+              <tr>
+                <th>ردیف</th>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>شماره کارت</th>
+                <th>انتخاب</th>
+              </tr>
+
+              <tr ng-repeat = "list in product.tmp.searchResult">
+                <td>{{$index+1}}</td>
+                <td>
+                  {{list.first_name}}
+                </td>
+                <td>
+                  {{list.last_name}}
+                </td>
+                  <td>
+                  {{list.card_no}}
+                </td>
+                <td>
+                  <a ng-click="product.selectTarget(list.id, list.last_name, 'title', 'holder')" href>
+                    <i class="fa fa-check-square-o fa-lg"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  <!-- /.box-body -->
+  </div>
+</div>
