@@ -107,7 +107,6 @@ app.directive('searchStage', function() {
     restrict: 'E',
     replace : true,
     scope : {
-      showStage : '=',
       obj : '=',
       controller : '='
     },

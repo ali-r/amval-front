@@ -168,7 +168,7 @@
                     </div>
                   </div>
                   <div class="clearfix"></div>
-                  <!-- seller and guarantor -->
+                  <!-- end of seller and guarantor -->
 
                   <!-- guarantor Date -->
                   <div class="col-md-6">
@@ -186,16 +186,53 @@
                   <div class="clearfix"></div>
                   <!-- end of guarantor Date-->
 
-                  <div class="col-md-6">  
+                  <!-- subgroup and time of deprication -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>زیرگروه*</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-model="product.obj.subgroup.title" disabled>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(5, 'subgroup', 'title')">انتخاب</button>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>تصویر امضا*</label>
+                      <label>مدت زمان استهلاک</label>
+                      <input type="text" class="form-control" ng-model="product.obj.deprication_period">
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <!-- end of subgroup and time of deprication -->
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>مشکلات</label>  
+                      <div class="row">
+                        <div class="col-sm-6">
+                          خارج از سرویس
+                          <input class="" type="checkbox" ng-model="product.obj.is_out_of_system">
+                        </div>
+                        <div class="col-sm-6">
+                          خرابی
+                          <input class="" type="checkbox" ng-model="product.obj.is_depricated">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>*Qr Code</label>
                       <br/>
-                      <div class="btn btn-info btn-sm" ngf-select="product.uploadPic()" ng-model="product.sigFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!product.obj.scanned_signature && checkWrite('product')" ng-required="!product.obj.scanned_signature" ng-disabled="uploading">بارگذاری تصویر امضا</div>
-                      <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.scanned_signature && checkWrite('product')"
-                      ng-click=" product.obj.scanned_signature = null">حذف تصویر</button>
+                      <div class="btn btn-info btn-sm" ngf-select="product.uploadPic()" ng-model="product.qrCodeFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
+                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!product.obj.qr_code && checkWrite('product')" ng-required="!product.obj.qr_code" ng-disabled="uploading">
+                        بارگذاری بارکد
+                        <i class="fa fa-qrcode fa-lg"></i>
+                        </div>
+                      <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.qr_code && checkWrite('product')"
+                      ng-click=" product.obj.qr_code = null">حذف تصویر</button>
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -209,158 +246,20 @@
             </div>
             <!-- end of Stage 0 -->
 
-            <div class="row" ng-show = "stage == 1">
-              <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    انتخاب گارانتی
-                    <div class="pull-left">
-                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                    </div>
-                  </div>
-                  <div class="panel-body">
-                    <form name="searchForm" role="form" novalidate>
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="نام خانوادگی دبیر گارانتی" name="searchText" ng-model="product.tmp.searchQuery" required>
-                            <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('guarantor','secretary_last_name')">گارانتی</button>
-                            </span>
-                          </div>
-                      </form>
-                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
-                        <tbody>
-                          <tr>
-                            <th>ردیف</th>
-                            <th>نام دبیر گارانتی</th>
-                            <th>نام خانوادگی دبیر گارانتی</th>
-                            <th>انتخاب</th>
-                          </tr>
-
-                          <tr ng-repeat = "list in product.tmp.searchResult">
-                            <td>{{$index+1}}</td>
-                            <td>
-                              {{list.secretary_first_name}}
-                            </td>
-                            <td>
-                              {{list.secretary_last_name}}
-                            </td>
-                            <td>
-                              <a ng-click="product.selectTarget(list.id, list.secretary_last_name, 'title', 'guarantor')" href>
-                                <i class="fa fa-check-square-o fa-lg"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-              <!-- /.box-body -->
-              </div>
-            </div>
+            <search-stage ng-show = "stage == 1" obj="product.selectGuarantorObj" controller = "product"></search-stage>
             <!-- end of Stage 1 -->
 
-            <div class="row" ng-show = "stage == 2">
-              <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    انتخاب فروشنده
-                    <div class="pull-left">
-                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                    </div>
-                  </div>
-                  <div class="panel-body">
-                    <form name="searchForm" role="form" novalidate>
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="نام فروشگاه را وارد کنید" name="searchText" ng-model="product.tmp.searchQuery" required>
-                            <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('seller','store_name')">جستجوی فروشنده</button>
-                            </span>
-                          </div>
-                      </form>
-                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
-                        <tbody>
-                          <tr>
-                            <th>ردیف</th>
-                            <th>نام فروشگاه</th>
-                            <th>نام</th>
-                            <th>نام خانوادگی</th>
-                            <th>انتخاب</th>
-                          </tr>
-
-                          <tr ng-repeat = "list in product.tmp.searchResult">
-                            <td>{{$index+1}}</td>
-                            <td>
-                              {{list.store_name}}
-                            </td>
-                            <td>
-                              {{list.first_name}}
-                            </td>
-                             <td>
-                              {{list.last_name}}
-                            </td>
-                            <td>
-                              <a ng-click="product.selectTarget(list.id, list.store_name, 'title', 'seller')" href>
-                                <i class="fa fa-check-square-o fa-lg"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-              <!-- /.box-body -->
-              </div>
-            </div>
+            <search-stage ng-show = "stage == 2" obj="product.selectSellerObj" controller = "product"></search-stage>
             <!-- end of Stage 2 -->
 
-            <search-stage showStage = "3" obj="" controller = 'product'></search-stage>
+            <search-stage ng-show = "stage == 3" obj="product.selectHolderObj" controller = "product"></search-stage>
             <!-- end of Stage 3 -->
 
-            <div class="row" ng-show = "stage == 4">
-              <div class="col-md-12">
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    انتخاب تولید کننده
-                    <div class="pull-left">
-                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                    </div>
-                  </div>
-                  <div class="panel-body">
-                    <form name="searchForm" role="form" novalidate>
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="نام برند" name="searchText" ng-model="product.tmp.searchQuery" required>
-                            <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('producer','brand_name')">جستجوی تولید کننده</button>
-                            </span>
-                          </div>
-                      </form>
-                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
-                        <tbody>
-                          <tr>
-                            <th>ردیف</th>
-                            <th>نام برند</th>
-                            <th>انتخاب</th>
-                          </tr>
-
-                          <tr ng-repeat = "list in product.tmp.searchResult">
-                            <td>{{$index+1}}</td>
-                            <td>
-                              {{list.brand_name}}
-                            </td>
-                            <td>
-                              <a ng-click="product.selectTarget(list.id, list.brand_name, 'title', 'producer')" href>
-                                <i class="fa fa-check-square-o fa-lg"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-              <!-- /.box-body -->
-              </div>
-            </div>
+            <search-stage ng-show = "stage == 4" obj="product.selectProducerObj" controller = "product"></search-stage>
             <!-- end of Stage 4 -->
+
+            <search-stage ng-show = "stage == 5" obj="product.selectSubGroupObj" controller = "product"></search-stage>
+            <!-- end of Stage 5 -->
             
           </div>
       </div>
