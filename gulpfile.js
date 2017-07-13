@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     connect = require('gulp-connect');
 
-var devMode = true;
+var devMode = false;
 
 var css = {
   in : {
@@ -47,7 +47,7 @@ function index(pathIn,fileName) {
     ])
       jsSources = gulp.src(
     [
-      js.in.config ,js.in.vbase ,js.in.plugins ,js.in.custom,
+      js.in.vbase ,js.in.plugins ,js.in.custom,
       js.in.app ,js.in.base ,js.in.controllers
     ]);
 
@@ -63,7 +63,7 @@ function index(pathIn,fileName) {
         .pipe(gulp.dest(js.out));
     }
 
-  return target.pipe(inject(es.merge(cssSources,jsSources)))
+  return target.pipe(inject(es.merge( cssSources,jsSources,gulp.src(js.in.config) )))
     .pipe(gulp.dest(pathIn));
 }
 
