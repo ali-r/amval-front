@@ -5,7 +5,7 @@ app.service('pagination', function() {
     scope.pageSet = function(mode) {
       if (!scope.pagination(mode)) {
         scope.page = paginationService.pageSet(mode, scope.page, scope.meta);
-        scope.getUrl = controller.makeUrl();
+        scope.getUrl = controller.makeUrl(addOne);
         controller.getData();
       };
     };
@@ -75,7 +75,7 @@ app.service('pagination', function() {
     return (typeof(string) != "undefined") && (string !== "") && (string + "" != 'undefined') && (string + "" != 'NaN');
   }
 
-  this.makeUrl = function(scope, searchObj, searchValue) {
+  this.makeUrl = function(scope, searchObj, searchValue, addOne) {
 
     if ( typeof(searchObj) == 'undefined' ) {
       searchObj = {};
@@ -85,12 +85,17 @@ app.service('pagination', function() {
       searchValue = {};
     }
 
+    if ( typeof(addOne) == 'undefined' ) {
+      var url = scope.apiUrl + "?page=" + scope.page + "&per_page=10";
+    }else{
+      var url = addOne.url + "?page=" + addOne.page + "&per_page=10";
+    }
+
     var keys = {};
     for (var i = 0; i < searchObj.length; i++) {
       keys[searchObj[i].field + '__contains'] = searchValue[searchObj[i].field];
     }
     keys.sort = searchValue.order + searchValue.type
-    var url = scope.apiUrl + "?page=" + scope.page + "&per_page=10";
     for (name in keys) {
       if (this.notEmpty(keys[name]))
         url += "&" + name + "=" + keys[name];
