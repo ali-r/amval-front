@@ -909,7 +909,7 @@ a:focus {
     display: block;
     padding: 4px 6px
 }
-footer {
+.panel-footer {
     background: #fff;
     padding: 15px 20px;
     display: block
@@ -1699,7 +1699,7 @@ span.right {
     position: relative
 }
 @media (min-width: 992px) {
-    footer {
+    footer .panel-footer {
         margin-right: 230px
     }
 }

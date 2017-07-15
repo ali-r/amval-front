@@ -14,8 +14,8 @@ var devMode = false;
 
 var css = {
   in : {
-    vendors : 'vendors/**/*.css',
-    project : 'dist/css/*.css'
+    project : 'dist/css/*.css',
+    vendors : 'vendors/**/*.css'
   },
   out : 'dist/css/build/'
 },

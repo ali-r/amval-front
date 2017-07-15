@@ -33,6 +33,13 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     $scope.stage = 1;
     controller.tmp.searchQuery = '';
     controller.search('user','last_name');
-  }
+  };
+
+  controller.getProducts = function(id){
+    mainAsset.openModal('#productsModal');
+    requestHelper.get($scope.apiUrl + '/' + id + '/products', $scope, function(){
+
+    });
+  };
 
 });

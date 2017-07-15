@@ -1,4 +1,4 @@
-var app = angular.module("assetAdminPanel", ["ngRoute","ngCookies","ngStorage","ngFileUpload"]);
+var app = angular.module("assetAdminPanel", ["ngRoute", "ngCookies", "ngStorage", "ngFileUpload", "ADM-dateTimePicker"]);
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
 }]);
@@ -10,9 +10,21 @@ app.config(function ($httpProvider) {
   $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
   $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
 });
+app.config(['ADMdtpProvider', function(ADMdtp) {
+    ADMdtp.setOptions({
+        calType: "jalali", 
+        format: "YYYY-MM-DD", 
+        zIndex : 1100, 
+        dtpType : "date", 
+        freezeInput : "true", 
+        multiple : false, 
+        autoClose :true,
+        transition : false
+    });
+}]);
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
-    var assetPages = ['home','database','user','seller','producer','guarantor','warehouse','changepass'];
+    var assetPages = ['home','database','user','seller','producer','guarantor','warehouse','changepass','product'];
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {
@@ -76,6 +88,7 @@ app.directive('reqPagination', function() {
     templateUrl: '/dist/js/app/directive/pagination.html'
   }
 });
+
 app.directive('searchTools', function() {
   return {
     restrict: 'E',
@@ -87,6 +100,20 @@ app.directive('searchTools', function() {
     templateUrl: '/dist/js/app/directive/search.html'
   }
 });
+
+
+app.directive('searchStage', function() {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      obj : '=',
+      controller : '='
+    },
+    templateUrl: '/dist/js/app/directive/searchStage.html'
+  }
+});
+
 angular.module("assetAdminPanel").controller('mainCtrl',
   function( $scope, $http, $localStorage){
 

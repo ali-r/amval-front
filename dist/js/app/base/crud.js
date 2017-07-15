@@ -123,5 +123,12 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           scope.loadSearch = false;
         });
     };
+
+    controller.selectThings = function(stage, object, field){
+      scope.stage = stage;
+      controller.tmp.searchQuery = '';
+      controller.tmp.searchResult = [];
+      controller.search(object, field);
+    };
   }
 });

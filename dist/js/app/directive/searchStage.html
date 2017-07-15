@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        انتخاب
+        {{obj.title.fa}}
+        <div class="pull-left">
+          <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+        </div>
+      </div>
+      <div class="panel-body">
+        <form name="searchForm" role="form" novalidate>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="{{ obj.searchAt.fa + ' ' + obj.searchItem.fa}}" name="searchText" ng-model="controller.tmp.searchQuery" required>
+                <span class="input-group-btn">
+                  <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search(obj.searchItem.en, obj.searchAt.en)">
+                    جستجوی 
+                    {{obj.searchItem.fa}}
+                  </button>
+                </span>
+              </div>
+          </form>
+          <table class="table table-hover table-border" ng-hide = "controller.tmp.searchResult == '' || loadSearch">
+            <tbody>
+              <tr>
+                <th>ردیف</th>
+                <th ng-repeat="item in obj.table">
+                  {{item.fa}}
+                </th>
+                <th>انتخاب</th>
+              </tr>
+
+              <tr ng-repeat = "list in controller.tmp.searchResult">
+                <td>{{$index+1}}</td>
+                <td ng-repeat="att in obj.table">
+                  {{list[att.en]}}
+                </td>
+                <td>
+                  <a ng-click="controller.selectTarget(list.id, list[obj.searchAt.en], 'title', obj.title.en)" href>
+                    <i class="fa fa-check-square-o fa-lg"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  <!-- /.box-body -->
+  </div>
+</div>
