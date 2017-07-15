@@ -125,10 +125,20 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.obj.qr_code = '';
   this.uploadPic = function() {
     console.log($scope.productForm.file.$error)
-    if(!$scope.productForm.file.$error.maxSize && controller.sigFile)
+    if(!$scope.productForm.file.$error.maxSize && controller.qrCodeFile)
     {
-      requestHelper.uploadFileReq(controller.sigFile, 'signature', $scope, function(data){
-        controller.obj.scanned_signature = data.file_url;
+      requestHelper.uploadFileReq(controller.qrCodeFile, 'signature', $scope, function(data){
+        controller.obj.qr_code = data.file_url;
+        
+        /*setTimeout(function () {
+        var qr = QCodeDecoder();
+        var code = document.getElementById(qrCodeImage);
+        qr.decodeFromImage(code, function (err, result) {
+          if (err) {console.log(err);};
+          console.log(result);
+        });
+        },1000);*/
+        
       });
     }
   }

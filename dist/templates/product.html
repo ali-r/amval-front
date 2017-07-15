@@ -236,8 +236,8 @@
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
-                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{product.obj.scanned_signature}}"
-                      ng-if="product.obj.scanned_signature">
+                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{product.obj.qr_code}}"
+                      ng-if="product.obj.qr_code" id='qrCodeImage'>
                     </div>
                   </div>
                   

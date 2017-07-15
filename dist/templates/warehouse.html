@@ -25,6 +25,7 @@
               <th>شماره تلفن</th>
               <th>انبار مرجع</th>
               <th></th>
+              <th></th>
               <th ng-if = "checkWrite('warehouse')"></th>
             </tr>
           </thead>
@@ -36,12 +37,17 @@
               <td>{{list.phone}}</td>
               <td>{{list.parent_warehouse.title}}</td>
               <td>
-                <a ng-click="warehouse.getObject(list.id)" href>
+                <a ng-click="warehouse.getObject(list.id)" title="مشاهده" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('warehouse') , 'fa-eye' : !checkWrite('warehouse')}" aria-hidden="true"></i>
                 </a>
               </td>
+              <td>
+                <a ng-click="warehouse.getProducts(list.id)" title="مشاهده کالاها" href>
+                  <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
+                </a>
+              </td>
               <td ng-if = "checkWrite('warehouse')">
-                <a ng-click="warehouse.toDeleteId = list.id; warehouse.toDeleteTitle = list.title" data-toggle="modal" data-target="#deleteModal" href>
+                <a ng-click="warehouse.toDeleteId = list.id; warehouse.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -153,6 +159,27 @@
         <p ng-show = "stage === 0"> −
           پر کردن فیلد هایی که با * مشخص شده اجباری است
         </p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- warehouse Product Modal -->
+<div class="modal fade" id="productsModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h3 class="modal-title" ng-hide="editMode">مشاهده کالا های انبار</h3>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
