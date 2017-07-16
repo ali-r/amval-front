@@ -23,8 +23,8 @@ angular.module("assetAdminPanel").controller('userCtrl',
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig)
-  pagination.initPagination($scope, controller)
-
+  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
+  
   this.resetPass = function(id) {
     requestHelper.put(
       $scope.apiUrl + '/' + id + '/password', {'new_password': controller.passToReset}, $scope,

@@ -24,5 +24,5 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
     controller.obj.address
   ]);
   crud.init($scope, controller, apiName);
-  pagination.initPagination($scope, controller);
+  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 });

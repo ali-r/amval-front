@@ -2,6 +2,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
   crudService = this
 
   this.initModals = function(scope, controller, name, variables) {
+    scope.meta = {};
     scope.reset = function() {
       scope.load = false;
       scope.loadModal = false;

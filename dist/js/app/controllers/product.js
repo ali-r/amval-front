@@ -104,7 +104,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig)
-  pagination.initPagination($scope, controller)
+  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
   this.resetPass = function(id) {
     requestHelper.put(

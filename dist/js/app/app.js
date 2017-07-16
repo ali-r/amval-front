@@ -83,9 +83,13 @@ app.filter('userType', function() {
 app.directive('reqPagination', function() {
   return {
     restrict: 'E',
-    replace : true,
-    scope : true,
+    replace : false,
+    scope : {
+      itempage : '=',
+      itemmeta : '='
+    },
     templateUrl: '/dist/js/app/directive/pagination.html'
+    //template : '<p id="test">{{itempage}}</p>'
   }
 });
 

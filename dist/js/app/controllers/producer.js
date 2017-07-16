@@ -19,5 +19,5 @@ angular.module("assetAdminPanel").controller('producerCtrl',
     controller.obj.brand_name
   ]);
   crud.init($scope, controller, apiName);
-  pagination.initPagination($scope, controller);
+  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 });
