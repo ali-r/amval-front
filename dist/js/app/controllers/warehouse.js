@@ -27,7 +27,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     controller.obj.phone
   ]);
   crud.init($scope, controller, apiName, controller.objConfig)
-  pagination.initPagination($scope, controller);
+  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
   controller.selectUser = function(){
     $scope.stage = 1;

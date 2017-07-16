@@ -28,5 +28,5 @@ angular.module("assetAdminPanel").controller('sellerCtrl',
     controller.obj.address
   ]);
   crud.init($scope, controller, apiName);
-  pagination.initPagination($scope, controller);
+  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 });

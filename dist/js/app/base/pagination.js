@@ -1,22 +1,23 @@
 app.service('pagination', function() {
   paginationService = this
 
-  this.initPagination = function(scope, controller) {
+  this.initPagination = function(scope, controller, meta, page, url, sObject, sValue, addOne) {
     scope.pageSet = function(mode) {
-      if (!scope.pagination(mode)) {
-        scope.page = paginationService.pageSet(mode, scope.page, scope.meta);
-        scope.getUrl = controller.makeUrl(addOne);
+      if (!scope.pagination(mode, meta)) {
+        console.log(scope[page]);
+        scope[page] = paginationService.pageSet(mode, scope[page], scope[meta]);
+        scope[url] = controller.makeUrl(addOne);
         controller.getData();
       };
     };
 
     scope.pagination = function(status) {
-      return paginationService.pagination(status, scope.meta);
+      return paginationService.pagination(status, scope[meta]);
     };
 
-    controller.makeUrl = function() {
-      return paginationService.makeUrl(scope, controller.searchObject, controller.searchValue);
-    }
+    controller.makeUrl = function(addOne) {
+      return paginationService.makeUrl(scope, controller[sObject], controller[sValue], addOne);
+    };
   }
 
   this.pagination = function(status, meta) {
