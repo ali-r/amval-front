@@ -56,11 +56,15 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
   }
 
   this.errorCallback = function(response) {
-    new PNotify({
-      title: 'خطا',
-      text: 'عملیات موفقیت آمیز نبود.',
-      type: 'error'
-    });
+    var notif = {};
+    notif.title = 'خطا';
+    if(response.data.fa){
+      notif.text = response.data.fa;
+    }else{
+      notif.text = 'عملیات موفقیت آمیز نبود.';
+    }
+    notif.type = 'error';
+    new PNotify(notif);
     console.log(response);
     if (response.status === 401) {
       $localStorage.$reset();
