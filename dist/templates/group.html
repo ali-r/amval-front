@@ -1,0 +1,230 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_content">
+        <search-tools sobject="group.searchObject" scontroller="group">
+          <select class="form-control filter-option" ng-model="group.addOne.extra.group_type" title="نمایش گروه یا زیر گروه">
+            <option value="group">
+              گروه
+            </option>
+            <option value="subgroup">
+              زیر گروه
+            </option>
+          </select>
+        </search-tools>
+      </div>
+      </div>
+    </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa"></i>گروه ها</h2>
+        <button type="button" ng-if = "checkWrite('group')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
+          گروه جدید
+        </button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table jambo_table asset-tables">
+          <thead>
+            <tr>
+              <th></th>
+              <th>#</th>
+              <th>تیتر</th>
+              <th>توضیحات</th>
+              <th>پدر</th>
+              <th></th>
+              <th ng-if = "checkWrite('group')"></th>
+            </tr>
+          </thead>
+          <tbody ng-hide="load">
+            <tr ng-repeat-start = "list in group.note">
+              <td style="text-align : right">
+                <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#collaps{{$index}}" aria-expanded="false" aria-controls="collapseExample"
+                ng-click="collaps[$index] = !collaps[$index]" ng-if="list.children" >
+                  <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
+                </button>
+              </td>
+              <td>
+                {{ (page-1)*10 + $index + 1 }}
+              </td>
+              <td>{{list.title}}</td>
+              <td>{{list.description}}</td>
+              <td>
+                {{list.parent.title}}
+              </td>
+              <td>
+                <a ng-click="group.getObject(list.id)" title="مشاهده" href>
+                  <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td ng-if = "checkWrite('group')">
+                <a ng-click="group.toDeleteId = list.id; group.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+                  <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+            <tr ng-repeat-end ng-repeat="chd in list.children" class="collapse group-chd" id="collaps{{$parent.$index}}">
+              <td style="text-align : right">
+                <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+              </td>
+              <td class="chd-td">
+                {{$index+1}}-{{$parent.$index+1}}
+              </td>
+              <td>{{chd.title}}</td>
+              <td>{{chd.description}}</td>
+              <td>{{chd.parent.title}}</td>
+              <td>
+                <a ng-click="group.getObject(chd.id)" title="مشاهده" href>
+                  <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td ng-if = "checkWrite('group')">
+                <a ng-click="group.toDeleteId = chd.id; group.toDeleteTitle = chd.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+                  <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <req-pagination itemmeta="meta" itempage="page"></req-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- group Modal -->
+<div class="modal fade" id="groupModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" ng-disabled="!groupForm.$valid" ng-click="group.sendOrEdit(editMode)" ng-if = "checkWrite('group')" class="btn btn-success" ng-show = "stage == 0">ذخیره</button>
+          <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h3 class="modal-title" ng-hide="editMode">افزودن گروه</h3>
+        <h3 class="modal-title" ng-show="editMode">ویرایش گروه</h3>
+      </div>
+      <div class="modal-body">
+        <div ng-show = "stage == 0">
+          <form name="groupForm" role="form" ng-hide="loadModal" novalidate>
+            <fieldset ng-disabled="!checkWrite('group')">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group" ng-class="{'has-success' : groupForm.title.$valid && group.obj.title}">
+                    <label>عنوان*</label>
+                    <input type="text" class="form-control" name="title" placeholder="عنوان" ng-model = "group.obj.title" required>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                      <label>پدر</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-model="group.obj.parent.title" disabled>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent" ng-click="group.selectThings(1, 'group', 'last_name')">انتخاب پدر</button>
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-danger btn-beside-input" ng-show="group.obj.parent" ng-click="group.obj.parent = null">حذف پدر</button>
+                        </span>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-success' : groupForm.dsc.$valid && group.obj.description}">
+                <label>توضیحات*</label>
+                <input type="text" class="form-control" name="dsc" placeholder="توضیحات" ng-model = "group.obj.description" required>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h4>فیلد ها 
+                  </h4>
+                </div>
+                <div class="col-sm-3">
+                  <button class="btn btn-info" ng-click="group.addMeta('int')">
+                    <i class="fa fa-plus"></i>
+                    عدد صحیح
+                  </button>
+                </div>
+                <div class="col-sm-2">
+                  <button class="btn btn-info" ng-click="group.addMeta('str')">
+                    <i class="fa fa-plus"></i>
+                    متن
+                  </button>
+                </div>
+                <div class="col-sm-3">
+                  <button class="btn btn-info" ng-click="group.addMeta('bool')">
+                    <i class="fa fa-plus"></i>
+                    دوحالتی
+                  </button>
+                </div>
+                
+              </div>              
+              <table class="table table-hover">
+                <thead>
+                  <th>نوع فیلد</th>
+                  <th>عنوان فیلد</th>
+                  <th>حذف</th>
+                </thead>
+                <tbody>
+                  <tr ng-repeat = "meta in group.obj.self_meta_template">
+                    <td>
+                      <h5>
+                        {{meta.type | metaType}}
+                      </h5>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" placeholder="عنوان فیلد" ng-model = "meta.key" required>
+                    </td>
+                    <td>
+                      <a class="fa-2x" ng-click="group.deleteMeta(key)" href>×</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </fieldset>
+          </form>
+        </div>
+        <!-- end of Stage 0 -->
+
+        <search-stage ng-show = "stage == 1" obj="group.selectGroupObj" controller = "group"></search-stage>
+        <!-- end of Stage 1 -->
+        
+      </div>
+      <div class="modal-footer">
+        <p ng-show = "stage === 0"> −
+          پر کردن فیلد هایی که با * مشخص شده اجباری است
+        </p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف انبار</h4>
+      </div>
+      <div class="modal-body">
+        آیا مایل به حذف انبار
+        "{{group.toDeleteTitle}}"
+        هستید؟
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
+        <button type="button" class="btn btn-success" ng-click="group.deleteObject(group.toDeleteId)">بله</button>
+      </div>
+    </div>
+  </div>
+</div>

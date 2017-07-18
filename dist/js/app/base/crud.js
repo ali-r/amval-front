@@ -71,6 +71,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         scope.apiUrl + "/" + id,  scope,
         function(response) {
           controller.obj = response.data
+          console.log(response.data);
           scope.loadModal = false;
         });
     };

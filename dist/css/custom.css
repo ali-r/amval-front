@@ -1,3 +1,38 @@
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cacaca;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #0a0b43;
+}
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #8e8e8e;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 html , body{
 
  height:100%;
@@ -348,7 +383,9 @@ body{
 }
 .nav-md .container.body .col-md-3.left_col.menu_fixed {
     height: 100%;
-    position: fixed
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 body .container.body .right_col {
     background: #F7F7F7
@@ -4366,4 +4403,21 @@ select.form-control{
   z-index: 99999;
   text-align: center;
   padding-top: 20%;
+}
+.colaps-btn{
+    background: none;
+    margin: 0 0 0 5px !important;
+    padding: 0 0 0 0 !important;
+    border: none !important;
+    font-size: 1em;
+    color: rgba(52, 73, 94, 0.94);
+    right: 0;
+    position: relative;
+    text-align: right;
+}
+.group-chd{
+    background-color: #f0f0f0;
+}
+.group-chd i.fa-level-down{
+    margin-right: 1em;
 }
