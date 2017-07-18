@@ -15,7 +15,7 @@ app.service('pagination', function() {
       return paginationService.pagination(status, scope[meta]);
     };
 
-    controller.makeUrl = function(addOne) {
+    controller.makeUrl = function() {
       return paginationService.makeUrl(scope, controller[sObject], controller[sValue], addOne);
     };
   }
@@ -87,6 +87,10 @@ app.service('pagination', function() {
     }
 
     if ( typeof(addOne) == 'undefined' ) {
+      addOne = {};
+    }
+
+    if ( typeof(addOne.url) == 'undefined' ) {
       var url = scope.apiUrl + "?page=" + scope.page + "&per_page=10";
     }else{
       var url = addOne.url + "?page=" + addOne.page + "&per_page=10";
@@ -96,11 +100,17 @@ app.service('pagination', function() {
     for (var i = 0; i < searchObj.length; i++) {
       keys[searchObj[i].field + '__contains'] = searchValue[searchObj[i].field];
     }
+
+    for ( key in addOne.extra) {
+      console.log(key);
+      keys[key] = addOne.extra[key];
+    }
     keys.sort = searchValue.order + searchValue.type
     for (name in keys) {
       if (this.notEmpty(keys[name]))
         url += "&" + name + "=" + keys[name];
     }
+    console.log(url)
     return url;
   }
 });

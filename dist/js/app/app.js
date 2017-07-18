@@ -24,7 +24,7 @@ app.config(['ADMdtpProvider', function(ADMdtp) {
 }]);
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
-    var assetPages = ['home','database','user','seller','producer','guarantor','warehouse','changepass','product'];
+    var assetPages = ['home','database','user','seller','producer','guarantor','warehouse','changepass','product','group'];
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {
@@ -80,6 +80,25 @@ app.filter('userType', function() {
     return output;
   }
 });
+
+app.filter('metaType', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 'int':
+          output = "عدد صحیح";
+        break;
+        case 'str':
+          output = "رشته";
+        break;
+        case 'bool':
+          output = "دو حالتی";
+        break;
+    }
+    return output;
+  }
+});
+
 app.directive('reqPagination', function() {
   return {
     restrict: 'E',
@@ -97,6 +116,7 @@ app.directive('searchTools', function() {
   return {
     restrict: 'E',
     replace : true,
+    transclude: true,
     scope : {
       sobject : '=',
       scontroller : '='
