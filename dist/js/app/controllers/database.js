@@ -4,12 +4,15 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
     var controller = this;
     $scope.assetData = $cookieStore.get("assetData");
     $scope.serverUrl = mainAsset.getUrl();
+    controller.downloadUrl = null;
 
     this.databaseUrl = $scope.serverUrl + 'database';
 
     this.download = function(){
+      controller.downloadUrl = null;
       requestHelper.post(controller.databaseUrl + '/backup', {}, $scope, function(response) {
         $window.open(response.data.download_url, '_blanck');
+        controller.downloadUrl = response.data.download_url;
         /*requestHelper.get(response.data.download_url, $scope, function(res) {
           //uriContent = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(res.data);
           //$window.open(uriContent,'file.txt');

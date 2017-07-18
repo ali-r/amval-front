@@ -3,6 +3,8 @@ angular.module("assetAdminPanel").controller('userCtrl',
 
   var controller = this;
   var apiName = 'user';
+  
+  $scope.uploadUrl = mainAsset.getUploadUrl();
 
   controller.searchObject = [
     {'fname' : 'نام', 'field' : 'first_name'},
