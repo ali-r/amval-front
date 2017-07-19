@@ -65,7 +65,7 @@
 
 <!-- product Modal -->
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
@@ -82,168 +82,156 @@
       </div>
       <div class="modal-body">
           <div class="box-body">
-            <div class="row" ng-show = "stage == 0">
-              <form name="productForm" role="form" ng-hide="loadModal" novalidate>
-                <fieldset>
-                  <!-- model and serial -->
-                  <div class="col-md-6">
-                    <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && product.obj.model}">
-                      <label>مدل کالا*</label>
-                      <input type="text" class="form-control" name="model" placeholder="مدل کالا" ng-model = "product.obj.model" required>
-                    </div>
+            
+            <form name="productForm" role="form" ng-hide="loadModal" novalidate>
+              <div class="row" ng-show = "stage == 0">
+              <fieldset>
+                <!-- model serial price -->
+                <div class="col-md-4">
+                  <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && product.obj.model}">
+                    <label>مدل کالا*</label>
+                    <input type="text" class="form-control" name="model" placeholder="مدل کالا" ng-model = "product.obj.model" required>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group" ng-class="{'has-success' : productForm.serial.$valid && product.obj.serial_number}">
-                      <label>سریال کالا*</label>
-                      <input type="text" class="form-control" name="serial" placeholder="مدل کالا" ng-model = "product.obj.serial_number" required>
-                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group" ng-class="{'has-success' : productForm.serial.$valid && product.obj.serial_number}">
+                    <label>سریال کالا*</label>
+                    <input type="text" class="form-control" name="serial" placeholder="مدل کالا" ng-model = "product.obj.serial_number" required>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of model and serial -->
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group" ng-class=" {'has-error' : productForm.phone.$invalid && product.obj.phone,
+                    'has-success' : productForm.phone.$valid && product.obj.phone } ">
+                    <label>قیمت*</label>
+                    <input type="number" class="form-control" name="price" placeholder="قیمت" ng-model = "product.obj.price" required>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- end of model serial price -->
 
-                  <!-- price and date -->
-                  <div class="col-md-6">
-                    <div class="form-group" ng-class=" {'has-error' : productForm.phone.$invalid && product.obj.phone,
-                      'has-success' : productForm.phone.$valid && product.obj.phone } ">
-                      <label>قیمت*</label>
-                      <input type="number" class="form-control" name="price" placeholder="قیمت" ng-model = "product.obj.price" required>
+                <!-- guarantor producer seller -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>تولید کننده*</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="product.obj.producer.title" disabled required>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(4, 'producer', 'brand_name')">انتخاب</button>
+                      </span>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group" ng-class="{'has-success' : productForm.cardno.$valid && product.obj.card_no}">
-                      <label>تاریخ تولید*</label>
-                      <adm-dtp ng-model="product.obj.produced_date" ></adm-dtp>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>فروشنده*</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="product.obj.seller.title" disabled>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(2, 'seller', 'store_name')">انتخاب</button>
+                      </span>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of price and date -->
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>گارانتی*</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="product.obj.guarantor.title" disabled required>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(1, 'guarantor', 'secretary_last_name')">انتخاب</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- end of guarantor producer seller -->
 
-                  <!-- holder and producer -->
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>نگهدارنده</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.holder.title" disabled>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(3, 'user', 'last_name')">انتخاب</button>
-                        </span>
+                <!-- dates -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>تاریخ شروع گارانتی*</label>
+                    <adm-dtp ng-model="product.obj.guarantee_start_date" ></adm-dtp>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>تاریخ پایان گارانتی*</label>
+                    <adm-dtp ng-model="product.obj.guarantee_end_date"></adm-dtp>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group" ng-class="{'has-success' : productForm.cardno.$valid && product.obj.card_no}">
+                    <label>تاریخ تولید*</label>
+                    <adm-dtp ng-model="product.obj.produced_date" ></adm-dtp>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- end date -->
+
+                <!-- subgroup and time of deprication -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>مدت زمان استهلاک</label>
+                    <input type="text" class="form-control" ng-model="product.obj.deprication_period">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>مشکلات</label>  
+                    <div class="row">
+                      <div class="col-sm-6">
+                        خارج از سرویس
+                        <input class="" type="checkbox" ng-model="product.obj.is_out_of_system">
+                      </div>
+                      <div class="col-sm-6">
+                        خرابی
+                        <input class="" type="checkbox" ng-model="product.obj.is_depricated">
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>تولید کننده*</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.producer.title" disabled required>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(4, 'producer', 'brand_name')">انتخاب</button>
-                        </span>
-                      </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>زیرگروه*</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="product.obj.subgroup.title" disabled>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(5, 'group', 'title')">انتخاب</button>
+                      </span>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of holder and producer -->
+                </div>
+                <div class="clearfix"></div>
+                <!-- end of subgroup and time of deprication -->
 
-                  <!-- seller and guarantor -->
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>فروشنده*</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.seller.title" disabled>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(2, 'seller', 'store_name')">انتخاب</button>
-                        </span>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>*Qr Code</label>
+                    <br/>
+                    <div class="btn btn-info btn-sm" ngf-select="product.uploadPic()" ng-model="product.qrCodeFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
+                      ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!product.obj.qr_code && checkWrite('product')" ng-required="!product.obj.qr_code" ng-disabled="uploading">
+                      بارگذاری بارکد
+                      <i class="fa fa-qrcode fa-lg"></i>
                       </div>
-                    </div>
+                    <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.qr_code && checkWrite('product')"
+                    ng-click=" product.obj.qr_code = null">حذف تصویر</button>
+                    <br/>
+                    <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
+                    <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>گارانتی*</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.guarantor.title" disabled required>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(1, 'guarantor', 'secretary_last_name')">انتخاب</button>
-                        </span>
-                      </div>
-                    </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <img class="img-responsive img-thumbnail img-sig" ng-src="{{product.obj.qr_code}}" ng-if="product.obj.qr_code" id='qrCodeImage'>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of seller and guarantor -->
-
-                  <!-- guarantor Date -->
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>تاریخ شروع گارانتی*</label>
-                      <adm-dtp ng-model="product.obj.guarantee_start_date" ></adm-dtp>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>تاریخ پایان گارانتی*</label>
-                      <adm-dtp ng-model="product.obj.guarantee_end_date"></adm-dtp>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <!-- end of guarantor Date-->
-
-                  <!-- subgroup and time of deprication -->
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>زیرگروه*</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.subgroup.title" disabled>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(5, 'subgroup', 'title')">انتخاب</button>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>مدت زمان استهلاک</label>
-                      <input type="text" class="form-control" ng-model="product.obj.deprication_period">
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <!-- end of subgroup and time of deprication -->
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>مشکلات</label>  
-                      <div class="row">
-                        <div class="col-sm-6">
-                          خارج از سرویس
-                          <input class="" type="checkbox" ng-model="product.obj.is_out_of_system">
-                        </div>
-                        <div class="col-sm-6">
-                          خرابی
-                          <input class="" type="checkbox" ng-model="product.obj.is_depricated">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>*Qr Code</label>
-                      <br/>
-                      <div class="btn btn-info btn-sm" ngf-select="product.uploadPic()" ng-model="product.qrCodeFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!product.obj.qr_code && checkWrite('product')" ng-required="!product.obj.qr_code" ng-disabled="uploading">
-                        بارگذاری بارکد
-                        <i class="fa fa-qrcode fa-lg"></i>
-                        </div>
-                      <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.qr_code && checkWrite('product')"
-                      ng-click=" product.obj.qr_code = null">حذف تصویر</button>
-                      <br/>
-                      <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
-                      <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
-                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{product.obj.qr_code}}"
-                      ng-if="product.obj.qr_code" id='qrCodeImage'>
-                    </div>
-                  </div>
-                  
-                </fieldset>
+                </div>      
+              </fieldset>
+              </div>
+              <div class="row">
+                
+              </div>
             </form>
-            </div>
+            
             <!-- end of Stage 0 -->
 
             <search-stage ng-show = "stage == 1" obj="product.selectGuarantorObj" controller = "product"></search-stage>
@@ -252,13 +240,10 @@
             <search-stage ng-show = "stage == 2" obj="product.selectSellerObj" controller = "product"></search-stage>
             <!-- end of Stage 2 -->
 
-            <search-stage ng-show = "stage == 3" obj="product.selectHolderObj" controller = "product"></search-stage>
-            <!-- end of Stage 3 -->
-
             <search-stage ng-show = "stage == 4" obj="product.selectProducerObj" controller = "product"></search-stage>
             <!-- end of Stage 4 -->
 
-            <search-stage ng-show = "stage == 5" obj="product.selectSubGroupObj" controller = "product"></search-stage>
+            <search-stage ng-show = "stage == 5" obj="product.selectGroupObj" controller = "product"></search-stage>
             <!-- end of Stage 5 -->
             
           </div>

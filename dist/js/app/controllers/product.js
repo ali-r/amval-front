@@ -10,23 +10,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     {'fname' : 'شماره کارت', 'field' : 'card_no'}
   ];
 
-  controller.selectHolderObj = {
-    title : { fa : 'نگهدارنده', en : 'holder'},
-    searchItem : {
-      fa : 'کاربر',
-      en : 'user'
-    },
-    searchAt : {
-      fa : 'نام خانوادگی',
-      en : 'last_name'
-    },
-    table : [
-      {fa:'نام',en:'first_name'},
-      {fa:'نام خانوادگی',en:'last_name'},
-      {fa:'شماره کارت',en:'card_no'}
-    ]
-  };
-
   controller.selectProducerObj = {
     title : { fa : 'تولید کننده', en : 'producer'},
     searchItem : {
@@ -75,19 +58,19 @@ angular.module("assetAdminPanel").controller('productCtrl',
     ]
   };
 
-  controller.selectSubGroupObj = {
-    title : { fa : 'زیرگروه', en : 'subgroup'},
+  controller.selectGroupObj = {
+    title : { fa : 'زیرگروه', en : 'group'},
     searchItem : {
       fa : 'زیر گروه',
-      en : 'subgroup'
+      en : 'group'
     },
     searchAt : {
-      fa : 'عنوان زیرگروه',
+      fa : 'عنوان',
       en : 'title'
     },
     table : [
-      {fa:'نام دبیر ',en:'secretary_first_name'},
-      {fa:'نام خانوادگی دبیر',en:'secretary_last_name'}
+      {fa:'عنوان',en:'title'},
+      {fa:'توضیحات',en:'description'}
     ]
   };
 

@@ -77,21 +77,21 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     };
 
     controller.sendOrEdit = function(editMode){
-      var obj = new Object();
-      obj = controller.obj;
-      delete obj['id'];
+      var sendObj = new Object();
+      sendObj = angular.copy(controller.obj);
+      delete sendObj['id'];
       scope.loadModal = true;
-      obj = objConfig(obj);
-      console.log(obj);
+      sendObj = objConfig(sendObj);
+      console.log(sendObj);
       if(editMode) {
-        requestHelper.put(scope.apiUrl + "/" + scope.toEditId , obj, scope,
+        requestHelper.put(scope.apiUrl + "/" + scope.toEditId , sendObj, scope,
         function(response) {
           $('#' + name + 'Modal').modal('hide');
           controller.getData();
           scope.reset();
         });
       } else {
-        requestHelper.post(scope.apiUrl , obj, scope,
+        requestHelper.post(scope.apiUrl , sendObj, scope,
         function(response) {
           $('#' + name + 'Modal').modal('hide');
           controller.getData();
