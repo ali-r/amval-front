@@ -80,30 +80,52 @@ angular.module("assetAdminPanel").controller('productCtrl',
   $scope.getUrl = pagination.makeUrl($scope)
 
   controller.objConfig = function (obj) {
-    if (obj.warehouse)
-      obj.warehouse = obj.warehouse.id;
-    return obj;
+    sendCopyObj = angular.copy(obj);
+
+    /*sendCopyObj.seller = sendCopyObj.seller.id;*/
+    sendCopyObj.guarantor = sendCopyObj.guarantor.id;
+    sendCopyObj.producer = sendCopyObj.producer.id;
+    sendCopyObj.subgroup = sendCopyObj.subgroup.id;
+    if(!sendCopyObj.is_out_of_system)
+        sendCopyObj.is_out_of_system = false;
+
+    if(!sendCopyObj.is_bundle)
+        sendCopyObj.is_bundle = false;
+
+    sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type)
+
+    return sendCopyObj;
   };
+
+  this.setGroupStage = function(){
+    $scope.stage = 3;
+    $scope.loadSearch = true;
+    var searchUrl = mainAsset.getUrl() + 'group?group_type=group&page=1&per_page=25';
+    requestHelper.get(
+      searchUrl, $scope,
+      function(response) {
+        controller.tmp.searchResult = response.data.groups;
+        $scope.loadSearch = false;
+      });
+  };
+
+  this.loadMeta = function(id){
+    $scope.loadModal = true;
+    var metaUrl = mainAsset.getUrl() + 'group/' + id;
+    requestHelper.get(
+      metaUrl, $scope,
+      function(response) {
+        controller.tmp.meta = response.data;
+        if(!$scope.editMode)
+          controller.obj.meta_data = [];
+        console.log(controller.tmp.meta);
+        $scope.loadSearch = false;
+      });
+  }
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig)
   pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
-
-  this.resetPass = function(id) {
-    requestHelper.put(
-      $scope.apiUrl + '/' + id + '/password', {'new_password': controller.passToReset}, $scope,
-      function(response) {
-        $('#resetPassModal').modal('hide');
-      });
-  };
-
-  this.openResetPassModal = function(id) {
-    controller.toResetPassId = id;
-    controller.passToReset = null;
-    controller.passToResetConf = '';
-    $scope.resetPassForm.pass.$pristine = true;
-    mainAsset.openModal('#resetPassModal');
-  };
 
   controller.obj.qr_code = '';
   this.uploadPic = function() {

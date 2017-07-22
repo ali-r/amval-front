@@ -12,7 +12,7 @@ app.config(function ($httpProvider) {
 });
 app.config(['ADMdtpProvider', function(ADMdtp) {
     ADMdtp.setOptions({
-        calType: "jalali", 
+        calType: "gregorian", 
         format: "YYYY-MM-DD", 
         zIndex : 1100, 
         dtpType : "date", 

@@ -120,7 +120,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       requestHelper.get(
         searchUrl, scope,
         function(response) {
-          console.log(response);
           controller.tmp.searchResult = response.data[cat + 's'];
           scope.loadSearch = false;
         });
