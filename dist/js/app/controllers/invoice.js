@@ -3,8 +3,9 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
   {
 
       var controller = this;
-      var apiName = 'seller';
+      var apiName = 'invoice';
       var emptyForm = true;
+      var editCreate = true;    //Edit: true, Create: false
 
       controller.searchObject = [
           {'fname' : '‘„«—Â ›«ò Ê—', 'field' : 'invoice_no'},
@@ -25,11 +26,44 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.obj.invoice_no='';
       controller.obj.datetime='';
       controller.obj.num_of_products='';
-      controller.obj.products='';
+      controller.obj.products=[];
       controller.obj.scanned_invoice='';
 
       crud.init($scope, controller, apiName);
       pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
+
+
+      controller.resetInvoiceForm = function(){
+
+      };
+
+      controller.setNewInvoiceForm = function(){
+          controller.resetInvoiceForm();
+      };
+
+      controller.selectBuyer = function(){
+
+      };
+
+      controller.selectSeller = function(){
+
+      };
+
+      controller.addProduct = function(){
+
+      };
+
+      controller.selectProduct = function(){
+
+      };
+
+      controller.deleteInvoiceImage = function(){
+
+      };
+
+      controller.editOrCreate = function (state) {
+
+      }
 
 
   }
