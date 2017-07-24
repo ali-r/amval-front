@@ -4,14 +4,14 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       var controller = this;
       var apiName = 'invoice';
-      var emptyForm = true;
-      var editCreate = true;    //Edit: true, Create: false
+      controller.emptyForm = true;
+      controller.editCreate = true;    //Edit: true, Create: false
 
       controller.searchObject = [
-          {'fname' : 'ÔãÇÑå İÇ˜ÊæÑ', 'field' : 'invoice_no'},
-          {'fname' : 'Ş?ãÊ İÇ˜ÊæÑ', 'field' : 'price'},
-          {'fname' : 'ÎÑ?ÏÇÑ', 'field' : 'buyer'},
-          {'fname' : 'İÑæÔäÏå', 'field' : 'seller'}
+          {'fname' : 'Ø´Ù…Ø§Ø±Ù‡ ÙØ§Ú©ØªÙˆØ±', 'field' : 'invoice_no'},
+          {'fname' : 'Ù‚ÛŒÙ…Øª ÙØ§Ú©ØªÙˆØ±', 'field' : 'price'},
+          {'fname' : 'Ø®Ø±ÛŒØ¯Ø§Ø±', 'field' : 'buyer'},
+          {'fname' : 'ÙØ±ÙˆØ´Ù†Ø¯Ù‡', 'field' : 'seller'}
       ];
 
       $scope.page = 1;
@@ -34,11 +34,27 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
 
       controller.resetInvoiceForm = function(){
-
+          controller.obj.buyer = '';
+          controller.obj.seller = '';
+          controller.obj.invoice_no='';
+          controller.obj.datetime='';
+          controller.obj.num_of_products='';
+          controller.obj.products=[];
+          controller.obj.scanned_invoice='';
+          controller.emptyForm = true;
       };
 
       controller.setNewInvoiceForm = function(){
           controller.resetInvoiceForm();
+          controller.emptyForm = false;
+          controller.editCreate = false;
+      };
+
+      controller.readInvoice = function(id){
+        controller.getObject(id);
+        controller.resetInvoiceForm();
+        controller.editCreate = true;
+        controller.emptyForm = false;
       };
 
       controller.selectBuyer = function(){
