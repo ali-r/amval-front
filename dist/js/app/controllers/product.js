@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('productCtrl',
-  function($scope, mainAsset, requestHelper, pagination, crud) {
+  function($scope, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor) {
 
   var controller = this;
   var apiName = 'product';
@@ -79,6 +79,18 @@ angular.module("assetAdminPanel").controller('productCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   $scope.getUrl = pagination.makeUrl($scope)
 
+  this.toGregorianDate = function(pDate){
+    var dateArray = pDate.split('-');
+    var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+    return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+  }
+
+  this.toJalaliDate = function(pDate){
+    var dateArray = pDate.split('-');
+    var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+    return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+  }
+
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
 
@@ -92,9 +104,43 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(!sendCopyObj.is_bundle)
         sendCopyObj.is_bundle = false;
 
-    sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type)
+    sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);
+    delete sendCopyObj.price;
+
+    if($scope.editMode)
+      delete sendCopyObj.deprication_time;
+
+    sendCopyObj.guarantee_end_date = controller.toGregorianDate(sendCopyObj.guarantee_end_date);
+    sendCopyObj.guarantee_start_date = controller.toGregorianDate(sendCopyObj.guarantee_start_date);
+    sendCopyObj.produced_date = controller.toGregorianDate(sendCopyObj.produced_date);
 
     return sendCopyObj;
+  };
+
+  controller.getConfig = function(obj){
+    obj.deprication_type += '';
+    obj.guarantee_end_date = controller.toJalaliDate(obj.guarantee_end_date);
+    obj.guarantee_start_date = controller.toJalaliDate(obj.guarantee_start_date);
+    obj.produced_date = controller.toJalaliDate(obj.produced_date);
+    controller.tmp.meta = {meta_template:[]};
+
+    var meta;
+    for (var i = 0; i < obj.meta_data.length; i++) {
+      switch( typeof(obj.meta_data[i].value) ){
+        case 'boolean':
+          meta = { key:obj.meta_data[i].key, type:'bool'};
+        break;
+        case 'string':
+          meta = { key:obj.meta_data[i].key, type:'str'};
+        break;
+        case 'number':
+          meta = { key:obj.meta_data[i].key, type:'int'};
+        break;
+      }
+      controller.tmp.meta.meta_template.push(meta);
+      
+    }
+    return obj;
   };
 
   this.setGroupStage = function(){
@@ -124,7 +170,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   }
 
   crud.initModals($scope, controller, apiName)
-  crud.init($scope, controller, apiName, controller.objConfig)
+  crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
   pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
   controller.obj.qr_code = '';

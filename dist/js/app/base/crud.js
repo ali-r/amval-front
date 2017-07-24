@@ -24,10 +24,14 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
   }
 
-  this.init = function(scope, controller, name, objConfig) {
+  this.init = function(scope, controller, name, objConfig, getConfig) {
 
     if ( typeof(objConfig) == 'undefined' ) {
       objConfig = function(obj){return obj;};
+    }
+
+    if ( typeof(getConfig) == 'undefined' ) {
+      getConfig = function(obj){return obj;};
     }
 
     scope.checkWrite = function(param){
@@ -70,7 +74,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       requestHelper.get(
         scope.apiUrl + "/" + id,  scope,
         function(response) {
-          controller.obj = response.data
+          controller.obj = getConfig(response.data);
           console.log(response.data);
           scope.loadModal = false;
         });
