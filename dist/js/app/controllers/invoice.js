@@ -1,5 +1,6 @@
+var testVar;
 angular.module("assetAdminPanel").controller('invoiceCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud)
+  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor)
   {
 
       var controller = this;
@@ -24,12 +25,23 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.obj.buyer = '';
       controller.obj.seller = '';
       controller.obj.invoice_no='';
-      controller.obj.datetime='';
+      controller.obj.datetime ='';
+      controller.obj.datetimeJ ='';
       controller.obj.num_of_products='';
       controller.obj.products=[];
       controller.obj.scanned_invoice='';
 
-      crud.init($scope, controller, apiName);
+      controller.objConfig = function(obj){return obj;}
+
+      controller.getConfig = function(obj){
+        obj.datetime = controller.convertToJ(obj.datetime);
+        controller.editCreate = true;
+        controller.emptyForm = false;
+        return obj;
+      }
+
+      crud.initModals($scope, controller, apiName, []);
+      crud.init($scope, controller, apiName,controller.objConfig, controller.getConfig);
       pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
 
@@ -37,7 +49,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           controller.obj.buyer = '';
           controller.obj.seller = '';
           controller.obj.invoice_no='';
-          controller.obj.datetime='';
+          controller.obj.datetime ='';
+          controller.obj.datetimeJ ='';
           controller.obj.num_of_products='';
           controller.obj.products=[];
           controller.obj.scanned_invoice='';
@@ -51,11 +64,21 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       };
 
       controller.readInvoice = function(id){
-        controller.getObject(id);
         controller.resetInvoiceForm();
-        controller.editCreate = true;
-        controller.emptyForm = false;
+        controller.getObject(id)
       };
+
+      controller.convertToJ = function(datetime){
+        var dt = datetime.split("T")[0].split("-");
+        dt = ADMdtpConvertor.toJalali(parseInt(dt[0]),parseInt(dt[1]),parseInt(dt[2]));
+        return(dt.year+"-"+dt.month+"-"+dt.day); 
+      }
+
+      controller.convertToG = function(datetime){
+        var gdt = datetime.split("-");
+        gdt = ADMdtpConvertor.toGregorian(parseInt(gdt[0]),parseInt(gdt[1]),parseInt(gdt[2]));
+        return(gdt.year+"-"+gdt.month+"-"+gdt.day);
+      }
 
       controller.selectBuyer = function(){
 
