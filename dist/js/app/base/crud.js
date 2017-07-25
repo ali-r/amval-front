@@ -120,7 +120,14 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
     controller.search = function(cat, field){
       scope.loadSearch = true;
-      var searchUrl = mainAsset.getUrl() + cat + '?' + field + '__contains=' + controller.tmp.searchQuery;
+      var searchUrl = mainAsset.getUrl() + cat;
+
+      if(field.indexOf('?') == -1 && field != ''){
+        searchUrl += '?' + field + '__contains=' + controller.tmp.searchQuery;
+      }else{
+        searchUrl += field;
+      }
+
       requestHelper.get(
         searchUrl, scope,
         function(response) {

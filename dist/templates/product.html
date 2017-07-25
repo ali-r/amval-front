@@ -193,7 +193,7 @@
                         <i class="fa fa-qrcode fa-lg"></i>
                         </div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.qr_code && checkWrite('product')"
-                      ng-click=" product.obj.qr_code = null">حذف بارکد</button>
+                      ng-click=" product.obj.qr_code = ''">حذف بارکد</button>
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -225,28 +225,36 @@
                   <div class="col-md-6">
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" ng-model="product.is_bundle">
+                        <input type="checkbox" ng-model="product.obj.is_bundle">
                         آیا کالا باندل است؟
                       </label>
                     </div>
                   </div>
                   <div class="col-md-6" style="text-align:left"> 
-                    <button type="button" class="btn btn-round btn-success" ng-show="product.is_bundle">
+                    <button type="button" class="btn btn-round btn-success" ng-show="product.obj.is_bundle" ng-click="product.selectThings(2, 'product', '?is_bundle=False&parent_bundle=None')">
                       افزودن کالا به باندل
                       <i class="fa fa-plus"></i>
                     </button>
                   </div>
                   <div class="clearfix"></div>
-                  <div class="col-md-8 col-md-offset-2" ng-show="product.is_bundle">
+                  <div class="col-md-8 col-md-offset-2" ng-show="product.obj.is_bundle">
                     <table class="table table-striped asset-tables">
                       <thead>
                         <tr>
                           <th>#</th>
+                          <th>مدل کالا</th>
+                          <th>سریال کالا</th>
+                          <th>حذف</th>
                         </tr>
                       </thead>
-                      <tbody ng-hide = "load">
-                        <tr>
+                      <tbody>
+                        <tr ng-repeat="goods in product.obj.children">
                           <td>{{ $index + 1 }}</td>
+                          <td>{{ goods.model }}</td>
+                          <td>{{ goods.serial_number }}</td>
+                          <td>
+                            <a class="fa-lg" ng-click="product.deleteChild($index)" href>×</a>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -259,8 +267,67 @@
 
             <search-stage ng-show = "stage == 1" obj="product.selectGuarantorObj" controller = "product"></search-stage>
             <!-- end of Stage 1 -->
-
-            <search-stage ng-show = "stage == 2" obj="product.selectSellerObj" controller = "product"></search-stage>
+            
+            <div class="row" ng-show="stage == 2">
+              <div class="col-md-12">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    افزودن کالا به باندل
+                    <div class="pull-left">
+                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <form name="searchForm" role="form" novalidate>
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="product.tmp.searchQuery" required>
+                            <span class="input-group-btn">
+                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?is_bundle=False&parent_bundle=None&model__contains=' + product.tmp.searchQuery); product.tmp.searchD = true">
+                                جستجو
+                              </button>
+                            </span>
+                          </div>
+                      </form>
+                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
+                        <thead>
+                          <tr>
+                            <th>ردیف</th>
+                            <th>
+                              مدل
+                            </th>
+                            <th>
+                              شماره سریال
+                            </th>
+                            <th>
+                              زیر گروه
+                            </th>
+                            <th>انتخاب</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat = "list in product.tmp.searchResult">
+                            <td>
+                              {{ $index + 1 }}
+                            </td>
+                            <td>{{list.model}}</td>
+                            <td>{{list.serial_number}}</td>
+                            <td>
+                              {{list.subgroup.title}}
+                            </td>
+                            <td>
+                              <i ng-hide="product.checkDuplicate(list, product.obj.children)">موجود</i>
+                              <a ng-show="product.checkDuplicate(list, product.obj.children)" ng-click="product.addBundleProduct(list)" href>
+                                <i class="fa fa-check-square-o fa-lg"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              <!-- /.box-body -->
+              </div>
+            </div>
             <!-- end of Stage 2 -->
 
             <div class="row" ng-show="stage == 3">

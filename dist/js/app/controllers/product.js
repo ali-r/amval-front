@@ -101,18 +101,30 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(!sendCopyObj.is_out_of_system)
         sendCopyObj.is_out_of_system = false;
 
-    if(!sendCopyObj.is_bundle)
-        sendCopyObj.is_bundle = false;
+    if(!sendCopyObj.is_bundle){
+      sendCopyObj.is_bundle = false;
+      delete sendCopyObj.children;
+    }
 
     sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);
     delete sendCopyObj.price;
 
-    if($scope.editMode)
+    if($scope.editMode){
       delete sendCopyObj.deprication_time;
+      delete sendCopyObj.holder;
+      delete sendCopyObj.parent_bundle;
+    }
 
     sendCopyObj.guarantee_end_date = controller.toGregorianDate(sendCopyObj.guarantee_end_date);
     sendCopyObj.guarantee_start_date = controller.toGregorianDate(sendCopyObj.guarantee_start_date);
     sendCopyObj.produced_date = controller.toGregorianDate(sendCopyObj.produced_date);
+
+    if(obj.children){
+      sendCopyObj.children = [];
+      for (var i = 0; i < obj.children.length; i++) {
+        sendCopyObj.children.push(obj.children[i].id);
+      }
+    }
 
     return sendCopyObj;
   };
@@ -172,6 +184,33 @@ angular.module("assetAdminPanel").controller('productCtrl',
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
   pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
+
+  this.deleteChild = function(index){
+    controller.obj.children.splice (index, 1);
+  };
+
+  this.checkDuplicate = function (obj, array) {
+    var checkResult = true;
+
+    if(!array)
+      array = [];
+
+    for (var i = 0; i < array.length; i++) {
+      if( array[i].id == obj.id){
+        checkResult = false;
+      };
+    }
+    return checkResult;
+  }
+
+  this.addBundleProduct = function(list){
+
+    if(!controller.obj.children)
+      controller.obj.children = [];
+
+    controller.obj.children.push(list);
+    $scope.stage = 0;
+  };
 
   controller.obj.qr_code = '';
   this.uploadPic = function() {
