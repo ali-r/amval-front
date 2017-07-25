@@ -109,9 +109,9 @@
         <h3 class="modal-title" ng-hide="editMode">افزودن گروه</h3>
         <h3 class="modal-title" ng-show="editMode">ویرایش گروه</h3>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" ng-hide = "loadModal">
         <div ng-show = "stage == 0">
-          <form name="groupForm" role="form" ng-hide="loadModal" novalidate>
+          <form name="groupForm" role="form" novalidate>
             <fieldset ng-disabled="!checkWrite('group')">
               <div class="row">
                 <div class="col-sm-6">
@@ -126,8 +126,8 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="group.obj.parent.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent" ng-click="group.selectThings(1, 'group', 'last_name')">انتخاب پدر</button>
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-danger btn-beside-input" ng-show="group.obj.parent" ng-click="group.obj.parent = null">حذف پدر</button>
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent.title" ng-click="group.selectThings(1, 'group', 'last_name')">انتخاب پدر</button>
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-danger btn-beside-input" ng-show="group.obj.parent.title" ng-click="group.obj.parent = null">حذف پدر</button>
                         </span>
                       </div>
                     </div>
@@ -161,7 +161,7 @@
                   </button>
                 </div>
                 
-              </div>              
+              </div> 
               <table class="table table-hover">
                 <thead>
                   <th>نوع فیلد</th>
@@ -179,7 +179,7 @@
                       <input type="text" class="form-control" placeholder="عنوان فیلد" ng-model = "meta.key" required>
                     </td>
                     <td>
-                      <a class="fa-2x" ng-click="group.deleteMeta(key)" href>×</a>
+                      <a class="fa-2x" ng-click="group.deleteMeta($index)" href>×</a>
                     </td>
                   </tr>
                 </tbody>

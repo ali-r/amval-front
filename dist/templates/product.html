@@ -21,32 +21,26 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>نام</th>
-              <th>نام خانوادگی</th>
-              <th>نام کاربری</th>
-              <th>نوع کاربر</th>
-              <th>شماره تلفن </th>
+              <th>مدل کالا</th>
+              <th>قیمت</th>
+              <th>سازنده</th>
+              <th>تاریخ تولید</th>
+              <th>پایان گارانتی</th>
               <th></th>
-              <th ng-if = "checkWrite('product')"></th>
               <th ng-if = "checkWrite('product')"></th>
             </tr>
           </thead>
           <tbody ng-hide = "load">
             <tr ng-repeat = "list in product.note">
-              <td ng-click="product.getObject(list.id)">{{ (page-1)*10 + $index + 1 }}</td>
-              <td ng-click="product.getObject(list.id)">{{list.first_name}}</td>
-              <td ng-click="product.getObject(list.id)">{{list.last_name}}</td>
-              <td ng-click="product.getObject(list.id)">{{list.card_no}}</td>
-              <td ng-click="product.getObject(list.id)">{{list.clearance_level | productType}}</td>
-              <td ng-click="product.getObject(list.id)" style="direction:ltr;">{{list.phone}}</td>
+              <td>{{ (page-1)*10 + $index + 1 }}</td>
+              <td>{{list.model}}</td>
+              <td>{{list.price}}</td>
+              <td>{{list.producer.brand_name}}</td>
+              <td>{{list.produced_date}}</td>
+              <td>{{list.guarantee_end_date}}</td>
               <td>
                 <a ng-click="product.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('product') , 'fa-eye' : !checkWrite('product')}" aria-hidden="true"></i>
-                </a>
-              </td>
-              <td ng-if = "checkWrite('product')">
-                <a ng-click = "product.openResetPassModal(list.id)" data-toggle="modal" ng-if="assetData.id !== list.id" href>
-                  <i class="fa fa-lg fa-key" aria-hidden="true"></i>
                 </a>
               </td>
               <td ng-if = "checkWrite('product')">
@@ -65,7 +59,7 @@
 
 <!-- product Modal -->
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
@@ -82,132 +76,83 @@
       </div>
       <div class="modal-body">
           <div class="box-body">
-            <div class="row" ng-show = "stage == 0">
+            <div ng-show = "stage == 0">
               <form name="productForm" role="form" ng-hide="loadModal" novalidate>
                 <fieldset>
-                  <!-- model and serial -->
-                  <div class="col-md-6">
+                <div class="row">
+                  <!-- model serial group -->
+                  <div class="col-md-4">
                     <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && product.obj.model}">
                       <label>مدل کالا*</label>
                       <input type="text" class="form-control" name="model" placeholder="مدل کالا" ng-model = "product.obj.model" required>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group" ng-class="{'has-success' : productForm.serial.$valid && product.obj.serial_number}">
                       <label>سریال کالا*</label>
-                      <input type="text" class="form-control" name="serial" placeholder="مدل کالا" ng-model = "product.obj.serial_number" required>
+                      <input type="text" class="form-control" name="serial" placeholder="سریال کالا" ng-model = "product.obj.serial_number" required>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of model and serial -->
-
-                  <!-- price and date -->
-                  <div class="col-md-6">
-                    <div class="form-group" ng-class=" {'has-error' : productForm.phone.$invalid && product.obj.phone,
-                      'has-success' : productForm.phone.$valid && product.obj.phone } ">
-                      <label>قیمت*</label>
-                      <input type="number" class="form-control" name="price" placeholder="قیمت" ng-model = "product.obj.price" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group" ng-class="{'has-success' : productForm.cardno.$valid && product.obj.card_no}">
-                      <label>تاریخ تولید*</label>
-                      <adm-dtp ng-model="product.obj.produced_date" ></adm-dtp>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <!-- end of price and date -->
-
-                  <!-- holder and producer -->
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
-                      <label>نگهدارنده</label>
+                      <label>زیرگروه*</label>
                       <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.holder.title" disabled>
+                        <input type="text" class="form-control" ng-model="product.obj.subgroup.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(3, 'user', 'last_name')">انتخاب</button>
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.setGroupStage()">انتخاب</button>
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="clearfix"></div>
+                  <!-- end of model serial group -->
+
+                  <!-- guarantor producer seller -->
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label>تولید کننده*</label>
                       <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.producer.title" disabled required>
+                        <input type="text" class="form-control" ng-model="product.obj.producer.brand_name" disabled required>
                         <span class="input-group-btn">
                           <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(4, 'producer', 'brand_name')">انتخاب</button>
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of holder and producer -->
-
-                  <!-- seller and guarantor -->
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>فروشنده*</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.seller.title" disabled>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(2, 'seller', 'store_name')">انتخاب</button>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label>گارانتی*</label>
                       <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.guarantor.title" disabled required>
+                        <input type="text" class="form-control" ng-model="product.obj.guarantor.secretary_last_name" disabled required>
                         <span class="input-group-btn">
                           <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(1, 'guarantor', 'secretary_last_name')">انتخاب</button>
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of seller and guarantor -->
-
-                  <!-- guarantor Date -->
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label>تاریخ شروع گارانتی*</label>
                       <adm-dtp ng-model="product.obj.guarantee_start_date" ></adm-dtp>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="clearfix"></div>
+                  <!-- end of guarantor producer seller -->
+
+                  <!-- dates -->
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label>تاریخ پایان گارانتی*</label>
                       <adm-dtp ng-model="product.obj.guarantee_end_date"></adm-dtp>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of guarantor Date-->
-
-                  <!-- subgroup and time of deprication -->
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>زیرگروه*</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="product.obj.subgroup.title" disabled>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="product.selectThings(5, 'subgroup', 'title')">انتخاب</button>
-                        </span>
-                      </div>
+                  <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : productForm.cardno.$valid && product.obj.card_no}">
+                      <label>تاریخ تولید*</label>
+                      <adm-dtp ng-model="product.obj.produced_date" ></adm-dtp>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>مدت زمان استهلاک</label>
-                      <input type="text" class="form-control" ng-model="product.obj.deprication_period">
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <!-- end of subgroup and time of deprication -->
-
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label>مشکلات</label>  
                       <div class="row">
@@ -215,14 +160,30 @@
                           خارج از سرویس
                           <input class="" type="checkbox" ng-model="product.obj.is_out_of_system">
                         </div>
-                        <div class="col-sm-6">
-                          خرابی
-                          <input class="" type="checkbox" ng-model="product.obj.is_depricated">
-                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="clearfix"></div>
+                  <!-- end date -->
+
+                  <!-- subgroup and time of deprication -->
+                  
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>نوع استهکلاک</label>
+                      <select class="form-control" ng-model = "product.obj.deprication_type" required>
+                        <option value="0">از زمان شروع استفاده</option>
+                        <option value="1">از زمان تولید</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>مدت زمان استهلاک(روز)</label>
+                      <input type="number" class="form-control" ng-model="product.obj.deprication_period">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
                     <div class="form-group">
                       <label>*Qr Code</label>
                       <br/>
@@ -232,34 +193,229 @@
                         <i class="fa fa-qrcode fa-lg"></i>
                         </div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.qr_code && checkWrite('product')"
-                      ng-click=" product.obj.qr_code = null">حذف تصویر</button>
+                      ng-click=" product.obj.qr_code = ''">حذف بارکد</button>
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
-                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{product.obj.qr_code}}"
-                      ng-if="product.obj.qr_code" id='qrCodeImage'>
                     </div>
                   </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <img class="img-responsive img-thumbnail" ng-src="{{product.obj.qr_code}}" ng-if="product.obj.qr_code" id='qrCodeImage'>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <!-- end of subgroup and time of deprication -->
+
                   
+                       
+                </div>
+                <hr ng-show="product.tmp.meta.meta_template">
+                <h4 ng-show="product.tmp.meta.meta_template" >جزئیات کالا</h4>
+                <div class="row">
+                  <div class="col-md-3" ng-repeat="meta in product.tmp.meta.meta_template track by $index">
+                    <label ng-init="product.obj.meta_data[$index].key = meta.key">{{meta.key}}</label>
+                    <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="product.obj.meta_data[$index].value" required>
+                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="product.obj.meta_data[$index].value" required>
+                    <input ng-if="meta.type == 'bool'" class="form-control" type="checkbox" ng-model="product.obj.meta_data[$index].value" required>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="product.obj.is_bundle">
+                        آیا کالا باندل است؟
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6" style="text-align:left"> 
+                    <button type="button" class="btn btn-round btn-success" ng-show="product.obj.is_bundle" ng-click="product.selectThings(2, 'product', '?is_bundle=False&parent_bundle=None')">
+                      افزودن کالا به باندل
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-8 col-md-offset-2" ng-show="product.obj.is_bundle">
+                    <table class="table table-striped asset-tables">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>مدل کالا</th>
+                          <th>سریال کالا</th>
+                          <th>حذف</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="goods in product.obj.children">
+                          <td>{{ $index + 1 }}</td>
+                          <td>{{ goods.model }}</td>
+                          <td>{{ goods.serial_number }}</td>
+                          <td>
+                            <a class="fa-lg" ng-click="product.deleteChild($index)" href>×</a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                 </fieldset>
-            </form>
+              </form>
             </div>
             <!-- end of Stage 0 -->
 
             <search-stage ng-show = "stage == 1" obj="product.selectGuarantorObj" controller = "product"></search-stage>
             <!-- end of Stage 1 -->
-
-            <search-stage ng-show = "stage == 2" obj="product.selectSellerObj" controller = "product"></search-stage>
+            
+            <div class="row" ng-show="stage == 2">
+              <div class="col-md-12">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    افزودن کالا به باندل
+                    <div class="pull-left">
+                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <form name="searchForm" role="form" novalidate>
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="product.tmp.searchQuery" required>
+                            <span class="input-group-btn">
+                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?is_bundle=False&parent_bundle=None&model__contains=' + product.tmp.searchQuery); product.tmp.searchD = true">
+                                جستجو
+                              </button>
+                            </span>
+                          </div>
+                      </form>
+                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
+                        <thead>
+                          <tr>
+                            <th>ردیف</th>
+                            <th>
+                              مدل
+                            </th>
+                            <th>
+                              شماره سریال
+                            </th>
+                            <th>
+                              زیر گروه
+                            </th>
+                            <th>انتخاب</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat = "list in product.tmp.searchResult">
+                            <td>
+                              {{ $index + 1 }}
+                            </td>
+                            <td>{{list.model}}</td>
+                            <td>{{list.serial_number}}</td>
+                            <td>
+                              {{list.subgroup.title}}
+                            </td>
+                            <td>
+                              <i ng-hide="product.checkDuplicate(list, product.obj.children)">موجود</i>
+                              <a ng-show="product.checkDuplicate(list, product.obj.children)" ng-click="product.addBundleProduct(list)" href>
+                                <i class="fa fa-check-square-o fa-lg"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              <!-- /.box-body -->
+              </div>
+            </div>
             <!-- end of Stage 2 -->
 
-            <search-stage ng-show = "stage == 3" obj="product.selectHolderObj" controller = "product"></search-stage>
+            <div class="row" ng-show="stage == 3">
+              <div class="col-md-12">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    انتخاب زیرگروه
+                    <div class="pull-left">
+                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <form name="searchForm" role="form" novalidate>
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="product.tmp.searchQuery" required>
+                            <span class="input-group-btn">
+                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('group', 'title'); product.tmp.searchD = true">
+                                جستجو
+                              </button>
+                            </span>
+                          </div>
+                      </form>
+                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
+                        <thead>
+                          <tr>
+                            <th ng-if="!product.tmp.searchD"></th>
+                            <th>ردیف</th>
+                            <th>
+                              عنوان
+                            </th>
+                            <th>
+                              توضیحات
+                            </th>
+                            <th>
+                              پدر
+                            </th>
+                            <th>انتخاب</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat-start = "list in product.tmp.searchResult">
+                            <td style="text-align : right" ng-if="!product.tmp.searchD">
+                              <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#collaps{{$index}}" aria-expanded="false" aria-controls="collapseExample"
+                              ng-click="collaps[$index] = !collaps[$index]" ng-if="list.children" >
+                                <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
+                              </button>
+                            </td>
+                            <td>
+                              {{ (page-1)*10 + $index + 1 }}
+                            </td>
+                            <td>{{list.title}}</td>
+                            <td>{{list.description}}</td>
+                            <td>
+                              {{list.parent.title}}
+                            </td>
+                            <td>
+                              <a ng-click="product.selectTarget(list.id, list.title, 'title', 'subgroup'); product.loadMeta(list.id)" href>
+                                <i class="fa fa-check-square-o fa-lg"></i>
+                              </a>
+                            </td>
+                          </tr>
+                          <tr ng-if="!product.tmp.searchQuery" ng-repeat-end ng-repeat="chd in list.children" class="collapse group-chd" id="collaps{{$parent.$index}}">
+                            <td style="text-align : right">
+                              <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+                            </td>
+                            <td class="chd-td">
+                              {{$index+1}}-{{$parent.$index+1}}
+                            </td>
+                            <td>{{chd.title}}</td>
+                            <td>{{chd.description}}</td>
+                            <td>{{chd.parent.title}}</td>
+                            <td>
+                              <a ng-click="product.selectTarget(chd.id, chd.title, 'title', 'subgroup'); product.loadMeta(chd.id)" href>
+                                <i class="fa fa-check-square-o fa-lg"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              <!-- /.box-body -->
+              </div>
+            </div>
             <!-- end of Stage 3 -->
 
             <search-stage ng-show = "stage == 4" obj="product.selectProducerObj" controller = "product"></search-stage>
             <!-- end of Stage 4 -->
-
-            <search-stage ng-show = "stage == 5" obj="product.selectSubGroupObj" controller = "product"></search-stage>
-            <!-- end of Stage 5 -->
             
           </div>
       </div>

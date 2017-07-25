@@ -5,7 +5,7 @@
         انتخاب
         {{obj.title.fa}}
         <div class="pull-left">
-          <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+          <i ng-show = "$parent.loadSearch" class="fa fa-refresh fa-spin"></i>
         </div>
       </div>
       <div class="panel-body">
@@ -36,7 +36,7 @@
                   {{list[att.en]}}
                 </td>
                 <td>
-                  <a ng-click="controller.selectTarget(list.id, list[obj.searchAt.en], 'title', obj.title.en)" href>
+                  <a ng-click="controller.selectTarget(list.id, list[obj.searchAt.en], obj.searchAt.en, obj.title.en)" href>
                     <i class="fa fa-check-square-o fa-lg"></i>
                   </a>
                 </td>

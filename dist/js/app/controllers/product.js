@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('productCtrl',
-  function($scope, mainAsset, requestHelper, pagination, crud) {
+  function($scope, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor) {
 
   var controller = this;
   var apiName = 'product';
@@ -9,23 +9,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     {'fname' : 'مدل کالا', 'field' : 'model'},
     {'fname' : 'شماره کارت', 'field' : 'card_no'}
   ];
-
-  controller.selectHolderObj = {
-    title : { fa : 'نگهدارنده', en : 'holder'},
-    searchItem : {
-      fa : 'کاربر',
-      en : 'user'
-    },
-    searchAt : {
-      fa : 'نام خانوادگی',
-      en : 'last_name'
-    },
-    table : [
-      {fa:'نام',en:'first_name'},
-      {fa:'نام خانوادگی',en:'last_name'},
-      {fa:'شماره کارت',en:'card_no'}
-    ]
-  };
 
   controller.selectProducerObj = {
     title : { fa : 'تولید کننده', en : 'producer'},
@@ -75,19 +58,19 @@ angular.module("assetAdminPanel").controller('productCtrl',
     ]
   };
 
-  controller.selectSubGroupObj = {
-    title : { fa : 'زیرگروه', en : 'subgroup'},
+  controller.selectGroupObj = {
+    title : { fa : 'زیرگروه', en : 'group'},
     searchItem : {
       fa : 'زیر گروه',
-      en : 'subgroup'
+      en : 'group'
     },
     searchAt : {
-      fa : 'عنوان زیرگروه',
+      fa : 'عنوان',
       en : 'title'
     },
     table : [
-      {fa:'نام دبیر ',en:'secretary_first_name'},
-      {fa:'نام خانوادگی دبیر',en:'secretary_last_name'}
+      {fa:'عنوان',en:'title'},
+      {fa:'توضیحات',en:'description'}
     ]
   };
 
@@ -96,30 +79,137 @@ angular.module("assetAdminPanel").controller('productCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   $scope.getUrl = pagination.makeUrl($scope)
 
+  this.toGregorianDate = function(pDate){
+    var dateArray = pDate.split('-');
+    var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+    return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+  }
+
+  this.toJalaliDate = function(pDate){
+    var dateArray = pDate.split('-');
+    var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+    return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+  }
+
   controller.objConfig = function (obj) {
-    if (obj.warehouse)
-      obj.warehouse = obj.warehouse.id;
+    sendCopyObj = angular.copy(obj);
+
+    /*sendCopyObj.seller = sendCopyObj.seller.id;*/
+    sendCopyObj.guarantor = sendCopyObj.guarantor.id;
+    sendCopyObj.producer = sendCopyObj.producer.id;
+    sendCopyObj.subgroup = sendCopyObj.subgroup.id;
+    if(!sendCopyObj.is_out_of_system)
+        sendCopyObj.is_out_of_system = false;
+
+    if(!sendCopyObj.is_bundle){
+      sendCopyObj.is_bundle = false;
+      delete sendCopyObj.children;
+    }
+
+    sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);
+    delete sendCopyObj.price;
+
+    if($scope.editMode){
+      delete sendCopyObj.deprication_time;
+      delete sendCopyObj.holder;
+      delete sendCopyObj.parent_bundle;
+    }
+
+    sendCopyObj.guarantee_end_date = controller.toGregorianDate(sendCopyObj.guarantee_end_date);
+    sendCopyObj.guarantee_start_date = controller.toGregorianDate(sendCopyObj.guarantee_start_date);
+    sendCopyObj.produced_date = controller.toGregorianDate(sendCopyObj.produced_date);
+
+    if(obj.children){
+      sendCopyObj.children = [];
+      for (var i = 0; i < obj.children.length; i++) {
+        sendCopyObj.children.push(obj.children[i].id);
+      }
+    }
+
+    return sendCopyObj;
+  };
+
+  controller.getConfig = function(obj){
+    obj.deprication_type += '';
+    obj.guarantee_end_date = controller.toJalaliDate(obj.guarantee_end_date);
+    obj.guarantee_start_date = controller.toJalaliDate(obj.guarantee_start_date);
+    obj.produced_date = controller.toJalaliDate(obj.produced_date);
+    controller.tmp.meta = {meta_template:[]};
+
+    var meta;
+    for (var i = 0; i < obj.meta_data.length; i++) {
+      switch( typeof(obj.meta_data[i].value) ){
+        case 'boolean':
+          meta = { key:obj.meta_data[i].key, type:'bool'};
+        break;
+        case 'string':
+          meta = { key:obj.meta_data[i].key, type:'str'};
+        break;
+        case 'number':
+          meta = { key:obj.meta_data[i].key, type:'int'};
+        break;
+      }
+      controller.tmp.meta.meta_template.push(meta);
+      
+    }
     return obj;
   };
 
-  crud.initModals($scope, controller, apiName)
-  crud.init($scope, controller, apiName, controller.objConfig)
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
-
-  this.resetPass = function(id) {
-    requestHelper.put(
-      $scope.apiUrl + '/' + id + '/password', {'new_password': controller.passToReset}, $scope,
+  this.setGroupStage = function(){
+    $scope.stage = 3;
+    $scope.loadSearch = true;
+    var searchUrl = mainAsset.getUrl() + 'group?group_type=group&page=1&per_page=25';
+    requestHelper.get(
+      searchUrl, $scope,
       function(response) {
-        $('#resetPassModal').modal('hide');
+        controller.tmp.searchResult = response.data.groups;
+        $scope.loadSearch = false;
       });
   };
 
-  this.openResetPassModal = function(id) {
-    controller.toResetPassId = id;
-    controller.passToReset = null;
-    controller.passToResetConf = '';
-    $scope.resetPassForm.pass.$pristine = true;
-    mainAsset.openModal('#resetPassModal');
+  this.loadMeta = function(id){
+    $scope.loadModal = true;
+    var metaUrl = mainAsset.getUrl() + 'group/' + id;
+    requestHelper.get(
+      metaUrl, $scope,
+      function(response) {
+        controller.tmp.meta = response.data;
+        if(!$scope.editMode)
+          controller.obj.meta_data = [];
+        console.log(controller.tmp.meta);
+        $scope.loadSearch = false;
+      });
+  }
+
+  crud.initModals($scope, controller, apiName)
+  crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
+  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
+
+  this.deleteChild = function(index){
+    controller.obj.children.splice (index, 1);
+  };
+
+  this.checkDuplicate = function (obj, array) {
+    var checkResult = true;
+
+    if(!array)
+      array = [];
+
+    for (var i = 0; i < array.length; i++) {
+      if( array[i].id == obj.id){
+        checkResult = false;
+      };
+    }
+    return checkResult;
+  }
+
+  this.addBundleProduct = function(list){
+
+    if(!controller.obj.children)
+      controller.obj.children = [];
+
+    controller.obj.children.push(list);
+    $scope.stage = 0;
   };
 
   controller.obj.qr_code = '';

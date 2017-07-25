@@ -24,10 +24,14 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
   }
 
-  this.init = function(scope, controller, name, objConfig) {
+  this.init = function(scope, controller, name, objConfig, getConfig) {
 
     if ( typeof(objConfig) == 'undefined' ) {
       objConfig = function(obj){return obj;};
+    }
+
+    if ( typeof(getConfig) == 'undefined' ) {
+      getConfig = function(obj){return obj;};
     }
 
     scope.checkWrite = function(param){
@@ -70,28 +74,28 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       requestHelper.get(
         scope.apiUrl + "/" + id,  scope,
         function(response) {
-          controller.obj = response.data
+          controller.obj = getConfig(response.data);
           console.log(response.data);
           scope.loadModal = false;
         });
     };
 
     controller.sendOrEdit = function(editMode){
-      var obj = new Object();
-      obj = controller.obj;
-      delete obj['id'];
+      var sendObj = new Object();
+      sendObj = angular.copy(controller.obj);
+      delete sendObj['id'];
       scope.loadModal = true;
-      obj = objConfig(obj);
-      console.log(obj);
+      sendObj = objConfig(sendObj);
+      console.log(sendObj);
       if(editMode) {
-        requestHelper.put(scope.apiUrl + "/" + scope.toEditId , obj, scope,
+        requestHelper.put(scope.apiUrl + "/" + scope.toEditId , sendObj, scope,
         function(response) {
           $('#' + name + 'Modal').modal('hide');
           controller.getData();
           scope.reset();
         });
       } else {
-        requestHelper.post(scope.apiUrl , obj, scope,
+        requestHelper.post(scope.apiUrl , sendObj, scope,
         function(response) {
           $('#' + name + 'Modal').modal('hide');
           controller.getData();
@@ -116,11 +120,17 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
     controller.search = function(cat, field){
       scope.loadSearch = true;
-      var searchUrl = mainAsset.getUrl() + cat + '?' + field + '__contains=' + controller.tmp.searchQuery;
+      var searchUrl = mainAsset.getUrl() + cat;
+
+      if(field.indexOf('?') == -1 && field != ''){
+        searchUrl += '?' + field + '__contains=' + controller.tmp.searchQuery;
+      }else{
+        searchUrl += field;
+      }
+
       requestHelper.get(
         searchUrl, scope,
         function(response) {
-          console.log(response);
           controller.tmp.searchResult = response.data[cat + 's'];
           scope.loadSearch = false;
         });

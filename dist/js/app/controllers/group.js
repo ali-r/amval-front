@@ -35,24 +35,21 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   $scope.getUrl = pagination.makeUrl($scope, controller.searchObject, controller.searchValue, controller.addOne);
 
   controller.objConfig = function (obj) {
-    if (obj.children)
-      delete obj.children;
+    sendCopyObj = angular.copy(obj);
+    if (sendCopyObj.children)
+      delete sendCopyObj.children;
 
-    if (obj.parent)
-      obj.parent = obj.parent.id;
+    if (sendCopyObj.parent)
+      sendCopyObj.parent = sendCopyObj.parent.id;
 
-    obj.meta_template = obj.self_meta_template;
-    delete obj.self_meta_template;
-    return obj;
+    sendCopyObj.meta_template = sendCopyObj.self_meta_template;
+    delete sendCopyObj.self_meta_template;
+    return sendCopyObj;
   };
 
   
 
-  crud.initModals($scope, controller, apiName, [
-    controller.obj.title,
-    controller.obj.location,
-    controller.obj.phone
-  ]);
+  crud.initModals($scope, controller, apiName);
   crud.init($scope, controller, apiName, controller.objConfig)
   pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue', controller.addOne);
 

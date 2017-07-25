@@ -87,7 +87,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     );
   };
 
-  this.put = function(url, json, scope, callback,progressBar) {
+  this.put = function(url, json, scope, callback, progressBar) {
     this.init(scope);
     this.startLoading(progressBar);
 
