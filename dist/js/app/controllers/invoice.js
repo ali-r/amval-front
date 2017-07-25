@@ -7,6 +7,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       var apiName = 'invoice';
       controller.emptyForm = true;
       controller.editCreate = true;    //Edit: true, Create: false
+      $scope.buyerSeller = true;       //Buyer:true, Seller:false, usage in select modal
 
       controller.searchObject = [
           {'fname' : 'شماره فاکتور', 'field' : 'invoice_no'},
@@ -38,6 +39,14 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.editCreate = true;
         controller.emptyForm = false;
         return obj;
+      }
+
+      controller.openModal = function(name){
+        mainAsset.openModal('#' + name + 'Modal');
+      }
+
+      controller.closeModal = function(name){
+        mainAsset.closeModal('#' + name + 'Modal')
       }
 
       crud.initModals($scope, controller, apiName, []);
@@ -81,12 +90,23 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       controller.selectBuyer = function(){
-
+        $scope.buyerSeller = true;
+        controller.openModal('select');
+        controller.tmp.searchQuery = '';
+        controller.search('user','last_name');
       };
 
       controller.selectSeller = function(){
-
+        $scope.buyerSeller = false;
+        controller.openModal('select');
+        controller.tmp.searchQuery = '';
+        controller.search('seller','last_name');
       };
+
+      controller.selectPerson = function(id, title, titleFiled, variable){
+        controller.selectTarget(id, title, titleFiled, variable);
+        controller.closeModal('select');
+      }
 
       controller.addProduct = function(){
 
