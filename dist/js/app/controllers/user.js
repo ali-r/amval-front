@@ -37,8 +37,12 @@ angular.module("assetAdminPanel").controller('userCtrl',
     if (obj.warehouse)
       obj.warehouse = obj.warehouse.id;
 
-    if (obj.warehouse_under_management)
-      obj.warehouse_under_management = obj.warehouse_under_management.id;
+    if (obj.warehouse_under_management && obj.clearance_level == 1)
+      {obj.warehouse_under_management = obj.warehouse_under_management.id;}
+      else{
+        delete obj.warehouse_under_management;
+      }
+
 
     return obj;
   };
