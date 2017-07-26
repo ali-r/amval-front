@@ -12,6 +12,22 @@ angular.module("assetAdminPanel").controller('userCtrl',
     {'fname' : 'شماره کارت', 'field' : 'card_no'}
   ];
 
+  controller.selectWarehouseUnderManagementObj = {
+    title : { fa : 'انبار تحت مدیریت', en : 'warehouse_under_management'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'عنوان',
+      en : 'title'
+    },
+    table : [
+      {fa:'عنوان',en:'title'},
+      {fa:'محل',en:'location'}
+    ]
+  };
+
   $scope.page = 1;
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;

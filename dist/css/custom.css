@@ -4372,8 +4372,9 @@ select.form-control{
   border-color: #c31616;
 }
 .img-sig{
-  width: 90%;
-  margin: 20px auto 10px auto;
+  width: 35%;
+  margin: 10px auto 10px auto;
+  float: left;
 }
 .btn-beside-input{
   border-top-right-radius: 0;
