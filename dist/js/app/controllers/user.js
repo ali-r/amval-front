@@ -20,6 +20,10 @@ angular.module("assetAdminPanel").controller('userCtrl',
   controller.objConfig = function (obj) {
     if (obj.warehouse)
       obj.warehouse = obj.warehouse.id;
+
+    if (obj.warehouse_under_management)
+      obj.warehouse_under_management = obj.warehouse_under_management.id;
+
     return obj;
   };
 
