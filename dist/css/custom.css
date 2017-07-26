@@ -1548,7 +1548,7 @@ ul.msg_list li a .message {
     box-shadow: none;
     display: none;
     float: left;
-    font-size: 12px;
+    font-size: 13px;
     left: 0;
     list-style: none outside none;
     padding: 0;
@@ -1561,7 +1561,8 @@ ul.msg_list li a .message {
     border-top-right-radius: 0
 }
 .dropdown-menu>li>a {
-    color: #5A738E
+    color: #5A738E;
+    text-align: right
 }
 .navbar-nav .open .dropdown-menu {
     position: absolute;
