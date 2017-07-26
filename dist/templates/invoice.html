@@ -46,7 +46,7 @@
                                 </a>
                             </td>
                             <td ng-if = "checkWrite('invoice')">
-                                <a ng-click="invoice.toDeleteId = list.id; invoice.toDeleteTitle = list.invoice_no" data-toggle="modal" data-target="#deleteModal" href>
+                                <a ng-click="invoice.openDeleteModal(list.id,list.invoice_no,2)" href>
                                     <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -127,16 +127,25 @@
                                             <thead>
                                                 <tr>
                                                     <td>نام کالا</td>
-                                                    <td>تعداد</td>
-                                                    <td>حذف</td>
+                                                    <td>قیمت</td>
+                                                    <td></td>
                                                 </tr>
                                             </thead>
                                             <tbody ng-repeat = "product in invoice.obj.products">
                                                 <tr>
                                                     <td> {{product.model}} </td>
-                                                    <td> {{1}} </td>
+                                                    <td> 
+                                                        <form name="setProductPriceForm" role="form" novalidate>
+                                                          <div class="input-group col-xs-6 col-xs-push-3">
+                                                            <input dir="ltr" type="number" min="0" class="form-control" name="productPrice" ng-model="product.price" required>
+                                                          </div>
+                                                          <p ng-show="setProductPriceForm.productPrice.$invalid" class="input-error-p">قیمت باید عددی بیشتر از صفر باشد</p>
+                                                          <p ng-show="setProductPriceForm.productPrice.$error.number">* فقط اعداد مجاز هستند</p>
+                                                        </form>
+
+                                                    </td>
                                                     <td ng-if = "checkWrite('invoice')">
-                                                        <a ng-click="invoice.toDeleteId = product.id; invoice.toDeleteTitle = product.model" data-toggle="modal" data-target="#deleteModal" href>
+                                                        <a ng-click="invoice.openDeleteModal($index,product.model,1)" href>
                                                             <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                                                         </a>
                                                     </td>
@@ -200,7 +209,7 @@
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <!-- Stage 1 for buyer select -->
-                            <div class="panel panel-info" ng-show="buyerSeller">
+                            <div class="panel panel-info" ng-show="selectStage == 1">
                                 <div class="panel-heading">
                                     انتخاب خریدار
                                     <div class="pull-left">
@@ -235,7 +244,7 @@
                                               {{list.last_name}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.selectPerson(list.id, list.last_name, 'last_name', 'buyer')" href>
+                                              <a ng-click="invoice.selectItem(list.id, list.last_name, 'last_name', 'buyer')" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
                                             </td>
@@ -247,7 +256,7 @@
                             <!-- End of Stage 1 -->
 
                             <!-- Stage 2 for seller select -->
-                            <div class="panel panel-info" ng-hide="buyerSeller">
+                            <div class="panel panel-info" ng-show="selectStage == 2">
                                 <div class="panel-heading">
                                     انتخاب فروشنده
                                     <div class="pull-left">
@@ -282,7 +291,7 @@
                                               {{list.last_name}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.selectPerson(list.id, list.last_name, 'last_name', 'seller')" href>
+                                              <a ng-click="invoice.selectItem(list.id, list.last_name, 'last_name', 'seller')" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
                                             </td>
@@ -293,7 +302,52 @@
                             </div><!-- /.panel -->
                             <!-- End of Stage 2 -->
 
+                            <!-- Stage 3 for product select -->
+                            <div class="panel panel-info" ng-show="selectStage == 3">
+                                <div class="panel-heading">
+                                    انتخاب کالا
+                                    <div class="pull-left">
+                                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="selectProductForm" role="form" novalidate>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery" required>
+                                        <span class="input-group-btn">
+                                          <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','model')">جستجوی کالا</button>
+                                        </span>
+                                      </div>
+                                    </form>
 
+                                    <table class="table table-hover table-border" ng-hide = "invoice.tmp.searchResult == '' || loadSearch">
+                                        <tbody>
+                                          <tr>
+                                            <th>ردیف</th>
+                                            <th>مدل کالا</th>
+                                            <th>شماره سریال</th>
+                                            <th>انتخاب</th>
+                                          </tr>
+
+                                          <tr ng-repeat = "list in invoice.tmp.searchResult">
+                                            <td>{{$index+1}}</td>
+                                            <td>
+                                              {{list.model}}
+                                            </td>
+                                            <td>
+                                              {{list.serial_number}}
+                                            </td>
+                                            <td>
+                                              <a ng-click="invoice.pushProduct(list.id, list.model, list.price)" href>
+                                                <i class="fa fa-check-square-o fa-lg"></i>
+                                              </a>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div><!-- /.panel -->
+                            <!-- End of Stage 3 -->
 
                         </div>
                     </div>
@@ -305,3 +359,37 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" ng-show = "deleteStage == 1">حذف کالا از فاکتور</h4>
+        <h4 class="modal-title" id="myModalLabel" ng-show = "deleteStage == 2">حذف فاکتور</h4>
+      </div>
+      <div class="modal-body" ng-show = "deleteStage == 1">
+        آیا مایل به حذف کالای
+        "{{invoice.toDeleteTitle}}"
+        هستید؟
+      </div>
+      <div class="modal-body" ng-show = "deleteStage == 2">
+        آیا مایل به حذف فاکتور به شماره
+        "{{invoice.toDeleteTitle}}"
+        هستید؟
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
+        <button type="button" class="btn btn-success" ng-show="deleteStage == 1" ng-click="invoice.deleteProduct(invoice.toDeleteId)">بله</button>
+        <button type="button" class="btn btn-success" ng-show="deleteStage == 2" ng-click="invoice.deleteObject(invoice.toDeleteId)">بله</button>
+      </div>
+    </div>
+  </div>
+</div>

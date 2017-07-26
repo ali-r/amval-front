@@ -7,7 +7,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       var apiName = 'invoice';
       controller.emptyForm = true;
       controller.editCreate = true;    //Edit: true, Create: false
-      $scope.buyerSeller = true;       //Buyer:true, Seller:false, usage in select modal
+      $scope.selectStage = 0;       //Buyer:1, Seller:2, Product:3 usage in select modal
+      $scope.deleteStage = 1;       //Product:1 , Invoice:2 , usage in delete modal
 
       controller.searchObject = [
           {'fname' : 'شماره فاکتور', 'field' : 'invoice_no'},
@@ -48,6 +49,13 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.closeModal = function(name){
         mainAsset.closeModal('#' + name + 'Modal')
       }
+
+      controller.openDeleteModal=function(id_,title_,stage_){
+        controller.toDeleteId = id_;
+        controller.toDeleteTitle = title_;
+        $scope.deleteStage = stage_;
+        controller.openModal('delete');
+      } 
 
       crud.initModals($scope, controller, apiName, []);
       crud.init($scope, controller, apiName,controller.objConfig, controller.getConfig);
@@ -90,20 +98,20 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       controller.selectBuyer = function(){
-        $scope.buyerSeller = true;
+        $scope.selectStage = 1;
         controller.openModal('select');
         controller.tmp.searchQuery = '';
         controller.search('user','last_name');
       };
 
       controller.selectSeller = function(){
-        $scope.buyerSeller = false;
+        $scope.selectStage = 2;
         controller.openModal('select');
         controller.tmp.searchQuery = '';
         controller.search('seller','last_name');
       };
 
-      controller.selectPerson = function(id, title, titleFiled, variable){
+      controller.selectItem = function(id, title, titleFiled, variable){
         controller.selectTarget(id, title, titleFiled, variable);
         controller.closeModal('select');
       }
@@ -113,15 +121,75 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       };
 
       controller.selectProduct = function(){
-
+        $scope.selectStage = 3;
+        controller.openModal('select');
+        controller.tmp.searchQuery = '';
+        controller.search('product','model');
       };
+
+      controller.pushProduct = function(id_, model_,price_){
+        controller.obj.products.push({
+          id:id_,
+          model:model_,
+          price:price_
+        })
+        controller.obj.num_of_products = controller.obj.products.length;
+        controller.closeModal('select');
+      }
+
+      controller.deleteProduct = function(item_index){
+        controller.obj.products.remove(item_index);
+        controller.obj.num_of_products = controller.obj.products.length;
+        controller.closeModal('delete');
+      }
 
       controller.deleteInvoiceImage = function(){
 
       };
 
       controller.editOrCreate = function (state) {
+        //preparing data 
+        var obj = new Object();
+        obj.datetime = controller.convertToG(controller.obj.datetime);
+        
+        obj.price = 0
+        controller.obj.products.forEach(function(item,index){
+          obj.price += item.price;
+        })
 
+        obj.products = [];
+        controller.obj.products.forEach(function(item,index){
+          obj.products.push({
+            id: item.id,
+            price: item.price
+          });
+        })
+
+        
+        obj.seller = controller.obj.seller['id'];
+        obj.buyer = controller.obj.buyer['id'];
+        obj.invoice_no = controller.obj.invoice_no;
+        obj.scanned_invoice = controller.obj.scanned_invoice;
+        obj.num_of_products = controller.obj.num_of_products;
+
+        //sending request using requestHelper service
+        $scope.loadModal = true;
+        console.log(obj);
+        if(state) {
+          requestHelper.put($scope.apiUrl + "/" + $scope.toEditId , obj, $scope,
+          function(response) {
+            controller.emptyForm = true;
+            controller.getData();
+            $scope.reset();
+          });
+        } else {
+          requestHelper.post($scope.apiUrl , obj, $scope,
+          function(response) {
+            controller.emptyForm = true;
+            controller.getData();
+            $scope.reset();
+          });
+        }
       }
 
 
