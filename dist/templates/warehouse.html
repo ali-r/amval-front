@@ -42,9 +42,9 @@
                 </a>
               </td>
               <td>
-                <a ng-click="warehouse.getProducts(list.id)" title="مشاهده کالاها" href>
+               <!--  <a ng-click="warehouse.getProducts(list.id)" title="مشاهده کالاها" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
-                </a>
+                </a> -->
               </td>
               <td ng-if = "checkWrite('warehouse')">
                 <a ng-click="warehouse.toDeleteId = list.id; warehouse.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>

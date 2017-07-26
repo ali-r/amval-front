@@ -113,7 +113,7 @@
                     <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && user.obj.password,
                       'has-success' : !userForm.password.$invalid }  ">
                       <label>گذرواژه*</label>
-                      <input type="password" class="form-control" name="password" placeholder="گذرواژه" ng-pattern = "/^[a-z0-9]+$/"
+                      <input type="password" class="form-control" name="password" placeholder="گذرواژه" ng-pattern = "/^[A-Za-z0-9]+$/"
                       ng-model = "user.obj.password" ng-required = "!editMode && user.obj.clearance_level !== 0" ng-minlength="8" ng-maxlength="15" ng-model-options="{ allowInvalid: true }">
                       <p ng-show="userForm.password.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
                       <p ng-show="userForm.password.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
@@ -181,7 +181,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="user.obj.warehouse_under_management.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectThings(2, 'warehouse', 'title')">انتخاب انبار</button>
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectThings(2, 'warehouse', '?parent_warehouse__ne=None')">انتخاب انبار</button>
                         </span>
                       </div>
                     </div>
@@ -342,7 +342,7 @@
           <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine ,
             'has-success' : !resetPassForm.password.$invalid && !resetPassForm.pass.$pristine }">
             <label for="pass">کلمه عبور جدید</label>
-            <input type="password" class="form-control form-ltr" name="pass" ng-pattern = "/^[a-z0-9]+$/"
+            <input type="password" class="form-control form-ltr" name="pass" ng-pattern = "/^[A-Za-z0-9]+$/"
             ng-minlength="8" ng-maxlength="15" ng-model="user.passToReset" ng-model-options="{ allowInvalid: true }" required>
             <p ng-show="resetPassForm.pass.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
             <p ng-show="resetPassForm.pass.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
@@ -352,7 +352,7 @@
             'has-success' : user.passToResetConf == user.passToReset && !resetPassForm.confPass.$pristine}  ">
             <label for="pass">تکرار کلمه عبور جدید</label>
             <input name="confPass" type="password" id="password" ng-model="user.passToResetConf" class="form-control form-ltr" ng-maxlength="15" ng-minlength="8"
-            ng-pattern = "/^[a-z0-9]+$/" ng-model-options="{ allowInvalid: true }" required>
+            ng-pattern = "/^[A-Za-z0-9]+$/" ng-model-options="{ allowInvalid: true }" required>
             <p ng-show="user.passToResetConf !== user.passToReset && user.passToResetConf"
             class="input-error-p">با کلمه عبور مطابقت ندارد</p>
           </div>

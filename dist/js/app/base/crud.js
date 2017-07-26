@@ -127,7 +127,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       }else{
         searchUrl += field;
       }
-
+      console.log(searchUrl);
       requestHelper.get(
         searchUrl, scope,
         function(response) {
