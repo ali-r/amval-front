@@ -143,6 +143,18 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.closeModal('delete');
       }
 
+      controller.uploadPic = function() {
+        $scope.uploading = true;
+        console.log($scope.invoiceImageForm.file.$error)
+        if(!$scope.invoiceImageForm.file.$error.maxSize && controller.sigFile)
+        {
+          requestHelper.uploadFileReq(controller.scannedFile, 'invoice', $scope, function(data){
+            controller.obj.scanned_signature = data.file_url;
+            $scope.uploading = false;
+          });
+        }
+      }
+
       controller.deleteInvoiceImage = function(){
 
       };
