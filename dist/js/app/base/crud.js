@@ -132,6 +132,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         searchUrl, scope,
         function(response) {
           controller.tmp.searchResult = response.data[cat + 's'];
+          console.log(response.data);
           scope.loadSearch = false;
         });
     };

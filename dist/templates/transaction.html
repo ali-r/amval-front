@@ -1,0 +1,201 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+
+      <div class="x_content">
+        <search-tools sobject="transaction.searchObject" scontroller="transaction"></search-tools>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa"></i>تراکنش‌ها</h2>
+        <button type="button" ng-if = "checkWrite('transaction')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
+          تراکنش جدید
+        </button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table table-striped jambo_table asset-tables">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>نام</th>
+              <th>نام خانوادگی</th>
+              <th>نام فروشگاه</th>
+              <th>شماره موبایل</th>
+              <th>شماره تلفن </th>
+              <th></th>
+              <th ng-if = "checkWrite('transaction')"></th>
+            </tr>
+          </thead>
+          <tbody ng-hide="load">
+            <tr ng-repeat = "list in transaction.note">
+              <td>{{ (page-1)*10 + $index + 1 }}</td>
+              <td>{{list.first_name}}</td>
+              <td>{{list.last_name}}</td>
+              <td>{{list.store_name}}</td>
+              <td style="direction:ltr;">{{list.cellphone}}</td>
+              <td style="direction:ltr;">{{list.phone}}</td>
+              <td>
+                <a ng-click="transaction.getObject(list.id)" href>
+                  <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('transaction') , 'fa-eye' : !checkWrite('transaction')}" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td ng-if = "checkWrite('transaction')">
+                <a ng-click="transaction.toDeleteId = list.id; transaction.toDeleteTitle = list.store_name" data-toggle="modal" data-target="#deleteModal" href>
+                  <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <req-pagination itemmeta="meta" itempage="page"></req-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Seller Modal -->
+<div class="modal fade" id="transactionModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0" ng-disabled="!transactionForm.$valid" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h3 class="modal-title" ng-hide="editMode">افزودن تراکنش جدید</h3>
+        <h3 class="modal-title" ng-show="editMode">ویرایش تراکنش</h3>
+      </div>
+      <div class="modal-body">
+        <div ng-show="stage == 0">
+          <form name="transactionForm" role="form" ng-hide="loadModal" novalidate>
+            <div class="row">
+              <fieldset ng-disabled ="!checkWrite('transaction')">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>کالا*</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="transaction.obj.product.serial_number" disabled>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('transaction')" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?parent_bundle=None')">انتخاب</button>
+                      </span>
+                      {{transaction.obj.product.holder}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>مقصد</label>
+                    <strong>{{transaction.obj.product.holder.type}}</strong>
+                    
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </form> 
+        </div>
+        <!-- end of stage 0 -->
+
+        <div class="row" ng-show="stage == 1">
+          <div class="col-md-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                انتخاب کالا
+                <div class="pull-left">
+                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                </div>
+              </div>
+              <div class="panel-body">
+                <form name="searchForm" role="form" novalidate>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="جستجو کالا" name="searchText" ng-model="transaction.tmp.searchQuery" required>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?parent_bundle=None&serial_number__contains=' + transaction.tmp.searchQuery)">
+                            جستجو
+                          </button>
+                        </span>
+                      </div>
+                  </form>
+                  <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
+                    <thead>
+                      <tr>
+                        <th>ردیف</th>
+                        <th>
+                          مدل
+                        </th>
+                        <th>
+                          شماره سریال
+                        </th>
+                        <th>
+                          زیر گروه
+                        </th>
+                        <th>انتخاب</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "list in transaction.tmp.searchResult">
+                        <td>
+                          {{ $index + 1 }}
+                        </td>
+                        <td>{{list.model}}</td>
+                        <td>{{list.serial_number}}</td>
+                        <td>
+                          {{list.subgroup.title}}
+                        </td>
+                        <td>
+                          <a ng-click="transaction.addProduct(list)" href>
+                            <i class="fa fa-check-square-o fa-lg"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- end of stage 1 -->
+
+      </div>
+      <div class="modal-footer">
+        <p ng-show = "stage == 0"> −
+          پر کردن فیلد هایی که با * مشخص شده اجباری است
+        </p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف تراکنش</h4>
+      </div>
+      <div class="modal-body">
+        آیا مایل به حذف تراکنش
+        "{{transaction.toDeleteTitle}}"
+        هستید؟
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
+        <button type="button" class="btn btn-success" ng-click="transaction.deleteObject(transaction.toDeleteId)">بله</button>
+      </div>
+    </div>
+  </div>
+</div>

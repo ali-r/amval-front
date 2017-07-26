@@ -13,7 +13,7 @@
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="{{ obj.searchAt.fa + ' ' + obj.searchItem.fa}}" name="searchText" ng-model="controller.tmp.searchQuery" required>
                 <span class="input-group-btn">
-                  <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search(obj.searchItem.en, obj.searchAt.en)">
+                  <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search(obj.searchItem.en, obj.addOneUrl + obj.searchAt.en)">
                     جستجوی 
                     {{obj.searchItem.fa}}
                   </button>
