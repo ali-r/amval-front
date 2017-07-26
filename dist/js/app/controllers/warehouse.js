@@ -15,9 +15,16 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   $scope.getUrl = pagination.makeUrl($scope);
 
   controller.objConfig = function (obj) {
-    if (obj.clerk)
-      obj.clerk = obj.clerk.id;
-    return obj;
+    sendCopyObj = angular.copy(obj);
+
+    if (sendCopyObj.clerk)
+      sendCopyObj.clerk = sendCopyObj.clerk.id;
+
+    if($scope.editMode){
+      delete sendCopyObj.parent_warehouse;
+    }
+
+    return sendCopyObj;
   };
 
   controller.obj = {}
