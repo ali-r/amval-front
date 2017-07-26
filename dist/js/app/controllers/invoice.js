@@ -1,12 +1,10 @@
-var testVar;
 angular.module("assetAdminPanel").controller('invoiceCtrl',
   function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor)
   {
-
       var controller = this;
       var apiName = 'invoice';
       controller.emptyForm = true;
-      controller.editCreate = true;    //Edit: true, Create: false
+      $scope.editMode = true;    //Edit: true, Create: false
       $scope.selectStage = 0;       //Buyer:1, Seller:2, Product:3 usage in select modal
       $scope.deleteStage = 1;       //Product:1 , Invoice:2 , usage in delete modal
 
@@ -24,20 +22,12 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       $scope.getUrl = pagination.makeUrl($scope);
 
       controller.obj = {};
-      controller.obj.buyer = '';
-      controller.obj.seller = '';
-      controller.obj.invoice_no='';
-      controller.obj.datetime ='';
-      controller.obj.datetimeJ ='';
-      controller.obj.num_of_products='';
-      controller.obj.products=[];
-      controller.obj.scanned_invoice='';
 
       controller.objConfig = function(obj){return obj;}
 
       controller.getConfig = function(obj){
         obj.datetime = controller.convertToJ(obj.datetime);
-        controller.editCreate = true;
+        $scope.editMode = true;
         controller.emptyForm = false;
         return obj;
       }
@@ -63,24 +53,18 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
 
       controller.resetInvoiceForm = function(){
-          controller.obj.buyer = '';
-          controller.obj.seller = '';
-          controller.obj.invoice_no='';
-          controller.obj.datetime ='';
-          controller.obj.datetimeJ ='';
-          controller.obj.num_of_products='';
-          controller.obj.products=[];
-          controller.obj.scanned_invoice='';
+          controller.obj = {};
           controller.emptyForm = true;
       };
 
       controller.setNewInvoiceForm = function(){
           controller.resetInvoiceForm();
           controller.emptyForm = false;
-          controller.editCreate = false;
+          $scope.editMode = false;
       };
 
       controller.readInvoice = function(id){
+
         controller.resetInvoiceForm();
         controller.getObject(id)
       };
