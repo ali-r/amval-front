@@ -949,7 +949,11 @@ a:focus {
 .panel-footer {
     background: #fff;
     padding: 15px 20px;
-    display: block
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }
 .nav-sm footer {
     margin-right: 70px

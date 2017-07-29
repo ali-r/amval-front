@@ -65,7 +65,7 @@ var setContentHeight = function () {
 
 	// normalize content
 	contentHeight -= $NAV_MENU.height() + footerHeight;
-	$RIGHT_COL.css('min-height', '90vh');
+	$RIGHT_COL.css('min-height', '100vh');
 };
 
   $SIDEBAR_MENU.find('a').on('click', function(ev) {
