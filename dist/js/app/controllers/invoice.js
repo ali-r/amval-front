@@ -18,7 +18,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         $("#invoiceEditCreateForm").css('overflow-y',"auto");
          
       }
-      controller.setFormHeight();
+      // controller.setFormHeight();
 
       $scope.page = 1;
       $scope.assetData = $cookieStore.get('assetData');

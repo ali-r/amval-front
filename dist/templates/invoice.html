@@ -62,57 +62,72 @@
             <div class="x_title" ng-click="invoice.test()">
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
                 <h2 ng-hide="editMode"><i class="fa"></i>ایجاد فاکتور جدید</h2>
+                
+                <div class="col-xs-4 pull-left">
+                    <button type="button" class="btn btn-danger" ng-click="invoice.resetInvoiceForm()">لغو</button>
+                    <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice || invoice.obj.products.length==0 " ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+                </div>
+
                 <div class="clearfix"></div>
             </div><!-- /.x_title-->
             <div class="x_content" ng-hide="loadModal">
                 <form name="invoiceForm" role="form"  novalidate>
                     <fieldset ng-disabled ="!checkWrite('invoice')">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label>خریدار*</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="invoice.obj.buyer.last_name" placeholder="انتخاب خریدار" disabled>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.selectBuyer()">انتخاب خریدار</button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>فروشنده*</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="invoice.obj.seller.last_name" placeholder="انتخاب فروشنده" disabled>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.selectSeller()">انتخاب فروشنده</button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group" ng-class=" {'has-error' : invoiceForm.invoice_no.$invalid && invoice.obj.invoice_no,
-                                'has-success' : invoiceForm.invoice_no.$valid && invoice.obj.invoice_no } ">
-                                <label>شماره فاکتور*</label>
-                                <input type="text" class="form-control" name="invoice_no" placeholder="شماره فاکتور" ng-model = "invoice.obj.invoice_no" required>
-                            </div>
+                            
+                            
+
                             <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group" ng-class=" {'has-error' : invoiceForm.invoice_no.$invalid && invoice.obj.invoice_no,
+                                        'has-success' : invoiceForm.invoice_no.$valid && invoice.obj.invoice_no } ">
+                                        <label>شماره فاکتور*</label>
+                                        <input type="text" class="form-control" name="invoice_no" placeholder="شماره فاکتور" ng-model = "invoice.obj.invoice_no" required>
+                                    </div>
+                                </div>
                                 <div class="col-xs-6">
                                     <div class="form-group" ng-class="{'has-success' : invoiceForm.datetime.$valid && invoice.obj.datetime}">
                                         <label>تاریخ فاکتور*</label>
                                         <adm-dtp  ng-model="invoice.obj.datetime" ></adm-dtp>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-xs-6">
-                                    <div class="form-group" ng-class="{'has-success' : invoiceForm.num_of_products.$valid && invoice.obj.num_of_products}">
-                                        <label>تعداد کالا</label>
-                                        <input type="number" name="num_of_products" class="form-control" ng-model="invoice.obj.num_of_products" required disabled>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="invoice.obj.buyer.last_name" placeholder="خریدار" disabled>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.selectBuyer()">انتخاب</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="invoice.obj.seller.last_name" placeholder="فروشنده" disabled>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.selectSeller()">انتخاب</button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-info" ng-click="invoice.addProduct()">افزودن کالا</button>
-                                    <button type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
-                                </span>
+                            <hr></hr>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-info" ng-click="invoice.addProduct()">افزودن کالا</button>
+                                        <button type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
+                                    </span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>تعداد کالا:</label>
+                                    <span>
+                                        {{invoice.obj.num_of_products || 0}}
+                                    </span>
+                                </div>
                             </div>
-
+                            <br>
                             <table class="table table-striped asset-tables" ng-show="invoice.obj.products.length > 0">
                                 <thead>
                                     <tr>
@@ -184,17 +199,15 @@
                             
                             <hr></hr>
 
+
+
                             <div style="text-align:right" ng-hide = "invoiceForm.$valid && invoice.obj.products.length>0">
                                 <p> 
                                     تمامی فیلد ها باید به درستی تکمیل شوند.
                                     <br>
                                     −
                                   پر کردن فیلد هایی که با * مشخص شده اجباری است.
-                                  <br>
-                                  −
-                                  حداکثر حجم مجاز برای آپلود تصویر ۲ مگابایت است.
-
-
+                                  
                                   <hr >
                                 </p>
                             </div>
@@ -207,9 +220,6 @@
                                         </ul>
                                     </li>
                                 </ul> -->
-                                <button type="button" class="btn btn-danger" ng-click="invoice.resetInvoiceForm()">لغو</button>
-                                <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice || invoice.obj.products.length==0 " ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
-                                
                             </div>
 
                             
@@ -375,7 +385,7 @@
                                               {{list.serial_number}}
                                             </td>
                                             <td>
-                                              <a ng-if="list.price<0" ng-click="invoice.pushProduct(list)" href>
+                                              <a ng-click="invoice.pushProduct(list)" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
                                             </td>
