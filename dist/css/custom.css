@@ -4425,3 +4425,7 @@ select.form-control{
     max-height: 100px;
     max-width: 100px;
 }
+ul#temp-products li{
+    border-style: outset;
+    background-color: #95d6e9; 
+}

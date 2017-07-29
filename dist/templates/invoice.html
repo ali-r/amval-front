@@ -245,6 +245,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="pull-left">
+                  <button type="button" class="btn btn-success" ng-show="selectStage==3" ng-disabled="invoice.tmp.selectedProducts.length==0 || !invoice.tmp.selectedProducts" ng-click="invoice.pushSelectedProducts()">اضافه کردن کالاها</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
                 </div>
             </div><!-- /.modal-header -->
@@ -358,6 +359,18 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
+                                    <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
+                                        <ul id="temp-products" style="list-style-type:none; margin:0px; padding:0px">
+                                            <li style="display:table-cell; padding:1px;" ng-repeat="item in invoice.tmp.selectedProducts">
+                                                {{item.model}}
+                                                <a ng-click="invoice.deselect($index)" href>
+                                                    <i class="fa fa-close fa-lg"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <hr/>
+                                    </div>
+
                                     <form name="selectProductForm" role="form" novalidate>
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery" required>
@@ -366,6 +379,7 @@
                                         </span>
                                       </div>
                                     </form>
+
 
                                     <table class="table table-hover table-border" ng-hide = "invoice.tmp.searchResult == '' || loadSearch">
                                         <tbody>
