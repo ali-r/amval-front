@@ -213,12 +213,17 @@
                 <hr ng-show="product.tmp.meta.meta_template">
                 <h4 ng-show="product.tmp.meta.meta_template" >جزئیات کالا</h4>
                 <div class="row">
-                  <div class="col-md-3" ng-repeat="meta in product.tmp.meta.meta_template track by $index">
-                    <label ng-init="product.obj.meta_data[$index].key = meta.key">{{meta.key}}</label>
+                  <div class="col-md-3" ng-repeat-start="meta in product.tmp.meta.meta_template track by $index" >
+                    <h5 ng-init="product.obj.meta_data[$index].key = meta.key">{{meta.key}}</h5>
+                  </div>
+                  <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="product.obj.meta_data[$index].value" required>
                     <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="product.obj.meta_data[$index].value" required>
-                    <input ng-if="meta.type == 'bool'" class="form-control" type="checkbox" ng-model="product.obj.meta_data[$index].value" required>
+                    <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="product.obj.meta_data[$index].value" required>
                   </div>
+                  <div class="col-md-3" >
+                  </div>
+                  <div class="clearfix" style="margin-bottom:10px; " ng-repeat-end></div>
                 </div>
                 <hr>
                 <div class="row">
