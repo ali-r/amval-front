@@ -91,7 +91,7 @@
               <div class="form-group" ng-class=" {'has-error' : sellerForm.phone.$invalid && seller.obj.phone,
                 'has-success' : sellerForm.phone.$valid && seller.obj.phone } ">
                 <label>شماره تماس*</label>
-                <input type="text" class="form-control" placeholder="شماره تماس" name="phone" ng-model = "seller.obj.phone"
+                <input type="text" class="form-control ltr-input" placeholder="شماره تماس" name="phone" ng-model = "seller.obj.phone"
                 ng-pattern = "/^[0-9-+]+$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }" required>
                 <p ng-show="sellerForm.phone.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
                 <p ng-show="sellerForm.phone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>
@@ -99,7 +99,7 @@
               <div class="form-group" ng-class=" {'has-error' : sellerForm.cellphone.$invalid && seller.obj.cellphone,
                 'has-success' : sellerForm.cellphone.$valid && seller.obj.cellphone } ">
                 <label>شماره موبایل*</label>
-                <input type="text" class="form-control" name="cellphone" placeholder="شماره موبایل" ng-model = "seller.obj.cellphone"
+                <input type="text" class="form-control ltr-input" name="cellphone" placeholder="شماره موبایل" ng-model = "seller.obj.cellphone"
                 ng-pattern = "/^[0-9-+]+$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }" required>
                 <p ng-show="sellerForm.cellphone.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
                 <p ng-show="sellerForm.cellphone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>

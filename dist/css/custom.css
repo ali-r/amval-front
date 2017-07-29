@@ -4457,3 +4457,7 @@ select.form-control{
 .remove-box > li > span:hover {
   color: #9c9fff;
 }
+.ltr-input{
+    text-align: left;
+    direction: ltr;
+}
