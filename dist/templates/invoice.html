@@ -330,8 +330,8 @@
                                             <th>انتخاب</th>
                                           </tr>
 
-                                          <tr ng-repeat = "list in invoice.tmp.searchResult">
-                                            <td>{{$index+1}}</td>
+                                          <tr  ng-repeat = "list in invoice.tmp.searchResult">
+                                            <td >{{$index+1}}</td>
                                             <td>
                                               {{list.model}}
                                             </td>
@@ -339,7 +339,7 @@
                                               {{list.serial_number}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.pushProduct(list)" href>
+                                              <a ng-if="list.price<0" ng-click="invoice.pushProduct(list)" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
                                             </td>
