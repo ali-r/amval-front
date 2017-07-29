@@ -57,7 +57,7 @@
     <!-- /invoice list -->
 
     <!-- edit and create column -->
-    <div class="col-xs-6" >
+    <div class="col-xs-6" id="invoiceEditCreateForm">
         <div class="x_panel " ng-hide="invoice.emptyForm">
             <div class="x_title" ng-click="invoice.test()">
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
@@ -101,7 +101,7 @@
                                 <div class="col-xs-6">
                                     <div class="form-group" ng-class="{'has-success' : invoiceForm.num_of_products.$valid && invoice.obj.num_of_products}">
                                         <label>تعداد کالا</label>
-                                        <input type="number" name="num_of_products" class="form-control" ng-model="invoice.obj.num_of_products" required>
+                                        <input type="number" name="num_of_products" class="form-control" ng-model="invoice.obj.num_of_products" required disabled>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                 </span>
                             </div>
 
-                            <table class="table table-striped asset-tables">
+                            <table class="table table-striped asset-tables" ng-show="invoice.obj.products.length > 0">
                                 <thead>
                                     <tr>
                                         <th width="60%">نام کالا</th>
@@ -135,6 +135,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <hr></hr>
+
                             <div class="row">
                                 <div class="col-xs-12">
                                 <div class="col-xs-4">
@@ -142,7 +145,7 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="btn btn-info btn-sm" ngf-select="invoice.uploadPic()" ng-model="invoice.scannedFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                                            ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!invoice.obj.scanned_invoice && checkWrite('invoice')" ng-disabled="uploading">افزودن تصویر</div>
+                                            ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!invoice.obj.scanned_invoice && checkWrite('invoice')" ng-disabled="uploading" required>افزودن تصویر</div>
 
                                     <button type="button" class="btn btn-sm btn-danger" ng-if="invoice.obj.scanned_invoice && checkWrite('invoice')"
                                             ng-click=" invoice.obj.scanned_invoice = null">حذف تصویر</button>
@@ -150,12 +153,11 @@
                                 </div>
 
                                 <div class="col-xs-4">
-                                    <img class="img-responsive img-thumbnail img-sig" ng-src="{{uploadUrl + invoice.obj.scanned_invoice}}"
-                                            ng-if="invoice.obj.scanned_invoice">
+                                    <img class="img-responsive img-thumbnail img-sig" ng-src="{{uploadUrl + invoice.obj.scanned_invoice}}" ng-if="invoice.obj.scanned_invoice">
                                     <div ng-show = "uploading">
                                         <p ng-show = "uploading" style="text-align : center;">
+                                        در حال  بارگذاری
                                         <i class="fa fa-refresh fa-spin fa-lg"></i>
-                                        در حال  بارگذاری ...
                                         </p>
                                     </div>
                                 </div>
@@ -165,16 +167,19 @@
                                 
                             </div>
                             </div>
+                            
+                            <hr></hr>
+
                             <div class="col-xs-12" style="text-align: left">
-                                <ul>
+                                <!-- <ul>
                                     <li ng-repeat="(key, errors) in invoiceForm.$error track by $index"> <strong>{{ key }}</strong> errors
                                         <ul>
                                         <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul> -->
                                 <button type="button" class="btn btn-danger" ng-click="invoice.resetInvoiceForm()">لغو</button>
-                                <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid" ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+                                <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice" ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
                             </div>
                         </div><!-- /.box-body -->
                     </fieldset>

@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('invoiceCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor)
+  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor, $q)
   {
       var controller = this;
       var apiName = 'invoice';
@@ -14,6 +14,14 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           {'fname' : 'خریدار', 'field' : 'buyer'},
           {'fname' : 'فروشنده', 'field' : 'seller'}
       ];
+
+      controller.setFormHeight = function(){
+        var formHeight = $(window).height()/(2);
+        $("#invoiceEditCreateForm").css('height',formHeight);
+        $("#invoiceEditCreateForm").css('overflow-y',"auto");
+         
+      }
+      controller.setFormHeight();
 
       $scope.page = 1;
       $scope.assetData = $cookieStore.get('assetData');
@@ -150,7 +158,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.closeModal('delete');
       }
 
-      controller.obj.scanned_invoice = '';
       this.uploadPic = function() {
         console.log($scope.invoiceForm.file.$error)
         if(!$scope.invoiceForm.file.$error.maxSize && controller.scannedFile)
@@ -160,10 +167,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           });
         }
       }
-
-      controller.deleteInvoiceImage = function(){
-
-      };
 
   }
 );
