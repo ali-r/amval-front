@@ -188,7 +188,7 @@ body{
     min-height: 100%;
     width: 70px;
     padding: 0;
-    z-index: 9999;
+    z-index: 999;
     position: absolute
 }
 .nav-sm .container.body .col-md-3.left_col.menu_fixed {
@@ -949,7 +949,11 @@ a:focus {
 .panel-footer {
     background: #fff;
     padding: 15px 20px;
-    display: block
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }
 .nav-sm footer {
     margin-right: 70px
@@ -4421,4 +4425,39 @@ select.form-control{
 }
 .group-chd i.fa-level-down{
     margin-right: 1em;
+}
+.remove-box{
+  padding:0;
+  margin: 0;
+  overflow: hidden;
+  display: inline-block;
+  list-style: none;
+}
+.remove-box > li {
+  background-color: #3c8dbc;
+  border: 1px solid #367fa9;
+  margin: 2px  3px;
+  padding: 3px 5px;
+  float: right;
+  display: list-item;
+  color: #ffffff;
+  border-radius: 2px 2px 2px 2px;
+  font-size: 0.95em;
+}
+.remove-box > li > span {
+  font-size: 1.1em;
+  float: left;
+  margin-right: 7px;
+  color: #c6c8ff;
+  cursor: pointer;
+}
+.remove-box > li > small {
+  display: inline-block;
+}
+.remove-box > li > span:hover {
+  color: #9c9fff;
+}
+.ltr-input{
+    text-align: left;
+    direction: ltr;
 }

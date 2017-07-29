@@ -154,7 +154,7 @@
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label>مشکلات</label>  
+                      <label></label>  
                       <div class="row">
                         <div class="col-sm-6">
                           خارج از سرویس
@@ -213,12 +213,17 @@
                 <hr ng-show="product.tmp.meta.meta_template">
                 <h4 ng-show="product.tmp.meta.meta_template" >جزئیات کالا</h4>
                 <div class="row">
-                  <div class="col-md-3" ng-repeat="meta in product.tmp.meta.meta_template track by $index">
-                    <label ng-init="product.obj.meta_data[$index].key = meta.key">{{meta.key}}</label>
+                  <div class="col-md-3" ng-repeat-start="meta in product.tmp.meta.meta_template track by $index" >
+                    <h5 ng-init="product.obj.meta_data[$index].key = meta.key">{{meta.key}}</h5>
+                  </div>
+                  <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="product.obj.meta_data[$index].value" required>
                     <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="product.obj.meta_data[$index].value" required>
-                    <input ng-if="meta.type == 'bool'" class="form-control" type="checkbox" ng-model="product.obj.meta_data[$index].value" required>
+                    <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="product.obj.meta_data[$index].value" required>
                   </div>
+                  <div class="col-md-3" >
+                  </div>
+                  <div class="clearfix" style="margin-bottom:10px; " ng-repeat-end></div>
                 </div>
                 <hr>
                 <div class="row">
@@ -270,6 +275,19 @@
             
             <div class="row" ng-show="stage == 2">
               <div class="col-md-12">
+                <div class="panel panel-primary" ng-show="product.obj.children">
+                  <div class="panel-heading">
+                    کالا های موجود
+                  </div>
+                  <div class="panel-body">
+                    <ul class="remove-box">
+                      <li ng-repeat = "goods in product.obj.children track by $index">
+                        <span ng-click="product.deleteChild($index)">×</span>
+                        {{goods.model}}({{goods.serial_number}})
+                      </li>
+                    </ul>
+                  </div>
+                </div>
                 <div class="panel panel-info">
                   <div class="panel-heading">
                     افزودن کالا به باندل
@@ -351,6 +369,14 @@
                           </div>
                       </form>
                       <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
+                        <colgroup>
+                          <col span="1" style="width: 5%;">
+                          <col span="1" style="width: 5%;">
+                          <col span="1" style="width: 25%;">
+                          <col span="1" style="width: 45%;">
+                          <col span="1" style="width: 15%;">
+                          <col span="1" style="width: 5%;">
+                        </colgroup>
                         <thead>
                           <tr>
                             <th ng-if="!product.tmp.searchD"></th>
@@ -389,20 +415,36 @@
                               </a>
                             </td>
                           </tr>
-                          <tr ng-if="!product.tmp.searchQuery" ng-repeat-end ng-repeat="chd in list.children" class="collapse group-chd" id="collaps{{$parent.$index}}">
-                            <td style="text-align : right">
-                              <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
-                            </td>
-                            <td class="chd-td">
-                              {{$index+1}}-{{$parent.$index+1}}
-                            </td>
-                            <td>{{chd.title}}</td>
-                            <td>{{chd.description}}</td>
-                            <td>{{chd.parent.title}}</td>
-                            <td>
-                              <a ng-click="product.selectTarget(chd.id, chd.title, 'title', 'subgroup'); product.loadMeta(chd.id)" href>
-                                <i class="fa fa-check-square-o fa-lg"></i>
-                              </a>
+                          <tr ng-if="!product.tmp.searchQuery" ng-repeat-end class="collapse" id="collaps{{$index}}">
+                            <td colspan="6" style="padding:2px;">
+                              <table class="table">
+                                <colgroup>
+                                  <col span="1" style="width: 5%;">
+                                  <col span="1" style="width: 5%;">
+                                  <col span="1" style="width: 25%;">
+                                  <col span="1" style="width: 45%;">
+                                  <col span="1" style="width: 15%;">
+                                  <col span="1" style="width: 5%;">
+                                </colgroup>
+                                <tbody>
+                                  <tr ng-repeat="chd in list.children" class="group-chd">
+                                    <td style="text-align : right">
+                                      <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+                                    </td>
+                                    <td class="chd-td">
+                                      {{$index+1}}-{{$parent.$index+1}}
+                                    </td>
+                                    <td>{{chd.title}}</td>
+                                    <td>{{chd.description}}</td>
+                                    <td>{{chd.parent.title}}</td>
+                                    <td>
+                                      <a ng-click="product.selectTarget(chd.id, chd.title, 'title', 'subgroup'); product.loadMeta(chd.id)" href>
+                                        <i class="fa fa-check-square-o fa-lg"></i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
                             </td>
                           </tr>
                         </tbody>

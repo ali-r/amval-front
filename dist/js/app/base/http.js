@@ -119,7 +119,10 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
       .then(function(response) {
         httpService.successCallback(response, callback)
       },
-      this.errorCallback
+      function(response) {
+        httpService.errorCallback(response);
+        $('.modal').modal('hide');
+      }
     );
   };
 

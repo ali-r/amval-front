@@ -49,12 +49,12 @@ angular.module("assetAdminPanel").controller('productCtrl',
       en : 'guarantor'
     },
     searchAt : {
-      fa : 'نام خانوادگی دبیر',
+      fa : 'نام خانوادگی مسئول',
       en : 'secretary_last_name'
     },
     table : [
-      {fa:'نام دبیر ',en:'secretary_first_name'},
-      {fa:'نام خانوادگی دبیر',en:'secretary_last_name'}
+      {fa:'نام مسئول ',en:'secretary_first_name'},
+      {fa:'نام خانوادگی مسئول',en:'secretary_last_name'}
     ]
   };
 
@@ -209,7 +209,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
       controller.obj.children = [];
 
     controller.obj.children.push(list);
-    $scope.stage = 0;
+    //$scope.stage = 0;
   };
 
   controller.obj.qr_code = '';
