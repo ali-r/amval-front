@@ -174,7 +174,7 @@
                                     </li>
                                 </ul>
                                 <button type="button" class="btn btn-danger" ng-click="invoice.resetInvoiceForm()">لغو</button>
-                                <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid" ng-click="invoice.editOrCreate(editMode)" class="btn btn-success">ذخیره</button>
+                                <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid" ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
                             </div>
                         </div><!-- /.box-body -->
                     </fieldset>
@@ -331,7 +331,7 @@
                                               {{list.serial_number}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.pushProduct(list.id, list.model, list.price)" href>
+                                              <a ng-click="invoice.pushProduct(list)" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
                                             </td>

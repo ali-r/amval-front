@@ -23,7 +23,33 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.obj = {};
 
-      controller.objConfig = function(obj){return obj;}
+      controller.objConfig = function(obj){
+        var obj2 = new Object();
+        obj2.datetime = controller.convertToG(controller.obj.datetime);
+        
+        obj2.price = 0
+        controller.obj.products.forEach(function(item,index){
+          obj2.price += item.price;
+        })
+
+        obj2.products = [];
+        controller.obj.products.forEach(function(item,index){
+          obj2.products.push({
+            id: item.id,
+            price: item.price
+          });
+        })
+
+        
+        obj2.seller = controller.obj.seller['id'];
+        obj2.buyer = controller.obj.buyer['id'];
+        obj2.invoice_no = controller.obj.invoice_no;
+        obj2.scanned_invoice = controller.obj.scanned_invoice;
+        obj2.num_of_products = controller.obj.num_of_products;
+
+
+        return obj2;
+      }
 
       controller.getConfig = function(obj){
         obj.datetime = controller.convertToJ(obj.datetime);
@@ -111,12 +137,9 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.search('product','model');
       };
 
-      controller.pushProduct = function(id_, model_,price_){
-        controller.obj.products.push({
-          id:id_,
-          model:model_,
-          price:price_
-        })
+      controller.pushProduct = function(item){
+        if(controller.obj.products === undefined){controller.obj.products = []};
+        controller.obj.products.push(item)
         controller.obj.num_of_products = controller.obj.products.length;
         controller.closeModal('select');
       }
@@ -127,14 +150,13 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.closeModal('delete');
       }
 
-      controller.uploadPic = function() {
-        $scope.uploading = true;
-        console.log($scope.invoiceImageForm.file.$error)
-        if(!$scope.invoiceImageForm.file.$error.maxSize && controller.sigFile)
+      controller.obj.scanned_invoice = '';
+      this.uploadPic = function() {
+        console.log($scope.invoiceForm.file.$error)
+        if(!$scope.invoiceForm.file.$error.maxSize && controller.scannedFile)
         {
           requestHelper.uploadFileReq(controller.scannedFile, 'invoice', $scope, function(data){
-            controller.obj.scanned_signature = data.file_url;
-            $scope.uploading = false;
+            controller.obj.scanned_invoice = data.file_url;
           });
         }
       }
@@ -142,52 +164,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.deleteInvoiceImage = function(){
 
       };
-
-      controller.editOrCreate = function (state) {
-        //preparing data 
-        var obj = new Object();
-        obj.datetime = controller.convertToG(controller.obj.datetime);
-        
-        obj.price = 0
-        controller.obj.products.forEach(function(item,index){
-          obj.price += item.price;
-        })
-
-        obj.products = [];
-        controller.obj.products.forEach(function(item,index){
-          obj.products.push({
-            id: item.id,
-            price: item.price
-          });
-        })
-
-        
-        obj.seller = controller.obj.seller['id'];
-        obj.buyer = controller.obj.buyer['id'];
-        obj.invoice_no = controller.obj.invoice_no;
-        obj.scanned_invoice = controller.obj.scanned_invoice;
-        obj.num_of_products = controller.obj.num_of_products;
-
-        //sending request using requestHelper service
-        $scope.loadModal = true;
-        console.log(obj);
-        if(state) {
-          requestHelper.put($scope.apiUrl + "/" + $scope.toEditId , obj, $scope,
-          function(response) {
-            controller.emptyForm = true;
-            controller.getData();
-            $scope.reset();
-          });
-        } else {
-          requestHelper.post($scope.apiUrl , obj, $scope,
-          function(response) {
-            controller.emptyForm = true;
-            controller.getData();
-            $scope.reset();
-          });
-        }
-      }
-
 
   }
 );
