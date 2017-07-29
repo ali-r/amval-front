@@ -20,8 +20,8 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>نام دبیر</th>
-              <th>نام خانوادگی دبیر</th>
+              <th>نام مسئول</th>
+              <th>نام خانوادگی مسئول</th>
               <th>شماره تلفن</th>
               <th>آدرس</th>
               <th></th>
@@ -74,12 +74,12 @@
           <fieldset ng-disabled = "!checkWrite('guarantor')">
             <div class="box-body">
               <div class="form-group" ng-class="{'has-success' : guarantorForm.name.$valid && guarantor.obj.secretary_first_name}">
-                <label>نام دبیر*</label>
-                <input type="text" class="form-control" name="name" placeholder="نام دبیر" ng-model = "guarantor.obj.secretary_first_name" required>
+                <label>نام مسئول*</label>
+                <input type="text" class="form-control" name="name" placeholder="نام مسئول" ng-model = "guarantor.obj.secretary_first_name" required>
               </div>
               <div class="form-group" ng-class="{'has-success' : guarantorForm.lastname.$valid && guarantor.obj.secretary_last_name}">
-                <label>نام خانوادگی دبیر*</label>
-                <input type="text" class="form-control" placeholder="نام خانوادگی دبیر" name="lastname" ng-model = "guarantor.obj.secretary_last_name" required>
+                <label>نام خانوادگی مسئول*</label>
+                <input type="text" class="form-control" placeholder="نام خانوادگی مسئول" name="lastname" ng-model = "guarantor.obj.secretary_last_name" required>
               </div>
               <div class="form-group" ng-class=" {'has-error' : guarantorForm.phone.$invalid && guarantor.obj.office_phone,
                 'has-success' : guarantorForm.phone.$valid && guarantor.obj.office_phone } ">
