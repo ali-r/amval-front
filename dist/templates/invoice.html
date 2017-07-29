@@ -184,12 +184,17 @@
                             
                             <hr></hr>
 
-                            <div style="text-align:right" ng-hide = "invoiceForm.$valid">
-                                <p> −
+                            <div style="text-align:right" ng-hide = "invoiceForm.$valid && invoice.obj.products.length>0">
+                                <p> 
+                                    تمامی فیلد ها باید به درستی تکمیل شوند.
+                                    <br>
+                                    −
                                   پر کردن فیلد هایی که با * مشخص شده اجباری است.
                                   <br>
                                   −
                                   حداکثر حجم مجاز برای آپلود تصویر ۲ مگابایت است.
+
+
                                   <hr >
                                 </p>
                             </div>
@@ -203,7 +208,7 @@
                                     </li>
                                 </ul> -->
                                 <button type="button" class="btn btn-danger" ng-click="invoice.resetInvoiceForm()">لغو</button>
-                                <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice" ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+                                <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice || invoice.obj.products.length==0 " ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
                                 
                             </div>
 
