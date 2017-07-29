@@ -110,7 +110,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         scope.apiUrl + "/" + id,  scope,
         function(response) {
           if( controller.note.length == 1 ){
-            scope.page -= 1;
+            if(scope.page != 1){scope.page -= 1;}
             scope.getUrl = controller.makeUrl();
           }
           controller.getData();
