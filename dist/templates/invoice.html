@@ -136,12 +136,26 @@
                                 </tbody>
                             </table>
 
+                            <div ng-hide="invoice.obj.products.length > 0" style="text-align:right">
+                                <p>
+                                    -
+                                    وجود حداقل یک کالا برای فاکتور کردن الزامی است.
+                                </p>
+                            </div>
+
+                            <div ng-show="!invoiceForm.productPrice.$valid" style="text-align:right">
+                                <p>
+                                    -
+                                    قیمت کالا نباید منفی باشد.
+                                </p>
+                            </div>
+
                             <hr></hr>
 
                             <div class="row">
                                 <div class="col-xs-12">
                                 <div class="col-xs-4">
-                                    <label>تصویر فاکتور</label>
+                                    <label>تصویر فاکتور*</label>
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="btn btn-info btn-sm" ngf-select="invoice.uploadPic()" ng-model="invoice.scannedFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
@@ -170,7 +184,17 @@
                             
                             <hr></hr>
 
-                            <div class="col-xs-12" style="text-align: left">
+                            <div style="text-align:right" ng-hide = "invoiceForm.$valid">
+                                <p> −
+                                  پر کردن فیلد هایی که با * مشخص شده اجباری است.
+                                  <br>
+                                  −
+                                  حداکثر حجم مجاز برای آپلود تصویر ۲ مگابایت است.
+                                  <hr >
+                                </p>
+                            </div>
+
+                            <div class="col-xs-12" style="text-align: center">
                                 <!-- <ul>
                                     <li ng-repeat="(key, errors) in invoiceForm.$error track by $index"> <strong>{{ key }}</strong> errors
                                         <ul>
@@ -180,7 +204,11 @@
                                 </ul> -->
                                 <button type="button" class="btn btn-danger" ng-click="invoice.resetInvoiceForm()">لغو</button>
                                 <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice" ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+                                
                             </div>
+
+                            
+
                         </div><!-- /.box-body -->
                     </fieldset>
                 </form>
@@ -299,6 +327,9 @@
                                           </tr>
                                         </tbody>
                                     </table>
+
+                                    
+
                                 </div>
                             </div><!-- /.panel -->
                             <!-- End of Stage 2 -->
@@ -347,6 +378,14 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <hr></hr>
+                                <div style="text-align:right">
+                                    <p>
+                                        -
+                                        تنها کالاهایی را که فاکتور نشده اند میتوانید انتخاب کنید. 
+                                    </p>
+                                </div>
+
                             </div><!-- /.panel -->
                             <!-- End of Stage 3 -->
 
