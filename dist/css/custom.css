@@ -4421,7 +4421,7 @@ select.form-control{
 .group-chd i.fa-level-down{
     margin-right: 1em;
 }
-.img-thumbnail{
+.img-limited-size{
     max-height: 100px;
     max-width: 100px;
 }
