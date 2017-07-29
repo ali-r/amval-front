@@ -64,7 +64,7 @@
                 <h2 ng-hide="editMode"><i class="fa"></i>ایجاد فاکتور جدید</h2>
                 <div class="clearfix"></div>
             </div><!-- /.x_title-->
-            <div class="x_content">
+            <div class="x_content" ng-hide="loadModal">
                 <form name="invoiceForm" role="form"  novalidate>
                     <fieldset ng-disabled ="!checkWrite('invoice')">
                         <div class="box-body">
@@ -185,6 +185,9 @@
                     </fieldset>
                 </form>
             </div><!-- /.x_content-->
+            <div class="load-spinner" ng-show = "loadModal" style="text-align:center">
+              <i class="fa fa-spinner fa-pulse fa-3x" ></i>
+            </div>
         </div><!-- /.x_panel-->
     </div>
     <!-- /edit and create column -->

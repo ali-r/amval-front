@@ -97,6 +97,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.readInvoice = function(id){
 
         controller.resetInvoiceForm();
+        controller.emptyForm = false;
         controller.getObject(id)
       };
 
