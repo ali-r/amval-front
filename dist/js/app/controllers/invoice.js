@@ -10,9 +10,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.searchObject = [
           {'fname' : 'شماره فاکتور', 'field' : 'invoice_no'},
-          {'fname' : 'قیمت فاکتور', 'field' : 'price'},
-          {'fname' : 'خریدار', 'field' : 'buyer'},
-          {'fname' : 'فروشنده', 'field' : 'seller'}
       ];
 
       controller.setFormHeight = function(){
