@@ -270,6 +270,19 @@
             
             <div class="row" ng-show="stage == 2">
               <div class="col-md-12">
+                <div class="panel panel-primary" ng-show="product.obj.children">
+                  <div class="panel-heading">
+                    کالا های موجود
+                  </div>
+                  <div class="panel-body">
+                    <ul class="remove-box">
+                      <li ng-repeat = "goods in product.obj.children track by $index">
+                        <span ng-click="product.deleteChild($index)">×</span>
+                        {{goods.model}}({{goods.serial_number}})
+                      </li>
+                    </ul>
+                  </div>
+                </div>
                 <div class="panel panel-info">
                   <div class="panel-heading">
                     افزودن کالا به باندل

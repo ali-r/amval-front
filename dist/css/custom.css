@@ -4426,3 +4426,34 @@ select.form-control{
 .group-chd i.fa-level-down{
     margin-right: 1em;
 }
+.remove-box{
+  padding:0;
+  margin: 0;
+  overflow: hidden;
+  display: inline-block;
+  list-style: none;
+}
+.remove-box > li {
+  background-color: #3c8dbc;
+  border: 1px solid #367fa9;
+  margin: 2px  3px;
+  padding: 3px 5px;
+  float: right;
+  display: list-item;
+  color: #ffffff;
+  border-radius: 2px 2px 2px 2px;
+  font-size: 0.95em;
+}
+.remove-box > li > span {
+  font-size: 1.1em;
+  float: left;
+  margin-right: 7px;
+  color: #c6c8ff;
+  cursor: pointer;
+}
+.remove-box > li > small {
+  display: inline-block;
+}
+.remove-box > li > span:hover {
+  color: #9c9fff;
+}

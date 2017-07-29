@@ -209,7 +209,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
       controller.obj.children = [];
 
     controller.obj.children.push(list);
-    $scope.stage = 0;
+    //$scope.stage = 0;
   };
 
   controller.obj.qr_code = '';
