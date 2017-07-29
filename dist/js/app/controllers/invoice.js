@@ -3,7 +3,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
   {
       var controller = this;
       var apiName = 'invoice';
-      controller.emptyForm = true;
       $scope.editMode = true;    //Edit: true, Create: false
       $scope.selectStage = 0;       //Buyer:1, Seller:2, Product:3 usage in select modal
       $scope.deleteStage = 1;       //Product:1 , Invoice:2 , usage in delete modal
@@ -26,7 +25,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       $scope.apiUrl = mainAsset.getUrl() + apiName;
       $scope.getUrl = pagination.makeUrl($scope);
 
-      controller.obj = {};
 
       controller.objConfig = function(obj){
         var obj2 = new Object();
@@ -59,7 +57,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.getConfig = function(obj){
         obj.datetime = controller.convertToJ(obj.datetime);
         $scope.editMode = true;
-        controller.emptyForm = false;
+        controller.tmp.formShow = true;
         return obj;
       }
 
@@ -81,23 +79,16 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       crud.initModals($scope, controller, apiName, []);
       crud.init($scope, controller, apiName,controller.objConfig, controller.getConfig);
       pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
-
-
-      controller.resetInvoiceForm = function(){
-          controller.obj = {};
-          controller.emptyForm = true;
-      };
+      controller.tmp.formShow = false;
 
       controller.setNewInvoiceForm = function(){
-          controller.resetInvoiceForm();
-          controller.emptyForm = false;
-          $scope.editMode = false;
+        $scope.reset();
+        controller.tmp.formShow = true;
       };
 
       controller.readInvoice = function(id){
-
-        controller.resetInvoiceForm();
-        controller.emptyForm = false;
+        $scope.reset();
+        controller.tmp.formShow = true;
         controller.getObject(id)
       };
 
@@ -133,7 +124,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       controller.addProduct = function(){
-
+        // ToDo : Mr.Kabiri will code this function.
       };
 
       controller.selectProduct = function(){
