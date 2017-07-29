@@ -28,6 +28,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.objConfig = function(obj){
         var obj2 = new Object();
+        obj2 = angular.copy(controller.obj);
+
         obj2.datetime = controller.convertToG(controller.obj.datetime);
         
         obj2.price = 0
@@ -46,11 +48,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         
         obj2.seller = controller.obj.seller['id'];
         obj2.buyer = controller.obj.buyer['id'];
-        obj2.invoice_no = controller.obj.invoice_no;
-        obj2.scanned_invoice = controller.obj.scanned_invoice;
-        obj2.num_of_products = controller.obj.num_of_products;
-
-
+        
         return obj2;
       }
 
