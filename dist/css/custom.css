@@ -4434,3 +4434,12 @@ ul#temp-products li{
     width: 9em;
     position: relative;
 }
+.limited-width-col{
+    max-width: 3em;
+    overflow-x: auto;
+}
+.longer-limited-width-col{
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden; 
+}

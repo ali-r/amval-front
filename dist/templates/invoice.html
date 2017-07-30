@@ -35,8 +35,8 @@
                     <tbody ng-hide="load">
                         <tr ng-repeat = "list in invoice.note">
                             <td>{{ (page-1)*10 + $index + 1 }}</td>
-                            <td>{{list.invoice_no}}</td>
-                            <td>{{list.price}}</td>
+                            <td class="limited-width-col">{{list.invoice_no}}</td>
+                            <td class="limited-width-col">{{list.price}}</td>
                             <td>
                                 <a ng-click="invoice.readInvoice(list.id)" href>
                                     <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('invoice') , 'fa-eye' : !checkWrite('invoice')}" aria-hidden="true"></i>
@@ -139,8 +139,8 @@
                                 <tbody ng-repeat = "product in invoice.obj.products">
                                     <tr>
                                         <td> {{product.model}} </td>
-                                        <td> 
-                                            <input dir="ltr" type="number" min="0" class="" name="productPrice" ng-model="product.price" required>
+                                        <td > 
+                                            <input dir="ltr" type="number" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
                                         </td>
                                         <td ng-if = "checkWrite('invoice')">
                                             <a ng-click="invoice.openDeleteModal($index,product.model,1)" href>
@@ -282,10 +282,10 @@
 
                                           <tr ng-repeat = "list in invoice.tmp.searchResult">
                                             <td>{{$index+1}}</td>
-                                            <td>
+                                            <td class="limited-width-col">
                                               {{list.first_name}}
                                             </td>
-                                            <td>
+                                            <td class="limited-width-col">
                                               {{list.last_name}}
                                             </td>
                                             <td>
@@ -329,10 +329,10 @@
 
                                           <tr ng-repeat = "list in invoice.tmp.searchResult">
                                             <td>{{$index+1}}</td>
-                                            <td>
+                                            <td class="limited-width-col">
                                               {{list.first_name}}
                                             </td>
-                                            <td>
+                                            <td class="limited-width-col">
                                               {{list.last_name}}
                                             </td>
                                             <td>
@@ -392,10 +392,10 @@
 
                                           <tr  ng-repeat = "list in invoice.tmp.searchResult">
                                             <td >{{$index+1}}</td>
-                                            <td>
+                                            <td class="limited-width-col">
                                               {{list.model}}
                                             </td>
-                                            <td>
+                                            <td class="limited-width-col">
                                               {{list.serial_number}}
                                             </td>
                                             <td>
@@ -446,12 +446,16 @@
       </div>
       <div class="modal-body" ng-show = "deleteStage == 1">
         آیا مایل به حذف کالای
-        "{{invoice.toDeleteTitle}}"
+        <div class="longer-limited-width-col">
+            "{{invoice.toDeleteTitle}}"
+        </div >
         هستید؟
       </div>
       <div class="modal-body" ng-show = "deleteStage == 2">
         آیا مایل به حذف فاکتور به شماره
-        "{{invoice.toDeleteTitle}}"
+        <div class="longer-limited-width-col">
+            "{{invoice.toDeleteTitle}}"
+        </div>
         هستید؟
       </div>
       <div class="modal-footer">
