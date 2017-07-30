@@ -264,7 +264,7 @@
                                 <div class="panel-body">
                                     <form name="selectBuyerForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery" required>
+                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
                                           <button type="button" ng-disabled = "selectBuyerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('user','last_name')">جستجوی خریدار</button>
                                         </span>
@@ -311,7 +311,7 @@
                                 <div class="panel-body">
                                     <form name="selectSellerForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery" required>
+                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
                                           <button type="button" ng-disabled = "selectSellerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('seller','last_name')">جستجوی فروشنده</button>
                                         </span>
@@ -373,7 +373,7 @@
 
                                     <form name="selectProductForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery" required>
+                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
                                           <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','model')">جستجوی کالا</button>
                                         </span>
@@ -406,13 +406,6 @@
                                           </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                                <hr></hr>
-                                <div style="text-align:right">
-                                    <p>
-                                        -
-                                        تنها کالاهایی را که فاکتور نشده اند میتوانید انتخاب کنید. 
-                                    </p>
                                 </div>
 
                             </div><!-- /.panel -->
