@@ -4429,3 +4429,8 @@ ul#temp-products li{
     border-style: outset;
     background-color: #95d6e9; 
 }
+.ADMdtp-box footer .today-edited{
+    display: inline;
+    width: 9em;
+    position: relative;
+}
