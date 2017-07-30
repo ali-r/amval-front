@@ -35,11 +35,11 @@
               <td>{{ (page-1)*10 + $index + 1 }}</td>
               <td>{{list.product.model}}</td>
               
-              <td ng-show="list.source.type == User">{{list.source.last_name}}</td>
-              <td ng-show="list.source.type == WareHouse">{{list.source.title}}</td>
+              <td ng-show="list.source.type == 'User'">{{list.source.last_name}}</td>
+              <td ng-show="list.source.type == 'WareHouse'">{{list.source.title}}</td>
 
-              <td ng-show="list.destination.type == User">{{list.destination.last_name}}</td>
-              <td ng-show="list.destination.type == WareHouse">{{list.destination.title}}</td>
+              <td ng-show="list.destination.type == 'User'">{{list.destination.last_name}}</td>
+              <td ng-show="list.destination.type == 'WareHouse'">{{list.destination.title}}</td>
 
               <td ng-show="list.reason==0">تامین</td>
               <td ng-show="list.reason==1">تعمیرات</td>              
@@ -65,7 +65,7 @@
   </div>
 </div>
 
-<!-- Seller Modal -->
+<!-- Transaction Modal -->
 <div class="modal fade" id="transactionModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -79,20 +79,21 @@
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
         <h3 class="modal-title" ng-hide="editMode">افزودن تراکنش جدید</h3>
-        <h3 class="modal-title" ng-show="editMode">ویرایش تراکنش</h3>
       </div>
       <div class="modal-body">
+
         <div ng-show="stage == 0">
           <form name="transactionForm" role="form" ng-hide="loadModal" novalidate>
+            
             <div class="row">
               <fieldset ng-disabled ="!checkWrite('transaction')">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>کالا*</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" ng-model="transaction.obj.product.serial_number" disabled>
+                      <input type="text" class="form-control" ng-model="transaction.obj.product.model" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('transaction')" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?parent_bundle=None')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('transaction')" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?holder__ne=None')">انتخاب</button>
                       </span>
                     </div>
                   </div>
@@ -101,7 +102,10 @@
                   <div class="form-group">
                     <label>منبع</label>
                     <p>
-                      <strong>{{transaction.obj.product.holder.type}}</strong>
+                      <strong ng-show="transaction.obj.product.holder.type=='User'">
+                        {{transaction.obj.product.holder.obj.last_name}}</strong>
+                      <strong ng-show="transaction.obj.product.holder.type=='Warehouse'">
+                        {{transaction.obj.product.holder.obj.title}}</strong>
                     </p>
                   </div>
                 </div>
@@ -110,30 +114,34 @@
                   <div class="form-group">
                     <label>مقصد*</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" ng-model="transaction.obj.fg" disabled>
+                      <input type="text" class="form-control" ng-hide="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.last_name" disabled>
+                      <input type="text" class="form-control" ng-show="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.title" disabled>
                       <div class="input-group-btn">
                               <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 انتخاب
                                 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                <li><a href="#">Action</a>
+                                <li><a ng-click="transaction.selectThings(2, 'user', '')" href>کاربر</a>
                                 </li>
-                                <li><a href="#">Another action</a>
-                                </li>
-                                <li><a href="#">Something else here</a>
+                                <li><a ng-click="transaction.selectThings(3, 'warehouse', '')" href>انبار</a>
                                 </li>
                               </ul>
                             </div>
                     </div>
                   </div>
                 </div>
+                
               </fieldset>
             </div>
+
+
+
           </form> 
         </div>
-        <!-- end of stage 0 -->
+        <!-- End of stage 0 -->
 
+        <!-- Product selection -->
         <div class="row" ng-show="stage == 1">
           <div class="col-md-12">
             <div class="panel panel-info">
@@ -148,7 +156,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو کالا" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?parent_bundle=None&serial_number__contains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?holder__ne=None&model__contains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>
@@ -193,7 +201,131 @@
           <!-- /.box-body -->
           </div>
         </div>
-        <!-- end of stage 1 -->
+        <!-- End of stage 1 -->
+
+        <!-- User selection -->
+        <div class="row" ng-show="stage == 2">
+          <div class="col-md-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                انتخاب کاربر مقصد
+                <div class="pull-left">
+                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                </div>
+              </div>
+              <div class="panel-body">
+                <form name="searchForm" role="form" novalidate>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="جستجو کاربر" name="searchText" ng-model="transaction.tmp.searchQuery" required>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user', '?last_name__contains=' + transaction.tmp.searchQuery)">
+                            جستجو
+                          </button>
+                        </span>
+                      </div>
+                  </form>
+                  <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
+                    <thead>
+                      <tr>
+                        <th>ردیف</th>
+                        <th>
+                          نام
+                        </th>
+                        <th>
+                          نام کوچک
+                        </th>
+                        <th>
+                          نام کاربری
+                        </th>
+                        <th>انتخاب</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "list in transaction.tmp.searchResult">
+                        <td>
+                          {{ $index + 1 }}
+                        </td>
+                        <td>{{list.first_name}}</td>
+                        <td>{{list.last_name}}</td>
+                        <td>
+                          {{list.card_no}}
+                        </td>
+                        <td>
+                          <a ng-click="transaction.addDestination('User',list)" href>
+                            <i class="fa fa-check-square-o fa-lg"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- End of stage 2 -->
+
+        <!-- Warehouse selection -->
+        <div class="row" ng-show="stage == 3">
+          <div class="col-md-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                انتخاب انبار مقصد
+                <div class="pull-left">
+                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                </div>
+              </div>
+              <div class="panel-body">
+                <form name="searchForm" role="form" novalidate>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="جستجو انبار" name="searchText" ng-model="transaction.tmp.searchQuery" required>
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse', '?title__contains=' + transaction.tmp.searchQuery)">
+                            جستجو
+                          </button>
+                        </span>
+                      </div>
+                  </form>
+                  <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
+                    <thead>
+                      <tr>
+                        <th>ردیف</th>
+                        <th>
+                          عنوان
+                        </th>
+                        <th>
+                          محل
+                        </th>
+                        <th>
+                          شماره تلفن
+                        </th>
+                        <th>انتخاب</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "list in transaction.tmp.searchResult">
+                        <td>
+                          {{ $index + 1 }}
+                        </td>
+                        <td>{{list.title}}</td>
+                        <td>{{list.location}}</td>
+                        <td>
+                          {{list.phone}}
+                        </td>
+                        <td>
+                          <a ng-click="transaction.addDestination('Warehouse',list)" href>
+                            <i class="fa fa-check-square-o fa-lg"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- End of stage 3 -->
 
       </div>
       <div class="modal-footer">

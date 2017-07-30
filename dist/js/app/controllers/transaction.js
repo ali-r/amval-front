@@ -27,4 +27,14 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     $scope.stage = 0;
   };
 
+  controller.addDestination = function(type_,item){
+    controller.obj.destination = {
+      type: type_,
+      id: item.id
+    }
+    // if(item.last_name){controller.obj.destination['last_name']=item.last_name;}
+    // else{controller.obj.destination['title']=item.title;}
+    $scope.stage = 0;
+  };
+
 });
