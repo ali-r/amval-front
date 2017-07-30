@@ -35,11 +35,11 @@
               <td>{{ (page-1)*10 + $index + 1 }}</td>
               <td>{{list.product.model}}</td>
               
-              <td ng-show="list.source.type == 'User'">{{list.source.last_name}}</td>
-              <td ng-show="list.source.type == 'WareHouse'">{{list.source.title}}</td>
+              <td ng-show="list.source.type == 'User'">{{list.source.obj.last_name}}</td>
+              <td ng-hide="list.source.type == 'User'">{{list.source.obj.title}}</td>
 
-              <td ng-show="list.destination.type == 'User'">{{list.destination.last_name}}</td>
-              <td ng-show="list.destination.type == 'WareHouse'">{{list.destination.title}}</td>
+              <td ng-show="list.destination.type == 'User'">{{list.destination.obj.last_name}}</td>
+              <td ng-hide="list.destination.type == 'User'">{{list.destination.obj.title}}</td>
 
               <td ng-show="list.reason==0">تامین</td>
               <td ng-show="list.reason==1">تعمیرات</td>              
@@ -71,7 +71,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0" ng-disabled="!transactionForm.$valid" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0" ng-disabled="!transactionForm.$valid || !transaction.obj.destination" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
@@ -91,7 +91,7 @@
                   <div class="form-group">
                     <label>کالا*</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" ng-model="transaction.obj.product.model" disabled>
+                      <input type="text" class="form-control" ng-model="transaction.obj.product.model" required disabled>
                       <span class="input-group-btn">
                         <button type="button" ng-disabled="!checkWrite('transaction')" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?holder__ne=None')">انتخاب</button>
                       </span>
@@ -127,11 +127,55 @@
                                 <li><a ng-click="transaction.selectThings(3, 'warehouse', '')" href>انبار</a>
                                 </li>
                               </ul>
-                            </div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 
+                
+                <!-- reason selection -->
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>علت تراکنش*</label>
+                      <div>
+                        <select class="form-control" ng-model="transaction.obj.reason" required>
+                          <option value="0">تامین</option>
+                          <option value="1">تعمیرات</option>
+                          <option value="2">مستهلک شده</option>
+                          <option value="3">بدون دلیل</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                <div class="clearfix"></div>
+
+                <!-- transaction type selection -->
+                <div class="col-xs-6">
+                    <div class="form-group">
+                      <label>نوع تراکنش*</label>
+                      <div>
+                        <select class="form-control" ng-model="transaction.obj.transaction_type" required>
+                          <option value="0">تخصیص</option>
+                          <option value="1">بازگشت</option>
+                          <option value="2">انتقال</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+                
+              
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>توضیحات تراکنش*</label>
+                    <div>
+                      <textarea class="form-control" style="resize:none" rows="3" ng-model="transaction.obj.details" required>
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              
               </fieldset>
             </div>
 

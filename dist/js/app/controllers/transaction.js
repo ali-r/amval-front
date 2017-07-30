@@ -16,11 +16,22 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   $scope.getUrl = pagination.makeUrl($scope);
 
   controller.obj = {}
+  controller.trConfig = function(obj){
+    var finalObj = angular.copy(obj);
+    finalObj.transaction_type = parseInt(obj.transaction_type);
+    finalObj.reason = parseInt(obj.reason);
+    finalObj.product = obj.product.id;
+    delete(finalObj.destination['last_name']);
+    delete(finalObj.destination['title']);
+    return(finalObj);
+  }
   crud.initModals($scope, controller, apiName, [
    
   ]);
-  crud.init($scope, controller, apiName);
+  crud.init($scope, controller, apiName, controller.trConfig);
   pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
+
+  
 
   controller.addProduct = function(list){
     controller.obj.product = list;
@@ -32,9 +43,10 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
       type: type_,
       id: item.id
     }
-    // if(item.last_name){controller.obj.destination['last_name']=item.last_name;}
-    // else{controller.obj.destination['title']=item.title;}
+    if(item.last_name){controller.obj.destination['last_name']=item.last_name;}
+    else{controller.obj.destination['title']=item.title;}
     $scope.stage = 0;
   };
+
 
 });
