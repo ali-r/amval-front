@@ -21,11 +21,11 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>نام</th>
-              <th>نام خانوادگی</th>
-              <th>نام فروشگاه</th>
-              <th>شماره موبایل</th>
-              <th>شماره تلفن </th>
+              <th>مدل کالا</th>
+              <th>منبع</th>
+              <th>مقصد</th>
+              <th>علت تراکنش</th>
+              <th>نوع تراکنش </th>
               <th></th>
               <th ng-if = "checkWrite('transaction')"></th>
             </tr>
@@ -33,19 +33,27 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in transaction.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.first_name}}</td>
-              <td>{{list.last_name}}</td>
-              <td>{{list.store_name}}</td>
-              <td style="direction:ltr;">{{list.cellphone}}</td>
-              <td style="direction:ltr;">{{list.phone}}</td>
+              <td>{{list.product.model}}</td>
+              
+              <td ng-show="list.source.type == User">{{list.source.last_name}}</td>
+              <td ng-show="list.source.type == WareHouse">{{list.source.title}}</td>
+
+              <td ng-show="list.destination.type == User">{{list.destination.last_name}}</td>
+              <td ng-show="list.destination.type == WareHouse">{{list.destination.title}}</td>
+
+              <td ng-show="list.reason==0">تامین</td>
+              <td ng-show="list.reason==1">تعمیرات</td>              
+              <td ng-show="list.reason==2">مستهلک شده</td>              
+              <td ng-show="list.reason==3">سایر</td>              
+
+              <td ng-show="list.transaction_type==0">تخصیص</td>
+              <td ng-show="list.transaction_type==1">بازگشت</td>
+              <td ng-show="list.transaction_type==2">انتقال</td>
+
+              <td></td>
               <td>
                 <a ng-click="transaction.getObject(list.id)" href>
                   <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('transaction') , 'fa-eye' : !checkWrite('transaction')}" aria-hidden="true"></i>
-                </a>
-              </td>
-              <td ng-if = "checkWrite('transaction')">
-                <a ng-click="transaction.toDeleteId = list.id; transaction.toDeleteTitle = list.store_name" data-toggle="modal" data-target="#deleteModal" href>
-                  <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
             </tr>
