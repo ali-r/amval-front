@@ -52,7 +52,7 @@
 
               <td></td>
               <td>
-                <a ng-click="transaction.getObject(list.id)" href>
+                <a ng-click="transaction.getObject(list.id); editMode = true" href>
                   <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('transaction') , 'fa-eye' : !checkWrite('transaction')}" aria-hidden="true"></i>
                 </a>
               </td>
@@ -71,7 +71,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0" ng-disabled="!transactionForm.$valid || !transaction.obj.destination" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0 && !editMode" ng-disabled="!transactionForm.$valid || !transaction.obj.destination" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
@@ -93,7 +93,7 @@
                     <div class="input-group">
                       <input type="text" class="form-control" ng-model="transaction.obj.product.model" required disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('transaction')" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?holder__ne=None')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('transaction') || editMode" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?holder__ne=None')">انتخاب</button>
                       </span>
                     </div>
                   </div>
@@ -101,11 +101,17 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>منبع</label>
-                    <p>
+                    <p ng-show="!editMode">
                       <strong ng-show="transaction.obj.product.holder.type=='User'">
                         {{transaction.obj.product.holder.obj.last_name}}</strong>
                       <strong ng-show="transaction.obj.product.holder.type=='Warehouse'">
                         {{transaction.obj.product.holder.obj.title}}</strong>
+                    </p>
+                    <p ng-show="editMode">
+                      <strong ng-show="transaction.obj.source.type=='User'">
+                        {{transaction.obj.source.obj.last_name}}</strong>
+                      <strong ng-show="transaction.obj.source.type=='Warehouse'">
+                        {{transaction.obj.source.obj.title}}</strong>
                     </p>
                   </div>
                 </div>
@@ -114,10 +120,11 @@
                   <div class="form-group">
                     <label>مقصد*</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" ng-hide="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.last_name" disabled>
-                      <input type="text" class="form-control" ng-show="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.title" disabled>
+                      <input type="text" class="form-control" ng-hide="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.obj.last_name" disabled>
+                      <input type="text" class="form-control" ng-show="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.obj.title" disabled>
                       <div class="input-group-btn">
-                              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                              ng-disabled="editMode">
                                 انتخاب
                                 <span class="caret"></span>
                               </button>
@@ -138,7 +145,7 @@
                   <div class="form-group">
                     <label>علت تراکنش*</label>
                       <div>
-                        <select class="form-control" ng-model="transaction.obj.reason" required>
+                        <select class="form-control" ng-model="transaction.obj.reason" required ng-disabled="editMode">
                           <option value="0">تامین</option>
                           <option value="1">تعمیرات</option>
                           <option value="2">مستهلک شده</option>
@@ -155,7 +162,7 @@
                     <div class="form-group">
                       <label>نوع تراکنش*</label>
                       <div>
-                        <select class="form-control" ng-model="transaction.obj.transaction_type" required>
+                        <select class="form-control" ng-model="transaction.obj.transaction_type" required ng-disabled="editMode">
                           <option value="0">تخصیص</option>
                           <option value="1">بازگشت</option>
                           <option value="2">انتقال</option>
@@ -169,13 +176,23 @@
                   <div class="form-group">
                     <label>توضیحات تراکنش*</label>
                     <div>
-                      <textarea class="form-control" style="resize:none" rows="3" ng-model="transaction.obj.details" required>
+                      <textarea class="form-control" style="resize:none" rows="3" ng-model="transaction.obj.details" required
+                      ng-disabled="editMode">
                       </textarea>
                     </div>
                   </div>
                 </div>
                 <div class="clearfix"></div>
               
+                <div class="col-xs-12" ng-show="editMode">
+                  <div class="form-group">
+                      <label>تاریخ تراکنش*</label>
+                      <div>
+                        <input type="text" style="text-align:left"  ng-model="transaction.obj.time" disabled>
+                      </div>
+                    </div>
+                </div>
+
               </fieldset>
             </div>
 
@@ -373,7 +390,7 @@
 
       </div>
       <div class="modal-footer">
-        <p ng-show = "stage == 0"> −
+        <p ng-show = "stage == 0 && !editMode"> −
           پر کردن فیلد هایی که با * مشخص شده اجباری است
         </p>
       </div>
