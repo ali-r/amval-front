@@ -4461,4 +4461,24 @@ select.form-control{
 .ltr-input{
     text-align: left;
     direction: ltr;
+.img-limited-size{
+    max-height: 100px;
+    max-width: 100px;
+}
+ul#temp-products li{
+    border-style: outset;
+    background-color: #95d6e9; 
+}
+.ADMdtp-box footer .today-edited{
+    display: inline;
+    width: 9em;
+    position: relative;
+}
+.limited-width-col{
+    max-width: 3em;
+    word-break: break-all;
+}
+.longer-limited-width-col{
+    max-width: 100%;
+    word-break: break-all; 
 }
