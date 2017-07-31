@@ -25,23 +25,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     ]
   };
 
-  controller.selectSellerObj = {
-    title : { fa : 'فروشنده', en : 'seller'},
-    searchItem : {
-      fa : 'فروشنده',
-      en : 'seller'
-    },
-    searchAt : {
-      fa : 'نام فروشگاه',
-      en : 'store_name'
-    },
-    table : [
-      {fa:'نام فروشگاه',en:'store_name'},
-      {fa:'نام',en:'first_name'},
-      {fa:'نام خانوادگی',en:'last_name'}
-    ]
-  };
-
   controller.selectGuarantorObj = {
     title : { fa : 'گارانتی', en : 'guarantor'},
     searchItem : {

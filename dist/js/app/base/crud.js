@@ -124,7 +124,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         });
     };
 
-    controller.sendOrEdit = function(editMode){
+    controller.sendOrEdit = function(editMode, callback){
       var sendObj = new Object();
       sendObj = angular.copy(controller.obj);
       delete sendObj['id'];
@@ -134,16 +134,24 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       if(editMode) {
         requestHelper.put(scope.apiUrl + "/" + scope.toEditId , sendObj, scope,
         function(response) {
-          $('#' + apiName + 'Modal').modal('hide');
-          controller.getData();
-          scope.reset();
+          if(callback){
+            callback(response);
+          }else{
+            $('#' + apiName + 'Modal').modal('hide');
+            controller.getData();
+            scope.reset();
+          }
         });
       } else {
         requestHelper.post(scope.apiUrl , sendObj, scope,
         function(response) {
-          $('#' + apiName + 'Modal').modal('hide');
-          controller.getData();
-          scope.reset();
+         if(callback){
+            callback(response);
+          }else{
+            $('#' + apiName + 'Modal').modal('hide');
+            controller.getData();
+            scope.reset();
+          }
         });
       }
     };

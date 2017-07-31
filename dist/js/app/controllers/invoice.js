@@ -27,7 +27,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.objConfig = function(obj){
         var obj2 = new Object();
-        obj2 = angular.copy(controller.obj);
+        obj2 = angular.copy(obj);
 
         obj2.datetime = controller.convertToG(controller.obj.datetime);
         
