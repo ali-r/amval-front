@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('groupCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud) {
+  function($scope, $cookieStore, mainAsset, requestHelper, crud) {
 
   var controller = this;
   var apiName = 'group';
@@ -32,7 +32,6 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   controller.addOne.extra.group_type = 'group';
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope, controller.searchObject, controller.searchValue, controller.addOne);
 
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
@@ -51,7 +50,6 @@ angular.module("assetAdminPanel").controller('groupCtrl',
 
   crud.initModals($scope, controller, apiName);
   crud.init($scope, controller, apiName, controller.objConfig)
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue', controller.addOne);
 
   this.deleteMeta = function(index){
     controller.obj.self_meta_template.splice (index, 1);

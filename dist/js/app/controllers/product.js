@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('productCtrl',
-  function($scope, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor) {
+  function($scope, mainAsset, requestHelper, crud, ADMdtpConvertor) {
 
   var controller = this;
   var apiName = 'product';
@@ -77,7 +77,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
   $scope.page = 1;
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope)
 
   this.toGregorianDate = function(pDate){
     var dateArray = pDate.split('-');
@@ -183,7 +182,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
   this.deleteChild = function(index){
     controller.obj.children.splice (index, 1);

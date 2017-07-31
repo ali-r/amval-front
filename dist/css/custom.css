@@ -950,10 +950,11 @@ a:focus {
     background: #fff;
     padding: 15px 20px;
     display: block;
-    position: fixed;
+    /*position: fixed;
     bottom: 0px;
     left: 0px;
     right: 0px;
+    z-index: 10;*/
 }
 .nav-sm footer {
     margin-right: 70px

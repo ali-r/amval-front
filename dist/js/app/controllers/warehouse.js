@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('warehouseCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud) {
+  function($scope, $cookieStore, mainAsset, requestHelper, crud) {
 
   var controller = this;
   var apiName = 'warehouse';
@@ -12,7 +12,6 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   $scope.assetData = $cookieStore.get('assetData');
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope);
 
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
@@ -34,7 +33,6 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     controller.obj.phone
   ]);
   crud.init($scope, controller, apiName, controller.objConfig)
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
   controller.selectUser = function(){
     $scope.stage = 1;
