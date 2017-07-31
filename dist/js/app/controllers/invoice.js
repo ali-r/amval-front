@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('invoiceCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor, $q)
+  function($scope, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $q)
   {
       var controller = this;
       var apiName = 'invoice';
@@ -23,7 +23,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       $scope.assetData = $cookieStore.get('assetData');
 
       $scope.apiUrl = mainAsset.getUrl() + apiName;
-      $scope.getUrl = pagination.makeUrl($scope);
 
 
       controller.objConfig = function(obj){
@@ -76,7 +75,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       crud.initModals($scope, controller, apiName, []);
       crud.init($scope, controller, apiName,controller.objConfig, controller.getConfig);
-      pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
       controller.tmp.formShow = false;
 
       controller.setNewInvoiceForm = function(){
