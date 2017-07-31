@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('userCtrl',
-  function($scope, mainAsset, requestHelper, pagination, crud) {
+  function($scope, mainAsset, requestHelper, crud) {
 
   var controller = this;
   var apiName = 'user';
@@ -31,7 +31,6 @@ angular.module("assetAdminPanel").controller('userCtrl',
   $scope.page = 1;
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope)
 
   controller.objConfig = function (obj) {
     if (obj.warehouse)
@@ -49,7 +48,6 @@ angular.module("assetAdminPanel").controller('userCtrl',
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig)
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
   
   this.resetPass = function(id) {
     requestHelper.put(

@@ -53,6 +53,7 @@ app.service('mainAsset', function($window, $http) {
       $(modal).modal('hide');
     }
 });
+
 app.filter('jalaliDate', function () {
       return function (inputDate, format) {
         moment.loadPersian();
@@ -105,7 +106,74 @@ app.directive('reqPagination', function() {
     replace : false,
     scope : {
       itempage : '=',
-      itemmeta : '='
+      itemmeta : '=',
+      config : '=',
+      controller : '='
+    },
+    link: function(scope, element, attr){
+
+      scope.pagination = function(status) {
+        var pageMeta = scope.itemmeta;
+        switch (status) {
+          case 'old':
+            if (pageMeta.next === null) {
+              return true;
+            } else {
+              return false;
+            };
+            break;
+          case 'new':
+            if (pageMeta.prev == null) {
+              return true;
+            } else {
+              return false;
+            };
+            break;
+          case 'end':
+            if (pageMeta.pages > 1 && pageMeta.page < pageMeta.pages -1 ) {
+              return false;
+            } else {
+              return true;
+            };
+            break;
+          case 'first':
+            if (pageMeta.page > 2) {
+              return false;
+            } else {
+              return true;
+            };
+            break;
+        };
+      };
+
+      scope.pageSet = function(mode){
+
+        if( !scope.pagination(mode) ){
+          switch (mode) {
+          case 'new':
+            scope.itempage -= 1;
+            break;
+          case 'old':
+            scope.itempage += 1;
+            break;
+          case 'first':
+            scope.itempage = 1;
+            break;
+          case 'end':
+            scope.itempage = scope.itemmeta.pages;
+            break;
+          }
+        }
+
+        if(scope.config){
+          
+        }else{
+          scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage);
+          scope.controller.getData();
+        }
+
+      };
+
     },
     templateUrl: '/dist/js/app/directive/pagination.html'
     //template : '<p id="test">{{itempage}}</p>'
@@ -148,7 +216,7 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       setTimeout(
       function () {
         $window.location.href = "../index.html";
-      },500);
+      },1000);
     }else{
       var nowTime = new Date();
       nowTime = Math.floor(nowTime.getTime()/1000);
@@ -162,7 +230,7 @@ angular.module("assetAdminPanel").controller('mainCtrl',
         setTimeout(
         function () {
           $window.location.href = "../index.html";
-        },500);
+        },1000);
 
       }else{
         $scope.userData = $localStorage.assetData;

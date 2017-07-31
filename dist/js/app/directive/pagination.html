@@ -1,32 +1,32 @@
 <div class="paging-simple" ng-hide = "$parent.load">
   <ul class="pagination business-pagination">
 
-    <li class="paginate_button previou" ng-class="{'disabled' : $parent.pagination('first')}">
-      <a ng-click = "$parent.pageSet('first')" href>اول</a>
+    <li class="paginate_button previou" ng-class="{'disabled' : pagination('first')}">
+      <a ng-click = "pageSet('first')" href>اول</a>
     </li>
-    <li class="paginate_button" ng-hide="$parent.pagination('first')">
-      <a ng-click = "$parent.pageSet('first')" href>1</a>
+    <li class="paginate_button" ng-hide="pagination('first')">
+      <a ng-click = "pageSet('first')" href>1</a>
     </li>
-    <li class="paginate_button" ng-hide="$parent.pagination('first')">
+    <li class="paginate_button" ng-hide="pagination('first')">
       <a>....</a>
     </li>
-    <li class="paginate_button" ng-hide="$parent.pagination('new')">
-      <a ng-click = "$parent.pageSet('new')" href>{{itempage-1}}</a>
+    <li class="paginate_button" ng-hide="pagination('new')">
+      <a ng-click = "pageSet('new')" href>{{itempage-1}}</a>
     </li>
     <li class="paginate_button active">
       <a href>{{itempage}}</a>
     </li>
-    <li class="paginate_button" ng-hide="$parent.pagination('old')">
-      <a ng-click = "$parent.pageSet('old')" href>{{itempage+1}}</a>
+    <li class="paginate_button" ng-hide="pagination('old')">
+      <a ng-click = "pageSet('old')" href>{{itempage+1}}</a>
     </li>
-    <li class="paginate_button" ng-hide="$parent.pagination('end')">
+    <li class="paginate_button" ng-hide="pagination('end')">
       <a>....</a>
     </li>
-    <li class="paginate_button" ng-hide="$parent.pagination('end')">
+    <li class="paginate_button" ng-hide="pagination('end')">
       <a ng-click = "pageSet('end')" href>{{itemmeta.pages}}</a>
     </li>
-    <li class="paginate_button next" ng-class="{'disabled' : $parent.pagination('end')}">
-      <a ng-click = "$parent.pageSet('end')" href>آخر</a>
+    <li class="paginate_button next" ng-class="{'disabled' : pagination('end')}">
+      <a ng-click = "pageSet('end')" href>آخر</a>
     </li>
 
   </ul>

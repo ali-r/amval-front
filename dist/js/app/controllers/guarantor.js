@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('guarantorCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud) {
+  function($scope, $cookieStore, mainAsset, requestHelper, crud) {
 
   var controller = this;
   var apiName = 'guarantor';
@@ -14,7 +14,6 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
   $scope.assetData = $cookieStore.get('assetData');
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope);
 
   controller.obj = {}
   crud.initModals($scope, controller, apiName, [
@@ -24,5 +23,4 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
     controller.obj.address
   ]);
   crud.init($scope, controller, apiName);
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 });

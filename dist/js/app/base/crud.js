@@ -1,7 +1,7 @@
 app.service('crud', function($localStorage,requestHelper, mainAsset) {
   crudService = this
 
-  this.initModals = function(scope, controller, name, variables) {
+  this.initModals = function(scope, controller, apiName, variables) {
     scope.meta = {};
     scope.reset = function() {
       scope.load = false;
@@ -20,11 +20,11 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     scope.reset();
 
     scope.openModal = function () {
-      mainAsset.openModal('#' + name + 'Modal');
+      mainAsset.openModal('#' + apiName + 'Modal');
     }
   }
 
-  this.init = function(scope, controller, name, objConfig, getConfig) {
+  this.init = function(scope, controller, apiName, objConfig, getConfig) {
 
     if ( typeof(objConfig) == 'undefined' ) {
       objConfig = function(obj){return obj;};
@@ -33,6 +33,50 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     if ( typeof(getConfig) == 'undefined' ) {
       getConfig = function(obj){return obj;};
     }
+
+    controller.notEmpty = function(string) {
+      return (typeof(string) != "undefined") && (string !== "") && (string + "" != 'undefined') && (string + "" != 'NaN');
+    }
+
+    controller.makeUrl = function(page, config){
+      
+      if ( typeof(config) == 'undefined' ) {
+        config = {};
+      }
+
+      var addOne = config.addOne,
+          keys = {};
+
+      if ( !config.addOne ) {
+          var url = scope.apiUrl + "?page=" + page + "&per_page=10";
+        }else{
+          var url = addOne.url + "?page=" + page + "&per_page=10";
+          for ( key in addOne.extra) {
+            console.log(key);
+            keys[key] = addOne.extra[key];
+          }
+        }
+
+        if(controller.searchValue){
+
+          for (var i = 0; i < controller.searchObject.length; i++) {
+            keys[controller.searchObject[i].field + '__contains'] = controller.searchValue[controller.searchObject[i].field];
+          }
+
+          keys.sort = controller.searchValue.order + controller.searchValue.type
+
+        }
+
+        for (name in keys) {
+          if (controller.notEmpty(keys[name]))
+            url += "&" + name + "=" + keys[name];
+        }
+
+        console.log(url)
+        return url;
+    }
+
+    scope.getUrl = controller.makeUrl(scope.page);
 
     scope.checkWrite = function(param){
       if( $localStorage.assetData.permissions[param] == 'write'){
@@ -47,14 +91,14 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         scope.getUrl, scope,
         function(response) {
           scope.meta = response.data.meta;
-          controller.note = response.data[name + 's'];
+          controller.note = response.data[apiName + 's'];
         },true);
     };
     controller.getData();
 
     controller.getFilteredData = function() {
       scope.page = 1;
-      scope.getUrl = controller.makeUrl();
+      scope.getUrl = controller.makeUrl(scope.page);
       controller.getData();
     };
 
@@ -69,7 +113,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       scope.toEditId = id;
       scope.editMode = true;
       scope.loadModal = true;
-      mainAsset.openModal('#' + name + 'Modal');
+      mainAsset.openModal('#' + apiName + 'Modal');
 
       requestHelper.get(
         scope.apiUrl + "/" + id,  scope,
@@ -90,14 +134,14 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       if(editMode) {
         requestHelper.put(scope.apiUrl + "/" + scope.toEditId , sendObj, scope,
         function(response) {
-          $('#' + name + 'Modal').modal('hide');
+          $('#' + apiName + 'Modal').modal('hide');
           controller.getData();
           scope.reset();
         });
       } else {
         requestHelper.post(scope.apiUrl , sendObj, scope,
         function(response) {
-          $('#' + name + 'Modal').modal('hide');
+          $('#' + apiName + 'Modal').modal('hide');
           controller.getData();
           scope.reset();
         });
@@ -113,7 +157,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           if( controller.note.length == 1 ){
             scope.loadModal = false;
             scope.page -= 1;
-            scope.getUrl = controller.makeUrl();
+            scope.getUrl = controller.makeUrl(scope.page);
           }
           controller.getData();
           $('#deleteModal').modal('hide');

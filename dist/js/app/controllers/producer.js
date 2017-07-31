@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('producerCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud) {
+  function($scope, $cookieStore, mainAsset, requestHelper, crud) {
 
   var controller = this;
   var apiName = 'producer';
@@ -12,12 +12,10 @@ angular.module("assetAdminPanel").controller('producerCtrl',
   $scope.assetData = $cookieStore.get('assetData');
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope);
-
   controller.obj = {}
   crud.initModals($scope, controller, apiName, [
     controller.obj.brand_name
   ]);
+  
   crud.init($scope, controller, apiName);
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 });
