@@ -4476,12 +4476,12 @@ ul#temp-products li{
 }
 .limited-width-col{
     max-width: 3em;
-    word-break: break-all;
+    word-wrap: break-word;
 }
 .longer-limited-width-col{
     max-width: 100%;
-    word-break: break-all; 
+    word-wrap: break-word; 
 }
 td{
-    word-break: break-all;
+    word-wrap: break-word;
 }
