@@ -4,22 +4,37 @@
 
       <div class="x_content">
         <search-tools sobject="transaction.searchObject" scontroller="transaction">
-          <select class="form-control sort-option" ng-model="transaction.addOne.extra.reason" title="علت تراکنش">
-            <option value="">---</option>
-            <option value="0">تامین</option>
-            <option value="1">تعمیرات</option>
-            <option value="2">مستهلک شده</option>
-            <option value="3">بدون دلیل</option>
-          </select>
+          <div  class="sort-option-edited sort-option">
+            <label style="float:right" > علت تراکنش: </label><br/>
+            <select style="width:100%" ng-model="transaction.addOne.extra.reason" title="علت تراکنش">
+              <option value="">---</option>
+              <option value="0">تامین</option>
+              <option value="1">تعمیرات</option>
+              <option value="2">مستهلک شده</option>
+              <option value="3">بدون دلیل</option>
+            </select>
+          </div>
+          
+          <div class="sort-option-edited sort-option">
+            <label style="float:right">نوع تراکنش:</label><br/>
+            <select style="width:100%" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
+              <option value="">---</option>
+              <option value="0">تخصیص</option>
+              <option value="1">بازگشت</option>
+              <option value="2">انتقال</option>
+            </select>  
+          </div>
 
-          <select class="form-control sort-option" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
-            <option value="">---</option>
-            <option value="0">تخصیص</option>
-            <option value="1">بازگشت</option>
-            <option value="2">انتقال</option>
-          </select>
-          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
-          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
+          <div class="sort-option-edited">
+            <label>ابتدای بازه زمانی:</label><br/>
+            <adm-dtp ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
+          </div>
+          
+          <div class="sort-option-edited">
+            <label>پایان بازه زمانی:</label><br/>
+            <adm-dtp ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
+          </div>
+          
 
         </search-tools>
       </div>
