@@ -117,6 +117,11 @@ angular.module("assetAdminPanel").controller('productCtrl',
     sendCopyObj.guarantee_end_date = controller.toGregorianDate(sendCopyObj.guarantee_end_date);
     sendCopyObj.guarantee_start_date = controller.toGregorianDate(sendCopyObj.guarantee_start_date);
     sendCopyObj.produced_date = controller.toGregorianDate(sendCopyObj.produced_date);
+    
+    sendCopyObj.meta_data = [];
+    obj.meta_data.forEach(function(item,index){
+      if(item.value != undefined && item.value !=""){sendCopyObj.meta_data.push(item);}
+    });
 
     if(obj.children){
       sendCopyObj.children = [];
