@@ -3,7 +3,6 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
 
   var controller = this;
   var apiName = 'transaction';
-
   controller.searchObject = [];
 
   $scope.page = 1;
@@ -13,8 +12,8 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   controller.addOne.extra={};
   controller.addOne.extra.reason = '';
   controller.addOne.extra.transaction_type = '';
-  controller.addOne.extra.time__gte = '1395-01-01';
-  controller.addOne.extra.time__lte = '1400-01-01';
+  controller.addOne.extra.time__gte = '';
+  controller.addOne.extra.time__lte = '';
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   $scope.getUrl = pagination.makeUrl($scope);
@@ -43,11 +42,26 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   crud.init($scope, controller, apiName, controller.trConfig, controller.trGetConfig);
   pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
-  controller.toGregorianDate = function(pDate){
+  controller.toGregorianDate = function(pDate,date_included,time_included){
     if(!pDate){return '';}
-    var dateArray = pDate.split('-');
-    var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-    return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+
+    if(date_included && time_included){
+      var dateTimeSplitted = pDate.split(' ');
+      console.log(dateTimeSplitted);
+      var dateArray = dateTimeSplitted[1].split('-');
+      var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+      console.log(gDate.year + '-' + gDate.month + '-' + gDate.day+' '+dateTimeSplitted[0]);
+      return (gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]+':00');
+    }
+    else if(date_included){
+      var dateArray = pDate.split('-');
+      var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+      return (gDate.year + '-' + gDate.month + '-' + gDate.day);  
+    }
+    else{
+      return pDate;
+    }
+    
   }
 
   controller.toJalaliDate = function(pDate){
@@ -77,9 +91,13 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     var editedObj = angular.copy(controller.addOne);
     if(editedObj.extra.reason){editedObj.extra.reason = parseInt(controller.addOne.extra.reason);}
     if(editedObj.extra.transaction_type){editedObj.extra.transaction_type = parseInt(controller.addOne.extra.transaction_type);}
-    if(editedObj.extra.time__gte){editedObj.extra.time__gte = controller.toGregorianDate(controller.addOne.extra.time__gte);}
+    if(editedObj.extra.time__gte){
+      editedObj.extra.time__gte = controller.toGregorianDate(controller.addOne.extra.time__gte,true,true);
+    }
     else{editedObj.extra.time__gte=""}
-    if(editedObj.extra.time__lte){editedObj.extra.time__lte = controller.toGregorianDate(controller.addOne.extra.time__lte);}
+    if(editedObj.extra.time__lte){
+      editedObj.extra.time__lte = controller.toGregorianDate(controller.addOne.extra.time__lte,true,true);
+    }
     else{editedObj.extra.time__lte=""}
     $scope.page = 1;
     $scope.getUrl = pagination.makeUrl($scope, controller.searchObject, controller.searchValue, editedObj);

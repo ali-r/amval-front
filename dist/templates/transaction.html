@@ -18,8 +18,8 @@
             <option value="1">بازگشت</option>
             <option value="2">انتقال</option>
           </select>
-          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی"></adm-dtp>
-          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی"></adm-dtp>
+          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
+          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
 
         </search-tools>
       </div>
