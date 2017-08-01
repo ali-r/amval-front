@@ -8,18 +8,19 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
-
-  $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope);
-
   controller.obj = {}
   controller.addOne={};
   controller.addOne.extra={};
-  controller.addOne.extra.reason = '0';
-  controller.addOne.extra.transaction_type = '1';
-  controller.addOne.extra.time_lte = '1395-01-01';
-  controller.addOne.extra.time_gte = '1400-01-01';
+  controller.addOne.extra.reason = '';
+  controller.addOne.extra.transaction_type = '';
+  controller.addOne.extra.time__gte = '1395-01-01';
+  controller.addOne.extra.time__lte = '1400-01-01';
 
+  $scope.apiUrl = mainAsset.getUrl() + apiName;
+  $scope.getUrl = pagination.makeUrl($scope);
+  // $scope.getUrl = pagination.makeUrl($scope, controller.searchObject, controller.searchValue, controller.addOne);
+
+  
 
   controller.trConfig = function(obj){
     var finalObj = angular.copy(obj);
@@ -43,12 +44,14 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
   controller.toGregorianDate = function(pDate){
+    if(!pDate){return '';}
     var dateArray = pDate.split('-');
     var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
     return (gDate.year + '-' + gDate.month + '-' + gDate.day);
   }
 
   controller.toJalaliDate = function(pDate){
+    if(!pDate){return '';}
     var dateArray = pDate.split('-');
     var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
     return (gDate.year + '-' + gDate.month + '-' + gDate.day);
@@ -70,5 +73,16 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     $scope.stage = 0;
   };
 
-
+  controller.getFilteredData = function(){
+    var editedObj = angular.copy(controller.addOne);
+    if(editedObj.extra.reason){editedObj.extra.reason = parseInt(controller.addOne.extra.reason);}
+    if(editedObj.extra.transaction_type){editedObj.extra.transaction_type = parseInt(controller.addOne.extra.transaction_type);}
+    if(editedObj.extra.time__gte){editedObj.extra.time__gte = controller.toGregorianDate(controller.addOne.extra.time__gte);}
+    else{editedObj.extra.time__gte=""}
+    if(editedObj.extra.time__lte){editedObj.extra.time__lte = controller.toGregorianDate(controller.addOne.extra.time__lte);}
+    else{editedObj.extra.time__lte=""}
+    $scope.page = 1;
+    $scope.getUrl = pagination.makeUrl($scope, controller.searchObject, controller.searchValue, editedObj);
+    controller.getData();
+  }
 });
