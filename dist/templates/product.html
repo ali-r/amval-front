@@ -36,8 +36,8 @@
               <td>{{list.model}}</td>
               <td>{{list.price}}</td>
               <td>{{list.producer.brand_name}}</td>
-              <td>{{list.produced_date}}</td>
-              <td>{{list.guarantee_end_date}}</td>
+              <td>{{product.toJalaliDate(list.production_date)}}</td>
+              <td>{{product.toJalaliDate(list.guarantee_end_date)}}</td>
               <td>
                 <a ng-click="product.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('product') , 'fa-eye' : !checkWrite('product')}" aria-hidden="true"></i>
@@ -149,7 +149,7 @@
                   <div class="col-md-4">
                     <div class="form-group" ng-class="{'has-success' : productForm.cardno.$valid && product.obj.card_no}">
                       <label>تاریخ تولید*</label>
-                      <adm-dtp ng-model="product.obj.produced_date" ></adm-dtp>
+                      <adm-dtp ng-model="product.obj.production_date" ></adm-dtp>
                     </div>
                   </div>
                   <div class="col-md-4">
