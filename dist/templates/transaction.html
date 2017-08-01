@@ -3,7 +3,23 @@
     <div class="x_panel">
 
       <div class="x_content">
-        <search-tools sobject="transaction.searchObject" scontroller="transaction"></search-tools>
+        <search-tools sobject="transaction.searchObject" scontroller="transaction">
+          <select class="form-control sort-option" title="علت تراکنش">
+            <option ng-click="transaction.addOne.extra.reason = 0">تامین</option>
+            <option ng-click="transaction.addOne.extra.reason = 1">تعمیرات</option>
+            <option ng-click="transaction.addOne.extra.reason = 2">مستهلک شده</option>
+            <option ng-click="transaction.addOne.extra.reason = 3">بدون دلیل</option>
+          </select>
+
+          <select class="form-control sort-option" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
+            <option value="0">تخصیص</option>
+            <option value="1">بازگشت</option>
+            <option value="2">انتقال</option>
+          </select>
+          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time_lte" title="ابتدای بازه زمانی"></adm-dtp>
+          <adm-dtp class="sort-option sort-option-edited-adm" ng-model="transaction.addOne.extra.time_gte" title="پایان بازه زمانی"></adm-dtp>
+
+        </search-tools>
       </div>
     </div>
   </div>
@@ -44,7 +60,7 @@
               <td ng-show="list.reason==0">تامین</td>
               <td ng-show="list.reason==1">تعمیرات</td>              
               <td ng-show="list.reason==2">مستهلک شده</td>              
-              <td ng-show="list.reason==3">سایر</td>              
+              <td ng-show="list.reason==3">بدون دلیل</td>              
 
               <td ng-show="list.transaction_type==0">تخصیص</td>
               <td ng-show="list.transaction_type==1">بازگشت</td>

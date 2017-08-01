@@ -4,10 +4,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   var controller = this;
   var apiName = 'transaction';
 
-  controller.searchObject = [
-    {'fname' : 'نام', 'field' : 'first_name'},
-    {'fname' : 'شماره موبایل', 'field' : 'cellphone'}
-  ];
+  controller.searchObject = [];
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
@@ -16,6 +13,14 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   $scope.getUrl = pagination.makeUrl($scope);
 
   controller.obj = {}
+  controller.addOne={};
+  controller.addOne.extra={};
+  controller.addOne.extra.reason = '0';
+  controller.addOne.extra.transaction_type = '1';
+  controller.addOne.extra.time_lte = '1395-01-01';
+  controller.addOne.extra.time_gte = '1400-01-01';
+
+
   controller.trConfig = function(obj){
     var finalObj = angular.copy(obj);
     finalObj.transaction_type = parseInt(obj.transaction_type);

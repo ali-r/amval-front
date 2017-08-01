@@ -4422,3 +4422,8 @@ select.form-control{
 .group-chd i.fa-level-down{
     margin-right: 1em;
 }
+.sort-option-edited-adm{
+    display: inline-block;
+    width: 18%
+
+}
