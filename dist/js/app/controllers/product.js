@@ -177,9 +177,12 @@ angular.module("assetAdminPanel").controller('productCtrl',
     requestHelper.get(
       metaUrl, $scope,
       function(response) {
+        // if(!$scope.editMode) [AM-192] clear fields after changing group
+        controller.obj.meta_data = [];
         controller.tmp.meta = response.data;
-        if(!$scope.editMode)
-          controller.obj.meta_data = [];
+        controller.tmp.meta.meta_template.forEach(function(item,index){
+          controller.obj.meta_data.push({key:item.key});
+        })
         console.log(controller.tmp.meta);
         $scope.loadSearch = false;
       });
