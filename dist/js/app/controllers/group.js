@@ -30,6 +30,9 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   controller.addOne={};
   controller.addOne.extra={};
   controller.addOne.extra.group_type = 'group';
+  controller.paginationConfig = {
+    'addOne' : controller.addOne
+  }
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 

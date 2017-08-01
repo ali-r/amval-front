@@ -39,7 +39,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
 
     controller.makeUrl = function(page, config){
-      
+
       if ( typeof(config) == 'undefined' ) {
         config = {};
       }
@@ -47,10 +47,13 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       var addOne = config.addOne,
           keys = {};
 
-      if ( !config.addOne ) {
+      if ( !config.url ) {
           var url = scope.apiUrl + "?page=" + page + "&per_page=10";
         }else{
           var url = addOne.url + "?page=" + page + "&per_page=10";
+        }
+
+        if(addOne){
           for ( key in addOne.extra) {
             console.log(key);
             keys[key] = addOne.extra[key];
@@ -76,7 +79,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         return url;
     }
 
-    scope.getUrl = controller.makeUrl(scope.page);
+    scope.getUrl = controller.makeUrl(scope.page, controller.paginationConfig);
 
     scope.checkWrite = function(param){
       if( $localStorage.assetData.permissions[param] == 'write'){
@@ -102,10 +105,15 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       controller.getData();
     };
 
-    controller.selectTarget = function(id, title, titleFiled, variable){
-      controller.obj[variable] = {};
-      controller.obj[variable][titleFiled] = title;
-      controller.obj[variable].id = id;
+    controller.selectTarget = function(id, title, titleFiled, variable, targetObj){
+      console.log(targetObj)
+      if ( typeof(targetObj) == 'undefined' ) {
+        targetObj = 'obj';
+      }
+
+      controller[targetObj][variable] = {};
+      controller[targetObj][variable][titleFiled] = title;
+      controller[targetObj][variable].id = id;
       scope.stage = 0;
     };
 
@@ -124,15 +132,28 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         });
     };
 
-    controller.sendOrEdit = function(editMode, callback){
+    controller.sendOrEdit = function(editMode, obj, url, callback){
+
       var sendObj = new Object();
-      sendObj = angular.copy(controller.obj);
-      delete sendObj['id'];
       scope.loadModal = true;
-      sendObj = objConfig(sendObj);
+
+      if(obj){
+        sendObj = angular.copy(obj);
+      }else{
+        sendObj = angular.copy(controller.obj);
+        delete sendObj['id'];
+        sendObj = objConfig(sendObj);
+      }
+
+      if(url){
+        var sendOrEditUrl = url;
+      }else{
+        var sendOrEditUrl = scope.apiUrl;
+      }
+
       console.log(sendObj);
       if(editMode) {
-        requestHelper.put(scope.apiUrl + "/" + scope.toEditId , sendObj, scope,
+        requestHelper.put(sendOrEditUrl + "/" + scope.toEditId , sendObj, scope,
         function(response) {
           if(callback){
             callback(response);
@@ -143,7 +164,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           }
         });
       } else {
-        requestHelper.post(scope.apiUrl , sendObj, scope,
+        requestHelper.post(sendOrEditUrl , sendObj, scope,
         function(response) {
          if(callback){
             callback(response);

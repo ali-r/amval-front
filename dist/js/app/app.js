@@ -34,7 +34,7 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
       });
     };
 });
-app.service('mainAsset', function($window, $http) {
+app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     this.devMode = assetPanelData.devMode;
     this.getUrl = function () {
       return assetPanelData.serverUrl;
@@ -42,16 +42,31 @@ app.service('mainAsset', function($window, $http) {
     this.getUploadUrl = function () {
       return assetPanelData.uploadUrl;
     };
+
     this.openModal = function (modal) {
       $(modal).modal({
           backdrop: 'static',
           keyboard: false
         });
       $(modal).modal('show');
-    }
+    };
+
     this.closeModal = function (modal) {
       $(modal).modal('hide');
+    };
+
+    this.toGregorianDate = function(pDate){
+      var dateArray = pDate.split('-');
+      var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+      return (gDate.year + '-' + gDate.month + '-' + gDate.day);
     }
+
+    this.toJalaliDate = function(pDate){
+      var dateArray = pDate.split('-');
+      var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+      return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+    };
+
 });
 
 app.filter('jalaliDate', function () {
@@ -61,6 +76,7 @@ app.filter('jalaliDate', function () {
         return date.format(format);
     }
 });
+
 app.filter('userType', function() {
   return function(input) {
     var output;
@@ -111,6 +127,12 @@ app.directive('reqPagination', function() {
       controller : '='
     },
     link: function(scope, element, attr){
+
+      if(!scope.config){
+        var paginationConfig = {};
+      }else{
+        var paginationConfig = scope.config;
+      }
 
       scope.pagination = function(status) {
         var pageMeta = scope.itemmeta;
@@ -165,10 +187,10 @@ app.directive('reqPagination', function() {
           }
         }
 
-        if(scope.config){
+        if(paginationConfig.url){
           
         }else{
-          scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage);
+          scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
           scope.controller.getData();
         }
 
@@ -200,9 +222,149 @@ app.directive('searchStage', function() {
     replace : true,
     scope : {
       obj : '=',
-      controller : '='
+      controller : '=',
+      target : '='
     },
     templateUrl: '/dist/js/app/directive/searchStage.html'
+  }
+});
+
+app.directive('creatProduct', function(mainAsset, requestHelper) {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      controller : '='
+    },
+    link : function(scope, element, attr){
+
+      scope.uploadUrl = mainAsset.getUploadUrl();
+
+      scope.selectProducerObj = {
+        title : { fa : 'تولید کننده', en : 'producer'},
+        searchItem : {
+          fa : 'تولید کننده',
+          en : 'producer'
+        },
+        searchAt : {
+          fa : 'نام برند',
+          en : 'brand_name'
+        },
+        table : [
+          {fa:'نام برند',en:'brand_name'}
+        ]
+      };
+
+      scope.selectGuarantorObj = {
+        title : { fa : 'گارانتی', en : 'guarantor'},
+        searchItem : {
+          fa : 'گارانتی',
+          en : 'guarantor'
+        },
+        searchAt : {
+          fa : 'نام خانوادگی مسئول',
+          en : 'secretary_last_name'
+        },
+        table : [
+          {fa:'نام مسئول ',en:'secretary_first_name'},
+          {fa:'نام خانوادگی مسئول',en:'secretary_last_name'}
+        ]
+      };
+
+      scope.setGroupStage = function(){
+        scope.$parent.stage = 3;
+        scope.$parent.loadSearch = true;
+        var searchUrl = mainAsset.getUrl() + 'group?group_type=group&page=1&per_page=25';
+        requestHelper.get(
+          searchUrl, scope.$parent,
+          function(response) {
+            scope.controller.tmp.searchResult = response.data.groups;
+            scope.$parent.loadSearch = false;
+          });
+      };
+
+      scope.loadMeta = function(id){
+        scope.$parent.loadModal = true;
+        var metaUrl = mainAsset.getUrl() + 'group/' + id;
+        requestHelper.get(
+          metaUrl, scope.$parent,
+          function(response) {
+            scope.controller.tmp.meta = response.data;
+            scope.controller.product.meta_data = [];
+            for (var i = 0; i < response.data.meta_template.length; i++) {
+             scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key}
+            }
+
+            console.log(scope.controller.tmp.meta);
+            scope.$parent.loadSearch = false;
+          });
+      }
+      
+      scope.controller.product.qr_code = '';
+      scope.controller.uploadProductPic = function() {
+        if(!scope.productForm.productPic.$error.maxSize && scope.controller.qrCodeFile)
+        {
+          requestHelper.uploadFileReq(scope.controller.qrCodeFile, 'signature', scope, function(data){
+            scope.controller.product.qr_code = data.file_url;
+          });
+        }
+      }
+
+      scope.objConfig = function (obj) {
+        sendCopyObj = angular.copy(obj);
+        sendCopyObj.guarantor = sendCopyObj.guarantor.id;
+        sendCopyObj.producer = sendCopyObj.producer.id;
+        sendCopyObj.subgroup = sendCopyObj.subgroup.id;
+        if(!sendCopyObj.is_out_of_system)
+            sendCopyObj.is_out_of_system = false;
+
+        if(!sendCopyObj.is_bundle){
+          sendCopyObj.is_bundle = false;
+          delete sendCopyObj.children;
+        }
+
+        sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);
+
+        if(scope.$parent.editMode){
+          delete sendCopyObj.deprication_time;
+          delete sendCopyObj.holder;
+          delete sendCopyObj.parent_bundle;
+          delete sendCopyObj.price;
+        }
+
+        sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
+        sendCopyObj.guarantee_start_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_start_date);
+        sendCopyObj.production_date = mainAsset.toGregorianDate(sendCopyObj.production_date);
+
+        if(obj.children){
+          sendCopyObj.children = [];
+          for (var i = 0; i < obj.children.length; i++) {
+            sendCopyObj.children.push(obj.children[i].id);
+          }
+        }
+
+        for (var i = 0; i < sendCopyObj.meta_data.length; i++) {
+          console.log(sendCopyObj.meta_data[i].value);
+          if(!sendCopyObj.meta_data[i].value || typeof(sendCopyObj.meta_data[i].value) == 'undefined')
+            {
+              sendCopyObj.meta_data.splice(i, 1);
+            }
+          
+        }
+
+        return sendCopyObj;
+      };
+
+      scope.sendOrEdit = function(){
+        scope.controller.sendOrEdit(false, scope.objConfig(scope.controller.product), mainAsset.getUrl() + 'product', function(data){
+          scope.controller.creatProductCallback(data.data);
+          $('#productModal').modal('hide');
+          scope.controller.product = {};
+        });
+      }
+
+    },
+    templateUrl: '/dist/js/app/directive/creatproduct.html'
   }
 });
 

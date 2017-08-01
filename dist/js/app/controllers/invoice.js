@@ -2,7 +2,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
   function($scope, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $q)
   {
       var controller = this;
-      var apiName = 'invoice';
+      controller.apiName = 'invoice';
       $scope.editMode = true;    //Edit: true, Create: false
       $scope.selectStage = 0;       //Buyer:1, Seller:2, Product:3 usage in select modal
       $scope.deleteStage = 1;       //Product:1 , Invoice:2 , usage in delete modal
@@ -19,10 +19,12 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
       // controller.setFormHeight();
 
+      controller.product = {};
+
       $scope.page = 1;
       $scope.assetData = $cookieStore.get('assetData');
 
-      $scope.apiUrl = mainAsset.getUrl() + apiName;
+      $scope.apiUrl = mainAsset.getUrl() + controller.apiName;
 
 
       controller.objConfig = function(obj){
@@ -73,8 +75,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.openModal('delete');
       } 
 
-      crud.initModals($scope, controller, apiName, []);
-      crud.init($scope, controller, apiName,controller.objConfig, controller.getConfig);
+      crud.initModals($scope, controller, controller.apiName, []);
+      crud.init($scope, controller, controller.apiName,controller.objConfig, controller.getConfig);
       controller.tmp.formShow = false;
 
       controller.setNewInvoiceForm = function(){
@@ -121,8 +123,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.closeModal('select');
       }
 
-      controller.addProduct = function(){
-        // ToDo : Mr.Kabiri will code this function.
+      controller.openProductModal = function(){
+        controller.openModal('product');
       };
 
       controller.selectProduct = function(){
@@ -156,6 +158,14 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.obj.num_of_products = controller.obj.products.length;
         controller.tmp.selectedProducts = [];
         controller.closeModal('select');
+      }
+
+      controller.creatProductCallback = function(goods){
+        if(!controller.obj.products){
+          controller.obj.products = [];
+        }
+        controller.obj.products.push(goods);
+        controller.obj.num_of_products = controller.obj.products.length;
       }
 
       this.uploadPic = function() {
