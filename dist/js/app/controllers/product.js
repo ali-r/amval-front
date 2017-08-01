@@ -109,6 +109,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     delete sendCopyObj.price;
 
     if($scope.editMode){
+      delete sendCopyObj.is_bundle;
       delete sendCopyObj.deprication_time;
       delete sendCopyObj.holder;
       delete sendCopyObj.parent_bundle;
