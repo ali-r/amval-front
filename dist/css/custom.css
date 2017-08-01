@@ -4482,3 +4482,6 @@ ul#temp-products li{
     max-width: 100%;
     word-break: break-all; 
 }
+td{
+    word-break: break-all;
+}
