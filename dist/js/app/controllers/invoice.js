@@ -44,7 +44,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           });
         })
 
-        
+        delete obj2.id;
         obj2.seller = controller.obj.seller['id'];
         obj2.buyer = controller.obj.buyer['id'];
         
