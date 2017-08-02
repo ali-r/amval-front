@@ -1,14 +1,7 @@
 <div class="row">
 
     <!-- Search Object -->
-    <div class="col-xs-12">
-        <div class="x_panel">
-
-            <div class="x_content">
-                <search-tools sobject="invoice.searchObject" scontroller="invoice"></search-tools>
-            </div>
-        </div>
-    </div>
+    <search-tools sobject="invoice.searchObject" scontroller="invoice"></search-tools>
     <!-- /Search Object-->
 
     <!-- invoice list -->
@@ -63,7 +56,7 @@
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
                 <h2 ng-hide="editMode"><i class="fa"></i>ایجاد فاکتور جدید</h2>
                 
-                <div class="col-xs-4 pull-left" ng-hide="loadModal">
+                <div class="pull-left" ng-hide="loadModal">
                     <button type="button" class="btn btn-danger" ng-click="reset()">لغو</button>
                     <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice || invoice.obj.products.length==0 " ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
                 </div>
@@ -95,6 +88,7 @@
 
                             <div class="row">
                                 <div class="col-xs-6">
+                                    <label>خریدار*</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="invoice.obj.buyer.last_name" placeholder="خریدار" disabled>
                                         <span class="input-group-btn">
@@ -103,6 +97,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
+                                    <label>فروشنده*</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="invoice.obj.seller.last_name" placeholder="فروشنده" disabled>
                                         <span class="input-group-btn">
@@ -116,7 +111,7 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info" ng-click="invoice.addProduct()">افزودن کالا</button>
+                                        <button type="button" class="btn btn-info" ng-click="invoice.openProductModal()">افزودن کالا</button>
                                         <button type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
                                     </span>
                                 </div>
@@ -459,3 +454,5 @@
     </div>
   </div>
 </div>
+
+<creat-product controller = "invoice"></creat-product>

@@ -25,23 +25,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     ]
   };
 
-  controller.selectSellerObj = {
-    title : { fa : 'فروشنده', en : 'seller'},
-    searchItem : {
-      fa : 'فروشنده',
-      en : 'seller'
-    },
-    searchAt : {
-      fa : 'نام فروشگاه',
-      en : 'store_name'
-    },
-    table : [
-      {fa:'نام فروشگاه',en:'store_name'},
-      {fa:'نام',en:'first_name'},
-      {fa:'نام خانوادگی',en:'last_name'}
-    ]
-  };
-
   controller.selectGuarantorObj = {
     title : { fa : 'گارانتی', en : 'guarantor'},
     searchItem : {
@@ -116,7 +99,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
     sendCopyObj.guarantee_end_date = controller.toGregorianDate(sendCopyObj.guarantee_end_date);
     sendCopyObj.guarantee_start_date = controller.toGregorianDate(sendCopyObj.guarantee_start_date);
-    sendCopyObj.produced_date = controller.toGregorianDate(sendCopyObj.produced_date);
+    sendCopyObj.production_date = controller.toGregorianDate(sendCopyObj.production_date);
 
     if(obj.children){
       sendCopyObj.children = [];
@@ -132,7 +115,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     obj.deprication_type += '';
     obj.guarantee_end_date = controller.toJalaliDate(obj.guarantee_end_date);
     obj.guarantee_start_date = controller.toJalaliDate(obj.guarantee_start_date);
-    obj.produced_date = controller.toJalaliDate(obj.produced_date);
+    obj.production_date = controller.toJalaliDate(obj.production_date);
     controller.tmp.meta = {meta_template:[]};
 
     var meta;
