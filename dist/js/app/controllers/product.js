@@ -196,6 +196,10 @@ angular.module("assetAdminPanel").controller('productCtrl',
     controller.obj.children.splice (index, 1);
   };
 
+  this.deleteField = function(obj,field){
+    delete obj[field];
+  }
+
   this.checkDuplicate = function (obj, array) {
     var checkResult = true;
 
