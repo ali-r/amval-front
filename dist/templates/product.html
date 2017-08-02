@@ -34,7 +34,7 @@
             <tr ng-repeat = "list in product.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
               <td>{{list.model}}</td>
-              <td>{{list.price}}</td>
+              <td dir="ltr">{{list.price}}</td>
               <td>{{list.producer.brand_name}}</td>
               <td>{{product.toJalaliDate(list.production_date)}}</td>
               <td>{{product.toJalaliDate(list.guarantee_end_date)}}</td>
