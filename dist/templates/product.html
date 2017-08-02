@@ -44,7 +44,7 @@
                 </a>
               </td>
               <td ng-if = "checkWrite('product')">
-                <a ng-click="product.toDeleteId = list.id; product.toDeleteTitle = list.card_no" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
+                <a ng-click="product.toDeleteId = list.id; product.toDeleteTitle = list.model" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -494,10 +494,10 @@
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف کاربر</h4>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف کالا</h4>
       </div>
       <div class="modal-body">
-        آیا مایل به حذف کاربر
+        آیا مایل به حذف کالای
         "{{product.toDeleteTitle}}"
         هستید؟
       </div>
