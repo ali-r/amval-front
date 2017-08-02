@@ -292,7 +292,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
             scope.controller.tmp.meta = response.data;
             scope.controller.product.meta_data = [];
             for (var i = 0; i < response.data.meta_template.length; i++) {
-             scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key}
+             scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key, value: ''}
             }
 
             console.log(scope.controller.tmp.meta);

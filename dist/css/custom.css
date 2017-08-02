@@ -379,7 +379,7 @@ body{
     position: absolute;
     display: -ms-flexbox;
     display: flex;
-    z-index: 1
+    z-index: 10
 }
 .nav-md .container.body .col-md-3.left_col.menu_fixed {
     height: 100%;
@@ -953,8 +953,8 @@ a:focus {
     /*position: fixed;
     bottom: 0px;
     left: 0px;
-    right: 0px;
-    z-index: 10;*/
+    right: 0px;*/
+    z-index: 5;
 }
 .nav-sm footer {
     margin-right: 70px
@@ -1100,7 +1100,7 @@ h2 {
 .x_panel {
     position: relative;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 70px;
     padding: 5px 10px;
     display: inline-block;
     background: #fff;
@@ -4461,6 +4461,7 @@ select.form-control{
 .ltr-input{
     text-align: left;
     direction: ltr;
+}
 .img-limited-size{
     max-height: 100px;
     max-width: 100px;
@@ -4481,4 +4482,10 @@ ul#temp-products li{
 .longer-limited-width-col{
     max-width: 100%;
     word-break: break-all; 
+}
+.x-panel-search{
+    padding: 12px 10px;
+    background-color: #ffffff;
+    height: auto;
+    margin-bottom: 10px;
 }

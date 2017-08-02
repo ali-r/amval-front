@@ -26,6 +26,8 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
   this.init = function(scope, controller, apiName, objConfig, getConfig) {
 
+    scope.uploadUrl = mainAsset.getUploadUrl();
+
     if ( typeof(objConfig) == 'undefined' ) {
       objConfig = function(obj){return obj;};
     }
