@@ -137,10 +137,6 @@ app.directive('reqPagination', function() {
       if(!scope.itemmeta)
         scope.itemmeta = {};
 
-      scope.$watch('itemmeta', function() {
-        console.log( scope.itemmeta.first + 'page has changed!');
-      });
-
       scope.pagination = function(status) {
         var pageMeta = scope.itemmeta;
         switch (status) {
@@ -195,7 +191,7 @@ app.directive('reqPagination', function() {
         }
 
         if(paginationConfig.url){
-          
+          paginationConfig.getFunc();
         }else{
           scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
           scope.controller.getData();

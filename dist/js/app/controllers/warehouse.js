@@ -8,6 +8,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     {'fname' : 'انبار', 'field' : 'title'}
   ];
 
+
   $scope.productShow = false;
 
   $scope.page = 1;
@@ -42,16 +43,27 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     controller.search('user','last_name');
   };
 
-  controller.getProducts = function(id){
+  controller.getProducts = function(){
     $scope.loadSide = true;
-    $scope.productShow = true;
-    requestHelper.get($scope.apiUrl + '/' + id + '/products', $scope, function(response){
+    var getUrl = controller.makeUrl(controller.productsPage, controller.productPageConf);
+    console.log(controller.productPageConf)
+    requestHelper.get(getUrl, $scope, function(response){
       controller.products = response.data.products;
       controller.productsMeta = response.data.meta;
       controller.productsPage = response.data.meta.page;
-      console.log(controller.productsMeta)
       $scope.loadSide = false;
     });
   };
+
+  controller.productPageConf = {
+    getFunc : controller.getProducts
+  };
+
+  controller.openSide = function(id){
+    $scope.wareHouseId = id;
+    controller.productPageConf.url = $scope.apiUrl + '/' + $scope.wareHouseId + '/products';
+    $scope.productShow = true;
+    controller.getProducts();
+  }
 
 });

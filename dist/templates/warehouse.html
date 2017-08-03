@@ -38,7 +38,7 @@
                 </a>
               </td>
               <td>
-                <a ng-click="warehouse.getProducts(list.id)" title="مشاهده کالاها" href>
+                <a ng-click="warehouse.openSide(list.id)" title="مشاهده کالاها" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
                 </a>
               </td>
@@ -58,8 +58,8 @@
     <div class="col-xs-12">
       <div class="x-panel-search">
         <form class="filter-form">
-          <input type="text" class="form-control product-search-option" placeholder="مدل" ng-model="">
-          <input type="text" class="form-control product-search-option" placeholder="سریال" ng-model="">
+          <input type="text" class="form-control product-search-option" placeholder="مدل" ng-model="warehouse.productPageConf.searchOpt.model">
+          <input type="text" class="form-control product-search-option" placeholder="سریال" ng-model="warehouse.productPageConf.searchOpt.serial_number">
           <button type="submit" class="btn btn-info filter-btn" ng-click = "warehouse.getProducts()">جستجو</button>
         </form>
       </div>
@@ -101,7 +101,7 @@
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="warehouse.productsMeta" itempage="warehouse.productsPage" controller="warehouse"></req-pagination>
+        <req-pagination itemmeta="warehouse.productsMeta" itempage="warehouse.productsPage" controller="warehouse" config="warehouse.productPageConf"></req-pagination>
       </div>
     </div>
   </div>
