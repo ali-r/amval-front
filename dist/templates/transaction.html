@@ -1,40 +1,32 @@
 <div class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="x_panel">
+  <search-tools sobject="transaction.searchObject" scontroller="transaction">    
+    <select class="form-control filter-option" ng-model="transaction.addOne.extra.reason" title="علت تراکنش">
+      <option value="">-- علت تراکنش --</option>
+      <option value="0">تامین</option>
+      <option value="1">تعمیرات</option>
+      <option value="2">مستهلک شده</option>
+      <option value="3">بدون دلیل</option>
+    </select>
 
-      <div class="x_content">
-        <search-tools sobject="transaction.searchObject" scontroller="transaction">
-          
-          <select class="form-control filter-option" ng-model="transaction.addOne.extra.reason" title="علت تراکنش">
-            <option value="">-- علت تراکنش --</option>
-            <option value="0">تامین</option>
-            <option value="1">تعمیرات</option>
-            <option value="2">مستهلک شده</option>
-            <option value="3">بدون دلیل</option>
-          </select>
-
-          <select class="form-control filter-option" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
-            <option value="">-- نوع تراکنش --</option>
-            <option value="0">تخصیص</option>
-            <option value="1">بازگشت</option>
-            <option value="2">انتقال</option>
-          </select>
-          از تاریخ :
-          <div class="sort-option-edited">
-            <adm-dtp ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
-              <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
-            </adm-dtp>
-          </div>
-          تا تاریخ :
-          <div class="sort-option-edited">
-            <adm-dtp ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
-              <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
-            </adm-dtp>
-          </div>
-        </search-tools>
-      </div>
+    <select class="form-control filter-option" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
+      <option value="">-- نوع تراکنش --</option>
+      <option value="0">تخصیص</option>
+      <option value="1">بازگشت</option>
+      <option value="2">انتقال</option>
+    </select>
+    از تاریخ :
+    <div class="sort-option-edited">
+      <adm-dtp ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+        <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
+      </adm-dtp>
     </div>
-  </div>
+    تا تاریخ :
+    <div class="sort-option-edited">
+      <adm-dtp ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+        <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
+      </adm-dtp>
+    </div>
+  </search-tools>
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
@@ -87,7 +79,7 @@
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="meta" itempage="page"></req-pagination>
+        <req-pagination itemmeta="meta" itempage="page" controller="transaction" config="transaction.paginationConfig"></req-pagination>
       </div>
     </div>
   </div>

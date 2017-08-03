@@ -57,7 +57,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
         if(addOne){
           for ( key in addOne.extra) {
-            console.log(key);
             keys[key] = addOne.extra[key];
           }
         }

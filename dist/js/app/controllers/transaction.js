@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('transactionCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, pagination, crud, ADMdtpConvertor) {
+  function($scope, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor) {
 
   var controller = this;
   var apiName = 'transaction';
@@ -15,11 +15,11 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   controller.addOne.extra.time__gte = '';
   controller.addOne.extra.time__lte = '';
 
-  $scope.apiUrl = mainAsset.getUrl() + apiName;
-  $scope.getUrl = pagination.makeUrl($scope);
-  // $scope.getUrl = pagination.makeUrl($scope, controller.searchObject, controller.searchValue, controller.addOne);
+  controller.paginationConfig = {
+    'addOne' : controller.addOne
+  }
 
-  
+  $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   controller.trConfig = function(obj){
     var finalObj = angular.copy(obj);
@@ -40,7 +40,6 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
    
   ]);
   crud.init($scope, controller, apiName, controller.trConfig, controller.trGetConfig);
-  pagination.initPagination($scope, controller, 'meta', 'page', 'getUrl', 'searchObject', 'searchValue');
 
   controller.toGregorianDate = function(pDate,date_included,time_included){
     if(!pDate){return '';}
@@ -100,7 +99,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     }
     else{editedObj.extra.time__lte=""}
     $scope.page = 1;
-    $scope.getUrl = pagination.makeUrl($scope, controller.searchObject, controller.searchValue, editedObj);
+    controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }
 });
