@@ -356,7 +356,7 @@
                                 <div class="panel-body">
                                     <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
                                         <ul id="temp-products" style="list-style-type:none; margin:0px; padding:0px">
-                                            <li style="display:table-cell; padding:1px;" ng-repeat="item in invoice.tmp.selectedProducts">
+                                            <li style="display:table-cell; padding:1px;" ng-repeat="item in invoice.tmp.selectedProducts track by $index">
                                                 {{item.model}}
                                                 <a ng-click="invoice.deselect($index)" href>
                                                     <i class="fa fa-close fa-lg"></i>

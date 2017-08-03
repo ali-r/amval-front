@@ -137,6 +137,17 @@ app.directive('reqPagination', function() {
       if(!scope.itemmeta)
         scope.itemmeta = {};
 
+      function safeApply(fn) {
+        var phase = scope.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+          if(fn && (typeof(fn) === 'function')) {
+            fn();
+          }
+        } else {
+          this.$apply(fn);
+        }
+      };
+
       scope.pagination = function(status) {
         var pageMeta = scope.itemmeta;
         switch (status) {
@@ -188,10 +199,11 @@ app.directive('reqPagination', function() {
             scope.itempage = scope.itemmeta.pages;
             break;
           }
+          safeApply(scope.itempage);
         }
-
+        console.log(scope.controller.productsPage)
         if(paginationConfig.url){
-          paginationConfig.getFunc();
+          paginationConfig.getFunc(scope.itempage);
         }else{
           scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
           scope.controller.getData();

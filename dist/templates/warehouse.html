@@ -38,7 +38,7 @@
                 </a>
               </td>
               <td>
-                <a ng-click="warehouse.openSide(list.id)" title="مشاهده کالاها" href>
+                <a ng-click="warehouse.openSide(list)" title="مشاهده کالاها" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
                 </a>
               </td>
@@ -66,8 +66,10 @@
     </div>
     <div class="x_panel">
       <div class="x_title">
-        <h2><i class="fa"></i>کالا های انبار</h2>
-        <button type="button" class="btn btn-warning btn-sm pull-left" name="button" ng-click="productShow = false;">
+        <h2><i class="fa"></i>کالا های انبار 
+          "{{selectedWarehouse}}"
+        </h2>
+        <button type="button" class="btn btn-warning btn-sm pull-left" name="button" ng-click="productShow = false;warehouse.productPageConf={}">
           بستن
         </button>
         <div class="clearfix"></div>
@@ -87,7 +89,7 @@
               <th></th>
             </tr>
           </thead>
-          <tbody ng-hide="load">
+          <tbody ng-hide="loadSide">
             <tr ng-repeat = "goods in warehouse.products">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
               <td>{{goods.model}}</td>
