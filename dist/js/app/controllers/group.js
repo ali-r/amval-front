@@ -20,8 +20,12 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     },
     table : [
       {fa:'عنوان',en:'title'},
-      {fa:'توضیحات',en:'secretary_last_name'}
-    ]
+      {fa:'توضیحات',en:'description'}
+    ],
+    searchFilter:{
+      key: 'group_type',
+      value: 'group'
+    }
   };
 
   $scope.page = 1;
@@ -29,6 +33,10 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   controller.obj = {};
   controller.addOne={};
   controller.addOne.extra={};
+  controller.addOne.filter={
+    key: 'group_type',
+    value: 'group'
+  }
   controller.addOne.extra.group_type = 'group';
   controller.paginationConfig = {
     'addOne' : controller.addOne
