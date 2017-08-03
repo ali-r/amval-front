@@ -21,11 +21,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     table : [
       {fa:'عنوان',en:'title'},
       {fa:'توضیحات',en:'description'}
-    ],
-    searchFilter:{
-      key: 'group_type',
-      value: 'group'
-    }
+    ]
   };
 
   $scope.page = 1;
@@ -72,6 +68,15 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     if(!controller.obj.self_meta_template)
       controller.obj.self_meta_template=[];
     controller.obj.self_meta_template.push(newMeta);
+  }
+
+  this.getFilteredData = function(){
+    var editedObj = angular.copy(controller.addOne);
+    if(editedObj.extra.group_type){editedObj.extra.group_type = controller.addOne.extra.group_type;}
+    else editedObj.extra.group_type = 'group';
+    $scope.page = 1;
+    controller.makeUrl($scope.page, controller.paginationConfig);
+    controller.getData();
   }
 
 });
