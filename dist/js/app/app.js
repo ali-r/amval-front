@@ -134,6 +134,13 @@ app.directive('reqPagination', function() {
         var paginationConfig = scope.config;
       }
 
+      if(!scope.itemmeta)
+        scope.itemmeta = {};
+
+      scope.$watch('itemmeta', function() {
+        console.log( scope.itemmeta.first + 'page has changed!');
+      });
+
       scope.pagination = function(status) {
         var pageMeta = scope.itemmeta;
         switch (status) {

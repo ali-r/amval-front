@@ -11,6 +11,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       scope.uploadPercentage = 0;
       scope.uploading = false;
       scope.stage = 0;
+      scope.loadSide = false;
 
       controller.obj = {};
       controller.tmp = {};

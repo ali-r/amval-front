@@ -4294,6 +4294,8 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 .search-option{
   display: inline;
+  min-width: 100px;
+  max-width: 250px;
   width: 17%;
   margin-left: 4px;
   margin-top: 4px;
@@ -4305,6 +4307,8 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 .filter-option{
   display: inline;
+  min-width: 130px;
+  max-width: 300px;
   width: 20%;
   vertical-align: top;
   padding: 2px 15px;
@@ -4318,6 +4322,8 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 .sort-option{
   display: inline;
+  min-width: 100px;
+  max-width: 200px;
   width: 12%;
   vertical-align: top;
   padding: 2px 15px;

@@ -1,6 +1,7 @@
 <div class="row">
-  <search-tools sobject="warehouse.searchObject" scontroller="warehouse"></search-tools>
-  <div class="col-md-12 col-sm-12 col-xs-12">
+  
+  <div ng-class = "{'col-xs-12':!productShow , 'col-xs-6' : productShow}">
+    <search-tools sobject="warehouse.searchObject" scontroller="warehouse"></search-tools>
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa"></i>انبار‌ها</h2>
@@ -16,8 +17,7 @@
               <th>#</th>
               <th>تیتر</th>
               <th>محل</th>
-              <th>شماره تلفن</th>
-              <th>انبار مرجع</th>
+              <th>تلفن</th>
               <th></th>
               <th></th>
               <th ng-if = "checkWrite('warehouse')"></th>
@@ -26,19 +26,21 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in warehouse.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.title}}</td>
+              <td>
+                {{list.title}}
+                <span class="label label-info" ng-if="!list.parent_warehouse">انبار مرکزی</span>
+              </td>
               <td>{{list.location}}</td>
               <td style="direction:ltr;">{{list.phone}}</td>
-              <td>{{list.parent_warehouse.title}}</td>
               <td>
                 <a ng-click="warehouse.getObject(list.id)" title="مشاهده" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('warehouse') , 'fa-eye' : !checkWrite('warehouse')}" aria-hidden="true"></i>
                 </a>
               </td>
               <td>
-               <!--  <a ng-click="warehouse.getProducts(list.id)" title="مشاهده کالاها" href>
+                <a ng-click="warehouse.getProducts(list.id)" title="مشاهده کالاها" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
-                </a> -->
+                </a>
               </td>
               <td ng-if = "checkWrite('warehouse')">
                 <a ng-click="warehouse.toDeleteId = list.id; warehouse.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
@@ -49,6 +51,48 @@
           </tbody>
         </table>
         <req-pagination itemmeta="meta" itempage="page" controller="warehouse"></req-pagination>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6" ng-show="productShow">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa"></i>کالا های انبار</h2>
+        <button type="button" class="btn btn-warning btn-sm pull-left" name="button" ng-click="productShow = false;">
+          بستن
+        </button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="load-spinner" ng-show = "loadSide" style="text-align:center">
+        <i class="fa fa-spinner fa-pulse fa-3x" ></i>
+      </div>
+
+      <div class="x_content" ng-hide = "loadSide">
+        <table class="table table-striped jambo_table asset-tables">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>مدل</th>
+              <th>سریال</th>
+              <th>گروه</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ng-hide="load">
+            <tr ng-repeat = "goods in warehouse.products">
+              <td>{{ (page-1)*10 + $index + 1 }}</td>
+              <td>{{goods.model}}</td>
+              <td>{{goods.serial_number}}</td>
+              <td>{{goods.subgroup.title}}</td>
+              <td>
+                <a ng-click="warehouse.getObject(list.id)" title="مشاهده" href>
+                  <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('warehouse') , 'fa-eye' : !checkWrite('warehouse')}" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <req-pagination itemmeta="warehouse.productsMeta" itempage="warehouse.productsPage" controller="warehouse"></req-pagination>
       </div>
     </div>
   </div>

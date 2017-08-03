@@ -8,6 +8,8 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     {'fname' : 'انبار', 'field' : 'title'}
   ];
 
+  $scope.productShow = false;
+
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
 
@@ -41,9 +43,14 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   };
 
   controller.getProducts = function(id){
-    mainAsset.openModal('#productsModal');
-    requestHelper.get($scope.apiUrl + '/' + id + '/products', $scope, function(){
-
+    $scope.loadSide = true;
+    $scope.productShow = true;
+    requestHelper.get($scope.apiUrl + '/' + id + '/products', $scope, function(response){
+      controller.products = response.data.products;
+      controller.productsMeta = response.data.meta;
+      controller.productsPage = response.data.meta.page;
+      console.log(controller.productsMeta)
+      $scope.loadSide = false;
     });
   };
 
