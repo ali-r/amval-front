@@ -27,17 +27,17 @@
             <tr ng-repeat = "list in product.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
               <td>{{list.model}}</td>
-              <td>{{list.price}}</td>
+              <td dir="ltr">{{list.price}}</td>
               <td>{{list.producer.brand_name}}</td>
-              <td>{{list.production_date}}</td>
-              <td>{{list.guarantee_end_date}}</td>
+              <td>{{product.toJalaliDate(list.production_date)}}</td>
+              <td>{{product.toJalaliDate(list.guarantee_end_date)}}</td>
               <td>
                 <a ng-click="product.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('product') , 'fa-eye' : !checkWrite('product')}" aria-hidden="true"></i>
                 </a>
               </td>
               <td ng-if = "checkWrite('product')">
-                <a ng-click="product.toDeleteId = list.id; product.toDeleteTitle = list.card_no" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
+                <a ng-click="product.toDeleteId = list.id; product.toDeleteTitle = list.model" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -176,7 +176,7 @@
                       <input type="number" class="form-control" ng-model="product.obj.deprication_period" required>
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div class="form-group">
                       <label>*Qr Code</label>
                       <br/>
@@ -186,15 +186,23 @@
                         <i class="fa fa-qrcode fa-lg"></i>
                         </div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.qr_code && checkWrite('product')"
-                      ng-click=" product.obj.qr_code = ''">حذف بارکد</button>
+                      ng-click="product.deleteField(product.obj,'qr_code')">حذف بارکد</button>
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
                     </div>
                   </div>
-                  <div class="col-md-1">
+                  <div class="col-md-2">
                     <div class="form-group">
+<<<<<<< HEAD
                       <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + product.obj.qr_code}}" ng-if="product.obj.qr_code" id='qrCodeImage'>
+=======
+                      <img class="img-responsive img-thumbnail" ng-src="{{product.obj.qr_code}}" ng-if="product.obj.qr_code" id='qrCodeImage'>
+                      <p ng-show = "uploading" style="text-align : center;">
+                        در حال  بارگذاری
+                        <i class="fa fa-refresh fa-spin fa-lg"></i>
+                      </p>
+>>>>>>> feature/bugfix
                     </div>
                   </div>
                   <div class="clearfix"></div>
@@ -210,9 +218,9 @@
                     <h5 ng-init="product.obj.meta_data[$index].key = meta.key">{{meta.key}}</h5>
                   </div>
                   <div class="col-md-6">
-                    <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="product.obj.meta_data[$index].value" required>
-                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="product.obj.meta_data[$index].value" required>
-                    <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="product.obj.meta_data[$index].value" required>
+                    <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="product.obj.meta_data[$index].value">
+                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="product.obj.meta_data[$index].value">
+                    <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="product.obj.meta_data[$index].value">
                   </div>
                   <div class="col-md-3" >
                   </div>
@@ -223,13 +231,13 @@
                   <div class="col-md-6">
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" ng-model="product.obj.is_bundle">
+                        <input type="checkbox" ng-model="product.obj.is_bundle" ng-disabled="editMode">
                         آیا کالا باندل است؟
                       </label>
                     </div>
                   </div>
                   <div class="col-md-6" style="text-align:left"> 
-                    <button type="button" class="btn btn-round btn-success" ng-show="product.obj.is_bundle" ng-click="product.selectThings(2, 'product', '?is_bundle=False&parent_bundle=None')">
+                    <button type="button" class="btn btn-round btn-success" ng-show="product.obj.is_bundle" ng-click="product.selectThings(2, 'product', '?product_filter=1')">
                       افزودن کالا به باندل
                       <i class="fa fa-plus"></i>
                     </button>
@@ -291,9 +299,9 @@
                   <div class="panel-body">
                     <form name="searchForm" role="form" novalidate>
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="product.tmp.searchQuery" required>
+                            <input type="text" class="form-control" placeholder="جستجو در بین کالاها" name="searchText" ng-model="product.tmp.searchQuery">
                             <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?is_bundle=False&parent_bundle=None&model__contains=' + product.tmp.searchQuery); product.tmp.searchD = true">
+                              <button type="button" ng-disabled = "product.tmp.searchQuery==undefined" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?product_filter=1&model__contains=' + product.tmp.searchQuery); product.tmp.searchD = true">
                                 جستجو
                               </button>
                             </span>
@@ -460,14 +468,7 @@
           <br>
           -
           حداکثر حجم مجاز برای آپلود تصویر ۲ مگابایت است.
-          <hr ng-show = "stage === 0">
         </p>
-        <div ng-show = "stage === 0">
-          <p ng-show = "uploading" style="text-align : center;">
-            <i class="fa fa-refresh fa-spin fa-lg"></i>
-            در حال  بارگذاری ...
-          </p>
-        </div>
         <div class="progress active" ng-hide = "uploadPercentage == 0 || stage == 0">
           <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
           aria-valuemin="0" id="uploadPercentBox" aria-valuemax="100" ng-style="{ 'width' : uploadPercentage }">
@@ -490,10 +491,10 @@
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف کاربر</h4>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف کالا</h4>
       </div>
       <div class="modal-body">
-        آیا مایل به حذف کاربر
+        آیا مایل به حذف کالای
         "{{product.toDeleteTitle}}"
         هستید؟
       </div>

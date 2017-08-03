@@ -4334,6 +4334,7 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 .asset-tables > tbody > tr > td{
   text-align: center;
+  word-break: break-all;
 }
 .paging-simple{
   text-align: center;
@@ -4478,7 +4479,7 @@ ul#temp-products li{
 }
 .limited-width-col{
     max-width: 3em;
-    word-break: break-all;
+    word-wrap: break-word;
 }
 .longer-limited-width-col{
     max-width: 100%;
@@ -4504,4 +4505,5 @@ ul#temp-products li{
     position: absolute;
     top: 8px;
     left: 8px;
+    word-wrap: break-word; 
 }

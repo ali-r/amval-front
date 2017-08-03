@@ -52,13 +52,13 @@
     <!-- edit and create column -->
     <div class="col-xs-6" id="invoiceEditCreateForm">
         <div class="x_panel " ng-hide="!invoice.tmp.formShow">
-            <div class="x_title" ng-click="invoice.test()">
+            <div class="x_title">
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
                 <h2 ng-hide="editMode"><i class="fa"></i>ایجاد فاکتور جدید</h2>
                 
                 <div class="pull-left" ng-hide="loadModal">
                     <button type="button" class="btn btn-danger" ng-click="reset()">لغو</button>
-                    <button type="button" ng-if = "checkWrite('invoice')" ng-disabled="!invoiceForm.$valid || !invoice.obj.scanned_invoice || invoice.obj.products.length==0 " ng-click="invoice.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+                    <button type="button" ng-if = "checkWrite('invoice')" ng-click="invoice.validateForm()" class="btn btn-success">ذخیره</button>
                 </div>
 
                 <div class="clearfix"></div>

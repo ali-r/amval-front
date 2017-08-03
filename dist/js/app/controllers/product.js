@@ -92,6 +92,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     delete sendCopyObj.price;
 
     if($scope.editMode){
+      delete sendCopyObj.is_bundle;
       delete sendCopyObj.deprication_time;
       delete sendCopyObj.holder;
       delete sendCopyObj.parent_bundle;
@@ -100,6 +101,11 @@ angular.module("assetAdminPanel").controller('productCtrl',
     sendCopyObj.guarantee_end_date = controller.toGregorianDate(sendCopyObj.guarantee_end_date);
     sendCopyObj.guarantee_start_date = controller.toGregorianDate(sendCopyObj.guarantee_start_date);
     sendCopyObj.production_date = controller.toGregorianDate(sendCopyObj.production_date);
+    
+    sendCopyObj.meta_data = [];
+    obj.meta_data.forEach(function(item,index){
+      if(item.value != undefined && item.value !=""){sendCopyObj.meta_data.push(item);}
+    });
 
     if(obj.children){
       sendCopyObj.children = [];
@@ -155,9 +161,12 @@ angular.module("assetAdminPanel").controller('productCtrl',
     requestHelper.get(
       metaUrl, $scope,
       function(response) {
+        // if(!$scope.editMode) [AM-192] clear fields after changing group
+        controller.obj.meta_data = [];
         controller.tmp.meta = response.data;
-        if(!$scope.editMode)
-          controller.obj.meta_data = [];
+        controller.tmp.meta.meta_template.forEach(function(item,index){
+          controller.obj.meta_data.push({key:item.key});
+        })
         console.log(controller.tmp.meta);
         $scope.loadSearch = false;
       });
@@ -169,6 +178,10 @@ angular.module("assetAdminPanel").controller('productCtrl',
   this.deleteChild = function(index){
     controller.obj.children.splice (index, 1);
   };
+
+  this.deleteField = function(obj,field){
+    delete obj[field];
+  }
 
   this.checkDuplicate = function (obj, array) {
     var checkResult = true;
@@ -198,8 +211,8 @@ angular.module("assetAdminPanel").controller('productCtrl',
     console.log($scope.productForm.file.$error)
     if(!$scope.productForm.file.$error.maxSize && controller.qrCodeFile)
     {
-      requestHelper.uploadFileReq(controller.qrCodeFile, 'signature', $scope, function(data){
-        controller.obj.qr_code = data.file_url;
+      requestHelper.uploadFileReq(controller.qrCodeFile, 'qrcode', $scope, function(data){
+        controller.obj.qr_code = mainAsset.getUploadUrl()+data.file_url;
         
         /*setTimeout(function () {
         var qr = QCodeDecoder();

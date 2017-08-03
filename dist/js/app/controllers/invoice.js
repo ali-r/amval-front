@@ -46,7 +46,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           });
         })
 
-        
+        delete obj2.id;
         obj2.seller = controller.obj.seller['id'];
         obj2.buyer = controller.obj.buyer['id'];
         
@@ -173,10 +173,71 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         if(!$scope.invoiceForm.file.$error.maxSize && controller.scannedFile)
         {
           requestHelper.uploadFileReq(controller.scannedFile, 'invoice', $scope, function(data){
-            controller.obj.scanned_invoice = data.file_url;
+            controller.obj.scanned_invoice = mainAsset.getUploadUrl()+data.file_url;
           });
         }
       }
+
+      controller.validateForm = function(){
+        var notifObj = {};
+        notifObj.type = 'error';
+        notifObj.title = "خطا در تکمیل فرم";
+        if(!$scope.invoiceForm.invoice_no.$valid){
+          notifObj.text = "شماره فاکتور را وارد نمایید.";
+          new PNotify(notifObj);
+          return false;
+        }
+        else if(controller.obj.datetime==undefined || controller.obj.datetime==""){
+          notifObj.text = "تاریخ فاکتور را انتخاب نمایید.";
+          new PNotify(notifObj);
+          return false; 
+        }
+        else if(controller.obj.buyer==undefined){
+          notifObj.text = "خریدار را انتخاب کنید.";
+          new PNotify(notifObj);
+          return false; 
+        }
+        else if(controller.obj.seller==undefined){
+          notifObj.text = "فروشنده را انتخاب کنید.";
+          new PNotify(notifObj);
+          return false; 
+        }
+        else if(controller.obj.products==undefined || controller.obj.products.length==0){
+          notifObj.text = "حداقل یک کالا باید در فاکتور وجود داشته باشد.";
+          new PNotify(notifObj);
+          return false; 
+        }
+        else if(controller.obj.scanned_invoice==undefined || controller.obj.scanned_invoice==""){
+          if($scope.uploading){
+            notifObj.text = "لطفا تا پایان بارگذاری تصویر منتظر بمانید.";
+            new PNotify(notifObj);
+            return false;
+          }
+          else{
+            notifObj.text = "تصویر فاکتور را آپلود نمایید.";
+            new PNotify(notifObj);
+            return false;  
+          }
+           
+        }
+        else{
+          var validPriceFlag = true;
+          controller.obj.products.forEach(function(item,index){
+            if(item.price<0 || item.price==undefined){validPriceFlag=false;return;}
+          });
+          if(validPriceFlag){
+            controller.sendOrEdit($scope.editMode);
+            return true;  
+          }
+          else{
+            notifObj.text = "قیمت کالا نمیتواند منفی باشد";
+            new PNotify(notifObj);
+            return false;
+          }
+        }
+
+      }
+
 
   }
 );
