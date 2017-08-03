@@ -86,6 +86,9 @@ angular.module("assetAdminPanel").controller('productCtrl',
       sendCopyObj.is_bundle = false;
       delete sendCopyObj.children;
     }
+    else{
+      sendCopyObj.children = [];
+    }
 
     sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);
     delete sendCopyObj.price;
