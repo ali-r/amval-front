@@ -4495,3 +4495,10 @@ ul#temp-products li{
     height: auto;
     margin-bottom: 10px;
 }
+.product-search-option{
+    display: inline;
+    min-width: 100px;
+    max-width: 250px;
+    width :25%;
+    margin-top : 4px;
+}
