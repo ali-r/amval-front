@@ -4,38 +4,33 @@
 
       <div class="x_content">
         <search-tools sobject="transaction.searchObject" scontroller="transaction">
-          <div  class="sort-option-edited sort-option">
-            <label style="float:right" > علت تراکنش: </label><br/>
-            <select style="width:100%" ng-model="transaction.addOne.extra.reason" title="علت تراکنش">
-              <option value="">---</option>
-              <option value="0">تامین</option>
-              <option value="1">تعمیرات</option>
-              <option value="2">مستهلک شده</option>
-              <option value="3">بدون دلیل</option>
-            </select>
-          </div>
           
-          <div class="sort-option-edited sort-option">
-            <label style="float:right">نوع تراکنش:</label><br/>
-            <select style="width:100%" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
-              <option value="">---</option>
-              <option value="0">تخصیص</option>
-              <option value="1">بازگشت</option>
-              <option value="2">انتقال</option>
-            </select>  
-          </div>
+          <select class="form-control filter-option" ng-model="transaction.addOne.extra.reason" title="علت تراکنش">
+            <option value="">-- علت تراکنش --</option>
+            <option value="0">تامین</option>
+            <option value="1">تعمیرات</option>
+            <option value="2">مستهلک شده</option>
+            <option value="3">بدون دلیل</option>
+          </select>
 
+          <select class="form-control filter-option" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
+            <option value="">-- نوع تراکنش --</option>
+            <option value="0">تخصیص</option>
+            <option value="1">بازگشت</option>
+            <option value="2">انتقال</option>
+          </select>
+          از تاریخ :
           <div class="sort-option-edited">
-            <label>ابتدای بازه زمانی:</label><br/>
-            <adm-dtp ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
+            <adm-dtp ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+              <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
+            </adm-dtp>
           </div>
-          
+          تا تاریخ :
           <div class="sort-option-edited">
-            <label>پایان بازه زمانی:</label><br/>
-            <adm-dtp ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{calType: "jalali",format: "hh:mm YYYY-MM-DD",zIndex : 1100,dtpType : "date&time",freezeInput : true,  multiple : false, autoClose :true, transition : false}'></adm-dtp>
+            <adm-dtp ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+              <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
+            </adm-dtp>
           </div>
-          
-
         </search-tools>
       </div>
     </div>
@@ -86,7 +81,7 @@
               <td></td>
               <td>
                 <a ng-click="transaction.getObject(list.id); editMode = true" href>
-                  <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('transaction') , 'fa-eye' : !checkWrite('transaction')}" aria-hidden="true"></i>
+                  <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                 </a>
               </td>
             </tr>
@@ -202,6 +197,12 @@
                         </select>
                       </div>
                     </div>
+                    <div class="form-group" ng-show="editMode">
+                    <label>تاریخ تراکنش*</label>
+                    <div>
+                      <input type="text" class="form-control" style="text-align:left"  ng-model="transaction.obj.time" disabled>
+                    </div>
+                  </div>
                 </div>
                 
               
@@ -209,7 +210,7 @@
                   <div class="form-group">
                     <label>توضیحات تراکنش*</label>
                     <div>
-                      <textarea class="form-control" style="resize:none" rows="3" ng-model="transaction.obj.details" required
+                      <textarea class="form-control" style="resize:none" rows="4" ng-model="transaction.obj.details" required
                       ng-disabled="editMode">
                       </textarea>
                     </div>
@@ -217,13 +218,8 @@
                 </div>
                 <div class="clearfix"></div>
               
-                <div class="col-xs-12" ng-show="editMode">
-                  <div class="form-group">
-                      <label>تاریخ تراکنش*</label>
-                      <div>
-                        <input type="text" style="text-align:left"  ng-model="transaction.obj.time" disabled>
-                      </div>
-                    </div>
+                <div class="col-xs-6" >
+                  
                 </div>
 
               </fieldset>
