@@ -5,9 +5,8 @@ angular.module("assetAdminPanel").controller('productCtrl',
   var apiName = 'product';
 
   controller.searchObject = [
-    {'fname' : 'شماره سریال', 'field' : 'serial_number'},
     {'fname' : 'مدل کالا', 'field' : 'model'},
-    {'fname' : 'شماره کارت', 'field' : 'card_no'}
+    {'fname' : 'شماره سریال', 'field' : 'serial_number'}
   ];
 
   controller.selectProducerObj = {
