@@ -9,7 +9,19 @@ angular.module("assetAdminPanel").controller('loginCtrl',
   this.pass = "";
 
   if ( $localStorage.assetData ) {
-    $window.location.href = '/panel/#/user';
+
+    var nowTime = new Date();
+    nowTime = Math.floor(nowTime.getTime()/1000);
+    var difTime = nowTime - $localStorage.assetData.login_time;
+
+    if( difTime > 14400){
+
+      while ($localStorage.assetData) {
+        delete $localStorage.assetData;
+      }
+    }else{
+      $window.location.href = '/panel/#/user';
+    }
   }
 
   this.login = function(){
