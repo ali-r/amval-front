@@ -96,7 +96,7 @@
               <td>{{goods.serial_number}}</td>
               <td>{{goods.subgroup.title}}</td>
               <td>
-                <a ng-click="warehouse.getObject(list.id)" title="مشاهده" href>
+                <a ng-click="warehouse.openProductModal(goods)" title="مشاهده وضعیت کالا" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('warehouse') , 'fa-eye' : !checkWrite('warehouse')}" aria-hidden="true"></i>
                 </a>
               </td>
