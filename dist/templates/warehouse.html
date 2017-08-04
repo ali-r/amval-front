@@ -97,7 +97,7 @@
               <td>{{goods.subgroup.title}}</td>
               <td>
                 <a ng-click="warehouse.openProductModal(goods)" title="مشاهده وضعیت کالا" href>
-                  <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('warehouse') , 'fa-eye' : !checkWrite('warehouse')}" aria-hidden="true"></i>
+                  <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                 </a>
               </td>
             </tr>
@@ -214,8 +214,8 @@
 </div><!-- /.modal -->
 
 <!-- warehouse Product Modal -->
-<div class="modal fade" id="productsModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
@@ -224,9 +224,79 @@
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h3 class="modal-title" ng-hide="editMode">مشاهده کالا های انبار</h3>
+        <h3 class="modal-title" ng-hide="editMode">مشاهده وضعیت کالا</h3>
       </div>
       <div class="modal-body">
+        <div class="row" ng-hide="loadModal">
+
+          <div class="col-xs-4">
+            <label>مدل</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.model}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>شماره سریال</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.serial_number}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>زیرگروه</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.subgroup.title}}
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-xs-4">
+            <label>تولید کننده</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.producer.brand_name}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>گارانتی</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.guarantor.secretary_first_name + '' + warehouse.productStat.guarantor.secretary_last_name}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>تاریخ گارانتی</label>
+            <h5 class="product-stat">
+              از
+              <label class="ltr-input">{{warehouse.productStat.guarantee_start_date | jalaliDate}}</label>
+              تا
+              <label class="ltr-input">{{warehouse.productStat.guarantee_end_date | jalaliDate}}</label>
+              
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-xs-4">
+            <label>تاریخ تولید</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.production_date | jalaliDate}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>استهلاک</label>
+            <h5 class="product-stat">
+              به مدت
+              {{warehouse.productStat.deprication_period}}
+              روز از
+              {{warehouse.productStat.deprication_type | depricateType}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>قیمت</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.price}}
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+          
+        </div>
       </div>
       <div class="modal-footer">
       </div>

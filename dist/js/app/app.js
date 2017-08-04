@@ -62,6 +62,8 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     }
 
     this.toJalaliDate = function(pDate){
+      if(!pDate)
+        pDate = '';
       var dateArray = pDate.split('-');
       var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
       return (gDate.year + '-' + gDate.month + '-' + gDate.day);
@@ -69,11 +71,10 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
 
 });
 
-app.filter('jalaliDate', function () {
-      return function (inputDate, format) {
-        moment.loadPersian();
-        var date = moment(inputDate).utcOffset(420);
-        return date.format(format);
+app.filter('jalaliDate', function (mainAsset) {
+      return function (inputDate) {
+        var date = mainAsset.toJalaliDate(inputDate);
+        return date;
     }
 });
 
@@ -110,6 +111,21 @@ app.filter('metaType', function() {
         break;
         case 'bool':
           output = "دو حالتی";
+        break;
+    }
+    return output;
+  }
+});
+
+app.filter('depricateType', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 0:
+          output = "شروع استفاده";
+        break;
+        case 1:
+          output = "تولید";
         break;
     }
     return output;
