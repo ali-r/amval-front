@@ -5,9 +5,8 @@ angular.module("assetAdminPanel").controller('productCtrl',
   var apiName = 'product';
 
   controller.searchObject = [
-    {'fname' : 'شماره سریال', 'field' : 'serial_number'},
     {'fname' : 'مدل کالا', 'field' : 'model'},
-    {'fname' : 'شماره کارت', 'field' : 'card_no'}
+    {'fname' : 'شماره سریال', 'field' : 'serial_number'}
   ];
 
   controller.selectProducerObj = {
@@ -86,6 +85,9 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(!sendCopyObj.is_bundle){
       sendCopyObj.is_bundle = false;
       delete sendCopyObj.children;
+    }
+    else{
+      sendCopyObj.children = [];
     }
 
     sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);

@@ -20,7 +20,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     },
     table : [
       {fa:'عنوان',en:'title'},
-      {fa:'توضیحات',en:'secretary_last_name'}
+      {fa:'توضیحات',en:'description'}
     ]
   };
 
@@ -29,6 +29,10 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   controller.obj = {};
   controller.addOne={};
   controller.addOne.extra={};
+  controller.addOne.filter={
+    key: 'group_type',
+    value: 'group'
+  }
   controller.addOne.extra.group_type = 'group';
   controller.paginationConfig = {
     'addOne' : controller.addOne
@@ -41,10 +45,11 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     if (sendCopyObj.children)
       delete sendCopyObj.children;
 
-    if (sendCopyObj.parent)
+    if (!!sendCopyObj.parent)
       sendCopyObj.parent = sendCopyObj.parent.id;
+    else delete sendCopyObj.parent;
 
-    sendCopyObj.meta_template = sendCopyObj.self_meta_template;
+    sendCopyObj.meta_template = (sendCopyObj.self_meta_template || []);
     delete sendCopyObj.self_meta_template;
     return sendCopyObj;
   };
@@ -63,6 +68,15 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     if(!controller.obj.self_meta_template)
       controller.obj.self_meta_template=[];
     controller.obj.self_meta_template.push(newMeta);
+  }
+
+  this.getFilteredData = function(){
+    var editedObj = angular.copy(controller.addOne);
+    if(editedObj.extra.group_type){editedObj.extra.group_type = controller.addOne.extra.group_type;}
+    else editedObj.extra.group_type = 'group';
+    $scope.page = 1;
+    controller.makeUrl($scope.page, controller.paginationConfig);
+    controller.getData();
   }
 
 });

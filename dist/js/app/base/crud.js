@@ -193,12 +193,16 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         });
     };
 
-    controller.search = function(cat, field){
+    controller.search = function(cat, field,filter){
+      var filterSection = '';
+      if(!!filter && !!filter.key && !!filter.value){
+        filterSection = '&' + filter.key + '=' + filter.value;
+      }
       scope.loadSearch = true;
       var searchUrl = mainAsset.getUrl() + cat;
 
       if(field.indexOf('?') == -1 && field != ''){
-        searchUrl += '?' + field + '__contains=' + controller.tmp.searchQuery;
+        searchUrl += '?' + field + '__contains=' + controller.tmp.searchQuery + filterSection;
       }else{
         searchUrl += field;
       }
