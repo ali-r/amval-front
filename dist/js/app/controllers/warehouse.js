@@ -8,6 +8,9 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     {'fname' : 'انبار', 'field' : 'title'}
   ];
 
+
+  $scope.productShow = false;
+
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
 
@@ -40,11 +43,43 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     controller.search('user','last_name');
   };
 
-  controller.getProducts = function(id){
-    mainAsset.openModal('#productsModal');
-    requestHelper.get($scope.apiUrl + '/' + id + '/products', $scope, function(){
-
+  controller.getProducts = function(page){
+    $scope.loadSide = true;
+    var getUrl = controller.makeUrl(page, controller.productPageConf);
+    console.log(controller.productPageConf)
+    requestHelper.get(getUrl, $scope, function(response){
+      controller.products = response.data.products;
+      controller.productsMeta = response.data.meta;
+      controller.productsPage = response.data.meta.page;
+      $scope.loadSide = false;
     });
   };
+
+  controller.productPageConf = {
+    getFunc : controller.getProducts
+  };
+
+  controller.openSide = function(obj){
+    $scope.wareHouseId = obj.id;
+    $scope.selectedWarehouse = obj.title;
+    controller.productPageConf.url = $scope.apiUrl + '/' + $scope.wareHouseId + '/products';
+    $scope.productShow = true;
+    controller.getProducts();
+  }
+
+  controller.getProductStat = function(id){
+    $scope.loadModal = true;
+    var getUrl = mainAsset.getUrl() + '/product/' + id + '/stats'
+    requestHelper.get(getUrl, $scope, function(response){
+      controller.productStat = response.data;
+      $scope.loadModal = false;
+    });
+
+  }
+
+  controller.openProductModal = function(goods){
+    mainAsset.openModal('#productModal');
+    controller.getProductStat(goods.id);
+  }
 
 });

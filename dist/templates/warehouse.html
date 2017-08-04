@@ -1,6 +1,7 @@
 <div class="row">
-  <search-tools sobject="warehouse.searchObject" scontroller="warehouse"></search-tools>
-  <div class="col-md-12 col-sm-12 col-xs-12">
+  
+  <div ng-class = "{'col-xs-12':!productShow , 'col-xs-6' : productShow}">
+    <search-tools sobject="warehouse.searchObject" scontroller="warehouse"></search-tools>
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa"></i>انبار‌ها</h2>
@@ -16,8 +17,7 @@
               <th>#</th>
               <th>تیتر</th>
               <th>محل</th>
-              <th>شماره تلفن</th>
-              <th>انبار مرجع</th>
+              <th>تلفن</th>
               <th></th>
               <th></th>
               <th ng-if = "checkWrite('warehouse')"></th>
@@ -26,19 +26,21 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in warehouse.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.title}}</td>
+              <td>
+                {{list.title}}
+                <span class="label label-info" ng-if="!list.parent_warehouse">انبار مرکزی</span>
+              </td>
               <td>{{list.location}}</td>
               <td style="direction:ltr;">{{list.phone}}</td>
-              <td>{{list.parent_warehouse.title}}</td>
               <td>
                 <a ng-click="warehouse.getObject(list.id)" title="مشاهده" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('warehouse') , 'fa-eye' : !checkWrite('warehouse')}" aria-hidden="true"></i>
                 </a>
               </td>
               <td>
-               <!--  <a ng-click="warehouse.getProducts(list.id)" title="مشاهده کالاها" href>
+                <a ng-click="warehouse.openSide(list)" title="مشاهده کالاها" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
-                </a> -->
+                </a>
               </td>
               <td ng-if = "checkWrite('warehouse')">
                 <a ng-click="warehouse.toDeleteId = list.id; warehouse.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
@@ -49,6 +51,59 @@
           </tbody>
         </table>
         <req-pagination itemmeta="meta" itempage="page" controller="warehouse"></req-pagination>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6" ng-show="productShow">
+    <div class="col-xs-12">
+      <div class="x-panel-search">
+        <form class="filter-form">
+          <input type="text" class="form-control product-search-option" placeholder="مدل" ng-model="warehouse.productPageConf.searchOpt.model">
+          <input type="text" class="form-control product-search-option" placeholder="سریال" ng-model="warehouse.productPageConf.searchOpt.serial_number">
+          <button type="submit" class="btn btn-info filter-btn" ng-click = "warehouse.getProducts()">جستجو</button>
+        </form>
+      </div>
+    </div>
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa"></i>کالا های انبار 
+          "{{selectedWarehouse}}"
+        </h2>
+        <button type="button" class="btn btn-warning btn-sm pull-left" name="button" ng-click="productShow = false;warehouse.productPageConf={}">
+          بستن
+        </button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="load-spinner" ng-show = "loadSide" style="text-align:center">
+        <i class="fa fa-spinner fa-pulse fa-3x" ></i>
+      </div>
+
+      <div class="x_content" ng-hide = "loadSide">
+        <table class="table table-striped jambo_table asset-tables">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>مدل</th>
+              <th>سریال</th>
+              <th>گروه</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody ng-hide="loadSide">
+            <tr ng-repeat = "goods in warehouse.products">
+              <td>{{ (page-1)*10 + $index + 1 }}</td>
+              <td>{{goods.model}}</td>
+              <td>{{goods.serial_number}}</td>
+              <td>{{goods.subgroup.title}}</td>
+              <td>
+                <a ng-click="warehouse.openProductModal(goods)" title="مشاهده وضعیت کالا" href>
+                  <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <req-pagination itemmeta="warehouse.productsMeta" itempage="warehouse.productsPage" controller="warehouse" config="warehouse.productPageConf"></req-pagination>
       </div>
     </div>
   </div>
@@ -159,8 +214,8 @@
 </div><!-- /.modal -->
 
 <!-- warehouse Product Modal -->
-<div class="modal fade" id="productsModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
@@ -169,9 +224,79 @@
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h3 class="modal-title" ng-hide="editMode">مشاهده کالا های انبار</h3>
+        <h3 class="modal-title" ng-hide="editMode">مشاهده وضعیت کالا</h3>
       </div>
       <div class="modal-body">
+        <div class="row" ng-hide="loadModal">
+
+          <div class="col-xs-4">
+            <label>مدل</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.model}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>شماره سریال</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.serial_number}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>زیرگروه</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.subgroup.title}}
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-xs-4">
+            <label>تولید کننده</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.producer.brand_name}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>گارانتی</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.guarantor.secretary_first_name + '' + warehouse.productStat.guarantor.secretary_last_name}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>تاریخ گارانتی</label>
+            <h5 class="product-stat">
+              از
+              <label class="ltr-input">{{warehouse.productStat.guarantee_start_date | jalaliDate}}</label>
+              تا
+              <label class="ltr-input">{{warehouse.productStat.guarantee_end_date | jalaliDate}}</label>
+              
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-xs-4">
+            <label>تاریخ تولید</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.production_date | jalaliDate}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>استهلاک</label>
+            <h5 class="product-stat">
+              به مدت
+              {{warehouse.productStat.deprication_period}}
+              روز از
+              {{warehouse.productStat.deprication_type | depricateType}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>قیمت</label>
+            <h5 class="product-stat">
+              {{warehouse.productStat.price}}
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+          
+        </div>
       </div>
       <div class="modal-footer">
       </div>

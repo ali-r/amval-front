@@ -62,6 +62,8 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     }
 
     this.toJalaliDate = function(pDate){
+      if(!pDate)
+        pDate = '';
       var dateArray = pDate.split('-');
       var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
       return (gDate.year + '-' + gDate.month + '-' + gDate.day);
@@ -69,11 +71,10 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
 
 });
 
-app.filter('jalaliDate', function () {
-      return function (inputDate, format) {
-        moment.loadPersian();
-        var date = moment(inputDate).utcOffset(420);
-        return date.format(format);
+app.filter('jalaliDate', function (mainAsset) {
+      return function (inputDate) {
+        var date = mainAsset.toJalaliDate(inputDate);
+        return date;
     }
 });
 
@@ -116,6 +117,21 @@ app.filter('metaType', function() {
   }
 });
 
+app.filter('depricateType', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 0:
+          output = "شروع استفاده";
+        break;
+        case 1:
+          output = "تولید";
+        break;
+    }
+    return output;
+  }
+});
+
 app.directive('reqPagination', function() {
   return {
     restrict: 'E',
@@ -133,6 +149,20 @@ app.directive('reqPagination', function() {
       }else{
         var paginationConfig = scope.config;
       }
+
+      if(!scope.itemmeta)
+        scope.itemmeta = {};
+
+      function safeApply(fn) {
+        var phase = scope.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+          if(fn && (typeof(fn) === 'function')) {
+            fn();
+          }
+        } else {
+          this.$apply(fn);
+        }
+      };
 
       scope.pagination = function(status) {
         var pageMeta = scope.itemmeta;
@@ -185,10 +215,11 @@ app.directive('reqPagination', function() {
             scope.itempage = scope.itemmeta.pages;
             break;
           }
+          safeApply(scope.itempage);
         }
-
+        console.log(scope.controller.productsPage)
         if(paginationConfig.url){
-          
+          paginationConfig.getFunc(scope.itempage);
         }else{
           scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
           scope.controller.getData();
@@ -383,7 +414,7 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       var nowTime = new Date();
       nowTime = Math.floor(nowTime.getTime()/1000);
       var difTime = nowTime - $localStorage.assetData.login_time;
-      if( difTime > 14400 ){
+      if( difTime > 14400){
 
         while ($localStorage.assetData) {
           delete $localStorage.assetData;

@@ -11,6 +11,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       scope.uploadPercentage = 0;
       scope.uploading = false;
       scope.stage = 0;
+      scope.loadSide = false;
 
       controller.obj = {};
       controller.tmp = {};
@@ -46,30 +47,44 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         config = {};
       }
 
+      if ( typeof(page) == 'undefined' ) {
+        page = 1;
+      }
+
       var addOne = config.addOne,
           keys = {};
 
       if ( !config.url ) {
           var url = scope.apiUrl + "?page=" + page + "&per_page=10";
+
+          if(addOne){
+            for ( key in addOne.extra) {
+              console.log(key);
+              keys[key] = addOne.extra[key];
+            }
+          }
+
+          if(controller.searchValue){
+
+            for (var i = 0; i < controller.searchObject.length; i++) {
+              keys[controller.searchObject[i].field + '__contains'] = controller.searchValue[controller.searchObject[i].field];
+            }
+
+            keys.sort = controller.searchValue.order + controller.searchValue.type
+
+          }
+
         }else{
-          var url = addOne.url + "?page=" + page + "&per_page=10";
-        }
+          var url = config.url + "?page=" + page + "&per_page=10";
 
-        if(addOne){
-          for ( key in addOne.extra) {
-            keys[key] = addOne.extra[key];
+          for ( opt in config.searchOpt ) {
+            keys[opt] = config.searchOpt[opt]
           }
         }
 
-        if(controller.searchValue){
+        
 
-          for (var i = 0; i < controller.searchObject.length; i++) {
-            keys[controller.searchObject[i].field + '__contains'] = controller.searchValue[controller.searchObject[i].field];
-          }
-
-          keys.sort = controller.searchValue.order + controller.searchValue.type
-
-        }
+        
 
         for (name in keys) {
           if (controller.notEmpty(keys[name]))
@@ -90,12 +105,22 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       }
     }
 
-    controller.getData = function() {
+    controller.getData = function(callback, url) {
+      if(url){
+        var crudGetUrl = url;
+      }else{
+        var crudGetUrl = scope.getUrl;
+      }
       requestHelper.get(
-        scope.getUrl, scope,
+        crudGetUrl, scope,
         function(response) {
-          scope.meta = response.data.meta;
-          controller.note = response.data[apiName + 's'];
+          if(callback)
+            {
+              callback(response);
+            }else{
+              scope.meta = response.data.meta;
+              controller.note = response.data[apiName + 's'];
+            }
         },true);
     };
     controller.getData();
