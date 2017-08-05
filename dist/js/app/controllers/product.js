@@ -214,7 +214,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(!$scope.productForm.file.$error.maxSize && controller.qrCodeFile)
     {
       requestHelper.uploadFileReq(controller.qrCodeFile, 'qrcode', $scope, function(data){
-        controller.obj.qr_code = mainAsset.getUploadUrl()+data.file_url;
+        controller.obj.qr_code = data.file_url;
         
         /*setTimeout(function () {
         var qr = QCodeDecoder();

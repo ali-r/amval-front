@@ -71,7 +71,7 @@ angular.module("assetAdminPanel").controller('userCtrl',
     if(!$scope.userForm.file.$error.maxSize && controller.sigFile)
     {
       requestHelper.uploadFileReq(controller.sigFile, 'signature', $scope, function(data){
-        controller.obj.scanned_signature = mainAsset.getUploadUrl()+data.file_url;
+        controller.obj.scanned_signature = data.file_url;
       });
     }
   }

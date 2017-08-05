@@ -187,7 +187,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         if(!$scope.invoiceForm.file.$error.maxSize && controller.scannedFile)
         {
           requestHelper.uploadFileReq(controller.scannedFile, 'invoice', $scope, function(data){
-            controller.obj.scanned_invoice = mainAsset.getUploadUrl()+data.file_url;
+            controller.obj.scanned_invoice = data.file_url;
           });
         }
       }

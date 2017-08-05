@@ -188,7 +188,7 @@
                         ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature" ng-disabled="uploading">بارگذاری تصویر امضا</div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature && checkWrite('user')"
                       ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
-                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
+                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{uploadUrl + user.obj.scanned_signature}}"
                       ng-if="user.obj.scanned_signature">
 
                       <p ng-show="userForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
