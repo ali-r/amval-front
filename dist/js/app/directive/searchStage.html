@@ -30,7 +30,7 @@
                 <th>انتخاب</th>
               </tr>
 
-              <tr ng-repeat = "list in controller.tmp.searchResult">
+              <tr ng-repeat = "list in controller.tmp.searchResult | filterObjById:controller.obj.id">
                 <td>{{$index+1}}</td>
                 <td ng-repeat="att in obj.table">
                   {{list[att.en] | lengthLimit:30}}

@@ -72,6 +72,23 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
 
 });
 
+app.filter('filterObjById',function(){
+  return function(input,itemId){
+    var index = -1;
+    if(!input) input = [];
+    if(!input.length) input.length = 0;
+    for(var i = 0; i<input.length;i++){
+      if(input[i].id == itemId){
+        index = i;
+        break;
+      }
+    }
+
+    if(index>-1) input.splice(index,1);
+    return input
+  }
+})
+
 app.filter('jalaliDate', function (mainAsset) {
       return function (inputDate) {
         var date = mainAsset.toJalaliDate(inputDate);
