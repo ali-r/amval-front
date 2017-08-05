@@ -179,7 +179,8 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>مدت زمان استهلاک(روز)*</label>
-                      <input type="number" class="form-control" ng-model="product.obj.deprication_period" required>
+                      <input type="number" name="depricationPeriod" min="1" class="form-control" ng-model="product.obj.deprication_period" required>
+                      <p ng-show="productForm.depricationPeriod.$error.number" class="input-error-p">حداقل مدت زمان استهلاک ۱ روز است</p>
                     </div>
                   </div>
                   <div class="col-md-2">
@@ -221,7 +222,7 @@
                   </div>
                   <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="product.obj.meta_data[$index].value">
-                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="product.obj.meta_data[$index].value">
+                    <input ng-if="meta.type == 'int'" class="form-control form-ltr" type="number" ng-model="product.obj.meta_data[$index].value">
                     <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="product.obj.meta_data[$index].value">
                   </div>
                   <div class="col-md-3" >
