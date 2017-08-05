@@ -180,7 +180,7 @@
                     </div>
 
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label>تصویر امضا*</label>
                       <br/>
@@ -188,13 +188,15 @@
                         ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!user.obj.scanned_signature && checkWrite('user')" ng-required="!user.obj.scanned_signature" ng-disabled="uploading">بارگذاری تصویر امضا</div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="user.obj.scanned_signature && checkWrite('user')"
                       ng-click=" user.obj.scanned_signature = null">حذف تصویر</button>
-                      <img class="img-responsive img-thumbnail img-sig" ng-src="{{user.obj.scanned_signature}}"
-                      ng-if="user.obj.scanned_signature">
 
                       <p ng-show="userForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="userForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
                       
                     </div>
+                  </div>
+                  <div class="col-md-2">
+                    <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + user.obj.scanned_signature}}"
+                      ng-if="user.obj.scanned_signature">
                   </div>
                   <div class="clearfix"></div>
                 </fieldset>

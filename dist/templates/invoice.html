@@ -111,7 +111,7 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info" ng-click="invoice.openProductModal()">افزودن کالا</button>
+                                        <button type="button" class="btn btn-info" ng-click="invoice.openProductModal()">ایجاد کالا</button>
                                         <button type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
                                     </span>
                                 </div>
@@ -147,14 +147,14 @@
                             </table>
 
                             <div ng-hide="invoice.obj.products.length > 0" style="text-align:right">
-                                <p>
+                                <p class="text-danger">
                                     -
                                     وجود حداقل یک کالا برای فاکتور کردن الزامی است.
                                 </p>
                             </div>
 
                             <div ng-show="!invoiceForm.productPrice.$valid" style="text-align:right">
-                                <p>
+                                <p class="text-danger">
                                     -
                                     قیمت کالا نباید منفی باشد.
                                 </p>
@@ -177,7 +177,7 @@
                                 </div>
 
                                 <div class="col-xs-4">
-                                    <img class="img-responsive img-thumbnail img-limited-size" ng-src="{{invoice.obj.scanned_invoice}}" ng-if="invoice.obj.scanned_invoice">
+                                    <img class="img-responsive img-thumbnail img-limited-size" ng-src="{{uploadUrl + invoice.obj.scanned_invoice}}" ng-if="invoice.obj.scanned_invoice">
                                     <div ng-show = "uploading">
                                         <p ng-show = "uploading" style="text-align : center;">
                                         در حال  بارگذاری
@@ -247,7 +247,7 @@
             <div class="modal-body">
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-12">
                             <!-- Stage 1 for buyer select -->
                             <div class="panel panel-info" ng-show="selectStage == 1">
                                 <div class="panel-heading">
@@ -354,6 +354,7 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
+<<<<<<< HEAD
                                     <div class="panel panel-primary" ng-show="invoice.tmp.selectedProducts.length>0">
                                         <div class="panel-heading">
                                             کالا های انتخاب شده
@@ -368,6 +369,16 @@
                                                 </li>
                                             </ul>    
                                         </div>
+=======
+                                    <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
+                                        <ul class="remove-box">
+                                            <li ng-repeat="item in invoice.tmp.selectedProducts track by item.id">
+                                                <span ng-click="invoice.deselect($index)">×</span>
+                                                {{item.model | limitTo : 10}}
+                                            </li>
+                                        </ul>
+                                        <hr/>
+>>>>>>> feature/hamedFix
                                     </div>
 
                                     <form name="selectProductForm" role="form" novalidate>
@@ -398,9 +409,10 @@
                                               {{list.serial_number | lengthLimit:15}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.pushProduct(list)" href>
+                                              <a ng-show="invoice.checkDuplicate(list, invoice.tmp.selectedProducts)" ng-click="invoice.pushProduct(list)" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
+                                                <i ng-hide="invoice.checkDuplicate(list, invoice.tmp.selectedProducts)">موجود</i>
                                             </td>
                                           </tr>
                                         </tbody>

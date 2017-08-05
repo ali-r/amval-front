@@ -45,12 +45,17 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     if (sendCopyObj.children)
       delete sendCopyObj.children;
 
-    if (!!sendCopyObj.parent)
-      sendCopyObj.parent = sendCopyObj.parent.id;
-    else delete sendCopyObj.parent;
+    if (!sendCopyObj.parent &&  sendCopyObj.parent != null )
+      {
+        sendCopyObj.parent = sendCopyObj.parent.id;
+      }else 
+      {
+        delete sendCopyObj.parent;
+      }
 
     sendCopyObj.meta_template = (sendCopyObj.self_meta_template || []);
     delete sendCopyObj.self_meta_template;
+
     return sendCopyObj;
   };
 
@@ -72,10 +77,14 @@ angular.module("assetAdminPanel").controller('groupCtrl',
 
   this.getFilteredData = function(){
     var editedObj = angular.copy(controller.addOne);
-    if(editedObj.extra.group_type){editedObj.extra.group_type = controller.addOne.extra.group_type;}
-    else editedObj.extra.group_type = 'group';
+    if(editedObj.extra.group_type)
+      {
+        editedObj.extra.group_type = controller.addOne.extra.group_type;
+      }else {
+        editedObj.extra.group_type = 'group';
+      }
     $scope.page = 1;
-    controller.makeUrl($scope.page, controller.paginationConfig);
+    $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }
 

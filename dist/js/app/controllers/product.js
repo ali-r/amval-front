@@ -75,6 +75,13 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
 
+    if(obj.children){
+      sendCopyObj.children = [];
+      for (var i = 0; i < obj.children.length; i++) {
+        sendCopyObj.children.push(obj.children[i].id);
+      }
+    }
+    
     /*sendCopyObj.seller = sendCopyObj.seller.id;*/
     sendCopyObj.guarantor = sendCopyObj.guarantor.id;
     sendCopyObj.producer = sendCopyObj.producer.id;
@@ -82,7 +89,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(!sendCopyObj.is_out_of_system)
         sendCopyObj.is_out_of_system = false;
 
-    if(!sendCopyObj.is_bundle){
+    if(!sendCopyObj.is_bundle || sendCopyObj.is_bundle == false){
       sendCopyObj.is_bundle = false;
       delete sendCopyObj.children;
     }
@@ -109,12 +116,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
       if(item.value != undefined && item.value !=""){sendCopyObj.meta_data.push(item);}
     });
 
-    if(obj.children){
-      sendCopyObj.children = [];
-      for (var i = 0; i < obj.children.length; i++) {
-        sendCopyObj.children.push(obj.children[i].id);
-      }
-    }
+    
 
     return sendCopyObj;
   };
@@ -214,17 +216,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(!$scope.productForm.file.$error.maxSize && controller.qrCodeFile)
     {
       requestHelper.uploadFileReq(controller.qrCodeFile, 'qrcode', $scope, function(data){
-        controller.obj.qr_code = mainAsset.getUploadUrl()+data.file_url;
-        
-        /*setTimeout(function () {
-        var qr = QCodeDecoder();
-        var code = document.getElementById(qrCodeImage);
-        qr.decodeFromImage(code, function (err, result) {
-          if (err) {console.log(err);};
-          console.log(result);
-        });
-        },1000);*/
-        
+        controller.obj.qr_code = data.file_url;
       });
     }
   }

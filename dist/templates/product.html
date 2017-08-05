@@ -181,10 +181,11 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>مدت زمان استهلاک(روز)*</label>
-                      <input type="number" class="form-control" ng-model="product.obj.deprication_period" required>
+                      <input type="number" name="depricationPeriod" min="1" class="form-control" ng-model="product.obj.deprication_period" required>
+                      <p ng-show="productForm.depricationPeriod.$error.number" class="input-error-p">حداقل مدت زمان استهلاک ۱ روز است</p>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <label>*Qr Code</label>
                       <br/>
@@ -200,9 +201,9 @@
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                     <div class="form-group">
-                      <img class="img-responsive img-thumbnail" ng-src="{{product.obj.qr_code}}" ng-if="product.obj.qr_code" id='qrCodeImage'>
+                      <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + product.obj.qr_code}}" ng-if="product.obj.qr_code && product.obj.qr_code != ''" id='qrCodeImage'>
                       <p ng-show = "uploading" style="tAext-align : center;">
                         در حال  بارگذاری
                         <i class="fa fa-refresh fa-spin fa-lg"></i>
@@ -223,7 +224,7 @@
                   </div>
                   <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="product.obj.meta_data[$index].value">
-                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="product.obj.meta_data[$index].value">
+                    <input ng-if="meta.type == 'int'" class="form-control form-ltr" type="number" ng-model="product.obj.meta_data[$index].value">
                     <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="product.obj.meta_data[$index].value">
                   </div>
                   <div class="col-md-3" >
@@ -384,8 +385,7 @@
                           <col span="1" style="width: 5%;">
                           <col span="1" style="width: 25%;">
                           <col span="1" style="width: 45%;">
-                          <col span="1" style="width: 15%;">
-                          <col span="1" style="width: 5%;">
+                          <col span="1" style="width: 20%;">
                         </colgroup>
                         <thead>
                           <tr>
@@ -396,9 +396,6 @@
                             </th>
                             <th>
                               توضیحات
-                            </th>
-                            <th>
-                              پدر
                             </th>
                             <th>انتخاب</th>
                           </tr>
@@ -417,24 +414,20 @@
                             <td>{{list.title | lengthLimit:20}}</td>
                             <td>{{list.description | lengthLimit:20}}</td>
                             <td>
-                              {{list.parent.title | lengthLimit:20}}
-                            </td>
-                            <td>
                               <a ng-click="product.selectTarget(list.id, list.title, 'title', 'subgroup'); product.loadMeta(list.id)" href>
                                 <i class="fa fa-check-square-o fa-lg"></i>
                               </a>
                             </td>
                           </tr>
                           <tr ng-if="!product.tmp.searchQuery" ng-repeat-end class="collapse" id="collaps{{$index}}">
-                            <td colspan="6" style="padding:2px;">
+                            <td colspan="6" style="padding:0px;">
                               <table class="table">
                                 <colgroup>
                                   <col span="1" style="width: 5%;">
                                   <col span="1" style="width: 5%;">
                                   <col span="1" style="width: 25%;">
                                   <col span="1" style="width: 45%;">
-                                  <col span="1" style="width: 15%;">
-                                  <col span="1" style="width: 5%;">
+                                  <col span="1" style="width: 20%;">
                                 </colgroup>
                                 <tbody>
                                   <tr ng-repeat="chd in list.children" class="group-chd">
@@ -449,9 +442,6 @@
                                     </td>
                                     <td>
                                       {{chd.description | lengthLimit:20}}
-                                    </td>
-                                    <td>
-                                      {{chd.parent.title | lengthLimit:20}}
                                     </td>
                                     <td>
                                       <a ng-click="product.selectTarget(chd.id, chd.title, 'title', 'subgroup'); product.loadMeta(chd.id)" href>
