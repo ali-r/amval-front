@@ -111,7 +111,7 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info" ng-click="invoice.openProductModal()">افزودن کالا</button>
+                                        <button type="button" class="btn btn-info" ng-click="invoice.openProductModal()">ایجاد کالا</button>
                                         <button type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
                                     </span>
                                 </div>
@@ -247,7 +247,7 @@
             <div class="modal-body">
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-12">
                             <!-- Stage 1 for buyer select -->
                             <div class="panel panel-info" ng-show="selectStage == 1">
                                 <div class="panel-heading">
@@ -355,12 +355,10 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
-                                        <ul id="temp-products" style="list-style-type:none; margin:0px; padding:0px">
-                                            <li style="display:table-cell; padding:1px;" ng-repeat="item in invoice.tmp.selectedProducts track by $index">
-                                                {{item.model}}
-                                                <a ng-click="invoice.deselect($index)" href>
-                                                    <i class="fa fa-close fa-lg"></i>
-                                                </a>
+                                        <ul class="remove-box">
+                                            <li ng-repeat="item in invoice.tmp.selectedProducts track by item.id">
+                                                <span ng-click="invoice.deselect($index)">×</span>
+                                                {{item.model | limitTo : 10}}
                                             </li>
                                         </ul>
                                         <hr/>
@@ -394,9 +392,10 @@
                                               {{list.serial_number}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.pushProduct(list)" href>
+                                              <a ng-show="invoice.checkDuplicate(list, invoice.tmp.selectedProducts)" ng-click="invoice.pushProduct(list)" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
+                                                <i ng-hide="invoice.checkDuplicate(list, invoice.tmp.selectedProducts)">موجود</i>
                                             </td>
                                           </tr>
                                         </tbody>

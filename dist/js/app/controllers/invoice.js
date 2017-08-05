@@ -168,6 +168,20 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.obj.num_of_products = controller.obj.products.length;
       }
 
+      this.checkDuplicate = function (obj, array) {
+        var checkResult = true;
+
+        if(!array)
+          array = [];
+
+        for (var i = 0; i < array.length; i++) {
+          if( array[i].id == obj.id){
+            checkResult = false;
+          };
+        }
+        return checkResult;
+      }
+
       this.uploadPic = function() {
         console.log($scope.invoiceForm.file.$error)
         if(!$scope.invoiceForm.file.$error.maxSize && controller.scannedFile)
