@@ -25,10 +25,10 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in guarantor.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.secretary_first_name}}</td>
-              <td>{{list.secretary_last_name}}</td>
+              <td>{{list.secretary_first_name | lengthLimit:40}}</td>
+              <td>{{list.secretary_last_name | lengthLimit:40}}</td>
               <td>{{list.office_phone}}</td>
-              <td>{{list.address}}</td>
+              <td>{{list.address | lengthLimit:40}}</td>
               <td>
                 <a ng-click="guarantor.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('guarantor') , 'fa-eye' : !checkWrite('guarantor')}" aria-hidden="true"></i>
@@ -115,7 +115,7 @@
       </div>
       <div class="modal-body">
         آیا مایل به حذف گارانتی
-        "{{guarantor.toDeleteTitle}}"
+        "{{guarantor.toDeleteTitle | lengthLimit:40}}"
         هستید؟
       </div>
       <div class="modal-footer">

@@ -51,10 +51,10 @@
               <td>
                 {{ (page-1)*10 + $index + 1 }}
               </td>
-              <td>{{list.title}}</td>
-              <td>{{list.description}}</td>
+              <td>{{list.title | lengthLimit:40}}</td>
+              <td>{{list.description | lengthLimit:40}}</td>
               <td>
-                {{list.parent.title}}
+                {{list.parent.title | lengthLimit:40}}
               </td>
               <td>
                 <a ng-click="group.getObject(list.id)" title="مشاهده" href>
@@ -87,9 +87,9 @@
                       <td class="chd-td">
                         {{$index+1}}-{{$parent.$index+1}}
                       </td>
-                      <td>{{chd.title}}</td>
-                      <td>{{chd.description}}</td>
-                      <td>{{chd.parent.title}}</td>
+                      <td>{{chd.title | lengthLimit:30}}</td>
+                      <td>{{chd.description | lengthLimit:30}}</td>
+                      <td>{{chd.parent.title | lengthLimit:30}}</td>
                       <td>
                         <a ng-click="group.getObject(chd.id)" title="مشاهده" href>
                           <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
@@ -238,7 +238,7 @@
       </div>
       <div class="modal-body">
         آیا مایل به حذف انبار
-        "{{group.toDeleteTitle}}"
+        "{{group.toDeleteTitle | lengthLimit:40}}"
         هستید؟
       </div>
       <div class="modal-footer">

@@ -25,9 +25,9 @@
           <tbody ng-hide = "load">
             <tr ng-repeat = "list in user.note">
               <td ng-click="user.getObject(list.id)">{{ (page-1)*10 + $index + 1 }}</td>
-              <td ng-click="user.getObject(list.id)">{{list.first_name}}</td>
-              <td ng-click="user.getObject(list.id)">{{list.last_name}}</td>
-              <td ng-click="user.getObject(list.id)">{{list.card_no}}</td>
+              <td ng-click="user.getObject(list.id)">{{list.first_name | lengthLimit:40}}</td>
+              <td ng-click="user.getObject(list.id)">{{list.last_name | lengthLimit:40}}</td>
+              <td ng-click="user.getObject(list.id)">{{list.card_no | lengthLimit:40}}</td>
               <td ng-click="user.getObject(list.id)">{{list.clearance_level | userType}}</td>
               <td ng-click="user.getObject(list.id)" style="direction:ltr;">{{list.phone}}</td>
               <td>
@@ -225,17 +225,17 @@
                           <tr>
                             <th>ردیف</th>
                             <th>عنوان</th>
-                            <th>توضیحات</th>
+                            <th>محل</th>
                             <th>انتخاب</th>
                           </tr>
 
                           <tr ng-repeat = "list in user.tmp.searchResult">
                             <td>{{$index+1}}</td>
                             <td>
-                              {{list.title}}
+                              {{list.title | lengthLimit:20}}
                             </td>
                             <td>
-                              {{list.text | limitTo : 25}}
+                              {{list.location | lengthLimit:20}}
                             </td>
                             <td>
                               <a ng-click="user.selectTarget(list.id, list.title, 'title', 'warehouse')" href>
@@ -306,7 +306,7 @@
       </div>
       <div class="modal-body">
         آیا مایل به حذف کاربر
-        "{{user.toDeleteTitle}}"
+        "{{user.toDeleteTitle | lengthLimit:40}}"
         هستید؟
       </div>
       <div class="modal-footer">

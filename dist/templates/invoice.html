@@ -28,8 +28,8 @@
                     <tbody ng-hide="load">
                         <tr ng-repeat = "list in invoice.note">
                             <td>{{ (page-1)*10 + $index + 1 }}</td>
-                            <td class="limited-width-col">{{list.invoice_no}}</td>
-                            <td class="limited-width-col">{{list.price}}</td>
+                            <td class="limited-width-col">{{list.invoice_no  | lengthLimit:40}}</td>
+                            <td class="limited-width-col">{{list.price | lengthLimit:40}}</td>
                             <td>
                                 <a ng-click="invoice.readInvoice(list.id)" href>
                                     <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('invoice') , 'fa-eye' : !checkWrite('invoice')}" aria-hidden="true"></i>
@@ -133,7 +133,7 @@
                                 </thead>
                                 <tbody ng-repeat = "product in invoice.obj.products">
                                     <tr>
-                                        <td> {{product.model}} </td>
+                                        <td> {{product.model | lengthLimit:40}} </td>
                                         <td > 
                                             <input dir="ltr" type="number" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
                                         </td>
@@ -277,11 +277,11 @@
 
                                           <tr ng-repeat = "list in invoice.tmp.searchResult">
                                             <td>{{$index+1}}</td>
-                                            <td class="limited-width-col">
-                                              {{list.first_name}}
+                                            <td>
+                                              {{list.first_name | lengthLimit:15}}
                                             </td>
-                                            <td class="limited-width-col">
-                                              {{list.last_name}}
+                                            <td>
+                                              {{list.last_name | lengthLimit:15}}
                                             </td>
                                             <td>
                                               <a ng-click="invoice.selectItem(list.id, list.last_name, 'last_name', 'buyer')" href>
@@ -324,11 +324,11 @@
 
                                           <tr ng-repeat = "list in invoice.tmp.searchResult">
                                             <td>{{$index+1}}</td>
-                                            <td class="limited-width-col">
-                                              {{list.first_name}}
+                                            <td>
+                                              {{list.first_name | lengthLimit:15}}
                                             </td>
-                                            <td class="limited-width-col">
-                                              {{list.last_name}}
+                                            <td>
+                                              {{list.last_name | lengthLimit:15}}
                                             </td>
                                             <td>
                                               <a ng-click="invoice.selectItem(list.id, list.last_name, 'last_name', 'seller')" href>
@@ -354,16 +354,20 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
-                                        <ul id="temp-products" style="list-style-type:none; margin:0px; padding:0px">
-                                            <li style="display:table-cell; padding:1px;" ng-repeat="item in invoice.tmp.selectedProducts track by $index">
-                                                {{item.model}}
-                                                <a ng-click="invoice.deselect($index)" href>
-                                                    <i class="fa fa-close fa-lg"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <hr/>
+                                    <div class="panel panel-primary" ng-show="invoice.tmp.selectedProducts.length>0">
+                                        <div class="panel-heading">
+                                            کالا های انتخاب شده
+                                        </div>
+                                        <div class="panel-body">
+                                            <ul class="remove-box" id="temp-products">
+                                                <li dir="auto" ng-repeat="item in invoice.tmp.selectedProducts track by $index">
+                                                    {{item.model  | lengthLimit:10}}
+                                                    <a ng-click="invoice.deselect($index)" href>
+                                                        <i class="fa fa-close fa-lg"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>    
+                                        </div>
                                     </div>
 
                                     <form name="selectProductForm" role="form" novalidate>
@@ -387,11 +391,11 @@
 
                                           <tr  ng-repeat = "list in invoice.tmp.searchResult">
                                             <td >{{$index+1}}</td>
-                                            <td class="limited-width-col">
-                                              {{list.model}}
+                                            <td>
+                                              {{list.model | lengthLimit:15}}
                                             </td>
-                                            <td class="limited-width-col">
-                                              {{list.serial_number}}
+                                            <td>
+                                              {{list.serial_number | lengthLimit:15}}
                                             </td>
                                             <td>
                                               <a ng-click="invoice.pushProduct(list)" href>
@@ -435,14 +439,14 @@
       <div class="modal-body" ng-show = "deleteStage == 1">
         آیا مایل به حذف کالای
         <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle}}"
+            "{{invoice.toDeleteTitle  | lengthLimit:40}}"
         </div >
         هستید؟
       </div>
       <div class="modal-body" ng-show = "deleteStage == 2">
         آیا مایل به حذف فاکتور به شماره
         <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle}}"
+            "{{invoice.toDeleteTitle  | lengthLimit:40}}"
         </div>
         هستید؟
       </div>
