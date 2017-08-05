@@ -45,12 +45,9 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     if (sendCopyObj.children)
       delete sendCopyObj.children;
 
-    if (!sendCopyObj.parent &&  sendCopyObj.parent != null )
+    if (sendCopyObj.parent)
       {
         sendCopyObj.parent = sendCopyObj.parent.id;
-      }else 
-      {
-        delete sendCopyObj.parent;
       }
 
     sendCopyObj.meta_template = (sendCopyObj.self_meta_template || []);
@@ -59,7 +56,9 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     return sendCopyObj;
   };
 
-  
+  controller.deleteParent = function(obj){
+    delete obj.parent;
+  }
 
   crud.initModals($scope, controller, apiName);
   crud.init($scope, controller, apiName, controller.objConfig)
