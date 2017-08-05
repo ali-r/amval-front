@@ -87,7 +87,9 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   };
 
   controller.getFilteredData = function(){
+
     var editedObj = angular.copy(controller.addOne);
+
     if(editedObj.extra.reason){editedObj.extra.reason = parseInt(controller.addOne.extra.reason);}
     if(editedObj.extra.transaction_type){editedObj.extra.transaction_type = parseInt(controller.addOne.extra.transaction_type);}
     if(editedObj.extra.time__gte){
@@ -99,7 +101,8 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     }
     else{editedObj.extra.time__lte=""}
     $scope.page = 1;
-    controller.makeUrl($scope.page, controller.paginationConfig);
+    $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }
+  
 });
