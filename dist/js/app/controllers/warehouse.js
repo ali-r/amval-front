@@ -46,7 +46,6 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   controller.getProducts = function(page){
     $scope.loadSide = true;
     var getUrl = controller.makeUrl(page, controller.productPageConf);
-    console.log(controller.productPageConf)
     requestHelper.get(getUrl, $scope, function(response){
       controller.products = response.data.products;
       controller.productsMeta = response.data.meta;
@@ -72,6 +71,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     var getUrl = mainAsset.getUrl() + '/product/' + id + '/stats'
     requestHelper.get(getUrl, $scope, function(response){
       controller.productStat = response.data;
+      console.log(controller.productStat)
       $scope.loadModal = false;
     });
 

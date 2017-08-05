@@ -99,6 +99,39 @@ app.filter('userType', function() {
   }
 });
 
+app.filter('holderType', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 'User':
+          output = "کاربر";
+        break;
+        case 'Warehouse':
+          output = "انبار";
+        break;
+    }
+    return output;
+  }
+});
+
+app.filter('ticketStatus', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 0:
+          output = "درخواست";
+        break;
+        case 1:
+          output = "در حال پردازش";
+        break;
+        case 2:
+          output = "بسته شده";
+        break;
+    }
+    return output;
+  }
+});
+
 app.filter('metaType', function() {
   return function(input) {
     var output;
@@ -398,6 +431,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
     templateUrl: '/dist/js/app/directive/creatproduct.html'
   }
 });
+
 
 angular.module("assetAdminPanel").controller('mainCtrl',
   function( $scope, $http, $localStorage, $window){
