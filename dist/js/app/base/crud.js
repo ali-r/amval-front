@@ -246,5 +246,10 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       controller.tmp.searchResult = [];
       controller.search(object, field);
     };
+
+    controller.deleteKey = function(obj, key){
+      delete obj[key];
+    }
+
   }
 });
