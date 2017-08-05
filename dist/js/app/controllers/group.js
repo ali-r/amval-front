@@ -45,12 +45,17 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     if (sendCopyObj.children)
       delete sendCopyObj.children;
 
-    if (!!sendCopyObj.parent)
-      sendCopyObj.parent = sendCopyObj.parent.id;
-    else delete sendCopyObj.parent;
+    if (!sendCopyObj.parent &&  sendCopyObj.parent != null )
+      {
+        sendCopyObj.parent = sendCopyObj.parent.id;
+      }else 
+      {
+        delete sendCopyObj.parent;
+      }
 
     sendCopyObj.meta_template = (sendCopyObj.self_meta_template || []);
     delete sendCopyObj.self_meta_template;
+
     return sendCopyObj;
   };
 
