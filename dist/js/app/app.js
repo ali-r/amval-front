@@ -382,7 +382,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         if(!sendCopyObj.is_out_of_system)
             sendCopyObj.is_out_of_system = false;
 
-        if(!sendCopyObj.is_bundle){
+        if(!sendCopyObj.is_bundle || sendCopyObj.is_bundle == false){
           sendCopyObj.is_bundle = false;
           delete sendCopyObj.children;
         }
@@ -446,6 +446,7 @@ app.directive('productStat', function(mainAsset, requestHelper) {
         var getUrl = mainAsset.getUrl() + '/product/' + id + '/stats'
         requestHelper.get(getUrl, scope.$parent, function(response){
           scope.controller.productStat = response.data;
+          scope.controller.productStat.qr_code = scope.$parent.uploadUrl + scope.controller.productStat.qr_code;
           console.log(scope.controller.productStat)
           scope.$parent.loadModal = false;
         });
