@@ -28,7 +28,7 @@
               <td>{{ (page-1)*10 + $index + 1 }}</td>
               <td>{{list.model | lengthLimit:40}}</td>
               <td dir="ltr">
-                {{list.price}}
+                {{list.price  | lengthLimit:40}}
               </td>
               <td>{{list.producer.brand_name | lengthLimit:40}}</td>
               <td>{{list.production_date | jalaliDate}}</td>

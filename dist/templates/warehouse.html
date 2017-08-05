@@ -301,7 +301,7 @@
           <div class="col-xs-4">
             <label>قیمت</label>
             <h5 class="product-stat">
-              {{warehouse.productStat.price}}
+              {{warehouse.productStat.price | lengthLimit:30}}
             </h5>
           </div>
           <div class="clearfix"></div>

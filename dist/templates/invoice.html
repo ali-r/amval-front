@@ -29,7 +29,7 @@
                         <tr ng-repeat = "list in invoice.note">
                             <td>{{ (page-1)*10 + $index + 1 }}</td>
                             <td class="limited-width-col">{{list.invoice_no  | lengthLimit:40}}</td>
-                            <td class="limited-width-col">{{list.price}}</td>
+                            <td class="limited-width-col">{{list.price | lengthLimit:40}}</td>
                             <td>
                                 <a ng-click="invoice.readInvoice(list.id)" href>
                                     <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('invoice') , 'fa-eye' : !checkWrite('invoice')}" aria-hidden="true"></i>
