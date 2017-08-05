@@ -1,0 +1,233 @@
+<!-- warehouse Product Modal -->
+<div class="modal fade" id="productStatModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h3 class="modal-title" ng-hide="editMode">مشاهده وضعیت کالا</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row" ng-hide="$parent.loadModal">
+
+          <div class="col-xs-4">
+            <label>مدل</label>
+            <span class="label label-danger pull-left" ng-show="controller.productStat.is_out_of_system">خارج از سیستم</span>
+            <span class="label label-info pull-left" >باندل</span>
+            
+            <h5 class="product-stat">
+              {{controller.productStat.model}}
+              
+            </h5>
+
+          </div>
+          <div class="col-xs-4">
+            <label>شماره سریال</label>
+            <h5 class="product-stat">
+              {{controller.productStat.serial_number}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>زیرگروه</label>
+            <h5 class="product-stat">
+              {{controller.productStat.subgroup.title}}
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-xs-4">
+            <label>تولید کننده</label>
+            <h5 class="product-stat">
+              {{controller.productStat.producer.brand_name}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>گارانتی</label>
+            <h5 class="product-stat">
+              {{controller.productStat.guarantor.secretary_first_name + '' + controller.productStat.guarantor.secretary_last_name}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>تاریخ گارانتی</label>
+            <h5 class="product-stat">
+              از
+              <label class="ltr-input">{{controller.productStat.guarantee_start_date | jalaliDate}}</label>
+              تا
+              <label class="ltr-input">{{controller.productStat.guarantee_end_date | jalaliDate}}</label>
+              
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-xs-4">
+            <label>تاریخ تولید</label>
+            <h5 class="product-stat">
+              {{controller.productStat.production_date | jalaliDate}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>استهلاک</label>
+            <h5 class="product-stat">
+              به مدت
+              {{controller.productStat.deprication_period}}
+              روز از
+              {{controller.productStat.deprication_type | depricateType}}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            <label>قیمت</label>
+            <h5 class="product-stat">
+              {{controller.productStat.price}}
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-xs-4">
+            <label>نگهدارنده</label>
+            <h5 class="product-stat">
+              {{controller.productStat.holder.obj.title}}
+              {{controller.productStat.holder.obj.first_name + " " + controller.productStat.holder.obj.last_name}}
+              ({{controller.productStat.holder.type | holderType}})
+            </h5>
+          </div>
+          <div class="col-xs-3">
+            <label>Qr Code</label>
+          </div>
+          <div class="col-xs-1">
+            <img ng-src="{{controller.productStat.qr_code}}" class="img-responsive img-thumbnail">
+          </div>
+          <div class="col-xs-4">
+            <label ng-show="controller.productStat.parent_bundle">باندل پدر</label>
+            <h5 class="product-stat" ng-show="controller.productStat.parent_bundle">
+              {{controller.productStat.parent_bundle.model}}
+              ({{controller.productStat.parent_bundle.serial_number}})
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+          
+          <hr ng-show="controller.productStat.meta_data.length > 0">
+          <div class="col-xs-4 col-xs-offset-4" ng-show="controller.productStat.meta_data.length > 0">
+            <h4 style="text-align:center">جزئیات کالا</h4>
+          </div>
+          <div class="col-xs-4" ng-repeat="meta in controller.productStat.meta_data">
+            <label>{{meta.key}}</label>
+            <h5 class="product-stat">
+              {{meta.value}}
+            </h5>
+          </div>
+          <div class="clearfix"></div>
+
+          <hr>
+          <div class="col-xs-6">
+            <br>
+            <label style="text-align:center" class="center-block">تراکنش ها</label>
+            <div class="stat-box" ng-show="controller.productStat.transactions.length > 0">
+              <table class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>مبدا</th>
+                    <th>مقصد</th>
+                    <th>زمان</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="t in controller.productStat.transactions">
+                    <td>{{$index + 1}}</td>
+                    <td>
+                      {{t.source.obj.last_name}}
+                      {{t.source.obj.title}}
+                      ({{t.source.type | holderType}})
+                    </td>
+                    <td>
+                      {{t.destination.obj.last_name}}
+                      {{t.destination.obj.title}}
+                      ({{t.destination.type | holderType}})
+                    </td>
+                    <td>
+                      {{t.time | jalaliDate}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <br>
+            <label style="text-align:center" class="center-block">تیکت های تعمیرات</label>
+            <div class="stat-box" ng-show="controller.productStat.repair_tickets.length > 0">
+              <table class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>عنوان</th>
+                    <th>وضعیت</th>
+                    <th>زمان</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="r in controller.productStat.repair_tickets">
+                    <td>{{$index + 1}}</td>
+                    <td>
+                      {{r.title}}
+                    </td>
+                    <td>
+                      {{t.status | ticketStatus}}
+                    </td>
+                    <td>
+                      {{t.datetime | jalaliDate}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+
+          <hr ng-show="controller.productStat.is_bundle">
+          <div class="col-xs-4 col-xs-offset-4" ng-show="controller.productStat.is_bundle">
+            <h4 style="text-align:center">کالا های زیر مجموعه</h4>
+          </div>
+
+          <div class="col-xs-8 col-xs-offset-2">
+            <br>
+            <div class="stat-box" ng-show="controller.productStat.is_bundle">
+              <table class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>مدل</th>
+                    <th>سریال</th>
+                    <th>قیمت</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="c in controller.productStat.children">
+                    <td>{{$index + 1}}</td>
+                    <td>
+                      {{c.model}}
+                    </td>
+                    <td>
+                      {{c.serial_number}}
+                    </td>
+                    <td>
+                      {{c.price}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

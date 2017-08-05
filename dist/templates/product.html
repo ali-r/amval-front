@@ -20,6 +20,7 @@
               <th>تاریخ تولید</th>
               <th>پایان گارانتی</th>
               <th></th>
+              <th></th>
               <th ng-if = "checkWrite('product')"></th>
             </tr>
           </thead>
@@ -34,6 +35,11 @@
               <td>
                 <a ng-click="product.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('product') , 'fa-eye' : !checkWrite('product')}" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td>
+                <a ng-click="product.openProductModal(list)" href>
+                  <i class="fa fa-lg fa-info" aria-hidden="true"></i>
                 </a>
               </td>
               <td ng-if = "checkWrite('product')">
@@ -475,6 +481,8 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<product-stat controller = "product"></product-stat>
 
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
