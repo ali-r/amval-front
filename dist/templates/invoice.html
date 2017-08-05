@@ -354,16 +354,20 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
-                                        <ul id="temp-products" style="list-style-type:none; margin:0px; padding:0px">
-                                            <li dir="auto" style="display:table-cell; padding:1px;" ng-repeat="item in invoice.tmp.selectedProducts track by $index">
-                                                {{item.model  | lengthLimit:10}}
-                                                <a ng-click="invoice.deselect($index)" href>
-                                                    <i class="fa fa-close fa-lg"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <hr/>
+                                    <div class="panel panel-primary" ng-show="invoice.tmp.selectedProducts.length>0">
+                                        <div class="panel-heading">
+                                            کالا های انتخاب شده
+                                        </div>
+                                        <div class="panel-body">
+                                            <ul class="remove-box" id="temp-products">
+                                                <li dir="auto" ng-repeat="item in invoice.tmp.selectedProducts track by $index">
+                                                    {{item.model  | lengthLimit:10}}
+                                                    <a ng-click="invoice.deselect($index)" href>
+                                                        <i class="fa fa-close fa-lg"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>    
+                                        </div>
                                     </div>
 
                                     <form name="selectProductForm" role="form" novalidate>
