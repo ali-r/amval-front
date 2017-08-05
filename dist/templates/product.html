@@ -280,7 +280,7 @@
                   </div>
                   <div class="panel-body">
                     <ul class="remove-box">
-                      <li dir="auto" ng-repeat = "goods in product.obj.children track by $index">
+                      <li dir="auto"  ng-repeat = "goods in product.obj.children track by $index">
                         <span ng-click="product.deleteChild($index)">×</span>
                         {{goods.model | lengthLimit:30}}
                         ({{goods.serial_number | lengthLimit:30}})
