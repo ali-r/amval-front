@@ -41,7 +41,7 @@
                 </a>
               </td>
               <td ng-if = "checkWrite('user')">
-                <a ng-click="user.toDeleteId = list.id; user.toDeleteTitle = list.card_no" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
+                <a ng-click="user.toDeleteId = list.id; user.toDeleteTitle = list.first_name+' '+list.last_name" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -307,7 +307,7 @@
         <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف کاربر</h4>
       </div>
       <div class="modal-body">
-        آیا مایل به حذف کاربر
+        آیا مایل به حذف
         "{{user.toDeleteTitle | lengthLimit:40}}"
         هستید؟
       </div>

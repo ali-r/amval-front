@@ -4534,3 +4534,6 @@ ul#temp-products li{
     max-height: 350px;
     overflow-y: auto;
 }
+div#deleteModal {
+    word-wrap:break-word;
+}
