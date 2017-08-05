@@ -26,9 +26,9 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in seller.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.first_name}}</td>
-              <td>{{list.last_name}}</td>
-              <td>{{list.store_name}}</td>
+              <td>{{list.first_name | lengthLimit:40}}</td>
+              <td>{{list.last_name | lengthLimit:40}}</td>
+              <td>{{list.store_name | lengthLimit:40}}</td>
               <td style="direction:ltr;">{{list.cellphone}}</td>
               <td style="direction:ltr;">{{list.phone}}</td>
               <td>
@@ -129,7 +129,7 @@
       </div>
       <div class="modal-body">
         آیا مایل به حذف فروشنده
-        "{{seller.toDeleteTitle}}"
+        "{{seller.toDeleteTitle | lengthLimit:40}}"
         هستید؟
       </div>
       <div class="modal-footer">

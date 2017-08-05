@@ -69,6 +69,7 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       return (gDate.year + '-' + gDate.month + '-' + gDate.day);
     };
 
+
 });
 
 app.filter('jalaliDate', function (mainAsset) {
@@ -129,6 +130,15 @@ app.filter('depricateType', function() {
         break;
     }
     return output;
+  }
+});
+
+app.filter('lengthLimit',function(){
+  return function(input,customLength){
+    if(typeof(input)=="string" && input.length > customLength){
+      input = input.slice(0,customLength) + "...";
+    }
+    return input;
   }
 });
 

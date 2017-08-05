@@ -155,7 +155,7 @@
                 <h4 ng-show="controller.tmp.meta.meta_template" >جزئیات کالا</h4>
                 <div class="row">
                   <div class="col-md-3" ng-repeat-start="meta in controller.tmp.meta.meta_template track by $index" >
-                    <h5>{{meta.key}}</h5>
+                    <h5>{{meta.key  | lengthLimit:40}}</h5>
                   </div>
                   <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="controller.product.meta_data[$index].value" >
@@ -196,8 +196,8 @@
                       <tbody>
                         <tr ng-repeat="goods in controller.product.children">
                           <td>{{ $index + 1 }}</td>
-                          <td>{{ goods.model }}</td>
-                          <td>{{ goods.serial_number }}</td>
+                          <td>{{ goods.model | lengthLimit:30 }}</td>
+                          <td>{{ goods.serial_number | lengthLimit:30 }}</td>
                           <td>
                             <a class="fa-lg" ng-click="controller.deleteChild($index)" href>×</a>
                           </td>
@@ -222,9 +222,9 @@
                   </div>
                   <div class="panel-body">
                     <ul class="remove-box">
-                      <li ng-repeat = "goods in controller.product.children track by $index">
+                      <li dir="auto" ng-repeat = "goods in controller.product.children track by $index">
                         <span ng-click="controller.deleteChild($index)">×</span>
-                        {{goods.model}}({{goods.serial_number}})
+                        {{goods.model | lengthLimit:20}}({{goods.serial_number | lengthLimit:20}})
                       </li>
                     </ul>
                   </div>
@@ -268,10 +268,10 @@
                             <td>
                               {{ $index + 1 }}
                             </td>
-                            <td>{{list.model}}</td>
-                            <td>{{list.serial_number}}</td>
+                            <td>{{list.model | lengthLimit:30}}</td>
+                            <td>{{list.serial_number | lengthLimit:30}}</td>
                             <td>
-                              {{list.subgroup.title}}
+                              {{list.subgroup.title | lengthLimit:30}}
                             </td>
                             <td>
                               <i ng-hide="controller.checkDuplicate(list, controller.product.children)">موجود</i>
@@ -345,10 +345,10 @@
                             <td>
                               {{ $index + 1 }}
                             </td>
-                            <td>{{list.title}}</td>
-                            <td>{{list.description}}</td>
+                            <td>{{list.title | lengthLimit:30}}</td>
+                            <td>{{list.description | lengthLimit:30}}</td>
                             <td>
-                              {{list.parent.title}}
+                              {{list.parent.title | lengthLimit:30}}
                             </td>
                             <td>
                               <a ng-click="controller.selectTarget(list.id, list.title, 'title', 'subgroup', 'product'); loadMeta(list.id)" href>
@@ -375,9 +375,9 @@
                                     <td class="chd-td">
                                       {{$index+1}}-{{$parent.$index+1}}
                                     </td>
-                                    <td>{{chd.title}}</td>
-                                    <td>{{chd.description}}</td>
-                                    <td>{{chd.parent.title}}</td>
+                                    <td>{{chd.title | lengthLimit:30}}</td>
+                                    <td>{{chd.description | lengthLimit:30}}</td>
+                                    <td>{{chd.parent.title | lengthLimit:30}}</td>
                                     <td>
                                       <a ng-click="controller.selectTarget(chd.id, chd.title, 'title', 'subgroup', 'product'); loadMeta(chd.id)" href>
                                         <i class="fa fa-check-square-o fa-lg"></i>
