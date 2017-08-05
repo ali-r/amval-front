@@ -354,22 +354,6 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-<<<<<<< HEAD
-                                    <div class="panel panel-primary" ng-show="invoice.tmp.selectedProducts.length>0">
-                                        <div class="panel-heading">
-                                            کالا های انتخاب شده
-                                        </div>
-                                        <div class="panel-body">
-                                            <ul class="remove-box" id="temp-products">
-                                                <li dir="auto" ng-repeat="item in invoice.tmp.selectedProducts track by $index">
-                                                    {{item.model  | lengthLimit:10}}
-                                                    <a ng-click="invoice.deselect($index)" href>
-                                                        <i class="fa fa-close fa-lg"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>    
-                                        </div>
-=======
                                     <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
                                         <ul class="remove-box">
                                             <li ng-repeat="item in invoice.tmp.selectedProducts track by item.id">
@@ -378,7 +362,6 @@
                                             </li>
                                         </ul>
                                         <hr/>
->>>>>>> feature/hamedFix
                                     </div>
 
                                     <form name="selectProductForm" role="form" novalidate>
