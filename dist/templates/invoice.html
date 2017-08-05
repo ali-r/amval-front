@@ -147,14 +147,14 @@
                             </table>
 
                             <div ng-hide="invoice.obj.products.length > 0" style="text-align:right">
-                                <p>
+                                <p class="text-danger">
                                     -
                                     وجود حداقل یک کالا برای فاکتور کردن الزامی است.
                                 </p>
                             </div>
 
                             <div ng-show="!invoiceForm.productPrice.$valid" style="text-align:right">
-                                <p>
+                                <p class="text-danger">
                                     -
                                     قیمت کالا نباید منفی باشد.
                                 </p>
