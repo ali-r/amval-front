@@ -164,7 +164,8 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectWareHouse()">انتخاب انبار</button>
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse.title" ng-click="user.selectWareHouse()">انتخاب انبار</button>
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-danger btn-beside-input" ng-show="user.obj.warehouse.title" ng-click="user.deleteKey(user.obj, 'warehouse')">حذف انبار</button>
                         </span>
                       </div>
                     </div>
@@ -172,9 +173,10 @@
                     <div class="form-group" ng-if="user.obj.clearance_level == 1">
                       <label>انبار تحت مدیریت</label>
                       <div class="input-group">
-                        <input type="text" class="form-control" ng-model="user.obj.warehouse_under_management.title" disabled>
+                        <input type="text" class="form-control" ng-model="user.obj.warehouse_under_management.title" ng-required="user.obj.clearance_level == 1" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-click="user.selectThings(2, 'warehouse', '?parent_warehouse__ne=None')">انتخاب انبار</button>
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse_under_management.title" ng-click="user.selectThings(2, 'warehouse', '?parent_warehouse__ne=None')">انتخاب انبار</button>
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-danger btn-beside-input" ng-show="user.obj.warehouse_under_management.title" ng-click="user.deleteKey(user.obj, 'warehouse_under_management')">حذف انبار</button>
                         </span>
                       </div>
                     </div>
