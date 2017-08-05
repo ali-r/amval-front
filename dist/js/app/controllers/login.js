@@ -40,9 +40,10 @@ angular.module("assetAdminPanel").controller('loginCtrl',
 
       }, function errorCallback(response) {
         NProgress.done();
+        console.log(response)
         new PNotify({
-          title: 'خطا ' + response.status ,
-          text: 'عملیات موفقیت آمیز نبود.',
+          title: 'خطا ' ,
+          text: response.data.fa,
           type: 'error'
         });
     });
