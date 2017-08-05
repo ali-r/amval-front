@@ -432,6 +432,36 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
   }
 });
 
+app.directive('productStat', function(mainAsset, requestHelper) {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      controller : '='
+    },
+    link : function(scope, element, attr){
+
+      scope.controller.getProductStat = function(id){
+        scope.$parent.loadModal = true;
+        var getUrl = mainAsset.getUrl() + '/product/' + id + '/stats'
+        requestHelper.get(getUrl, scope.$parent, function(response){
+          scope.controller.productStat = response.data;
+          console.log(scope.controller.productStat)
+          scope.$parent.loadModal = false;
+        });
+
+      }
+
+      scope.controller.openProductModal = function(goods){
+        mainAsset.openModal('#productStatModal');
+        scope.controller.getProductStat(goods.id);
+      }
+
+    },
+    templateUrl: '/dist/js/app/directive/productstat.html'
+  }
+});
+
 
 angular.module("assetAdminPanel").controller('mainCtrl',
   function( $scope, $http, $localStorage, $window){

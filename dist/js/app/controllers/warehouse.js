@@ -66,20 +66,4 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     controller.getProducts();
   }
 
-  controller.getProductStat = function(id){
-    $scope.loadModal = true;
-    var getUrl = mainAsset.getUrl() + '/product/' + id + '/stats'
-    requestHelper.get(getUrl, $scope, function(response){
-      controller.productStat = response.data;
-      console.log(controller.productStat)
-      $scope.loadModal = false;
-    });
-
-  }
-
-  controller.openProductModal = function(goods){
-    mainAsset.openModal('#productModal');
-    controller.getProductStat(goods.id);
-  }
-
 });
