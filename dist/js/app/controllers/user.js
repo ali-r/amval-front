@@ -33,17 +33,20 @@ angular.module("assetAdminPanel").controller('userCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   controller.objConfig = function (obj) {
-    if (obj.warehouse)
-      obj.warehouse = obj.warehouse.id;
+    sendCopyObj = angular.copy(obj);
 
-    if (obj.warehouse_under_management && obj.clearance_level == 1)
-      {obj.warehouse_under_management = obj.warehouse_under_management.id;}
+    if (sendCopyObj.warehouse)
+      sendCopyObj.warehouse = sendCopyObj.warehouse.id;
+
+    if (sendCopyObj.warehouse_under_management && sendCopyObj.clearance_level == 1)
+      {sendCopyObj.warehouse_under_management = sendCopyObj.warehouse_under_management.id;}
       else{
-        delete obj.warehouse_under_management;
+        delete sendCopyObj.warehouse_under_management;
       }
 
-
-    return obj;
+    delete sendCopyObj.products;
+    
+    return sendCopyObj;
   };
 
   crud.initModals($scope, controller, apiName)

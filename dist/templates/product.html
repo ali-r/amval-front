@@ -183,7 +183,7 @@
                       <p ng-show="productForm.depricationPeriod.$error.number" class="input-error-p">حداقل مدت زمان استهلاک ۱ روز است</p>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <label>*Qr Code</label>
                       <br/>
@@ -199,7 +199,7 @@
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                     <div class="form-group">
                       <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + product.obj.qr_code}}" ng-if="product.obj.qr_code && product.obj.qr_code != ''" id='qrCodeImage'>
                       <p ng-show = "uploading" style="tAext-align : center;">
