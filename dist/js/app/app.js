@@ -384,17 +384,26 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           }
         }
 
-        for (var i = 0; i < sendCopyObj.meta_data.length; i++) {
-          console.log(sendCopyObj.meta_data[i].value);
-          if(!sendCopyObj.meta_data[i].value || typeof(sendCopyObj.meta_data[i].value) == 'undefined')
+        sendCopyObj.meta_data = [];
+        for (var i = 0; i < obj.meta_data.length; i++) {
+          console.log(obj.meta_data[i].value);
+          if(!!obj.meta_data[i].value && typeof(obj.meta_data[i].value) != 'undefined')
             {
-              sendCopyObj.meta_data.splice(i, 1);
+              sendCopyObj.meta_data.push(obj.meta_data[i]);
             }
           
         }
-
+        // obj = {};
         return sendCopyObj;
       };
+
+      scope.closeModal = function(){
+        scope.controller.tmp = {};
+        scope.controller.tmp.formShow = true;
+        $('#productModal').modal('hide');
+        scope.controller.product = {};
+
+      }
 
       scope.sendOrEdit = function(){
         scope.controller.sendOrEdit(false, scope.objConfig(scope.controller.product), mainAsset.getUrl() + 'product', function(data){
