@@ -57,6 +57,13 @@ angular.module("assetAdminPanel").controller('productCtrl',
   };
 
   $scope.page = 1;
+  controller.obj = {}
+  controller.addOne={};
+  controller.addOne.extra={};
+  controller.addOne.extra.product_filter = "";
+  controller.paginationConfig = {
+    'addOne' : controller.addOne
+  }
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
