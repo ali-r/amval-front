@@ -201,12 +201,16 @@
                       <label>*Qr Code</label>
                       <br/>
                       <div class="btn btn-info btn-sm" ngf-select="product.uploadPic()" ng-model="product.qrCodeFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!product.obj.qr_code && checkWrite('product')" ng-required="!product.obj.qr_code" ng-disabled="uploading">
+                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!product.obj.qr_code && checkWrite('product')" ng-required="!product.obj.qr_code" ng-hide="uploading">
                         بارگذاری بارکد
                         <i class="fa fa-qrcode fa-lg"></i>
-                        </div>
+                      </div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="product.obj.qr_code && checkWrite('product')"
                       ng-click="product.deleteField(product.obj,'qr_code')">حذف بارکد</button>
+                      <p ng-show = "uploading" style="tAext-align : center;">
+                        در حال  بارگذاری
+                        <i class="fa fa-refresh fa-spin fa-lg"></i>
+                      </p>
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -215,10 +219,7 @@
                   <div class="col-md-1">
                     <div class="form-group">
                       <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + product.obj.qr_code}}" ng-if="product.obj.qr_code && product.obj.qr_code != ''" id='qrCodeImage'>
-                      <p ng-show = "uploading" style="tAext-align : center;">
-                        در حال  بارگذاری
-                        <i class="fa fa-refresh fa-spin fa-lg"></i>
-                      </p>
+                      
                     </div>
                   </div>
                   <div class="clearfix"></div>
