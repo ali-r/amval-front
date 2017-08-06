@@ -246,6 +246,13 @@
                       </div>
                   </form>
                   <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
+                    <colgroup>
+                      <col span="1" style="width: 10%;">
+                      <col span="1" style="width: 30%;">
+                      <col span="1" style="width: 30%;">
+                      <col span="1" style="width: 20%;">
+                      <col span="1" style="width: 10%;">
+                    </colgroup>
                     <thead>
                       <tr>
                         <th>ردیف</th>
@@ -266,10 +273,10 @@
                         <td>
                           {{ $index + 1 }}
                         </td>
-                        <td>{{list.model}}</td>
-                        <td>{{list.serial_number | lengthLimit:30}}</td>
+                        <td>{{list.model | lengthLimit:25}}</td>
+                        <td>{{list.serial_number | lengthLimit:20}}</td>
                         <td>
-                          {{list.subgroup.title | lengthLimit:30}}
+                          {{list.subgroup.title | lengthLimit:20}}
                         </td>
                         <td>
                           <a ng-click="transaction.addProduct(list)" href>
@@ -328,10 +335,10 @@
                         <td>
                           {{ $index + 1 }}
                         </td>
-                        <td>{{list.first_name | lengthLimit:30}}</td>
-                        <td>{{list.last_name | lengthLimit:30}}</td>
+                        <td>{{list.first_name | lengthLimit:20}}</td>
+                        <td>{{list.last_name | lengthLimit:20}}</td>
                         <td>
-                          {{list.card_no | lengthLimit:30}}
+                          {{list.card_no | lengthLimit:20}}
                         </td>
                         <td>
                           <a ng-click="transaction.addDestination('User',list)" href>
@@ -390,10 +397,10 @@
                         <td>
                           {{ $index + 1 }}
                         </td>
-                        <td>{{list.title  | lengthLimit:30}}</td>
-                        <td>{{list.location | lengthLimit:30}}</td>
+                        <td>{{list.title  | lengthLimit:20}}</td>
+                        <td>{{list.location | lengthLimit:20}}</td>
                         <td>
-                          {{list.phone}}
+                          {{list.phone | lengthLimit:20}}
                         </td>
                         <td>
                           <a ng-click="transaction.addDestination('Warehouse',list)" href>
