@@ -346,7 +346,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       };
 
       scope.setGroupStage = function(){
-        controller.tmp.searchQuery = "";
+        scope.controller.tmp.searchQuery = "";
         scope.$parent.stage = 3;
         scope.$parent.loadSearch = true;
         var searchUrl = mainAsset.getUrl() + 'group?group_type=group&page=1&per_page=25';
