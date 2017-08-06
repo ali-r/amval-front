@@ -86,6 +86,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.readInvoice = function(id){
         $scope.reset();
+        $scope.loadSide = true;
         controller.tmp.formShow = true;
         controller.getObject(id)
       };
@@ -234,6 +235,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
             if(item.price<0 || item.price==undefined){validPriceFlag=false;return;}
           });
           if(validPriceFlag){
+            $scope.loadSide = true;
             controller.sendOrEdit($scope.editMode);
             return true;  
           }

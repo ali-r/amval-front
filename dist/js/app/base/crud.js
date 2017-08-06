@@ -154,6 +154,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           controller.obj = getConfig(response.data);
           console.log(response.data);
           scope.loadModal = false;
+          scope.loadSide = false;
         });
     };
 
