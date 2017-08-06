@@ -86,6 +86,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.readInvoice = function(id){
         $scope.reset();
+        $scope.loadSide = true;
         controller.tmp.formShow = true;
         controller.getObject(id)
       };
@@ -138,28 +139,20 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       };
 
       controller.pushProduct = function(item){
-        if(controller.tmp.selectedProducts === undefined){controller.tmp.selectedProducts = []};
-        controller.tmp.selectedProducts.push(item);
+        if(controller.obj.products === undefined){controller.obj.products = []};
+        controller.obj.products.push(item);
+        controller.obj.num_of_products = controller.obj.products.length;
       }
 
       controller.deselect = function(item_index){
-        controller.tmp.selectedProducts.remove(item_index);
+        controller.obj.products.remove(item_index);
+        controller.obj.num_of_products = controller.obj.products.length;
       }
 
       controller.deleteProduct = function(item_index){
         controller.obj.products.remove(item_index);
         controller.obj.num_of_products = controller.obj.products.length;
         controller.closeModal('delete');
-      }
-
-      controller.pushSelectedProducts = function(){
-        if(controller.obj.products === undefined){controller.obj.products = []};
-        controller.tmp.selectedProducts.forEach(function(item,index){
-          controller.obj.products.push(item);
-        });
-        controller.obj.num_of_products = controller.obj.products.length;
-        controller.tmp.selectedProducts = [];
-        controller.closeModal('select');
       }
 
       controller.creatProductCallback = function(goods){
@@ -242,6 +235,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
             if(item.price<0 || item.price==undefined){validPriceFlag=false;return;}
           });
           if(validPriceFlag){
+            $scope.loadSide = true;
             controller.sendOrEdit($scope.editMode);
             return true;  
           }

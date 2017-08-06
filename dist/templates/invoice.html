@@ -56,14 +56,14 @@
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
                 <h2 ng-hide="editMode"><i class="fa"></i>ایجاد فاکتور جدید</h2>
                 
-                <div class="pull-left" ng-hide="loadModal">
+                <div class="pull-left" ng-hide="loadSide">
                     <button type="button" class="btn btn-danger" ng-click="reset()">لغو</button>
                     <button type="button" ng-if = "checkWrite('invoice')" ng-click="invoice.validateForm()" class="btn btn-success">ذخیره</button>
                 </div>
 
                 <div class="clearfix"></div>
             </div><!-- /.x_title-->
-            <div class="x_content" ng-hide="loadModal">
+            <div class="x_content" ng-hide="loadSide">
                 <form name="invoiceForm" role="form"  novalidate>
                     <fieldset ng-disabled ="!checkWrite('invoice')">
                         <div class="box-body">
@@ -124,11 +124,16 @@
                             </div>
                             <br>
                             <table class="table table-striped asset-tables" ng-show="invoice.obj.products.length > 0">
+                                <colgroup>
+                                    <col span="1" style="width: 60%;">
+                                    <col span="1" style="width: 35%;">
+                                    <col span="1" style="width: 5%;">
+                                </colgroup>
                                 <thead>
                                     <tr>
-                                        <th width="60%">نام کالا</th>
-                                        <th width="20%">قیمت</th>
-                                        <th width="20%"></th>
+                                        <th>نام کالا</th>
+                                        <th>قیمت</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody ng-repeat = "product in invoice.obj.products">
@@ -223,7 +228,7 @@
                     </fieldset>
                 </form>
             </div><!-- /.x_content-->
-            <div class="load-spinner" ng-show = "loadModal" style="text-align:center">
+            <div class="load-spinner" ng-show = "loadSide" style="text-align:center">
               <i class="fa fa-spinner fa-pulse fa-3x" ></i>
             </div>
         </div><!-- /.x_panel-->
@@ -240,7 +245,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="pull-left">
-                  <button type="button" class="btn btn-success" ng-show="selectStage==3" ng-disabled="invoice.tmp.selectedProducts.length==0 || !invoice.tmp.selectedProducts" ng-click="invoice.pushSelectedProducts()">اضافه کردن کالاها</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
                 </div>
             </div><!-- /.modal-header -->
@@ -354,9 +358,9 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="row" ng-show="invoice.tmp.selectedProducts.length>0">
+                                    <div class="row" ng-show="invoice.obj.products.length>0">
                                         <ul class="remove-box">
-                                            <li ng-repeat="item in invoice.tmp.selectedProducts track by item.id">
+                                            <li ng-repeat="item in invoice.obj.products track by item.id">
                                                 <span ng-click="invoice.deselect($index)">×</span>
                                                 {{item.model | limitTo : 10}}
                                             </li>
@@ -392,10 +396,10 @@
                                               {{list.serial_number | lengthLimit:15}}
                                             </td>
                                             <td>
-                                              <a ng-show="invoice.checkDuplicate(list, invoice.tmp.selectedProducts)" ng-click="invoice.pushProduct(list)" href>
+                                              <a ng-show="invoice.checkDuplicate(list, invoice.obj.products)" ng-click="invoice.pushProduct(list)" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
-                                                <i ng-hide="invoice.checkDuplicate(list, invoice.tmp.selectedProducts)">موجود</i>
+                                                <i ng-hide="invoice.checkDuplicate(list, invoice.obj.products)">موجود</i>
                                             </td>
                                           </tr>
                                         </tbody>
