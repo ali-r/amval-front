@@ -155,7 +155,7 @@
                 <h4 ng-show="controller.tmp.meta.meta_template" >جزئیات کالا</h4>
                 <div class="row">
                   <div class="col-md-3" ng-repeat-start="meta in controller.tmp.meta.meta_template track by $index" >
-                    <h5>{{meta.key  | lengthLimit:40}}</h5>
+                    <h5>{{meta.key  | lengthLimit:30}}</h5>
                   </div>
                   <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="controller.product.meta_data[$index].value" >

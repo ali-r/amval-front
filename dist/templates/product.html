@@ -27,11 +27,11 @@
           <tbody ng-hide = "load">
             <tr ng-repeat = "list in product.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.model | lengthLimit:40}}</td>
+              <td>{{list.model | lengthLimit:30}}</td>
               <td dir="ltr">
-                {{list.price  | lengthLimit:40}}
+                {{list.price  | lengthLimit:30}}
               </td>
-              <td>{{list.producer.brand_name | lengthLimit:40}}</td>
+              <td>{{list.producer.brand_name | lengthLimit:30}}</td>
               <td>{{list.production_date | jalaliDate}}</td>
               <td>{{list.guarantee_end_date | jalaliDate}}</td>
               <td>
@@ -502,7 +502,7 @@
       </div>
       <div class="modal-body">
         آیا مایل به حذف کالای
-        "{{product.toDeleteTitle | lengthLimit:40}}"
+        "{{product.toDeleteTitle | lengthLimit:30}}"
         هستید؟
       </div>
       <div class="modal-footer">

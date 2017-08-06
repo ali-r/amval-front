@@ -22,7 +22,7 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in producer.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.brand_name | lengthLimit:40}}</td>
+              <td>{{list.brand_name | lengthLimit:30}}</td>
               <td>
                 <a ng-click="producer.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('producer') , 'fa-eye' : !checkWrite('producer')}" aria-hidden="true"></i>
@@ -93,7 +93,7 @@
       </div>
       <div class="modal-body">
         آیا مایل به حذف تولید‌کننده
-        "{{producer.toDeleteTitle | lengthLimit:40}}"
+        "{{producer.toDeleteTitle | lengthLimit:30}}"
         هستید؟
       </div>
       <div class="modal-footer">
