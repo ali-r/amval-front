@@ -61,6 +61,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
 
   controller.openSide = function(obj){
     $scope.wareHouseId = obj.id;
+    controller.productPageConf.searchOpt = {};
     controller.productPageConf.searchOpt.product_filter = "0";
     $scope.selectedWarehouse = obj.title;
     controller.productPageConf.url = $scope.apiUrl + '/' + $scope.wareHouseId + '/products';
