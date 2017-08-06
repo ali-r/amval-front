@@ -4478,11 +4478,6 @@ ul#temp-products li{
     border-style: outset;
     background-color: #95d6e9; 
 }
-.ADMdtp-box footer .today-edited{
-    display: inline;
-    width: 9em;
-    position: relative;
-}
 .limited-width-col{
     max-width: 3em;
     word-wrap: break-word;
@@ -4536,4 +4531,9 @@ ul#temp-products li{
 }
 div#deleteModal {
     word-wrap:break-word;
+}
+.ADMdtp-box footer .today-edited{
+    display: inline;
+    width: 8em;
+    position: relative;
 }

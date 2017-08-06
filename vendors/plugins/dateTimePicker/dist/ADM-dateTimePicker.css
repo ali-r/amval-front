@@ -851,3 +851,14 @@ a:hover {
   -webkit-transform:  rotateY(90deg) translateX(-10px);
   transform:  rotateY(90deg) translateX(-10px);
 }
+
+
+/*added by m.eslahi@gandom.co*/
+.ADMdtp-box footer{
+  position: relative !important;
+}
+.ADMdtp-box footer .today-edited{
+    display: inline;
+    width: 8em;
+    position: relative;
+}
