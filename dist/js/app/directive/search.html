@@ -7,7 +7,7 @@
       <select class="form-control filter-option" ng-model="scontroller.searchValue['type']">
         <option value="">مرتب سازی بر اساس</option>
         <option ng-repeat="opt in sobject" value="{{opt.field}}">
-          {{opt.fname | lengthLimit:40}}
+          {{opt.fname | lengthLimit:30}}
         </option>
       </select>
       <select class="form-control sort-option" ng-init = " scontroller.searchValue['order'] = ''" ng-model="scontroller.searchValue['order']">

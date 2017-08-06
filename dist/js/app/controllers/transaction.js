@@ -49,7 +49,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
       console.log(dateTimeSplitted);
       var dateArray = dateTimeSplitted[1].split('-');
       var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      console.log(gDate.year + '-' + gDate.month + '-' + gDate.day+' '+dateTimeSplitted[0]);
+      console.log(gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]);
       return (gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]+':00');
     }
     else if(date_included){
@@ -101,6 +101,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     }
     else{editedObj.extra.time__lte=""}
     $scope.page = 1;
+    controller.paginationConfig.addOne = editedObj;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }

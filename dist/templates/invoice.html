@@ -28,8 +28,8 @@
                     <tbody ng-hide="load">
                         <tr ng-repeat = "list in invoice.note">
                             <td>{{ (page-1)*10 + $index + 1 }}</td>
-                            <td class="limited-width-col">{{list.invoice_no  | lengthLimit:40}}</td>
-                            <td class="limited-width-col">{{list.price | lengthLimit:40}}</td>
+                            <td class="limited-width-col">{{list.invoice_no  | lengthLimit:30}}</td>
+                            <td class="limited-width-col">{{list.price | lengthLimit:30}}</td>
                             <td>
                                 <a ng-click="invoice.readInvoice(list.id)" href>
                                     <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('invoice') , 'fa-eye' : !checkWrite('invoice')}" aria-hidden="true"></i>
@@ -138,7 +138,7 @@
                                 </thead>
                                 <tbody ng-repeat = "product in invoice.obj.products">
                                     <tr>
-                                        <td> {{product.model | lengthLimit:40}} </td>
+                                        <td> {{product.model | lengthLimit:30}} </td>
                                         <td > 
                                             <input dir="ltr" type="number" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
                                         </td>
@@ -437,14 +437,14 @@
       <div class="modal-body" ng-show = "deleteStage == 1">
         آیا مایل به حذف کالای
         <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle  | lengthLimit:40}}"
+            "{{invoice.toDeleteTitle  | lengthLimit:30}}"
         </div >
         هستید؟
       </div>
       <div class="modal-body" ng-show = "deleteStage == 2">
         آیا مایل به حذف فاکتور به شماره
         <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle  | lengthLimit:40}}"
+            "{{invoice.toDeleteTitle  | lengthLimit:30}}"
         </div>
         هستید؟
       </div>

@@ -1,5 +1,16 @@
 <div class="row">
-  <search-tools sobject="product.searchObject" scontroller="product"></search-tools>
+  <search-tools sobject="product.searchObject" scontroller="product">
+    <select class="form-control filter-option" ng-model="product.addOne.extra.product_filter" title="نوع کالا">
+      <option value="">-- نوع کالا --</option>
+      <option value="0">همه</option>
+      <option value="1">کالاهای عادی</option>
+      <option value="2">زیرمجموعه ها</option>
+      <option value="3">باندل ها</option>
+      <option value="4">قابل انتقال ها</option>
+      <option value="5">باندل ها و فرزندها</option>
+      <option value="6">باندل و زیرمجموعه</option>
+    </select>
+  </search-tools>
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
@@ -27,11 +38,11 @@
           <tbody ng-hide = "load">
             <tr ng-repeat = "list in product.note">
               <td>{{ (page-1)*10 + $index + 1 }}</td>
-              <td>{{list.model | lengthLimit:40}}</td>
+              <td>{{list.model | lengthLimit:30}}</td>
               <td dir="ltr">
-                {{list.price  | lengthLimit:40}}
+                {{list.price  | lengthLimit:30}}
               </td>
-              <td>{{list.producer.brand_name | lengthLimit:40}}</td>
+              <td>{{list.producer.brand_name | lengthLimit:30}}</td>
               <td>{{list.production_date | jalaliDate}}</td>
               <td>{{list.guarantee_end_date | jalaliDate}}</td>
               <td>
@@ -502,7 +513,7 @@
       </div>
       <div class="modal-body">
         آیا مایل به حذف کالای
-        "{{product.toDeleteTitle | lengthLimit:40}}"
+        "{{product.toDeleteTitle | lengthLimit:30}}"
         هستید؟
       </div>
       <div class="modal-footer">

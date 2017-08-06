@@ -3,7 +3,7 @@
     <div class="panel panel-info">
       <div class="panel-heading">
         انتخاب
-        {{obj.title.fa  | lengthLimit:40}}
+        {{obj.title.fa  | lengthLimit:30}}
         <div class="pull-left">
           <i ng-show = "$parent.loadSearch || $parent.$parent.loadSearch" class="fa fa-refresh fa-spin"></i>
         </div>
@@ -15,7 +15,7 @@
                 <span class="input-group-btn">
                   <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search(obj.searchItem.en, obj.addOneUrl + obj.searchAt.en, obj.searchFilter)">
                     جستجوی 
-                    {{obj.searchItem.fa  | lengthLimit:40}}
+                    {{obj.searchItem.fa  | lengthLimit:30}}
                   </button>
                 </span>
               </div>
@@ -30,7 +30,7 @@
                 <th>انتخاب</th>
               </tr>
 
-              <tr ng-repeat = "list in controller.tmp.searchResult">
+              <tr ng-repeat = "list in controller.tmp.searchResult | filterObjById:controller.obj.id">
                 <td>{{$index+1}}</td>
                 <td ng-repeat="att in obj.table">
                   {{list[att.en] | lengthLimit:30}}
