@@ -222,6 +222,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(!$scope.productForm.file.$error.maxSize && controller.qrCodeFile)
     {
       requestHelper.uploadFileReq(controller.qrCodeFile, 'qrcode', $scope, function(data){
+        delete controller.qrCodeFile;
         controller.obj.qr_code = data.file_url;
       });
     }

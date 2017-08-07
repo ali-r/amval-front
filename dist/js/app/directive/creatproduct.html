@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-disabled="!productForm.$valid"
+          <button type="button" ng-disabled="!productForm.$valid || !controller.product.qr_code"
           ng-click="sendOrEdit(editMode)" ng-show = "$parent.stage == 0" ng-show = "$parent.checkWrite('product')" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "$parent.stage != 0" ng-click="$parent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
