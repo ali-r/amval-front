@@ -75,7 +75,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-disabled="!productForm.$valid || product.obj.password !== product.tmp.confirm_pass"
+          <button type="button" ng-disabled="!productForm.$valid"
           ng-click="product.sendOrEdit(editMode)" ng-show = "stage == 0" ng-if = "checkWrite('product')" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
@@ -319,7 +319,7 @@
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="جستجو در بین کالاها" name="searchText" ng-model="product.tmp.searchQuery">
                             <span class="input-group-btn">
-                              <button type="button" ng-disabled = "product.tmp.searchQuery==undefined" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?product_filter=1&model__contains=' + product.tmp.searchQuery); product.tmp.searchD = true">
+                              <button type="button" ng-disabled = "product.tmp.searchQuery==undefined" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?product_filter=1&model__contains=' + product.tmp.searchQuery);">
                                 جستجو
                               </button>
                             </span>

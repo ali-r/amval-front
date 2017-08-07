@@ -153,6 +153,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   this.setGroupStage = function(){
     controller.tmp.searchQuery = "";
+    controller.tmp.searchD = false;
     $scope.stage = 3;
     $scope.loadSearch = true;
     var searchUrl = mainAsset.getUrl() + 'group?group_type=group&page=1&per_page=25';

@@ -169,6 +169,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       };
 
       scope.setGroupStage = function(){
+        scope.controller.tmp.searchD = false;
         scope.controller.tmp.searchQuery = "";
         scope.$parent.stage = 3;
         scope.$parent.loadSearch = true;
