@@ -134,8 +134,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.tmp.searchField = '';
         $scope.selectStage = 3;
         controller.openModal('select');
-        if(controller.tmp.searchField==undefined){controller.tmp.searchField = "";}
-        controller.search('product','?holder=None');
+        controller.search('product','?use_case=0');
       };
 
       controller.pushProduct = function(item){

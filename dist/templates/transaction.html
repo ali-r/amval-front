@@ -114,7 +114,7 @@
                     <div class="input-group">
                       <input type="text" class="form-control" ng-model="transaction.obj.product.model" required disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('transaction') || editMode" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?product_filter=4')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('transaction') || editMode" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?use_case=1')">انتخاب</button>
                       </span>
                     </div>
                   </div>
@@ -239,7 +239,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو کالا" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?product_filter=4&model__contains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1&model__contains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>
