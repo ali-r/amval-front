@@ -199,7 +199,7 @@
                         <th>انتخاب</th>
                       </tr>
 
-                      <tr ng-repeat = "list in warehouse.tmp.searchResult">
+                      <tr ng-repeat = "list in warehouse.tmp.searchResult | filterObjById:assetData.id">
                         <td>{{$index+1}}</td>
                         <td>
                           {{list.first_name | lengthLimit:30}}
