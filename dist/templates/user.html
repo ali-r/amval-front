@@ -102,7 +102,7 @@
                   
                   
                   <div class="clearfix"></div>
-                  <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
+                  <div class="col-md-6" ng-if="editMode || user.obj.clearance_level == 0">
                     <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && user.obj.password,
                       'has-success' : !userForm.password.$invalid }  ">
                       <label>گذرواژه*</label>
@@ -113,7 +113,7 @@
                       <p ng-show="userForm.password.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
                     </div>
                   </div>
-                  <div class="col-md-6" ng-hide="editMode || user.obj.clearance_level == 0">
+                  <div class="col-md-6" if="editMode || user.obj.clearance_level == 0">
                     <div class="form-group" ng-class=" {'has-error' : userForm.confPass.$dirty && user.tmp.confirm_pass !== user.obj.password,
                       'has-success' : user.tmp.confirm_pass === user.obj.password && user.tmp.confirm_pass}">
                       <label>تکرار گذرواژه*</label>
