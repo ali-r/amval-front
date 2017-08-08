@@ -28,6 +28,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
   this.init = function(scope, controller, apiName, objConfig, getConfig) {
 
     scope.uploadUrl = mainAsset.getUploadUrl();
+    scope.perPage = '10';
 
     if ( typeof(objConfig) == 'undefined' ) {
       objConfig = function(obj){return obj;};
@@ -55,7 +56,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           keys = {};
 
       if ( !config.url ) {
-          var url = scope.apiUrl + "?page=" + page + "&per_page=10";
+          var url = scope.apiUrl + "?page=" + page + "&per_page=" + scope.perPage;
 
           if(addOne){
             for ( key in addOne.extra) {

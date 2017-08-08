@@ -4532,3 +4532,19 @@ ul#temp-products li{
 div#deleteModal {
     word-wrap:break-word;
 }
+.per-page-select{
+    width: 7%;
+    min-width: 65px;
+    max-width: 150px;
+    display: inline;
+    vertical-align: top;
+    padding: 2px 15px;
+    margin:20px 5px;
+    border-radius: 4px 4px;
+}
+.per-page-text{
+    display: inline;
+    position: relative;
+    bottom: 33px;
+    margin: 5px 5px;
+}
