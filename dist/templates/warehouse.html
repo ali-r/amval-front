@@ -24,7 +24,7 @@
             </tr>
           </thead>
           <tbody ng-hide="load">
-            <tr ng-repeat = "list in warehouse.note">
+            <tr ng-repeat = "list in warehouse.note" ng-class="{'info' : wareHouseId == list.id}">
               <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td>
                 {{list.title | lengthLimit:30}}
@@ -40,7 +40,7 @@
                 </a>
               </td>
               <td>
-                <a ng-click="warehouse.openSide(list)" title="مشاهده کالاها" ng-show="assetData.permissions.warehouse_products == 'read'" href>
+                <a ng-click="warehouse.openSide(list)" title="مشاهده کالاها" ng-hide="assetData.permissions.warehouse_products == 'read'" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
                 </a>
               </td>
@@ -78,7 +78,7 @@
         <h2><i class="fa"></i>کالا های انبار 
           "{{selectedWarehouse | lengthLimit:30}}"
         </h2>
-        <button type="button" class="btn btn-warning btn-sm pull-left" name="button" ng-click="productShow = false;">
+        <button type="button" class="btn btn-warning btn-sm pull-left" name="button" ng-click="productShow = false; wareHouseId=''">
           بستن
         </button>
         <div class="clearfix"></div>
