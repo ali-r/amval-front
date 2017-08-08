@@ -33,6 +33,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     this.scope.load = false;
     this.scope.loadModal = false;
     this.scope.loadSearch = false;
+    this.scope.loadSide = false;
   }
 
   this.successCallback = function(response, callback , notifyEnable) {

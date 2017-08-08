@@ -71,6 +71,7 @@
                             
 
                             <div class="row">
+
                                 <div class="col-xs-6">
                                     <div class="form-group" ng-class=" {'has-error' : invoiceForm.invoice_no.$invalid && invoice.obj.invoice_no,
                                         'has-success' : invoiceForm.invoice_no.$valid && invoice.obj.invoice_no } ">
@@ -84,9 +85,8 @@
                                         <adm-dtp  ng-model="invoice.obj.datetime" ></adm-dtp>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="clearfix"></div>
 
-                            <div class="row">
                                 <div class="col-xs-6">
                                     <label>خریدار*</label>
                                     <div class="input-group">
@@ -105,20 +105,25 @@
                                         </span>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
+
+                                <div class="col-xs-6">
+                                    <label>قیمت کل*</label>
+                                    <input type="number" min="0" step="1" class="form-control form-ltr" ng-model="invoice.obj.price">
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>تعداد کالا*</label>
+                                    <input type="number" min="0" step="1" class="form-control form-ltr" ng-model="invoice.obj.num_of_products">
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
                             
-                            <hr></hr>
+                            <hr>
                             <div class="row">
                                 <div class="col-xs-6">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-info" ng-click="invoice.openProductModal()">ایجاد کالا</button>
                                         <button type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
-                                    </span>
-                                </div>
-                                <div class="col-xs-6">
-                                    <label>تعداد کالا:</label>
-                                    <span>
-                                        {{invoice.obj.num_of_products || 0}}
                                     </span>
                                 </div>
                             </div>
@@ -139,8 +144,8 @@
                                 <tbody ng-repeat = "product in invoice.obj.products">
                                     <tr>
                                         <td> {{product.model | lengthLimit:30}} </td>
-                                        <td > 
-                                            <input dir="ltr" type="number" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
+                                        <td> 
+                                            <input dir="ltr" type="number" step="1" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
                                         </td>
                                         <td ng-if = "checkWrite('invoice')">
                                             <a ng-click="invoice.openDeleteModal($index,product.model,1)" href>
@@ -151,17 +156,10 @@
                                 </tbody>
                             </table>
 
-                            <div ng-hide="invoice.obj.products.length > 0" style="text-align:right">
+                            <div ng-show="invoiceForm.productPrice.$invalid && invoice.obj.products.length > 0" style="text-align:right">
                                 <p class="text-danger">
                                     -
-                                    وجود حداقل یک کالا برای فاکتور کردن الزامی است.
-                                </p>
-                            </div>
-
-                            <div ng-show="!invoiceForm.productPrice.$valid" style="text-align:right">
-                                <p class="text-danger">
-                                    -
-                                    قیمت کالا نباید منفی باشد.
+                                    قیمت کالا به درستی وارد نشده است
                                 </p>
                             </div>
 
@@ -202,12 +200,7 @@
 
                             <div style="text-align:right" ng-hide = "invoiceForm.$valid && invoice.obj.products.length>0">
                                 <p> 
-                                    تمامی فیلد ها باید به درستی تکمیل شوند.
-                                    <br>
-                                    −
                                   پر کردن فیلد هایی که با * مشخص شده اجباری است.
-                                  
-                                  <hr >
                                 </p>
                             </div>
 

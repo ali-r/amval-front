@@ -140,17 +140,14 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.pushProduct = function(item){
         if(controller.obj.products === undefined){controller.obj.products = []};
         controller.obj.products.push(item);
-        controller.obj.num_of_products = controller.obj.products.length;
       }
 
       controller.deselect = function(item_index){
         controller.obj.products.remove(item_index);
-        controller.obj.num_of_products = controller.obj.products.length;
       }
 
       controller.deleteProduct = function(item_index){
         controller.obj.products.remove(item_index);
-        controller.obj.num_of_products = controller.obj.products.length;
         controller.closeModal('delete');
       }
 
@@ -159,7 +156,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           controller.obj.products = [];
         }
         controller.obj.products.push(goods);
-        controller.obj.num_of_products = controller.obj.products.length;
       }
 
       this.checkDuplicate = function (obj, array) {
@@ -186,6 +182,21 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         }
       }
 
+      controller.checkTotalPrice = function(){
+        var bank = 0;
+
+        controller.obj.products.forEach(function(item,index){
+          bank += item.price;
+        })
+        
+        console.log(bank)
+        if (bank == controller.obj.price) {
+          return false;
+        }else{
+          return true;
+        }
+      }
+
       controller.validateForm = function(){
         var notifObj = {};
         notifObj.type = 'error';
@@ -207,6 +218,16 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         }
         else if(controller.obj.seller==undefined){
           notifObj.text = "فروشنده را انتخاب کنید.";
+          new PNotify(notifObj);
+          return false; 
+        }
+        else if(controller.checkTotalPrice()){
+          notifObj.text = "قیمت کل به درستی وارد نشده است";
+          new PNotify(notifObj);
+          return false; 
+        }
+        else if(controller.obj.products.length != controller.obj.num_of_products){
+          notifObj.text = 'تعداد کالا های به درستی وارد نشده است';
           new PNotify(notifObj);
           return false; 
         }
@@ -239,7 +260,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
             return true;  
           }
           else{
-            notifObj.text = "قیمت کالا نمیتواند منفی باشد";
+            notifObj.text = "قیمت کالا نمیتواند اعشاری یا منفی باشد";
             new PNotify(notifObj);
             return false;
           }
