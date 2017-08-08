@@ -168,6 +168,18 @@ app.filter('metaType', function() {
   }
 });
 
+app.filter('productPrice', function() {
+  return function(input) {
+    var output;
+    if (input == -1) {
+      output = '− فاکتور نشده −'
+    }else{
+      output = input;
+    }
+    return output;
+  }
+});
+
 app.filter('depricateType', function() {
   return function(input) {
     var output;

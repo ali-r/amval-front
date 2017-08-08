@@ -2,7 +2,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x-panel-search">
     <form class="filter-form">
-      <input type="text" ng-repeat="opt in sobject" class="form-control search-option" id="{{opt.field}}" placeholder="{{opt.fname}}" ng-model="scontroller.searchValue[opt.field]">
+      <input type="text" ng-repeat="opt in sobject" class="form-control search-option" id="{{opt.field}}" placeholder="{{opt.fname}}" ng-model="scontroller.searchValue[opt.field]" ng-if="opt.show_in_search != false">
       <ng-transclude></ng-transclude>
       <select class="form-control filter-option" ng-model="scontroller.searchValue['type']">
         <option value="">مرتب سازی بر اساس</option>

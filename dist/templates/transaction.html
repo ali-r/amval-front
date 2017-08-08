@@ -4,7 +4,7 @@
       <option value="">-- علت تراکنش --</option>
       <option value="0">تامین</option>
       <option value="1">تعمیرات</option>
-      <option value="2">مستهلک شده</option>
+      <option value="2">استهلاک</option>
       <option value="3">بدون دلیل</option>
     </select>
 
@@ -63,7 +63,7 @@
 
               <td ng-show="list.reason==0">تامین</td>
               <td ng-show="list.reason==1">تعمیرات</td>              
-              <td ng-show="list.reason==2">مستهلک شده</td>              
+              <td ng-show="list.reason==2">استهلاک</td>              
               <td ng-show="list.reason==3">بدون دلیل</td>              
 
               <td ng-show="list.transaction_type==0">تخصیص</td>
@@ -169,7 +169,7 @@
                         <select class="form-control" ng-model="transaction.obj.reason" required ng-disabled="editMode">
                           <option value="0">تامین</option>
                           <option value="1">تعمیرات</option>
-                          <option value="2">مستهلک شده</option>
+                          <option value="2">استهلاک</option>
                           <option value="3">بدون دلیل</option>
                         </select>
                       </div>
