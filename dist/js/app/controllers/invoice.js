@@ -139,6 +139,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.pushProduct = function(item){
         if(controller.obj.products === undefined){controller.obj.products = []};
+        item.price = null;
         controller.obj.products.push(item);
       }
 
@@ -155,6 +156,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         if(!controller.obj.products){
           controller.obj.products = [];
         }
+        goods.price = null;
         controller.obj.products.push(goods);
       }
 

@@ -172,7 +172,7 @@ app.filter('productPrice', function() {
   return function(input) {
     var output;
     if (input == -1) {
-      output = '− فاکتور نشده −'
+      output = '− بدون قیمت −'
     }else{
       output = input;
     }

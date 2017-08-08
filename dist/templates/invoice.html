@@ -145,7 +145,7 @@
                                     <tr>
                                         <td> {{product.model | lengthLimit:30}} </td>
                                         <td> 
-                                            <input dir="ltr" type="number" step="1" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
+                                            <input placeholder="بدون قیمت" dir="ltr" type="number" step="1" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
                                         </td>
                                         <td ng-if = "checkWrite('invoice')">
                                             <a ng-click="invoice.openDeleteModal($index,product.model,1)" href>
