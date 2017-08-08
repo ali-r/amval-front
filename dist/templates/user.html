@@ -24,12 +24,12 @@
           </thead>
           <tbody ng-hide = "load">
             <tr ng-repeat = "list in user.note">
-              <td ng-click="user.getObject(list.id)">{{ (page-1)*10 + $index + 1 }}</td>
+              <td ng-click="user.getObject(list.id)">{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td ng-click="user.getObject(list.id)">{{list.first_name | lengthLimit:30}}</td>
               <td ng-click="user.getObject(list.id)">{{list.last_name | lengthLimit:30}}</td>
               <td ng-click="user.getObject(list.id)">{{list.card_no | lengthLimit:30}}</td>
               <td ng-click="user.getObject(list.id)">{{list.clearance_level | userType}}</td>
-              <td ng-click="user.getObject(list.id)" style="direction:ltr;">{{list.phone}}</td>
+              <td ng-click="user.getObject(list.id)" style="direction:ltr;">{{list.phone | pNumber }}</td>
               <td>
                 <a ng-click="user.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('user') , 'fa-eye' : !checkWrite('user')}" aria-hidden="true"></i>

@@ -24,11 +24,11 @@
           </thead>
           <tbody ng-hide="load">
             <tr ng-repeat = "list in guarantor.note">
-              <td>{{ (page-1)*10 + $index + 1 }}</td>
+              <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td>{{list.secretary_first_name | lengthLimit:30}}</td>
               <td>{{list.secretary_last_name | lengthLimit:30}}</td>
-              <td>{{list.office_phone}}</td>
-              <td>{{list.address | lengthLimit:30}}</td>
+              <td>{{list.office_phone | pNumber}}</td>
+              <td>{{list.address | lengthLimit:30 | pNumber}}</td>
               <td>
                 <a ng-click="guarantor.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('guarantor') , 'fa-eye' : !checkWrite('guarantor')}" aria-hidden="true"></i>

@@ -42,14 +42,14 @@
           </thead>
           <tbody ng-hide = "load">
             <tr ng-repeat = "list in product.note">
-              <td>{{ (page-1)*10 + $index + 1 }}</td>
+              <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td>{{list.model | lengthLimit:30}}</td>
               <td dir="ltr">
-                {{list.price  | lengthLimit:30}}
+                {{list.price  | lengthLimit:30 | pNumber}}
               </td>
               <td>{{list.producer.brand_name | lengthLimit:30}}</td>
-              <td>{{list.production_date | jalaliDate}}</td>
-              <td>{{list.guarantee_end_date | jalaliDate}}</td>
+              <td>{{list.production_date | jalaliDate | pNumber}}</td>
+              <td>{{list.guarantee_end_date | jalaliDate | pNumber}}</td>
               <td>
                 <a ng-click="product.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('product') , 'fa-eye' : !checkWrite('product')}" aria-hidden="true"></i>

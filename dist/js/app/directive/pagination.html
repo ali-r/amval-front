@@ -5,25 +5,25 @@
       <a ng-click = "pageSet('first')" href>اول</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('first')">
-      <a ng-click = "pageSet('first')" href>1</a>
+      <a ng-click = "pageSet('first')" href>۱</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('first')">
       <a>....</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('new')">
-      <a ng-click = "pageSet('new')" href>{{itempage-1}}</a>
+      <a ng-click = "pageSet('new')" href>{{itempage-1 | pNumber}}</a>
     </li>
     <li class="paginate_button active">
-      <a href>{{itempage}}</a>
+      <a href>{{itempage | pNumber}}</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('old')">
-      <a ng-click = "pageSet('old')" href>{{itempage+1}}</a>
+      <a ng-click = "pageSet('old')" href>{{itempage+1 | pNumber}}</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('end')">
       <a>....</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('end')">
-      <a ng-click = "pageSet('end')" href>{{itemmeta.pages}}</a>
+      <a ng-click = "pageSet('end')" href>{{itemmeta.pages | pNumber}}</a>
     </li>
     <li class="paginate_button next" ng-class="{'disabled' : pagination('end')}">
       <a ng-click = "pageSet('end')" href>آخر</a>

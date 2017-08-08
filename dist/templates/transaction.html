@@ -52,7 +52,7 @@
           </thead>
           <tbody ng-hide="load">
             <tr ng-repeat = "list in transaction.note">
-              <td>{{ (page-1)*10 + $index + 1 }}</td>
+              <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td>{{list.product.model | lengthLimit:30}}</td>
               
               <td ng-show="list.source.type == 'User'">{{list.source.obj.last_name | lengthLimit:30}}</td>
