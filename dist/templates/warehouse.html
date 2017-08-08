@@ -40,7 +40,7 @@
                 </a>
               </td>
               <td>
-                <a ng-click="warehouse.openSide(list)" title="مشاهده کالاها" href>
+                <a ng-click="warehouse.openSide(list)" title="مشاهده کالاها" ng-show="assetData.permissions.warehouse_products == 'read'" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
                 </a>
               </td>

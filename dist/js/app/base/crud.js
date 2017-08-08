@@ -95,6 +95,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
 
     scope.getUrl = controller.makeUrl(scope.page, controller.paginationConfig);
+    scope.assetData = $localStorage.assetData;
 
     scope.checkWrite = function(param){
       if( $localStorage.assetData.permissions[param] == 'write'){

@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('warehouseCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, crud) {
+  function($scope, mainAsset, requestHelper, crud) {
 
   var controller = this;
   var apiName = 'warehouse';
@@ -12,7 +12,6 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   $scope.productShow = false;
 
   $scope.page = 1;
-  $scope.assetData = $cookieStore.get('assetData');
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
