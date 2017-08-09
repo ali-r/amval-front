@@ -63,11 +63,10 @@
           <input type="text" class="form-control product-search-option" placeholder="مدل" ng-model="warehouse.productPageConf.searchOpt.model__contains">
           <input type="text" class="form-control product-search-option" placeholder="سریال" ng-model="warehouse.productPageConf.searchOpt.serial_number__contains">
           <select class="form-control product-search-option" ng-model="warehouse.productPageConf.searchOpt.product_filter">
+            <option value="">-- نوع کالا --</option>
             <option value="0">همه</option>
-            <option value="1">کالا های عادی</option>
-            <option value="2">زیر مجموعه ها</option>
-            <option value="3">باندل ها</option>
-            <option value="4">قابل انتقال</option>
+            <option value="3">باندل</option>
+            <option value="1">غیر باندل</option>
           </select>
           <button type="submit" class="btn btn-info filter-btn" ng-click = "warehouse.getProducts()">جستجو</button>
         </form>

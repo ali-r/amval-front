@@ -64,9 +64,23 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     this.toJalaliDate = function(pDate){
       if(!pDate)
         pDate = '';
-      var dateArray = pDate.split('-');
+      if( pDate.indexOf('T') >= 0 )
+        {
+          if ( moment(pDate).isDST() ) {
+            pDate = moment(pDate).utcOffset(540).format('YYYY-MM-DDTHH:mm')
+          }else{
+            pDate = moment(pDate).utcOffset(480).format('YYYY-MM-DDTHH:mm')
+          }
+        }
+      pDate = pDate.split('T');
+      var dateArray = pDate[0].split('-');
+      var transactionTime = pDate[1];
       var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+      var output = gDate.year + '/' + gDate.month + '/' + gDate.day;
+      if ( typeof(transactionTime) != 'undefined') {
+        output = output + " در ساعت " + transactionTime
+      }
+      return output;
     };
 
 

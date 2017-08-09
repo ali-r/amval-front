@@ -31,7 +31,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     return(finalObj);
   }
   controller.trGetConfig = function(obj){
-    obj.time = controller.toJalaliDate(obj.time);
+    obj.time = mainAsset.toJalaliDate(obj.time);
     obj.reason = obj.reason +'';
     obj.transaction_type = obj.transaction_type+'';
     return(obj);
@@ -70,7 +70,11 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     var dateArray = pDate[0].split('-');
     var transactionTime = pDate[1];
     var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-    return (gDate.year + '/' + gDate.month + '/' + gDate.day + " در ساعت " + transactionTime);
+    var output = gDate.year + '/' + gDate.month + '/' + gDate.day;
+    if ( typeof(transactionTime) != 'undefined') {
+      output = output + " در ساعت " + transactionTime
+    }
+    return output;
   }
 
   controller.addProduct = function(list){
