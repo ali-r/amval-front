@@ -95,7 +95,7 @@
           <div class="box-body">
             <div ng-show = "stage == 0">
               <form name="productForm" role="form" ng-hide="loadModal" novalidate>
-                <fieldset>
+                <fieldset ng-disabled ="!checkWrite('product')">
                 <div class="row">
                   <!-- model serial group -->
                   <div class="col-md-4">
