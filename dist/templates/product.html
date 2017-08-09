@@ -343,6 +343,9 @@
                             <th>
                               زیر گروه
                             </th>
+                            <th>
+                              نگهدارنده
+                            </th>
                             <th>انتخاب</th>
                           </tr>
                         </thead>
@@ -359,6 +362,10 @@
                             </td>
                             <td>
                               {{list.subgroup.title | lengthLimit:20}}
+                            </td>
+                            <td>
+                              {{list.holder.obj.title | lengthLimit:20}}
+                              {{list.holder.obj.first_name + ' ' + list.holder.obj.last_name  | lengthLimit:20}}
                             </td>
                             <td>
                               <i ng-hide="product.checkDuplicate(list, product.obj.children)">موجود</i>
