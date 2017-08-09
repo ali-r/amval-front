@@ -75,7 +75,7 @@
           <div class="box-body">
             <div class="row" ng-show = "stage == 0">
               <form name="userForm" role="form" ng-hide="loadModal" novalidate>
-                <fieldset>
+                <fieldset ng-disabled ="!checkWrite('user')">
                   <div class="col-md-4">
                     <div class="form-group" ng-class="{'has-success' : userForm.firstname.$valid && user.obj.first_name}">
                       <label>نام*</label>
