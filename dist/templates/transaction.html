@@ -193,7 +193,9 @@
                     <div class="form-group" ng-show="editMode">
                     <label>تاریخ تراکنش*</label>
                     <div>
-                      <input type="text" class="form-control" style="text-align:left"  ng-model="transaction.obj.time" disabled>
+                      <p style="padding:5px 5px;">
+                        {{transaction.obj.time | pNumber}}
+                      </p>
                     </div>
                   </div>
                 </div>

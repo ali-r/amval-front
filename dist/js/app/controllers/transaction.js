@@ -65,9 +65,12 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
 
   controller.toJalaliDate = function(pDate){
     if(!pDate){return '';}
-    var dateArray = pDate.split('-');
+    pDate = pDate.split('T');
+    console.log(pDate)
+    var dateArray = pDate[0].split('-');
+    var transactionTime = pDate[1];
     var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-    return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+    return (gDate.year + '/' + gDate.month + '/' + gDate.day + " در ساعت " + transactionTime);
   }
 
   controller.addProduct = function(list){
