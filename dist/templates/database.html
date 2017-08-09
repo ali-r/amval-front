@@ -1,20 +1,54 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3 dataBaseplace-box">
-    <p class="dataBaseMainText">
-      برای دریافت اطلاعات بر روی دکمه Download و برای ارسال اطلاعات بر روی دکمه Upload کلیک نمایید.
-    </p>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div style="text-align:center">
-          <form name='databaseForm'>
-            <button type="submit" ng-click="database.download()" class="btn btn-success"> دریافت </button>
-            <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'"
-              ngf-max-size="2MB">ارسال</div>
-          </form>
+    <div class="" id='myTabs' role="tabpanel" data-example-id="myTabs">
+      <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+        <li role="presentation">
+          <a href="#server" role="tab" data-toggle="tab" aria-expanded="false">اطلاعات</a>
+        </li>
+        <li role="presentation">
+          <a href="#upload" role="tab" data-toggle="tab" aria-expanded="true">فایل ها</a>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade" id="server" aria-labelledby="home-tab">
+          <p class="dataBaseMainText">
+            برای دریافت نسخه ی پشتیبان بانک اطلاعاتی از دکمه ی دریافت و برای بازگردانی اطلاعات از دکمه ی ارسال استفاده کنید
+          </p>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              
+              <div style="text-align:center">
+                <form name='databaseForm'>
+                  <button type="submit" ng-click="database.download()" class="btn btn-success"> دریافت </button>
+                  <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'"
+                    ngf-max-size="2MB">ارسال</div>
+                </form>
+              </div>
+              <p ng-show="databaseForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+            </div>
+          </div>
         </div>
-        <p ng-show="databaseForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+        <div role="tabpanel" class="tab-pane fade" id="upload" aria-labelledby="profile-tab">
+          <p class="dataBaseMainText">
+            برای دریافت نسخه ی پشتیبان فایل های سیستم از دکمه ی دریافت و برای بازگردانی فایل ها از دکمه ی ارسال استفاده کنید
+          </p>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              
+              <div style="text-align:center">
+                <form name='uploadForm'>
+                  <button type="submit" ng-click="database.downloadFile()" class="btn btn-success"> دریافت </button>
+                  <div class="btn btn-success" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'"
+                    ngf-max-size="1024MB">ارسال</div>
+                </form>
+              </div>
+              <p ng-show="uploadForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    
   </div>
 </div>
 <div class="clearfix"></div>

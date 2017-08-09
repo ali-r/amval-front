@@ -4,7 +4,13 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
     var controller = this;
     $scope.assetData = $cookieStore.get("assetData");
     $scope.serverUrl = mainAsset.getUrl();
+    $scope.uploadUrl = mainAsset.getUploadUrl();
     controller.downloadUrl = null;
+    $('#myTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    $('#myTabs a:first').tab('show') 
 
     this.databaseUrl = $scope.serverUrl + 'database';
 
@@ -30,7 +36,16 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
       },true)
     }
 
+    this.downloadFile = function(){
+      controller.downloadUrl = null;
+      requestHelper.post($scope.uploadUrl + '/database/backup', {}, $scope, function(response) {
+        $window.open(response.data.download_url, '_blanck');
+        controller.downloadUrl = response.data.download_url;
+      },true)
+    }
+
     requestHelper.init($scope);
+
     this.upload = function(){
       if (!$scope.databaseForm.file.$error.pattern && controller.file) {
         requestHelper.startLoading(true);
@@ -47,4 +62,22 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
         });
       }
     }
+
+    this.uploadServer = function(){
+      if (!$scope.uploadForm.file.$error.pattern && controller.uploadFile) {
+        requestHelper.startLoading(true);
+        Upload.upload({
+            url: $scope.uploadUrl + '/database',
+            method : 'PUT',
+            data: {'database' : controller.uploadFile}
+        }).then(function (resp) {
+            requestHelper.successCallback();
+        }, function (resp) {
+            requestHelper.errorCallback(resp.status);
+        }, function (evt) {
+        });
+      }
+    }
+
+
 });
