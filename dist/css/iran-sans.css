@@ -1,3 +1,9 @@
+/*
+IRAN Sans-serif fonts are considered a proprietary software. To gain information about the laws regarding the use of these fonts, please visit www.fontiran.com
+--------------------------------------------------------------------------------------
+This set of fonts are used in this project under the license: (LZEN3)
+--------------------------------------------------------------------------------------
+*/
 @charset "utf-8";
 
 @font-face {
@@ -5,9 +11,9 @@
         src: url('../fonts/IRANSans-web.eot');
 
 	src: url('../fonts/IRANSans-web.eot?#iefix') format('eot'),  /* IE6–8 */
-url('../fonts/IRANSans-web.woff2') format('woff2'),  /* Chrome36+, Opera24+*/
-url('../fonts/IRANSans-web.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-url('../fonts/IRANSans-web.ttf') format('ttf');
+		url('../fonts/IRANSans-web.woff2') format('woff2'),  /* Chrome36+, Opera24+*/
+		url('../fonts/IRANSans-web.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		url('../fonts/IRANSans-web.ttf') format('ttf');
 	font-weight: normal;
 }
 
