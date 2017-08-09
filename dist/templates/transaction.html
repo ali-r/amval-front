@@ -11,7 +11,7 @@
     <select class="form-control filter-option" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
       <option value="">-- نوع تراکنش --</option>
       <option value="0">تخصیص</option>
-      <option value="1">بازگشت</option>
+      <option value="1">عودت</option>
       <option value="2">انتقال</option>
     </select>
     از تاریخ :
@@ -67,7 +67,7 @@
               <td ng-show="list.reason==3">بدون دلیل</td>              
 
               <td ng-show="list.transaction_type==0">تخصیص</td>
-              <td ng-show="list.transaction_type==1">بازگشت</td>
+              <td ng-show="list.transaction_type==1">عودت</td>
               <td ng-show="list.transaction_type==2">انتقال</td>
 
               <td></td>
@@ -185,7 +185,7 @@
                       <div>
                         <select class="form-control" ng-model="transaction.obj.transaction_type" required ng-disabled="editMode">
                           <option value="0">تخصیص</option>
-                          <option value="1">بازگشت</option>
+                          <option value="1">عودت</option>
                           <option value="2">انتقال</option>
                         </select>
                       </div>
