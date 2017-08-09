@@ -144,7 +144,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>وضعیت فعالیت*</label>
-                      <select class="form-control" ng-model = "user.obj.service_situation" required>
+                      <select class="form-control" ng-model = "user.obj.service_situation" ng-disabled="user.obj.id == assetData.id" required>
                         <option ng-value="0">در حال کار</option>
                         <option ng-value="1">جدا شده</option>
                       </select>
