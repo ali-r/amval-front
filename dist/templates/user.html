@@ -335,7 +335,7 @@
         <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">تغییر کلمه عبور کاربر</h4>
       </div>
       <div class="modal-body">
-        <form name="resetPassForm" novalidate>
+        <form name="resetPassForm" ng-hide="loadModal" novalidate>
           <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine ,
             'has-success' : !resetPassForm.password.$invalid && !resetPassForm.pass.$pristine }">
             <label for="pass">کلمه عبور جدید</label>
@@ -355,7 +355,7 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" ng-hide="loadModal">
         <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
         <button type="button" class="btn btn-success" ng-disabled="resetPassForm.$invalid || user.passToResetConf !== user.passToReset" ng-click="user.resetPass(user.toResetPassId)">ذخیره</button>
       </div>

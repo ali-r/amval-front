@@ -53,10 +53,12 @@ angular.module("assetAdminPanel").controller('userCtrl',
   crud.init($scope, controller, apiName, controller.objConfig)
   
   this.resetPass = function(id) {
+    $scope.loadModal = true;
     requestHelper.put(
       $scope.apiUrl + '/' + id + '/password', {'new_password': controller.passToReset}, $scope,
       function(response) {
         $('#resetPassModal').modal('hide');
+        $scope.loadModal = false;
       });
   };
 
