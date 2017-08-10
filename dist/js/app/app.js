@@ -177,6 +177,9 @@ app.filter('metaType', function() {
         case 'bool':
           output = "دو حالتی";
         break;
+        case 'float':
+          output = "عدد اعشاری";
+        break;
     }
     return output;
   }

@@ -159,8 +159,9 @@
                   </div>
                   <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="controller.product.meta_data[$index].value" >
-                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="controller.product.meta_data[$index].value" >
+                    <input ng-if="meta.type == 'int'" step="1" class="form-control" type="number" ng-model="controller.product.meta_data[$index].value" >
                     <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="controller.product.meta_data[$index].value" >
+                    <input ng-if="meta.type == 'float'" class="form-control form-ltr" type="number" ng-model="product.obj.meta_data[$index].value">
                   </div>
                   <div class="col-md-3" >
                   </div>
