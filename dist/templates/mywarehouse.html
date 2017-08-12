@@ -7,11 +7,11 @@
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-4">
-          <div class="input-group pull-left select-warehouse">
-            <input type="text" class="form-control" ng-model="user.obj.warehouse.title" readonly>
+          <div class="input-group pull-left select-warehouse" ng-show="assetData.clearance_level > 1">
+            <input type="text" class="form-control" ng-model="mywarehouse.warehouse.title" readonly>
             <span class="input-group-btn">
-              <button type="button" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse.title" ng-click="user.selectWareHouse()">انتخاب انبار</button>
-              <button type="button" class="btn btn-danger btn-beside-input" ng-show="user.obj.warehouse.title" ng-click="user.deleteKey(user.obj, 'warehouse')">حذف انبار</button>
+              <button type="button" class="btn btn-primary btn-beside-input" ng-hide="mywarehouse.warehouse.title" ng-click="mywarehouse.selectWareHouseModal()">انتخاب انبار</button>
+              <button type="button" class="btn btn-danger btn-beside-input" ng-show="mywarehouse.warehouse.title" ng-click="mywarehouse.deleteKey(mywarehouse, 'warehouse')">حذف انبار</button>
             </span>
           </div>
         </div>
@@ -20,11 +20,11 @@
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
-        <div class="row top_tiles">
+        <div class="row top_tiles" ng-show="mywarehouse.warehouse">
 
           <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="tile-my-warehouse">
-              <a href="#ticket">
+              <a ng-href="{{ '#ticket/' + mywarehouse.warehouse.id }}">
                 <div class="icon"><i class="fa fa-file-text-o fa-2x"></i></div>
                 <h3>تیکت ها</h3>
                 <p>مشاهده تیکت های انبار</p>
@@ -34,7 +34,7 @@
 
           <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="tile-my-warehouse">
-              <a href="#transaction">
+              <a ng-href="{{ '#transaction/' + mywarehouse.warehouse.id }}">
                 <div class="icon"><i class="fa fa-exchange fa-2x"></i></div>
                 <h3>تراکنش ها</h3>
                 <p>مشاهده تراکنش های انبار</p>
@@ -44,7 +44,7 @@
 
           <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="tile-my-warehouse">
-              <a href="#product">
+              <a ng-href="{{ '#product/' + mywarehouse.warehouse.id }}">
                 <div class="icon"><i class="fa fa-cubes fa-2x"></i></div>
                 <h3>کالا ها</h3>
                 <p>مشاهده کالا های موجود</p>
@@ -54,7 +54,7 @@
 
           <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="tile-my-warehouse">
-              <a href="#user">
+              <a ng-href="{{ '#user/' + mywarehouse.warehouse.id }}">
                 <div class="icon"><i class="fa fa-users fa-2x"></i></div>
                 <h3>کارمند ها</h3>
                 <p>مشاهده کارمند های متصل انبار</p>
@@ -63,18 +63,135 @@
           </div>
 
         </div>
+        <div ng-hide="mywarehouse.warehouse">
+          <h3 style="text-align:center;" class="text-info">
+            با انتخاب یک انبار میتوانید جزئیات آن را مشاهده کنید
+          </h3>
+        </div>
       </div>
     </div>
   </div>
   
-  <div class="clearfix">
-  </div>
+  <div class="clearfix"></div>
 
-  <div class="col-xs-6 col-xs-offset-3">
+  <div class="col-xs-8 col-xs-offset-2" ng-show="mywarehouse.warehouse">
     <div class="my-warehouse-data">
       <h4 style="text-align:center">
         اطلاعات انبار
       </h4>
+      <div class="warehouse-content row">
+
+        <div class="col-md-6">
+          <label>
+            نام انبار :
+          </label>
+          {{mywarehouse.warehouse.title}}
+          <span class="label label-info" ng-if="!mywarehouse.warehouse.parent_warehouse">انبار مرکزی</span>
+        </div>
+        <div class="col-md-6">
+          <label>
+            انباردار :
+          </label>
+          {{mywarehouse.warehouse.clerk.first_name + ' ' + mywarehouse.warehouse.clerk.last_name}}
+        </div>
+        <div class="clearfix"></div>
+
+         <div class="col-md-6">
+          <label>
+            شماره تماس :
+          </label>
+          <label style="direction:ltr">
+            {{mywarehouse.warehouse.phone | pNumber}}
+          </label>
+        </div>
+        <div class="col-md-6">
+          <label>
+            آدرس :
+          </label>
+          {{mywarehouse.warehouse.location}}
+        </div>
+        <div class="clearfix"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warehouse Modal -->
+<div class="modal fade" id="warehouseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <div class="pull-left">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">انتخاب انبار</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                جستجو
+                <div class="pull-left">
+                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                </div>
+              </div>
+              <div class="panel-body">
+                <form name="searchForm" role="form" novalidate>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="جستجو در بین انبار ها" name="searchText" ng-model="mywarehouse.tmp.searchQuery">
+                        <span class="input-group-btn">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="mywarehouse.search('warehouse', 'title');">
+                            جستجو
+                          </button>
+                        </span>
+                      </div>
+                  </form>
+                  <table class="table table-hover table-border" ng-hide = "!mywarehouse.tmp.searchResult || loadSearch">
+                    <thead>
+                      <tr>
+                        <th>ردیف</th>
+                        <th>
+                          نام انبار
+                        </th>
+                        <th>
+                          آدرس
+                        </th>
+                        <th>انتخاب</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "list in mywarehouse.tmp.searchResult">
+                        <td>
+                          {{ $index + 1 }}
+                        </td>
+                        <td>
+                          {{list.title | lengthLimit:20}}
+                          <span class="label label-info" ng-if="!list.parent_warehouse">انبار مرکزی</span>
+                        </td>
+                        <td>{{list.location | lengthLimit:20}}</td>
+                        <td>
+                          <a ng-click="mywarehouse.selectWarehouse(list)" href>
+                            <i class="fa fa-check-square-o fa-lg"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          <!-- /.box-body -->
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+      </div>
     </div>
   </div>
 </div>

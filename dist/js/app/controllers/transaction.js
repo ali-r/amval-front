@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('transactionCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor) {
+  function($scope, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
 
   var controller = this;
   var apiName = 'transaction';
@@ -20,6 +20,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   }
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
+  controller.relateWarehouseId = $routeParams.id;
 
   controller.trConfig = function(obj){
     var finalObj = angular.copy(obj);

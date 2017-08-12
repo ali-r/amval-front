@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('userCtrl',
-  function($scope, mainAsset, requestHelper, crud) {
+  function($scope, mainAsset, requestHelper, crud, $routeParams) {
 
   var controller = this;
   var apiName = 'user';
@@ -31,6 +31,7 @@ angular.module("assetAdminPanel").controller('userCtrl',
   $scope.page = 1;
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
+  controller.relateWarehouseId = $routeParams.id;
 
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
