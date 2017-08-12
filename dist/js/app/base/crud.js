@@ -56,7 +56,11 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           keys = {};
 
       if ( !config.url ) {
-          var url = scope.apiUrl + "?page=" + page + "&per_page=" + scope.perPage;
+          if(controller.relateWarehouseId){
+            var url = scope.apiUrl + "?related_warehouse=" + controller.relateWarehouseId + "&page=" + page + "&per_page=" + scope.perPage;
+          }else{
+            var url = scope.apiUrl + "?page=" + page + "&per_page=" + scope.perPage;
+          }
 
           if(addOne){
             for ( key in addOne.extra) {
@@ -124,8 +128,10 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
             }
         },true);
     };
-    controller.getData();
-
+    if(apiName){
+      controller.getData();
+    }
+    
     controller.getFilteredData = function() {
       scope.page = 1;
       scope.getUrl = controller.makeUrl(scope.page,controller.paginationConfig);

@@ -24,7 +24,7 @@ app.config(['ADMdtpProvider', function(ADMdtp) {
 }]);
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
-    var assetPages = ['home','database','user','seller','producer','guarantor','warehouse','changepass','product','group','invoice','transaction'];
+    var assetPages = ['home','database','seller','producer','guarantor','warehouse','changepass','group','invoice','mywarehouse'];
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {
@@ -33,6 +33,27 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
           controllerAs : assetPages[i]
       });
     };
+    $routeProvider
+    .when("/product/:id?" , {
+      templateUrl : "../dist/templates/product.html",
+      controller : "productCtrl",
+      controllerAs : "product"
+    })
+    .when("/user/:id?" , {
+      templateUrl : "../dist/templates/user.html",
+      controller : "userCtrl",
+      controllerAs : "user"
+    })
+    .when("/ticket/:id?" , {
+      templateUrl : "../dist/templates/ticket.html",
+      controller : "ticketCtrl",
+      controllerAs : "ticket"
+    })
+    .when("/transaction/:id?" , {
+      templateUrl : "../dist/templates/transaction.html",
+      controller : "transactionCtrl",
+      controllerAs : "transaction"
+    });
 });
 app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     this.devMode = assetPanelData.devMode;

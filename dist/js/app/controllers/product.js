@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('productCtrl',
-  function($scope, mainAsset, requestHelper, crud, ADMdtpConvertor) {
+  function($scope, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
 
   var controller = this;
   var apiName = 'product';
@@ -66,6 +66,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     'addOne' : controller.addOne
   }
 
+  controller.relateWarehouseId = $routeParams.id;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   this.toGregorianDate = function(pDate){
