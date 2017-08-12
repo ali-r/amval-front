@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-12 mywarehouse-box">
+    <div class="x_panel">
+      <div class="row x_title">
+        <div class="col-md-6 ">
+          <h2><i class="fa fa-building"></i> انبار من</h2>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <div class="input-group pull-left select-warehouse">
+            <input type="text" class="form-control" ng-model="user.obj.warehouse.title" readonly>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse.title" ng-click="user.selectWareHouse()">انتخاب انبار</button>
+              <button type="button" class="btn btn-danger btn-beside-input" ng-show="user.obj.warehouse.title" ng-click="user.deleteKey(user.obj, 'warehouse')">حذف انبار</button>
+            </span>
+          </div>
+        </div>
+        
+        
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="row top_tiles">
+
+          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-my-warehouse">
+              <a href="#ticket">
+                <div class="icon"><i class="fa fa-file-text-o fa-2x"></i></div>
+                <h3>تیکت ها</h3>
+                <p>مشاهده تیکت های انبار</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-my-warehouse">
+              <a href="#transaction">
+                <div class="icon"><i class="fa fa-exchange fa-2x"></i></div>
+                <h3>تراکنش ها</h3>
+                <p>مشاهده تراکنش های انبار</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-my-warehouse">
+              <a href="#product">
+                <div class="icon"><i class="fa fa-cubes fa-2x"></i></div>
+                <h3>کالا ها</h3>
+                <p>مشاهده کالا های موجود</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-my-warehouse">
+              <a href="#user">
+                <div class="icon"><i class="fa fa-users fa-2x"></i></div>
+                <h3>کارمند ها</h3>
+                <p>مشاهده کارمند های متصل انبار</p>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="clearfix">
+  </div>
+
+  <div class="col-xs-6 col-xs-offset-3">
+    <div class="my-warehouse-data">
+      <h4 style="text-align:center">
+        اطلاعات انبار
+      </h4>
+    </div>
+  </div>
+</div>

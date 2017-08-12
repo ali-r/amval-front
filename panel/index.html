@@ -81,13 +81,14 @@
               <div class="menu_section">
                 <h3></h3>
                 <ul class="nav side-menu">
-                  <!--
-                  <li><a><i class="fa fa-tachometer"></i> خانه <span class="fa fa-chevron-down"></span></a>
-                  </li>
-                -->
                 <li>
                   <a href="#home">
                     <i class="fa fa-dashboard"></i> پیشخوان
+                  </a>
+                </li>
+                <li>
+                  <a href="#mywarehouse">
+                    <i class="fa fa-building"></i> انبار من
                   </a>
                 </li>
                   <li ng-if="main.checkPer('user')">
@@ -274,6 +275,7 @@
     <script src="/config.js"></script>
     <script src="/vendors/base/angular/angular.min.js"></script>
     <script src="/vendors/base/jquery/dist/jquery.js"></script>
+    <script src="/vendors/plugins/pnotify/dist/pnotify.custom.js"></script>
     <script src="/vendors/plugins/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/vendors/plugins/angular/angular-cookies.min.js"></script>
     <script src="/vendors/plugins/angular/angular-route.min.js"></script>
@@ -286,7 +288,6 @@
     <script src="/vendors/plugins/skycons/skycons.js"></script>
     <script src="/vendors/plugins/dateTimePicker/dist/ADM-dateTimePicker.js"></script>
     <script src="/vendors/plugins/fastclick/lib/fastclick.js"></script>
-    <script src="/vendors/plugins/pnotify/dist/pnotify.custom.js"></script>
     <script src="/vendors/plugins/qcode-decoder-master/build/qcode-decoder.min.js"></script>
     <script src="/dist/js/custom.js"></script>
     <script src="/dist/js/app/app.js"></script>
@@ -302,6 +303,7 @@
     <script src="/dist/js/app/controllers/login.js"></script>
     <script src="/dist/js/app/controllers/logout.js"></script>
     <script src="/dist/js/app/controllers/main.js"></script>
+    <script src="/dist/js/app/controllers/mywarehouse.js"></script>
     <script src="/dist/js/app/controllers/producer.js"></script>
     <script src="/dist/js/app/controllers/product.js"></script>
     <script src="/dist/js/app/controllers/seller.js"></script>
