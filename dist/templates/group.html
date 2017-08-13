@@ -49,7 +49,7 @@
                 </button>
               </td>
               <td>
-                {{ (page-1)*10 + $index + 1 | pNumber}}
+                {{ (page-1)*perPage + $index + 1 | pNumber}}
               </td>
               <td>{{list.title | lengthLimit:30}}</td>
               <td>{{list.description | lengthLimit:30}}</td>
@@ -85,7 +85,7 @@
                         <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
                       </td>
                       <td class="chd-td">
-                        {{$index+1 | pNumber}}-{{$parent.$index+1 | pNumber}}
+                        {{$index+1 | pNumber}}-{{(page-1)*perPage+$parent.$index+1 | pNumber}}
                       </td>
                       <td>{{chd.title | lengthLimit:30}}</td>
                       <td>{{chd.description | lengthLimit:30}}</td>

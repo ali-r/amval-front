@@ -61,6 +61,16 @@ app.directive('reqPagination', function() {
               return true;
             };
             break;
+          case 'first_mid':
+            if(pageMeta.pages<5 && pageMeta.prev && pageMeta.next) return true;
+            else if(pageMeta.page>2) return false;
+            else return true;
+            break;
+          case 'end_mid':
+            if(pageMeta.pages<5 && pageMeta.prev && pageMeta.next) return true;
+            else if(pageMeta.pages > 1 && pageMeta.page < pageMeta.pages -1) return false;
+            else return true;
+            break;
         };
       };
 

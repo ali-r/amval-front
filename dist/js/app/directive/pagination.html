@@ -1,12 +1,12 @@
 <div class="paging-simple" ng-hide = "$parent.load">
   <ul class="pagination business-pagination">
     <li class="paginate_button previou" ng-class="{'disabled' : pagination('first')}">
-      <a ng-click = "pageSet('first')" href>اول</a>
+      <a ng-click = "!pagination('first') && pageSet('first')" href>اول</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('first')">
       <a ng-click = "pageSet('first')" href>۱</a>
     </li>
-    <li class="paginate_button" ng-hide="pagination('first')">
+    <li class="paginate_button" ng-hide="pagination('first_mid')">
       <a>....</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('new')">
@@ -18,14 +18,14 @@
     <li class="paginate_button" ng-hide="pagination('old')">
       <a ng-click = "pageSet('old')" href>{{itempage+1 | pNumber}}</a>
     </li>
-    <li class="paginate_button" ng-hide="pagination('end')">
+    <li class="paginate_button" ng-hide="pagination('end_mid')">
       <a>....</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('end')">
       <a ng-click = "pageSet('end')" href>{{itemmeta.pages | pNumber}}</a>
     </li>
     <li class="paginate_button next" ng-class="{'disabled' : pagination('end')}">
-      <a ng-click = "pageSet('end')" href>آخر</a>
+      <a ng-click = "!pagination('end') && pageSet('end')" href>آخر</a>
     </li>
   </ul>
   <div class="per-page-text" ng-hide = "config.url">
