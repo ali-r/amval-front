@@ -242,4 +242,48 @@ app.filter('lengthLimit',function(){
   }
 });
 
+app.filter('reasonType', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 3:
+          output = "بدون دلیل";
+        break;
+        case 2:
+          output = "استهلاک";
+        break;
+        case 1:
+          output = "تعمیرات";
+        break;
+        case 0:
+          output = "تامین";
+        break;
+    }
+    return output;
+  }
+});
 
+app.filter('transactionType', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 2:
+          output = "انتقال";
+        break;
+        case 1:
+          output = "عودت";
+        break;
+        case 0:
+          output = "تخصیص";
+        break;
+    }
+    return output;
+  }
+});
+
+app.filter('userOrWarehouseName',function(){
+  return function(input){
+    if(input.type=="User"){return (input.obj.last_name || '')}
+    else{return (input.obj.title || '')}
+  }
+});
