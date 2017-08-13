@@ -203,8 +203,10 @@
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + user.obj.scanned_signature}}"
+                    <a href="{{uploadUrl + user.obj.scanned_signature}}" data-lightbox="تصویر امضا" data-title="تصویر امضا">
+                      <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + user.obj.scanned_signature}}"
                       ng-if="user.obj.scanned_signature">
+                    </a>
                   </div>
                   <div class="clearfix"></div>
                 </fieldset>
