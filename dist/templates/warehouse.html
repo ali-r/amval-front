@@ -99,7 +99,7 @@
           </thead>
           <tbody ng-hide="loadSide">
             <tr ng-repeat = "goods in warehouse.products">
-              <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
+              <td>{{ (warehouse.productsPage-1)*10 + $index + 1 | pNumber}}</td>
               <td>
                 {{goods.model | lengthLimit:20}}
               </td>
