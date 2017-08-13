@@ -6,7 +6,7 @@
     <li class="paginate_button" ng-hide="pagination('first')">
       <a ng-click = "pageSet('first')" href>۱</a>
     </li>
-    <li class="paginate_button" ng-hide="pagination('first')">
+    <li class="paginate_button" ng-hide="pagination('first_mid')">
       <a>....</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('new')">
@@ -18,7 +18,7 @@
     <li class="paginate_button" ng-hide="pagination('old')">
       <a ng-click = "pageSet('old')" href>{{itempage+1 | pNumber}}</a>
     </li>
-    <li class="paginate_button" ng-hide="pagination('end')">
+    <li class="paginate_button" ng-hide="pagination('end_mid')">
       <a>....</a>
     </li>
     <li class="paginate_button" ng-hide="pagination('end')">
