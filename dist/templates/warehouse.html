@@ -25,7 +25,7 @@
           </thead>
           <tbody ng-hide="load">
             <tr ng-repeat = "list in warehouse.note" ng-class="{'info' : wareHouseId == list.id}">
-              <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
+              <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>
                 {{list.title | lengthLimit:30}}
                 <span class="label label-info" ng-if="!list.parent_warehouse">انبار مرکزی</span>

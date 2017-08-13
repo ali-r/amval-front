@@ -25,7 +25,7 @@
           </thead>
           <tbody ng-hide="load">
             <tr ng-repeat = "list in seller.note">
-              <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
+              <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.first_name | lengthLimit:30}}</td>
               <td>{{list.last_name | lengthLimit:30}}</td>
               <td>{{list.store_name | lengthLimit:30}}</td>

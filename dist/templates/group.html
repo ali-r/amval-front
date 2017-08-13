@@ -49,7 +49,7 @@
                 </button>
               </td>
               <td>
-                {{ (page-1)*10 + $index + 1 | pNumber}}
+                {{ (page-1)*perPage + $index + 1 | pNumber}}
               </td>
               <td>{{list.title | lengthLimit:30}}</td>
               <td>{{list.description | lengthLimit:30}}</td>
