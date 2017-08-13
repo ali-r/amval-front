@@ -54,21 +54,10 @@
             <tr ng-repeat = "list in transaction.note">
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.product.model | lengthLimit:30}}</td>
-              
-              <td ng-show="list.source.type == 'User'">{{list.source.obj.last_name | lengthLimit:30}}</td>
-              <td ng-hide="list.source.type == 'User'">{{list.source.obj.title | lengthLimit:30}}</td>
-
-              <td ng-show="list.destination.type == 'User'">{{list.destination.obj.last_name | lengthLimit:30}}</td>
-              <td ng-hide="list.destination.type == 'User'">{{list.destination.obj.title | lengthLimit:30}}</td>
-
-              <td ng-show="list.reason==0">تامین</td>
-              <td ng-show="list.reason==1">تعمیرات</td>              
-              <td ng-show="list.reason==2">استهلاک</td>              
-              <td ng-show="list.reason==3">بدون دلیل</td>              
-
-              <td ng-show="list.transaction_type==0">تخصیص</td>
-              <td ng-show="list.transaction_type==1">عودت</td>
-              <td ng-show="list.transaction_type==2">انتقال</td>
+              <td>{{list.source | userOrWarehouseName| lengthLimit:30}}</td>
+              <td>{{list.destination | userOrWarehouseName | lengthLimit:30}}</td>
+              <td>{{list.reason | reasonType}}</td>
+              <td>{{list.transaction_type | transactionType}}</td>
 
               <td></td>
               <td>
@@ -123,16 +112,11 @@
                   <div class="form-group">
                     <label>منبع</label>
                     <p ng-show="!editMode">
-                      <strong ng-show="transaction.obj.product.holder.type=='User'">
-                        {{transaction.obj.product.holder.obj.last_name  | lengthLimit:30}}</strong>
-                      <strong ng-show="transaction.obj.product.holder.type=='Warehouse'">
-                        {{transaction.obj.product.holder.obj.title  | lengthLimit:30}}</strong>
+                      <strong>{{transaction.obj.product.holder | userOrWarehouseName | lengthLimit:30}}</strong>
+                      
                     </p>
                     <p ng-show="editMode">
-                      <strong ng-show="transaction.obj.source.type=='User'">
-                        {{transaction.obj.source.obj.last_name | lengthLimit:30}}</strong>
-                      <strong ng-show="transaction.obj.source.type=='Warehouse'">
-                        {{transaction.obj.source.obj.title | lengthLimit:30}}</strong>
+                      <strong>{{transaction.obj.source | userOrWarehouseName | lengthLimit:30}}</strong>
                     </p>
                   </div>
                 </div>
