@@ -23,7 +23,7 @@ angular.module("assetAdminPanel").controller('userCtrl',
       en : 'title'
     },
     table : [
-      {fa:'عنوان',en:'title'},
+      {fa:'نام انبار',en:'title'},
       {fa:'محل',en:'location'}
     ]
   };
