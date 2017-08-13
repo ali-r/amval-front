@@ -1,28 +1,29 @@
 <div class="row">
-  <search-tools sobject="transaction.searchObject" scontroller="transaction">    
-    <select class="form-control filter-option" ng-model="transaction.addOne.extra.reason" title="علت تراکنش">
-      <option value="">-- علت تراکنش --</option>
-      <option value="0">تامین</option>
-      <option value="1">تعمیرات</option>
-      <option value="2">استهلاک</option>
-      <option value="3">بدون دلیل</option>
+  <search-tools sobject="ticket.searchObject" scontroller="ticket">    
+    <select class="form-control filter-option" ng-model="ticket.addOne.extra.reason" title="علت تیکت">
+      <option value="">-- علت تیکت --</option>
+      <option value="0">غیره</option>
+      <option value="1">تسویه</option>
+      <option value="2">خرابی</option>
+      <option value="3">استهلاک</option>
     </select>
 
-    <select class="form-control filter-option" ng-model="transaction.addOne.extra.transaction_type" title="نوع تراکنش">
-      <option value="">-- نوع تراکنش --</option>
-      <option value="0">تخصیص</option>
-      <option value="1">عودت</option>
-      <option value="2">انتقال</option>
+    <select class="form-control filter-option" ng-model="ticket.addOne.extra.ticket_type" title="نوع تیکت">
+      <option value="">-- نوع تیکت --</option>
+      <option value="0">غیره</option>
+      <option value="1">خرید</option>
+      <option value="2">تخصیص</option>
+      <option value="3">عودت</option>
     </select>
     از تاریخ :
     <div class="sort-option-edited">
-      <adm-dtp ng-model="transaction.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+      <adm-dtp ng-model="ticket.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
         <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
       </adm-dtp>
     </div>
     تا تاریخ :
     <div class="sort-option-edited">
-      <adm-dtp ng-model="transaction.addOne.extra.time__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+      <adm-dtp ng-model="ticket.addOne.extra.time__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
         <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
       </adm-dtp>
     </div>
@@ -30,9 +31,9 @@
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2><i class="fa"></i>تراکنش‌ها</h2>
-        <button type="button" ng-if = "checkWrite('transaction')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
-          تراکنش جدید
+        <h2><i class="fa"></i>تیکت‌ها</h2>
+        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
+          تیکت جدید
         </button>
         <div class="clearfix"></div>
       </div>
@@ -41,383 +42,206 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>مدل کالا</th>
-              <th>منبع</th>
-              <th>مقصد</th>
-              <th>علت تراکنش</th>
-              <th>نوع تراکنش </th>
+              <th>عنوان</th>
+              <th>توضیحات</th>
+              <th>نوع تیکت</th>
+              <th>علت تیکت</th>
+              <th>زمان ایجاد</th>
               <th></th>
-              <th ng-if = "checkWrite('transaction')"></th>
+              <th ng-if = "checkWrite('ticket')"></th>
             </tr>
           </thead>
           <tbody ng-hide="load">
-            <tr ng-repeat = "list in transaction.note">
+            <tr ng-repeat = "list in ticket.note">
               <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
-              <td>{{list.product.model | lengthLimit:30}}</td>
-              
-              <td ng-show="list.source.type == 'User'">{{list.source.obj.last_name | lengthLimit:30}}</td>
-              <td ng-hide="list.source.type == 'User'">{{list.source.obj.title | lengthLimit:30}}</td>
-
-              <td ng-show="list.destination.type == 'User'">{{list.destination.obj.last_name | lengthLimit:30}}</td>
-              <td ng-hide="list.destination.type == 'User'">{{list.destination.obj.title | lengthLimit:30}}</td>
-
-              <td ng-show="list.reason==0">تامین</td>
-              <td ng-show="list.reason==1">تعمیرات</td>              
-              <td ng-show="list.reason==2">استهلاک</td>              
-              <td ng-show="list.reason==3">بدون دلیل</td>              
-
-              <td ng-show="list.transaction_type==0">تخصیص</td>
-              <td ng-show="list.transaction_type==1">عودت</td>
-              <td ng-show="list.transaction_type==2">انتقال</td>
-
+              <td>{{list.title | lengthLimit:30}}</td>
+              <td>{{list.description | lengthLimit:30}}</td>
+              <td>{{list.ticket_type | ticketType}}</td>
+              <td>{{list.reason | ticketReason}}</td>
+              <td>{{ list.datetime }}</td>
               <td></td>
               <td>
-                <a ng-click="transaction.getObject(list.id); editMode = true" href>
+                <a ng-click="ticket.getObject(list.id); editMode = true" href>
                   <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                 </a>
               </td>
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="meta" itempage="page" controller="transaction" config="transaction.paginationConfig"></req-pagination>
+        <req-pagination itemmeta="meta" itempage="page" controller="ticket" config="ticket.paginationConfig"></req-pagination>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Transaction Modal -->
-<div class="modal fade" id="transactionModal" tabindex="-1" role="dialog">
+<!-- ticket Modal -->
+<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0 && !editMode" ng-disabled="!transactionForm.$valid || !transaction.obj.destination" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-if = "checkWrite('ticket')" ng-show = "stage == 0 && !editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h3 class="modal-title" ng-hide="editMode">افزودن تراکنش جدید</h3>
-        <h3 class="modal-title" ng-show="editMode">مشاهده ی تراکنش</h3>
+        <h3 class="modal-title" ng-hide="editMode">افزودن تیکت جدید</h3>
+        <h3 class="modal-title" ng-show="editMode">مشاهده ی تیکت</h3>
       </div>
       <div class="modal-body">
 
         <div ng-show="stage == 0">
-          <form name="transactionForm" role="form" ng-hide="loadModal" novalidate>
+          <form name="ticketForm" role="form" ng-hide="loadModal" novalidate>
             
             <div class="row">
-              <fieldset ng-disabled ="!checkWrite('transaction')">
+              <fieldset ng-disabled ="!checkWrite('ticket')">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label>کالا*</label>
+                    <label>عنوان*</label>
+                    <input type="text" class="form-control" ng-model="ticket.obj.title" required>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>کالا</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" ng-model="transaction.obj.product.model" required disabled>
+                      <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('transaction') || editMode" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?use_case=1')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket')" class="btn btn-info btn-beside-input" ng-click="">انتخاب</button>
                       </span>
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>منبع</label>
-                    <p ng-show="!editMode">
-                      <strong ng-show="transaction.obj.product.holder.type=='User'">
-                        {{transaction.obj.product.holder.obj.last_name  | lengthLimit:30}}</strong>
-                      <strong ng-show="transaction.obj.product.holder.type=='Warehouse'">
-                        {{transaction.obj.product.holder.obj.title  | lengthLimit:30}}</strong>
-                    </p>
-                    <p ng-show="editMode">
-                      <strong ng-show="transaction.obj.source.type=='User'">
-                        {{transaction.obj.source.obj.last_name | lengthLimit:30}}</strong>
-                      <strong ng-show="transaction.obj.source.type=='Warehouse'">
-                        {{transaction.obj.source.obj.title | lengthLimit:30}}</strong>
-                    </p>
-                  </div>
-                </div>
                 <div class="clearfix"></div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>مقصد*</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" ng-hide="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.obj.last_name" disabled>
-                      <input type="text" class="form-control" ng-show="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.obj.title" disabled>
-                      <div class="input-group-btn">
-                              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
-                              ng-disabled="editMode">
-                                انتخاب
-                                <span class="caret"></span>
-                              </button>
-                              <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                <li><a ng-click="transaction.selectThings(2, 'user', '')" href>کاربر</a>
-                                </li>
-                                <li><a ng-click="transaction.selectThings(3, 'warehouse', '')" href>انبار</a>
-                                </li>
-                              </ul>
-                      </div>
-                    </div>
-                  </div>
+                <!--
+                  date and status only in editMode
+                  use ticketStatus filter for show  status
+                 -->
+                <div class="col-xs-6" >
+                  <label>زمان</label>
+                  <p></p>
                 </div>
-                
-                
-                <!-- reason selection -->
-                <div class="col-xs-6">
-                  <div class="form-group">
-                    <label>علت تراکنش*</label>
-                      <div>
-                        <select class="form-control" ng-model="transaction.obj.reason" required ng-disabled="editMode">
-                          <option value="0">تامین</option>
-                          <option value="1">تعمیرات</option>
-                          <option value="2">استهلاک</option>
-                          <option value="3">بدون دلیل</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  
+                <div class="col-xs-6" >
+                  <label>وضعیت</label>
+                  <p></p>
+                </div>
                 <div class="clearfix"></div>
 
-                <!-- transaction type selection -->
-                <div class="col-xs-6">
-                    <div class="form-group">
-                      <label>نوع تراکنش*</label>
-                      <div>
-                        <select class="form-control" ng-model="transaction.obj.transaction_type" required ng-disabled="editMode">
-                          <option value="0">تخصیص</option>
-                          <option value="1">عودت</option>
-                          <option value="2">انتقال</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group" ng-show="editMode">
-                    <label>تاریخ تراکنش*</label>
-                    <div>
-                      <p style="padding:5px 5px;">
-                        {{transaction.obj.time | pNumber}}
-                      </p>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>علت تیکت*</label>
+                    <select class="form-control" ng-model="ticket.obj.reason" title="علت تیکت" required>
+                      <option value="0">غیره</option>
+                      <option value="1">تسویه</option>
+                      <option value="2">خرابی</option>
+                      <option value="3">استهلاک</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>نوع تیکت*</label>
+                    <select class="form-control" ng-model="ticket.obj.ticket_type" title="نوع تیکت" required>
+                      <option value="0">غیره</option>
+                      <option value="1">خرید</option>
+                      <option value="2">تخصیص</option>
+                      <option value="3">عودت</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <!-- ticket type selection -->
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>تراکنش</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" disabled>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('ticket')" class="btn btn-info btn-beside-input" ng-click="">انتخاب</button>
+                      </span>
                     </div>
                   </div>
                 </div>
-                
-              
-                <div class="col-xs-6">
+
+                <!--
+                  warehouse_id is forbidden when source is normal warehouse
+                 -->
+                <div class="col-sm-6">
                   <div class="form-group">
-                    <label>توضیحات تراکنش*</label>
+                    <label>انبار مقصد*</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" disabled>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('ticket')" class="btn btn-info btn-beside-input" ng-click="">انتخاب</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label>توضیحات تیکت*</label>
                     <div>
-                      <textarea class="form-control" style="resize:none" rows="4" ng-model="transaction.obj.details" required
+                      <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.details" required
                       ng-disabled="editMode">
                       </textarea>
                     </div>
                   </div>
                 </div>
                 <div class="clearfix"></div>
-              
-                <div class="col-xs-6" >
-                  
-                </div>
-
               </fieldset>
             </div>
-
-
-
           </form> 
+          <!-- message is only show in editMode -->
+          <hr>
+          <h4>پیام ها</h4>
+          <div class="message-body">
+
+            <!-- message sample -->
+            <div class="ticket-message">
+              <h4>
+                ادمین
+                <small>
+                  در تاریخ : 
+                  2017/8/25
+                </small>
+              </h4>
+              <p>
+                sedgfgrg
+              </p>
+            </div>
+            <div class="ticket-message ticket-message-self">
+              <h4>
+                انباردار مرکزی
+                <small>
+                  در تاریخ : 
+                  2017/8/26
+                </small>
+              </h4>
+              <p>
+                sedgfgrg
+              </p>
+            </div>
+
+            <div class="row">
+            <div class="col-md-10">
+              <input type="text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-warning">
+                ارسال
+              </button>
+            </div>
+          </div>
+          </div>
+          
         </div>
         <!-- End of stage 0 -->
-
-        <!-- Product selection -->
-        <div class="row" ng-show="stage == 1">
-          <div class="col-md-12">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                انتخاب کالا
-                <div class="pull-left">
-                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                </div>
-              </div>
-              <div class="panel-body">
-                <form name="searchForm" role="form" novalidate>
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو کالا" name="searchText" ng-model="transaction.tmp.searchQuery" required>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1&model__contains=' + transaction.tmp.searchQuery)">
-                            جستجو
-                          </button>
-                        </span>
-                      </div>
-                  </form>
-                  <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
-                    <colgroup>
-                      <col span="1" style="width: 10%;">
-                      <col span="1" style="width: 30%;">
-                      <col span="1" style="width: 30%;">
-                      <col span="1" style="width: 20%;">
-                      <col span="1" style="width: 10%;">
-                    </colgroup>
-                    <thead>
-                      <tr>
-                        <th>ردیف</th>
-                        <th>
-                          مدل
-                        </th>
-                        <th>
-                          شماره سریال
-                        </th>
-                        <th>
-                          زیر گروه
-                        </th>
-                        <th>انتخاب</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat = "list in transaction.tmp.searchResult">
-                        <td>
-                          {{ $index + 1 }}
-                        </td>
-                        <td>{{list.model | lengthLimit:25}}</td>
-                        <td>{{list.serial_number | lengthLimit:20}}</td>
-                        <td>
-                          {{list.subgroup.title | lengthLimit:20}}
-                        </td>
-                        <td>
-                          <a ng-click="transaction.addProduct(list)" href>
-                            <i class="fa fa-check-square-o fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                </table>
-              </div>
-            </div>
-          <!-- /.box-body -->
-          </div>
-        </div>
-        <!-- End of stage 1 -->
-
-        <!-- User selection -->
-        <div class="row" ng-show="stage == 2">
-          <div class="col-md-12">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                انتخاب کاربر مقصد
-                <div class="pull-left">
-                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                </div>
-              </div>
-              <div class="panel-body">
-                <form name="searchForm" role="form" novalidate>
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو کاربر" name="searchText" ng-model="transaction.tmp.searchQuery" required>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user', '?last_name__contains=' + transaction.tmp.searchQuery)">
-                            جستجو
-                          </button>
-                        </span>
-                      </div>
-                  </form>
-                  <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
-                    <thead>
-                      <tr>
-                        <th>ردیف</th>
-                        <th>
-                          نام
-                        </th>
-                        <th>
-                          نام خانوادگی
-                        </th>
-                        <th>
-                          نام کاربری
-                        </th>
-                        <th>انتخاب</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat = "list in transaction.tmp.searchResult">
-                        <td>
-                          {{ $index + 1 }}
-                        </td>
-                        <td>{{list.first_name | lengthLimit:20}}</td>
-                        <td>{{list.last_name | lengthLimit:20}}</td>
-                        <td>
-                          {{list.card_no | lengthLimit:20}}
-                        </td>
-                        <td>
-                          <a ng-click="transaction.addDestination('User',list)" href>
-                            <i class="fa fa-check-square-o fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                </table>
-              </div>
-            </div>
-          <!-- /.box-body -->
-          </div>
-        </div>
-        <!-- End of stage 2 -->
-
-        <!-- Warehouse selection -->
-        <div class="row" ng-show="stage == 3">
-          <div class="col-md-12">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                انتخاب انبار مقصد
-                <div class="pull-left">
-                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                </div>
-              </div>
-              <div class="panel-body">
-                <form name="searchForm" role="form" novalidate>
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو انبار" name="searchText" ng-model="transaction.tmp.searchQuery" required>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse', '?title__contains=' + transaction.tmp.searchQuery)">
-                            جستجو
-                          </button>
-                        </span>
-                      </div>
-                  </form>
-                  <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
-                    <thead>
-                      <tr>
-                        <th>ردیف</th>
-                        <th>
-                          عنوان
-                        </th>
-                        <th>
-                          محل
-                        </th>
-                        <th>
-                          شماره تلفن
-                        </th>
-                        <th>انتخاب</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat = "list in transaction.tmp.searchResult">
-                        <td>
-                          {{ $index + 1 }}
-                        </td>
-                        <td>{{list.title  | lengthLimit:20}}</td>
-                        <td>{{list.location | lengthLimit:20}}</td>
-                        <td>
-                          {{list.phone | lengthLimit:20}}
-                        </td>
-                        <td>
-                          <a ng-click="transaction.addDestination('Warehouse',list)" href>
-                            <i class="fa fa-check-square-o fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                </table>
-              </div>
-            </div>
-          <!-- /.box-body -->
-          </div>
-        </div>
-        <!-- End of stage 3 -->
 
       </div>
       <div class="modal-footer">
@@ -440,16 +264,16 @@
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف تراکنش</h4>
+        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف تیکت</h4>
       </div>
       <div class="modal-body">
-        آیا مایل به حذف تراکنش
-        "{{transaction.toDeleteTitle | lengthLimit:30}}"
+        آیا مایل به حذف تیکت
+        "{{ticket.toDeleteTitle | lengthLimit:30}}"
         هستید؟
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
-        <button type="button" class="btn btn-success" ng-click="transaction.deleteObject(transaction.toDeleteId)">بله</button>
+        <button type="button" class="btn btn-success" ng-click="ticket.deleteObject(ticket.toDeleteId)">بله</button>
       </div>
     </div>
   </div>

@@ -185,6 +185,48 @@ app.filter('ticketStatus', function() {
   }
 });
 
+app.filter('ticketType', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 0:
+          output = "غیره";
+        break;
+        case 1:
+          output = "خرید";
+        break;
+        case 2:
+          output = "تخصیص";
+        break;
+        case 3:
+          output = "عودت";
+        break;
+    }
+    return output;
+  }
+});
+
+app.filter('ticketReason', function() {
+  return function(input) {
+    var output;
+    switch(input){
+        case 0:
+          output = "غیره";
+        break;
+        case 1:
+          output = "تسویه";
+        break;
+        case 2:
+          output = "خرابی";
+        break;
+        case 3:
+          output = "استهلاک";
+        break;
+    }
+    return output;
+  }
+});
+
 app.filter('metaType', function() {
   return function(input) {
     var output;
