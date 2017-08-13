@@ -287,7 +287,7 @@ app.directive('productStat', function(mainAsset, requestHelper) {
 
       scope.controller.getProductStat = function(id){
         scope.$parent.loadModal = true;
-        var getUrl = mainAsset.getUrl() + '/product/' + id + '/stats'
+        var getUrl = mainAsset.getUrl() + 'product/' + id + '/stats'
         requestHelper.get(getUrl, scope.$parent, function(response){
           scope.controller.productStat = response.data;
           scope.controller.productStat.qr_code = scope.$parent.uploadUrl + scope.controller.productStat.qr_code;
