@@ -211,3 +211,13 @@ body.lb-disable-scrolling {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
+
+/*Edited by m.eslahi@gandom.co*/
+.lb-data .lb-details{
+  float: right;
+  text-align: right;
+}
+.lb-data .lb-close{
+  float: left;
+  text-align: left;
+}
