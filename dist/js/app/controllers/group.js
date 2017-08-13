@@ -21,7 +21,11 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     table : [
       {fa:'عنوان',en:'title'},
       {fa:'توضیحات',en:'description'}
-    ]
+    ],
+    searchFilter:{
+      key: 'group_type',
+      value: 'group'
+    }
   };
 
   $scope.page = 1;
