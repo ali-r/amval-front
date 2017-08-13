@@ -185,7 +185,10 @@
                                 </div>
 
                                 <div class="col-xs-2">
-                                    <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + invoice.obj.scanned_invoice}}" ng-if="invoice.obj.scanned_invoice">
+                                    
+                                    <a href="{{uploadUrl + invoice.obj.scanned_invoice}}" data-lightbox="تصویر فاکتور" data-title="تصویر فاکتور">
+                                       <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + invoice.obj.scanned_invoice}}" ng-if="invoice.obj.scanned_invoice">
+                                    </a>
                                     
                                 </div>
                                 <br/>

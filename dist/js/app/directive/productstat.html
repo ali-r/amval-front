@@ -98,7 +98,9 @@
             <label>Qr Code</label>
           </div>
           <div class="col-xs-1">
-            <img ng-src="{{controller.productStat.qr_code}}" class="img-responsive img-thumbnail" >
+            <a href="{{controller.productStat.qr_code}}" data-lightbox="بارکد کالا" data-title="بارکد کالا">
+              <img ng-src="{{controller.productStat.qr_code}}" class="img-responsive img-thumbnail" >
+            </a>
           </div>
           <div class="col-xs-4">
             <label ng-show="controller.productStat.parent_bundle">باندل پدر</label>

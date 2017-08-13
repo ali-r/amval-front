@@ -142,7 +142,9 @@
                   </div>
                   <div class="col-md-1">
                     <div class="form-group">
-                      <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + controller.product.qr_code}}" ng-if="controller.product.qr_code" id='qrCodeImage'>
+                      <a href="{{uploadUrl + controller.product.qr_code}}" data-lightbox="بارکد کالا" data-title="بارکد کالا">
+                        <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + controller.product.qr_code}}" ng-if="controller.product.qr_code" id='qrCodeImage'>
+                      </a>
                     </div>
                   </div>
                   <div class="clearfix"></div>
