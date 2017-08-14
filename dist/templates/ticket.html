@@ -203,35 +203,16 @@
           <div class="message-body" ng-show="editMode">
             <hr>
             <h4>پیام ها</h4>
-
-            <!-- message sample -->
-            <div class="ticket-message">
-              <h4>
-                ادمین
-                <small>
-                  در تاریخ : 
-                  2017/8/25
-                </small>
-              </h4>
-              <p>
-                sedgfgrg
-              </p>
+            <div class="message-list-container">
+              <div ng-class="{'ticket-message-self':$index%2==1}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
+                <h4>
+                  {{msg.sender.card_no | lengthLimit:20}}
+                  <small> در {{msg.datetime | jalaliDate}} </small>
+                </h4>
+                <p> {{msg.text}} </p>
+              </div>
             </div>
-            <div class="ticket-message ticket-message-self">
-              <h4>
-                انباردار مرکزی
-                <small>
-                  در تاریخ : 
-                  2017/8/26
-                </small>
-              </h4>
-              <p>
-                sedgfgrg
-              </p>
-            </div>
-
-            <div class="ticket-message">
-            </div>
+            <br />
             <div class="row">
               <div class="col-md-10">
                 <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
