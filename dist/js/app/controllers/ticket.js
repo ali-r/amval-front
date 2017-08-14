@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('ticketCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
+  function($scope, $localStorage, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
 
   var controller = this;
   var apiName = 'ticket';
@@ -9,6 +9,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
+
   controller.obj = {};
   controller.tmp = {};
   controller.addOne={};
@@ -69,11 +70,10 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     'addOne' : controller.addOne
   }
 
-
-
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   controller.relateWarehouseId = $routeParams.id;
-  
+  $scope.userCard = $localStorage.assetData.card_no;
+
   controller.objConfig = function(obj){
     var outObj = angular.copy(obj);
     console.log($scope.editMode);
@@ -127,11 +127,13 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     var sendObj = {
       text : controller.tmp.text
     };
+    $scope.sendingMessage = true;
     requestHelper.put(url,sendObj,$scope,
       function(response){
         controller.obj = controller.getConfig(response.data);
         console.log(response.data);
         delete controller.tmp['text'];
+        $scope.sendingMessage = false;
       });
 
   }

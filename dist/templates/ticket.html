@@ -224,7 +224,7 @@
             <hr>
             <h4>پیام ها</h4>
             <div class="message-list-container">
-              <div ng-class="{'ticket-message-self':$index%2==1}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
+              <div ng-class="{'ticket-message-self':msg.sender.card_no == userCard}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
                 <h4>
                   {{msg.sender.card_no | lengthLimit:20}}
                   <small> در {{msg.datetime | jalaliDate}} </small>
@@ -239,9 +239,10 @@
               </div>
               <div class="col-md-2">
                 <button type="button" class="btn btn-warning" ng-click="ticket.addMessage()" 
-                ng-disabled="ticket.tmp.text =='' || !ticket.tmp.text">
+                ng-disabled="ticket.tmp.text =='' || !ticket.tmp.text" ng-hide="sendingMessage">
                   ارسال
                 </button>
+                <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
               </div>
             </div>
 
