@@ -123,9 +123,20 @@
                   <label>زمان</label>
                   <p> {{ticket.obj.datetime | jalaliDate}} </p>
                 </div>
-                <div class="col-xs-6" ng-show="editMode">
+                <div class="col-xs-3" ng-show="editMode">
                   <label>وضعیت</label>
                   <p> {{ticket.obj.status | ticketStatus}} </p>
+                </div>
+                <div class="col-xs-3" ng-show="editMode">
+                  <button style="float:left" type="button" class="btn btn-success" ng-click="ticket.changeStatus(1)" 
+                  ng-show="ticket.obj.status == 0 && !loadStatus">
+                    در حال اجرا
+                  </button>
+                  <button style="float:left" type="button" class="btn btn-warning" ng-click="ticket.changeStatus(2)" 
+                  ng-show="ticket.obj.status == 1 && !loadStatus">
+                    اتمام
+                  </button>
+                  <i ng-show="loadStatus" class="fa fa-spinner fa-pulse fa-2x" ></i>
                 </div>
                 <div class="clearfix"></div>
 

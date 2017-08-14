@@ -124,19 +124,27 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   controller.addMessage = function(){
     var url = assetPanelData.serverUrl + apiName+'/' + controller.obj.id + '/message';
-    console.log(url);
     var sendObj = {
       text : controller.tmp.text
     };
-    console.log(sendObj)
     requestHelper.put(url,sendObj,$scope,
       function(response){
         controller.obj = controller.getConfig(response.data);
         console.log(response.data);
         delete controller.tmp['text'];
-        controller.getObject(controller.obj.id)
       });
 
+  }
+
+  controller.changeStatus = function(status_){
+    var url = assetPanelData.serverUrl + apiName+'/' + controller.obj.id + '/status/' + status_;
+    $scope.loadStatus = true;
+    requestHelper.put(url,{},$scope,
+      function(response){
+        controller.obj = controller.getConfig(response.data);
+        console.log(response.data);
+        $scope.loadStatus = false;
+      });
   }
 
 });
