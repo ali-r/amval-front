@@ -3,7 +3,7 @@ angular.module("assetAdminPanel").controller('homeCtrl',
 
     var controller = this;
     $scope.assetData = $localStorage.assetData;
-
+    console.log($scope.assetData)
 
 
 });
