@@ -283,7 +283,11 @@ app.filter('transactionType', function() {
 
 app.filter('userOrWarehouseName',function(){
   return function(input){
-    if(input.type=="User"){return (input.obj.last_name || '')}
-    else{return (input.obj.title || '')}
+    if(input){
+      if(input.type=="User")
+        {return (input.obj.last_name || '')}
+      else
+        {return (input.obj.title || '')}
+    }
   }
 });
