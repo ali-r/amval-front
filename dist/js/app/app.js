@@ -77,9 +77,20 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     };
 
     this.toGregorianDate = function(pDate){
-      var dateArray = pDate.split('-');
-      var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+      if(!pDate)
+        pDate = '';
+      if(pDate.indexOf(' ') >= 0){
+        var splitted = pDate.split(' ');
+        var time = splitted[0];
+        var dateArray = splitted[1].split('-');
+        var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+        return (gDate.year + '-' + gDate.month + '-' + gDate.day + 'T' + time);  
+      }
+      else{
+        var dateArray = pDate.split('-');
+        var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+        return (gDate.year + '-' + gDate.month + '-' + gDate.day);  
+      }
     }
 
     this.toJalaliDate = function(pDate){

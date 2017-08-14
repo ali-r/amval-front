@@ -133,6 +133,13 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
     
     controller.getFilteredData = function() {
+      var extra = controller.paginationConfig.addOne.extra; 
+      if(extra.time__gte) 
+        extra.time__gte = mainAsset.toGregorianDate(extra.time__gte); 
+
+      if(extra.time__lte)
+        extra.time__lte = mainAsset.toGregorianDate(extra.time__lte); 
+
       scope.page = 1;
       scope.getUrl = controller.makeUrl(scope.page,controller.paginationConfig);
       controller.getData();
