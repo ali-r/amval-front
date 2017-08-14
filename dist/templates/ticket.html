@@ -173,12 +173,12 @@
                   warehouse_id is forbidden when source is normal warehouse
                  -->
                 <div class="col-sm-6">
-                  <div class="form-group" ng-show="ticket.obj.allowedSource">
+                  <div class="form-group" ng-show="ticket.allowedSource">
                     <label>انبار مقصد*</label>
                     <div class="input-group">
                       <input type="text" class="form-control" ng-model="ticket.obj.to_warehouse.title" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('ticket') || !ticket.obj.allowedSource" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(3,'warehouse','title')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket') || !ticket.allowedSource" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(3,'warehouse','title')">انتخاب</button>
                       </span>
                     </div>
                   </div>

@@ -87,14 +87,13 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       if(outObj.transaction) outObj.transaction = outObj.transaction.id;
       else delete outObj['transaction'];
 
-      if(!outObj.to_warehouse || outObj.to_warehouse=="" || !outObj.allowedSource){
+      if(!outObj.to_warehouse || outObj.to_warehouse=="" || !controller.allowedSource){
         delete outObj['to_warehouse'];
       }
       else{ outObj['to_warehouse'] = outObj.to_warehouse.id;}
       
       outObj.reason = parseInt(outObj.reason);
       outObj.ticket_type = parseInt(outObj.ticket_type);
-      delete outObj['allowedSource'];
     }
     return outObj;
   }
@@ -106,7 +105,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   crud.initModals($scope, controller, apiName, []);
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig);
-  controller.obj.allowedSource = false;
+  controller.allowedSource = false;
   controller.addProduct = function(list){
     controller.obj.product = list;
     $scope.stage = 0;
@@ -117,8 +116,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     requestHelper.get(
       url,$scope,
       function(response){
-        if(response.data.parent_warehouse){controller.obj.allowedSource = false;}
-        else{controller.obj.allowedSource = true;}
+        if(response.data.parent_warehouse){controller.allowedSource = false;}
+        else{controller.allowedSource = true;}
     },true);
   }
   controller.setSourceType();
