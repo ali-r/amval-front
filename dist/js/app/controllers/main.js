@@ -13,7 +13,7 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       var nowTime = new Date();
       nowTime = Math.floor(nowTime.getTime()/1000);
       var difTime = nowTime - $localStorage.assetData.login_time;
-      if( difTime > 14400){
+      if( difTime > $localStorage.assetData.expire_duration){
 
         while ($localStorage.assetData) {
           delete $localStorage.assetData;

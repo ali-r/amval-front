@@ -14,13 +14,13 @@ angular.module("assetAdminPanel").controller('loginCtrl',
     nowTime = Math.floor(nowTime.getTime()/1000);
     var difTime = nowTime - $localStorage.assetData.login_time;
 
-    if( difTime > 14400){
+    if( difTime > $localStorage.assetData.expire_duration){
 
       while ($localStorage.assetData) {
         delete $localStorage.assetData;
       }
     }else{
-      $window.location.href = '/panel/#/user';
+      $window.location.href = '/panel/#/home';
     }
   }
 
