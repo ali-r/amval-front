@@ -230,12 +230,15 @@
               </p>
             </div>
 
+            <div class="ticket-message">
+            </div>
             <div class="row">
               <div class="col-md-10">
-                <input type="text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
+                <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
               </div>
               <div class="col-md-2">
-                <button type="button" class="btn btn-warning">
+                <button type="button" class="btn btn-warning" ng-click="ticket.addMessage()" 
+                ng-disabled="ticket.tmp.text =='' || !ticket.tmp.text">
                   ارسال
                 </button>
               </div>

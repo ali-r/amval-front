@@ -9,7 +9,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
-  controller.obj = {}
+  controller.obj = {};
+  controller.tmp = {};
   controller.addOne={};
   controller.addOne.extra={};
   controller.selectProductObj = {
@@ -121,5 +122,22 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     },true);
   }
   controller.setSourceType();
+
+  controller.addMessage = function(){
+    var url = assetPanelData.serverUrl + apiName+'/' + controller.obj.id + '/message';
+    console.log(url);
+    var sendObj = {
+      text : controller.tmp.text
+    };
+    console.log(sendObj)
+    requestHelper.put(url,sendObj,$scope,
+      function(response){
+        controller.obj = controller.getConfig(response.data);
+        console.log(response.data);
+        delete controller.tmp['text'];
+        controller.getObject(controller.obj.id)
+      });
+
+  }
 
 });
