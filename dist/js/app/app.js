@@ -334,9 +334,17 @@ app.filter('userOrWarehouseName',function(){
   }
 });
 
+app.filter('productName',function(){
+  return function(input){
+    if(input){
+      return (input.model || '')
+    }
+  }
+});
+
 app.filter('nullFilter',function(){
   return function(input){return(input || '');}
-})
+});
 
 app.filter('useFilter', function($filter) {
     return function() {
