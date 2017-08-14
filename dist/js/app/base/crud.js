@@ -133,15 +133,22 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
     
     controller.getFilteredData = function() {
-      var extra = controller.paginationConfig.addOne.extra; 
+      var config = angular.copy(controller.paginationConfig);
+      var extra = config.addOne.extra; 
       if(extra.time__gte) 
         extra.time__gte = mainAsset.toGregorianDate(extra.time__gte); 
 
+      if(extra.datetime__gte) 
+        extra.datetime__gte = mainAsset.toGregorianDate(extra.datetime__gte); 
+      
       if(extra.time__lte)
         extra.time__lte = mainAsset.toGregorianDate(extra.time__lte); 
+      
+      if(extra.datetime__lte)
+        extra.datetime__lte = mainAsset.toGregorianDate(extra.datetime__lte); 
 
       scope.page = 1;
-      scope.getUrl = controller.makeUrl(scope.page,controller.paginationConfig);
+      scope.getUrl = controller.makeUrl(scope.page,config);
       controller.getData();
     };
 

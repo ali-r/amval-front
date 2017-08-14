@@ -84,7 +84,7 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
         var time = splitted[0];
         var dateArray = splitted[1].split('-');
         var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        return (gDate.year + '-' + gDate.month + '-' + gDate.day + 'T' + time);  
+        return (gDate.year + '-' + gDate.month + '-' + gDate.day + 'T' + time+':00');  
       }
       else{
         var dateArray = pDate.split('-');

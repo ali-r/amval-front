@@ -4,7 +4,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   var controller = this;
   var apiName = 'ticket';
   controller.searchObject = [
-    // just title here
+    {'fname' : 'عنوان', 'field' : 'title'},
   ];
 
   $scope.page = 1;

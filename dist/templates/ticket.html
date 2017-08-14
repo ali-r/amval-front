@@ -17,13 +17,13 @@
     </select>
     از تاریخ :
     <div class="sort-option-edited">
-      <adm-dtp ng-model="ticket.addOne.extra.time__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+      <adm-dtp ng-model="ticket.addOne.extra.datetime__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
         <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
       </adm-dtp>
     </div>
     تا تاریخ :
     <div class="sort-option-edited">
-      <adm-dtp ng-model="ticket.addOne.extra.time__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+      <adm-dtp ng-model="ticket.addOne.extra.datetime__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
         <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
       </adm-dtp>
     </div>
