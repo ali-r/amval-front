@@ -5,7 +5,7 @@
       <div class="modal-header">
         <div class="pull-left">
           <button type="button" ng-disabled="!productForm.$valid || !controller.product.qr_code"
-          ng-click="sendOrEdit(editMode)" ng-show = "$parent.stage == 0" ng-show = "$parent.checkWrite('product')" class="btn btn-success">ذخیره</button>
+          ng-click="sendOrEdit($parent.editMode)" ng-show = "$parent.stage == 0" ng-show = "$parent.checkWrite('product')" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "$parent.stage != 0" ng-click="$parent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
@@ -158,7 +158,7 @@
                   </div>
                   <div class="col-md-6">
                     <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="controller.product.meta_data[$index].value" >
-                    <input ng-if="meta.type == 'int'" step="1" class="form-control" type="number" ng-model="controller.product.meta_data[$index].value" >
+                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="controller.product.meta_data[$index].value" >
                     <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="controller.product.meta_data[$index].value" >
                     <input ng-if="meta.type == 'float'" class="form-control form-ltr" type="number" ng-model="product.obj.meta_data[$index].value">
                   </div>
@@ -169,7 +169,7 @@
                 <hr ng-show = "controller.apiName != 'invoice'">
                 <div class="row" ng-show = "controller.apiName != 'invoice'">
                   <div class="col-md-6">
-                    <div class="checkbox">
+                    <div class="checkbox" ng-hide="editMode">
                       <label>
                         <input type="checkbox" ng-model="controller.product.is_bundle">
                         آیا کالا باندل است؟
@@ -394,6 +394,13 @@
           </div>
       </div>
       <div class="modal-footer">
+        <ul>
+          <li ng-repeat="(key, errors) in productForm.$error track by $index"> <strong>{{ key }}</strong> errors
+              <ul>
+              <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+              </ul>
+          </li>
+        </ul>
         <p ng-show = "$parent.stage === 0"> −
           پر کردن فیلد هایی که با * مشخص شده اجباری است
           <br>
