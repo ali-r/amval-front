@@ -134,7 +134,7 @@
                   <label>وضعیت</label>
                   <p> {{ticket.obj.status | ticketStatus}} </p>
                 </div>
-                <div class="col-xs-3" ng-show="editMode">
+                <div style="padding-top=0.5em;" class="col-xs-3" ng-show="editMode">
                   <button style="float:left" type="button" class="btn btn-success" ng-click="ticket.changeStatus(1)" 
                   ng-show="ticket.obj.status == 0 && !loadStatus">
                     شروع پیگیری
