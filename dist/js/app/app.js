@@ -187,10 +187,10 @@ app.filter('ticketStatus', function() {
     var output;
     switch(input){
         case 0:
-          output = "درخواست";
+          output = "درخواست شده";
         break;
         case 1:
-          output = "در حال پردازش";
+          output = "در حال پیگیری";
         break;
         case 2:
           output = "بسته شده";

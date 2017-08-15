@@ -2,18 +2,18 @@
   <search-tools sobject="ticket.searchObject" scontroller="ticket">    
     <select class="form-control filter-option" ng-model="ticket.addOne.extra.reason" title="علت تیکت">
       <option value="">-- علت تیکت --</option>
-      <option value="0">غیره</option>
       <option value="1">تسویه</option>
       <option value="2">خرابی</option>
       <option value="3">استهلاک</option>
+      <option value="0">غیره</option>
     </select>
 
     <select class="form-control filter-option" ng-model="ticket.addOne.extra.ticket_type" title="نوع تیکت">
       <option value="">-- نوع تیکت --</option>
-      <option value="0">غیره</option>
       <option value="1">خرید</option>
       <option value="2">تخصیص</option>
       <option value="3">عودت</option>
+      <option value="0">غیره</option>
     </select>
     از تاریخ :
     <div class="sort-option-edited">
@@ -137,7 +137,7 @@
                 <div class="col-xs-3" ng-show="editMode">
                   <button style="float:left" type="button" class="btn btn-success" ng-click="ticket.changeStatus(1)" 
                   ng-show="ticket.obj.status == 0 && !loadStatus">
-                    در حال اجرا
+                    شروع پیگیری
                   </button>
                   <button style="float:left" type="button" class="btn btn-warning" ng-click="ticket.changeStatus(2)" 
                   ng-show="ticket.obj.status == 1 && !loadStatus">
@@ -153,10 +153,10 @@
                     <label ng-show="editMode">علت تیکت</label>
                     <select class="form-control" ng-model="ticket.obj.reason" title="علت تیکت" required 
                     ng-hide="editMode">
-                      <option value="0">غیره</option>
                       <option value="1">تسویه</option>
                       <option value="2">خرابی</option>
                       <option value="3">استهلاک</option>
+                      <option value="0">غیره</option>
                     </select>
                     <p ng-show="editMode"> {{ticket.obj.reason | ticketReason}} </p>
                   </div>
@@ -169,10 +169,10 @@
 
                     <select class="form-control" ng-model="ticket.obj.ticket_type" title="نوع تیکت" required
                     ng-hide="editMode">
-                      <option value="0">غیره</option>
                       <option value="1">خرید</option>
                       <option value="2">تخصیص</option>
                       <option value="3">عودت</option>
+                      <option value="0">غیره</option>
                     </select>
                     <p ng-show="editMode"> {{ticket.obj.ticket_type | ticketType}} </p>
                   </div>
