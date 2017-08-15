@@ -204,7 +204,6 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
              scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key, value: ''}
             }
 
-            console.log(scope.controller.tmp.meta);
             scope.$parent.loadSearch = false;
           });
       }
@@ -221,6 +220,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
       scope.objConfig = function (obj) {
         sendCopyObj = angular.copy(obj);
+
         sendCopyObj.guarantor = sendCopyObj.guarantor.id;
         sendCopyObj.producer = sendCopyObj.producer.id;
         sendCopyObj.subgroup = sendCopyObj.subgroup.id;
@@ -238,7 +238,9 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.deprication_time;
           delete sendCopyObj.holder;
           delete sendCopyObj.parent_bundle;
+          delete sendCopyObj.is_bundle;
           delete sendCopyObj.price;
+          delete sendCopyObj.id;
         }
 
         sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
@@ -252,16 +254,15 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           }
         }
 
-        sendCopyObj.meta_data = [];
+        if(!sendCopyObj.meta_data){sendCopyObj.meta_data = [];}
+
         for (var i = 0; i < obj.meta_data.length; i++) {
-          console.log(obj.meta_data[i].value);
-          if(!!obj.meta_data[i].value && typeof(obj.meta_data[i].value) != 'undefined')
+          if(obj.meta_data[i].value == '' )
             {
-              sendCopyObj.meta_data.push(obj.meta_data[i]);
+              sendCopyObj.meta_data.splice(i, 1);
             }
-          
         }
-        // obj = {};
+
         return sendCopyObj;
       };
 
@@ -273,8 +274,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
       }
 
-      scope.sendOrEdit = function(){
-        scope.controller.sendOrEdit(false, scope.objConfig(scope.controller.product), mainAsset.getUrl() + 'product', function(data){
+      scope.sendOrEdit = function(eMode){
+        scope.controller.sendOrEdit(eMode, scope.objConfig(scope.controller.product), mainAsset.getUrl() + 'product', function(data){
           scope.controller.creatProductCallback(data.data);
           $('#productModal').modal('hide');
           scope.controller.product = {};

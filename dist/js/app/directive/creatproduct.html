@@ -6,7 +6,7 @@
         <div class="pull-left">
           <button type="button" ng-disabled="!productForm.$valid || !controller.product.qr_code"
           ng-click="sendOrEdit($parent.editMode)" ng-show = "$parent.stage == 0" ng-show = "$parent.checkWrite('product')" class="btn btn-success">ذخیره</button>
-          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+          <button type="button" class="btn btn-danger" ng-show = "$parent.stage == 0" ng-click="reset(); controller.product = {}" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "$parent.stage != 0" ng-click="$parent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
@@ -169,7 +169,7 @@
                 <hr ng-show = "controller.apiName != 'invoice'">
                 <div class="row" ng-show = "controller.apiName != 'invoice'">
                   <div class="col-md-6">
-                    <div class="checkbox" ng-hide="editMode">
+                    <div class="checkbox" ng-hide="$parent.editMode">
                       <label>
                         <input type="checkbox" ng-model="controller.product.is_bundle">
                         آیا کالا باندل است؟
@@ -260,6 +260,9 @@
                             <th>
                               زیر گروه
                             </th>
+                            <th>
+                              نگهدارنده
+                            </th>
                             <th>انتخاب</th>
                           </tr>
                         </thead>
@@ -272,6 +275,9 @@
                             <td>{{list.serial_number | lengthLimit:30}}</td>
                             <td>
                               {{list.subgroup.title | lengthLimit:30}}
+                            </td>
+                            <td>
+                              {{list.holder | userOrWarehouseName}}
                             </td>
                             <td>
                               <i ng-hide="controller.checkDuplicate(list, controller.product.children)">موجود</i>
