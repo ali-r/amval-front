@@ -4600,11 +4600,16 @@ div#deleteModal {
     padding: 10px;
     border: 1px solid #d9d9d9;
     border-top-width: 2px;
+    width: 66%;
+    float: left;
 }
 .ticket-message-self{
     background-color : #d9edf7 !important;
+    float: right !important;
 }
 .message-list-container{
     max-height: 20em;
     overflow-y: auto; 
+    overflow-x: hidden;
+    padding-left: 2em; 
 }
