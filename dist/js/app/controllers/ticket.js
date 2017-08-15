@@ -81,7 +81,9 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
     }
     else{ //config object for creating
-      outObj.product = outObj.product.id;
+      if(outObj.product)
+        outObj.product = outObj.product.id;
+      
       outObj.from_warehouse = controller.relateWarehouseId;
       
       if(outObj.transaction) outObj.transaction = outObj.transaction.id;
