@@ -172,7 +172,16 @@
                   <div class="form-group">
                     <label>تراکنش</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" ng-model="ticket.obj.transaction.product.model" disabled>
+                      <a  class="form-control" disabled data-toggle="popover" title="جزییات تراکنش" data-trigger="hover" data-html="true" data-placement="bottom"
+                      data-content="
+                        <label>نام کالا:</label> {{ticket.obj.transaction.product.model}} <br/>
+                        <label>منبع:</label> {{ticket.obj.transaction.source | userOrWarehouseName}} <br/>
+                        <label>مقصد:</label> {{ticket.obj.transaction.destination | userOrWarehouseName}} <br/> 
+                        <label>علت تراکنش:</label> {{ticket.obj.transaction.reason | reasonType}} <br/>
+                        <label>نوع تراکنش:</label> {{ticket.obj.transaction.transaction_type | transactionType}} <br/>
+                        <label>تاریخ تراکنش:</label> {{ticket.obj.transaction.time | jalaliDate}} <br/>
+                          ">
+                            {{ticket.obj.transaction.product.model}}</a>
                       <span class="input-group-btn">
                         <button type="button" ng-disabled="editMode || !checkWrite('ticket')" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(2,'transaction','product.model')">انتخاب</button>
                       </span>

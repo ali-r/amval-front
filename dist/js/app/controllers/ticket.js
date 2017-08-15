@@ -40,8 +40,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       en : 'transaction'
     },
     searchAt : {
-      fa : 'مدل کالای',
-      en : 'product.model'
+      fa : 'تراکنش',
+      en : 'transaction'
     },
     table : [
       {fa:'مدل کالا',en:'product',filter:'productName'},
