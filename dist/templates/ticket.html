@@ -99,14 +99,16 @@
               <fieldset ng-disabled ="!checkWrite('ticket')">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label>عنوان*</label>
-                    <input type="text" class="form-control" ng-model="ticket.obj.title" required ng-disabled="editMode">
+                    <label ng-show="!editMode">عنوان * </label>
+                    <label ng-show="editMode">عنوان</label>
+                    <input type="text" class="form-control" ng-model="ticket.obj.title" required ng-hide="editMode">
+                    <p ng-show="editMode"> {{ticket.obj.title | lengthLimit:20}} </p>
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="form-group">
+                  <div class="form-group" ng-show="!editMode || ticket.obj.product">
                     <label>کالا</label>
-                    <div class="input-group">
+                    <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
                       <span class="input-group-btn">
                         <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(1,'product','use_case=0&model')">انتخاب</button>
@@ -116,6 +118,7 @@
                           <i class="fa fa-remove" ></i> </button>
                       </span>
                     </div>
+                    <p ng-show="editMode"> {{ticket.obj.product.model | lengthLimit:20}} </p>
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -146,27 +149,32 @@
 
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label>علت تیکت*</label>
+                    <label ng-hide="editMode">علت تیکت*</label>
+                    <label ng-show="editMode">علت تیکت</label>
                     <select class="form-control" ng-model="ticket.obj.reason" title="علت تیکت" required 
-                    ng-disabled="editMode">
+                    ng-hide="editMode">
                       <option value="0">غیره</option>
                       <option value="1">تسویه</option>
                       <option value="2">خرابی</option>
                       <option value="3">استهلاک</option>
                     </select>
+                    <p ng-show="editMode"> {{ticket.obj.reason | ticketReason}} </p>
                   </div>
                 </div>
 
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label>نوع تیکت*</label>
+                    <label ng-hide="editMode">نوع تیکت*</label>
+                    <label ng-show="editMode">نوع تیکت</label>
+
                     <select class="form-control" ng-model="ticket.obj.ticket_type" title="نوع تیکت" required
-                    ng-disabled="editMode">
+                    ng-hide="editMode">
                       <option value="0">غیره</option>
                       <option value="1">خرید</option>
                       <option value="2">تخصیص</option>
                       <option value="3">عودت</option>
                     </select>
+                    <p ng-show="editMode"> {{ticket.obj.ticket_type | ticketType}} </p>
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -202,11 +210,16 @@
               
                 <div class="col-xs-12">
                   <div class="form-group">
-                    <label>توضیحات تیکت*</label>
+                    <label ng-hide="editMode">توضیحات تیکت*</label>
+                    <label ng-show="editMode">توضیحات تیکت</label>
+
                     <div>
                       <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.description" required
-                      ng-disabled="editMode">
+                      ng-hide="editMode">
                       </textarea>
+                      <p ng-show="editMode" style="max-height:5em; overflow-y:auto"> 
+                        {{ticket.obj.description}}
+                      </p>
                     </div>
                   </div>
                 </div>

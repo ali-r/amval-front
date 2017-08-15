@@ -198,42 +198,22 @@ app.filter('ticketStatus', function() {
 
 app.filter('ticketType', function() {
   return function(input) {
-    var output;
-    switch(input){
-        case 0:
-          output = "غیره";
-        break;
-        case 1:
-          output = "خرید";
-        break;
-        case 2:
-          output = "تخصیص";
-        break;
-        case 3:
-          output = "عودت";
-        break;
-    }
+    var output="";
+    if(input==0 || input=="0") output = "غیره";
+    else if(input==1 || input=="1") output = "خرید";
+    else if(input==2 || input=="2") output = "تخصیص";
+    else if(input==3 || input=="3") output = "عودت";
     return output;
   }
 });
 
 app.filter('ticketReason', function() {
   return function(input) {
-    var output;
-    switch(input){
-        case 0:
-          output = "غیره";
-        break;
-        case 1:
-          output = "تسویه";
-        break;
-        case 2:
-          output = "خرابی";
-        break;
-        case 3:
-          output = "استهلاک";
-        break;
-    }
+    var output = "";
+    if(input==0 || input=="0") output = "غیره";
+    else if(input==1 || input=="1") output = "تسویه";
+    else if(input==2 || input=="2") output = "خرابی";
+    else if(input==3 || input=="3") output = "استهلاک";
     return output;
   }
 });
