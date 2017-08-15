@@ -135,6 +135,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
         controller.obj = controller.getConfig(response.data);
         console.log(response.data);
         delete controller.tmp['text'];
+        $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
         $scope.sendingMessage = false;
       });
 
