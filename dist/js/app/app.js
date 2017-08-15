@@ -79,12 +79,16 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     this.toGregorianDate = function(pDate){
       if(!pDate)
         pDate = '';
-      if(pDate.indexOf(' ') >= 0){
-        var splitted = pDate.split(' ');
-        var time = splitted[0];
-        var dateArray = splitted[1].split('-');
+      if( pDate.indexOf(' ') >= 0 ) 
+        pDate = moment(pDate).utcOffset(0).format('YYYY-MM-DDTHH:mm')
+        
+      if(pDate.indexOf('T') >= 0){
+        var splitted = pDate.split('T');
+        var time = splitted[1];
+        var dateArray = splitted[0].split('-');
         var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        return (gDate.year + '-' + gDate.month + '-' + gDate.day + 'T' + time+':00');  
+        var outDate = gDate.year + '-' + gDate.month + '-' + gDate.day + 'T' + time + ':00';
+        return (outDate);  
       }
       else{
         var dateArray = pDate.split('-');
