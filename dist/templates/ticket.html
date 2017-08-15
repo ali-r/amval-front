@@ -167,45 +167,23 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- transaction selection -->
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>تراکنش</label>
-                    <div class="input-group">
-                      <a  class="form-control" disabled data-toggle="popover" title="جزییات تراکنش" data-trigger="hover" data-html="true" data-placement="bottom"
-                      data-content="
-                        <label>نام کالا:</label> {{ticket.obj.transaction.product.model}} <br/>
-                        <label>منبع:</label> {{ticket.obj.transaction.source | userOrWarehouseName}} <br/>
-                        <label>مقصد:</label> {{ticket.obj.transaction.destination | userOrWarehouseName}} <br/> 
-                        <label>علت تراکنش:</label> {{ticket.obj.transaction.reason | reasonType}} <br/>
-                        <label>نوع تراکنش:</label> {{ticket.obj.transaction.transaction_type | transactionType}} <br/>
-                        <label>تاریخ تراکنش:</label> {{ticket.obj.transaction.time | jalaliDate}} <br/>
-                          ">
-                            {{ticket.obj.transaction.product.model}}</a>
-                      <span class="input-group-btn">
-                        <button type="button" ng-disabled="editMode || !checkWrite('ticket')" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(2,'transaction','product.model')">انتخاب</button>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
                 <!--
                   warehouse_id is forbidden when source is normal warehouse
                  -->
-                <div class="col-sm-3" ng-show="editMode">
+                <div class="col-sm-6" ng-show="editMode">
                   <div class="form-group">
                     <label>انبار مبدا</label>
                     <p> {{ticket.obj.from_warehouse.title | lengthLimit:30}} </p>
                   </div>
                 </div>
               
-                <div ng-class="{'col-sm-6':!editMode, 'col-sm-3':editMode}">
+                <div class="col-sm-6">
                   <div class="form-group" ng-show="ticket.allowedSource || editMode">
                     <label>انبار مقصد</label>
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.to_warehouse.title" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(3,'warehouse','title')">انتخاب</button>
+                        <button type="button" ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(2,'warehouse','title')">انتخاب</button>
                       </span>
                     </div>
                     <p ng-show="editMode"> {{ticket.obj.to_warehouse.title | lengthLimit:30}} </p>
@@ -236,7 +214,7 @@
               <div ng-class="{'ticket-message-self':msg.sender.card_no == userCard}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
                 <h4>
                   {{msg.sender.card_no | lengthLimit:20}}
-                  <small> در {{msg.datetime | jalaliDate}} </small>
+                  <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
                 </h4>
                 <p> {{msg.text}} </p>
               </div>
@@ -264,13 +242,9 @@
         <search-stage ng-show = "stage == 1" obj="ticket.selectProductObj" controller = "ticket"></search-stage>
         <!-- End of Stage 1 -->
 
-        <!-- transaction selection stage -->
-        <search-stage ng-show = "stage == 2" obj="ticket.selectTransactionObj" controller = "ticket"></search-stage>
-        <!-- End of Stage 2 -->
-
         <!-- destination warehouse selection stage -->
-        <search-stage ng-show = "stage == 3" obj="ticket.selectDestinationObj" controller = "ticket"></search-stage>
-        <!-- End of Stage 3 -->
+        <search-stage ng-show = "stage == 2" obj="ticket.selectDestinationObj" controller = "ticket"></search-stage>
+        <!-- End of Stage 2 -->
 
       </div>
       <div class="modal-footer">
