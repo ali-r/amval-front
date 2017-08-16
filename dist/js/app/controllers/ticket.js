@@ -1,8 +1,9 @@
 angular.module("assetAdminPanel").controller('ticketCtrl',
-  function($scope, $localStorage, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
+  function($scope, $http, $localStorage, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
 
   var controller = this;
   var apiName = 'ticket';
+  headers = requestHelper.headers;
   controller.searchObject = [
     {'fname' : 'عنوان', 'field' : 'title'},
   ];
@@ -130,26 +131,39 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       text : controller.tmp.text
     };
     $scope.sendingMessage = true;
-    requestHelper.put(url,sendObj,$scope,
-      function(response){
+    $http.put(url, sendObj, {headers: headers})
+      .then(
+      function(response) { //for success response
+        requestHelper.successCallback(response);
         controller.obj = controller.getConfig(response.data);
         console.log(response.data);
         delete controller.tmp['text'];
         $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
         $scope.sendingMessage = false;
-      });
-
+      },
+      function(response){ //for error response
+        requestHelper.errorCallback(response);
+        $scope.sendingMessage = false;
+      }
+    );
   }
 
   controller.changeStatus = function(status_){
     var url = assetPanelData.serverUrl + apiName+'/' + controller.obj.id + '/status/' + status_;
     $scope.loadStatus = true;
-    requestHelper.put(url,{},$scope,
-      function(response){
+    $http.put(url, {}, {headers: headers})
+      .then(
+      function(response) { //for success response
+        requestHelper.successCallback(response);
         controller.obj = controller.getConfig(response.data);
         console.log(response.data);
         $scope.loadStatus = false;
-      });
+      },
+      function(response){ //for error response
+        requestHelper.errorCallback(response);
+        $scope.loadStatus = false;
+      }
+    );
   }
 
   controller.deleteSelected = function(field_){
