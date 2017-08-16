@@ -289,8 +289,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       scope.controller.deleteChild = function(index){
         scope.controller.obj.children.splice (index, 1);
       };
-      /*
-      this.checkDuplicate = function (obj, array) {
+    
+      scope.controller.checkDuplicate = function (obj, array) {
         var checkResult = true;
 
         if(!array)
@@ -304,14 +304,13 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         return checkResult;
       }
 
-      this.addBundleProduct = function(list){
+      scope.controller.addBundleProduct = function(list){
 
-        if(!controller.obj.children)
-          controller.obj.children = [];
+        if(!scope.controller.obj.children)
+          scope.controller.obj.children = [];
 
-        controller.obj.children.push(list);
-        //$scope.stage = 0;
-      };*/
+        scope.controller.obj.children.push(list);
+      };
 
     },
     templateUrl: '/dist/js/app/directive/creatproduct.html'
