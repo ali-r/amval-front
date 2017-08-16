@@ -32,7 +32,7 @@
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa"></i>تیکت‌ها</h2>
-        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success btn-sm pull-left" name="button" ng-click="ticket.setNewInvoiceForm()">
+        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success btn-sm pull-left" name="button" ng-click="ticket.setNewTicketForm()">
           تیکت جدید
         </button>
         <div class="clearfix"></div>
@@ -43,25 +43,25 @@
             <tr>
               <th>#</th>
               <th>عنوان</th>
-              <th>توضیحات</th>
-              <th>نوع تیکت</th>
-              <th>علت تیکت</th>
+              <th ng-hide="ticket.tmp.formShow">توضیحات</th>
+              <th ng-hide="ticket.tmp.formShow">نوع تیکت</th>
+              <th ng-hide="ticket.tmp.formShow">علت تیکت</th>
               <th>زمان ایجاد</th>
               <th></th>
               <th ng-if = "checkWrite('ticket')"></th>
             </tr>
           </thead>
           <tbody ng-hide="load">
-            <tr ng-repeat = "list in ticket.note">
+            <tr ng-repeat = "list in ticket.note" ng-class="{'info':list.id==ticket.obj.id}">
               <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td>{{list.title | lengthLimit:30}}</td>
-              <td>{{list.description | lengthLimit:30}}</td>
-              <td>{{list.ticket_type | ticketType}}</td>
-              <td>{{list.reason | ticketReason}}</td>
+              <td ng-hide="ticket.tmp.formShow">{{list.description | lengthLimit:30}}</td>
+              <td ng-hide="ticket.tmp.formShow">{{list.ticket_type | ticketType}}</td>
+              <td ng-hide="ticket.tmp.formShow">{{list.reason | ticketReason}}</td>
               <td>{{ list.datetime | jalaliDate}}</td>
               <td></td>
               <td>
-                <a ng-click="ticket.getObject(list.id); editMode = true;ticket.tmp.formShow = true" href>
+                <a ng-click="ticket.readTicket(list.id,$index,this)" href>
                   <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                 </a>
               </td>
@@ -76,21 +76,17 @@
   <div class="col-xs-6" ng-hide="!ticket.tmp.formShow">
     <div class="x_panel">
       <div class="x_title">
-        <h3 class="modal-title" ng-hide="editMode">افزودن تیکت جدید</h3>
-        <h3 class="modal-title" ng-show="editMode">مشاهده ی تیکت</h3>
+        <h2  ng-hide="editMode"><i class="fa"></i>افزودن تیکت جدید</h2>
+        <h2  ng-show="editMode"><i class="fa"></i>مشاهده ی تیکت</h2>
         <div class="pull-left">
-          <button type="button" ng-if = "checkWrite('ticket')" ng-show = "stage == 0 && !editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
-          <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
-          <button type="button" class="btn btn-danger" ng-show = "stage == 0" ng-click="reset()" data-dismiss="modal">بستن</button>
-        </div>
-        <div class="pull-left load-spinner" ng-show = "loadModal">
-          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+          <button type="button" ng-if = "checkWrite('ticket')" ng-show = "!editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.createTicket(editMode)" class="btn btn-success">ذخیره</button>
+          <button type="button" class="btn btn-danger"  ng-click="reset()">بستن</button>
         </div>
         <div class="clearfix"></div>
       </div><!-- /.X_title -->
       <div class="x_content" ng-hide="loadSide">
 
-        <div ng-show="stage == 0">
+        <div>
           <form name="ticketForm" role="form" ng-hide="loadModal" novalidate>
             
             <div class="row">
@@ -103,22 +99,32 @@
                     <p ng-show="editMode"> {{ticket.obj.title | lengthLimit:20}} </p>
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="form-group" ng-show="!editMode || ticket.obj.product">
+                <div class="col-sm-6" ng-show="!editMode">
+                  <div class="form-group" >
                     <label>کالا</label>
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.selectThings(1,'product','use_case=0&model')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelection(1,'product','use_case=0&model')">انتخاب</button>
                         <button class="btn btn-warning btn-beside-input" type="button"
                         ng-show="ticket.obj.product && ticket.obj.product!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'product')"> 
                           حذف کالا </button>
                       </span>
                     </div>
-                    <p ng-show="editMode"> {{ticket.obj.product.model | lengthLimit:20}} </p>
+
                   </div>
+
                 </div>
+                <div class="col-sm-3" ng-show="editMode && ticket.obj.product">
+                  <label>مدل کالا</label>
+                  <p> {{ticket.obj.product.model | lengthLimit:20}} </p>
+                </div>
+                <div class="col-sm-3" ng-show="editMode && ticket.obj.product">
+                  <label>سریال کالا</label>
+                  <p> {{ticket.obj.product.serial_number | lengthLimit:20}} </p>
+                </div>
+
                 <div class="clearfix"></div>
                 <!--
                   date and status only in editMode
@@ -132,7 +138,7 @@
                   <label>وضعیت</label>
                   <p> {{ticket.obj.status | ticketStatus}} </p>
                 </div>
-                <div style="padding-top=0.5em;padding-left:1em" class="pull-left" ng-show="editMode">
+                <div class="pull-left button-padding" ng-show="editMode">
                   <button  type="button" class="btn btn-success btn-sm" ng-click="ticket.changeStatus(1)" 
                   ng-show="ticket.obj.status == 0 && !loadStatus">
                     شروع پیگیری
@@ -196,7 +202,7 @@
                         <button type="button" class="btn btn-info btn-beside-input"
                         ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource"  
                         ng-hide="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
-                        ng-click="ticket.selectThings(2,'warehouse','title')">
+                        ng-click="ticket.openSelection(2,'warehouse','title')">
                           انتخاب</button>
                         <button class="btn btn-warning btn-beside-input" type="button"
                         ng-show="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
@@ -234,7 +240,7 @@
             <hr>
             <h4>پیام ها</h4>
             <div class="message-list-container">
-              <div ng-class="{'ticket-message-self':msg.sender.card_no == userCard}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
+              <div ng-class="{'ticket-message-self':msg.sender.id == userId}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
                 <h4>
                   {{msg.sender.card_no | lengthLimit:20}}
                   <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
@@ -257,23 +263,43 @@
             </div>
 
           </div>
-          
         </div>
-        <!-- End of stage 0 -->
-
-        <!-- product selection stage -->
-        <search-stage ng-show = "stage == 1" obj="ticket.selectProductObj" controller = "ticket"></search-stage>
-        <!-- End of Stage 1 -->
-
-        <!-- destination warehouse selection stage -->
-        <search-stage ng-show = "stage == 2" obj="ticket.selectDestinationObj" controller = "ticket"></search-stage>
-        <!-- End of Stage 2 -->
-
       </div><!-- /.X_content -->
 
-      <div class="load-spinner" ng-show = "loadSide" style="text-align:center">
+      <div class="load-spinner" ng-show="loadSide" style="text-align:center">
         <i class="fa fa-spinner fa-pulse fa-3x" ></i>
       </div>
     </div><!-- /.X_panel -->
   </div>
 </div>
+
+<!-- Select Modal -->
+<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" ng-show="ticket.checkStage()">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="pull-left">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+                </div>
+            </div><!-- /.modal-header -->
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                          <!-- Stage == 0 -> product -->
+                          <search-stage ng-show = "stage == 1" obj="ticket.selectProductObj" controller = "ticket"></search-stage>
+
+
+                          <!-- Stage == 1 -> to_warehouse -->
+                          <search-stage ng-show = "stage == 2" obj="ticket.selectDestinationObj" controller = "ticket"></search-stage>
+
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+            </div><!-- /.modal-footer -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

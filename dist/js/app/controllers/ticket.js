@@ -74,7 +74,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   controller.relateWarehouseId = $routeParams.id;
-  $scope.userCard = $localStorage.assetData.card_no;
+  console.log($localStorage.assetData);
+  $scope.userId = $localStorage.assetData.id;
 
   controller.objConfig = function(obj){
     var outObj = angular.copy(obj);
@@ -109,10 +110,41 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     $scope.stage = 0;
   };
   
-  controller.setNewInvoiceForm = function(){
+  controller.setNewTicketForm = function(){
     $scope.reset();
     controller.tmp.formShow = true;
   };
+
+  controller.readTicket = function(id){
+    $scope.reset();
+    $scope.loadSide = true;
+    controller.tmp.formShow = true;
+    controller.getObject(id);
+    setTimeout(function () {
+      $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
+    },1000);
+  };
+
+  controller.createTicket = function(editMode_){
+    $scope.loadSide = true;
+    controller.sendOrEdit(editMode_);
+  }
+
+  controller.openSelection = function(s,n,f){
+    $scope.openModal();
+    controller.selectThings(s,n,f);
+  }
+
+  controller.checkStage = function(){
+    if($scope.stage!=0){
+      $scope.openModal('ticket');
+      return true;
+    }
+    else{
+      mainAsset.closeModal('#ticketModal');
+      return false;
+    }
+  }
 
   controller.setSourceType = function(){
     var url = assetPanelData.serverUrl + 'warehouse/'+controller.relateWarehouseId;
@@ -134,11 +166,12 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     $http.put(url, sendObj, {headers: headers})
       .then(
       function(response) { //for success response
-        requestHelper.successCallback(response);
         controller.obj = response.data;
         console.log(response.data);
         delete controller.tmp['text'];
-        $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
+        setTimeout(function () {
+          $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
+        },500);
         $scope.sendingMessage = false;
       },
       function(response){ //for error response

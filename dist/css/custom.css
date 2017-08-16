@@ -4481,7 +4481,7 @@ ul#temp-products li{
     background-color: #95d6e9; 
 }
 .limited-width-col{
-    max-width: 3em;
+    max-width: 30px;
     word-wrap: break-word;
 }
 .longer-limited-width-col{
@@ -4605,17 +4605,21 @@ div#deleteModal {
     background-color : #d9edf7 !important;
 }
 .message-list-container{
-    max-height: 20em;
+    max-height: 200px;
     overflow-y: auto; 
     overflow-x: hidden;
-    padding-left: 2em; 
+    padding-left: 5px; 
 }
 .ticket-description{
-    min-height: 2em;
-    max-height: 5em;
+    min-height: 20px;
+    max-height: 50px;
     overflow-y: auto;
-    padding: 0.5em;
-    margin: 0.5em;
+    padding: 5px;
+    margin: 5px;
     border: 1px solid #d9d9d9;
     width: 95%;
+}
+.button-padding{
+    padding-top:7px;
+    padding-left:5px;
 }
