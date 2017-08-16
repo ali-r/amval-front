@@ -99,14 +99,9 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     }
     return outObj;
   }
-  controller.getConfig = function(obj){
-    obj.reason = obj.reason + '';
-    obj.ticket_type = obj.ticket_type + '';
-    return obj;
-  }
-
+  
   crud.initModals($scope, controller, apiName, []);
-  crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig);
+  crud.init($scope, controller, apiName, controller.objConfig);
   controller.allowedSource = false;
   controller.addProduct = function(list){
     controller.obj.product = list;
@@ -134,7 +129,6 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       .then(
       function(response) { //for success response
         requestHelper.successCallback(response);
-        controller.obj = controller.getConfig(response.data);
         console.log(response.data);
         delete controller.tmp['text'];
         $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
@@ -154,7 +148,6 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       .then(
       function(response) { //for success response
         requestHelper.successCallback(response);
-        controller.obj = controller.getConfig(response.data);
         console.log(response.data);
         $scope.loadStatus = false;
       },
