@@ -195,9 +195,11 @@
               
                 <div class="col-sm-6">
                   <div class="form-group" ng-show="ticket.allowedSource || editMode">
-                    <label>انبار مقصد</label>
+                    <label ng-hide="editMode">انبار مقصد*</label>
+                    <label ng-show="editMode">انبار مقصد</label>
                     <div class="input-group" ng-hide="editMode">
-                      <input type="text" class="form-control" ng-model="ticket.obj.to_warehouse.title" disabled>
+                      <input type="text" class="form-control" ng-model="ticket.obj.to_warehouse.title" disabled
+                      ng-required="ticket.allowedSource">
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-beside-input"
                         ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource"  
