@@ -134,7 +134,7 @@
                         <i class="fa fa-qrcode fa-lg"></i>
                         </div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="controller.product.qr_code && $parent.checkWrite('product')"
-                      ng-click=" controller.deleteKey(product.obj,'qr_code')">حذف بارکد</button>
+                      ng-click=" controller.deleteKey(controller.product,'qr_code')">حذف بارکد</button>
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -150,8 +150,8 @@
                   <div class="clearfix"></div>
                   <!-- end of subgroup and time of deprication -->
                 </div>
-                <hr ng-show="controller.tmp.meta.meta_template">
-                <h4 ng-show="controller.tmp.meta.meta_template" >جزئیات کالا</h4>
+                <hr ng-show="controller.tmp.meta.meta_template.length > 0">
+                <h4 ng-show="controller.tmp.meta.meta_template.length > 0" >جزئیات کالا</h4>
                 <div class="row">
                   <div class="col-md-3" ng-repeat-start="meta in controller.tmp.meta.meta_template track by $index" >
                     <h5>{{meta.key  | lengthLimit:30}}</h5>

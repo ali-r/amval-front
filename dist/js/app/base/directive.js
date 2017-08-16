@@ -206,9 +206,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
             scope.controller.tmp.meta = response.data;
             scope.controller.product.meta_data = [];
             for (var i = 0; i < response.data.meta_template.length; i++) {
-             scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key, value: ''}
+             scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key, 'value': null}
             }
-
             scope.$parent.loadSearch = false;
           });
       }
@@ -262,7 +261,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         if(!sendCopyObj.meta_data){sendCopyObj.meta_data = [];}
 
         for (var i = 0; i < obj.meta_data.length; i++) {
-          if(obj.meta_data[i].value == '' )
+          if( !obj.meta_data[i]['value'] )
             {
               sendCopyObj.meta_data.splice(i, 1);
             }

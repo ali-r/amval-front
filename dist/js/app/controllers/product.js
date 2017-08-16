@@ -83,7 +83,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     controller.obj.meta_data = [];
     
     controller.tmp.meta = obj.subgroup;
-    
+    /*
     var meta;
     for (var i = 0; i < controller.tmp.meta.meta_template.length; i++) {
       for (var j = 0; j < obj.meta_data.meta_template.length; j++) {
@@ -92,12 +92,12 @@ angular.module("assetAdminPanel").controller('productCtrl',
         console.log(obj.meta_data[i]);
         
       }
-      /*
+    
       meta = { key:obj.subgroup.meta_template[i].key, value: ''};
       controller.obj.meta_data.push({key : obj.subgroup.meta_template[i].key});
-      */
-    }
     
+    }
+    */
     controller.product = obj;
     return obj;
   };
