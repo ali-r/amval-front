@@ -79,9 +79,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     obj.guarantee_end_date = mainAsset.toJalaliDate(obj.guarantee_end_date);
     obj.guarantee_start_date = mainAsset.toJalaliDate(obj.guarantee_start_date);
     obj.production_date = mainAsset.toJalaliDate(obj.production_date);
-    controller.tmp.meta = {meta_template:[]};
-    controller.obj.meta_data = [];
-    
+    controller.tmp.meta = {meta_template:[]};    
     controller.tmp.meta = obj.subgroup;
     /*
     var meta;

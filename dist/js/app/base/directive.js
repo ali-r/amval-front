@@ -259,8 +259,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         }
 
         if(!sendCopyObj.meta_data){sendCopyObj.meta_data = [];}
-
-        for (var i = 0; i < obj.meta_data.length; i++) {
+        
+        for (var i = obj.meta_data.length-1 ; i >= 0; i--) {
           if( !obj.meta_data[i]['value'] )
             {
               sendCopyObj.meta_data.splice(i, 1);

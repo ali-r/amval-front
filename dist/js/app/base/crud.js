@@ -173,7 +173,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
       if(obj){
         sendObj = angular.copy(obj);
-        console.log('rep obj')
       }else{
         sendObj = angular.copy(controller.obj);
         delete sendObj['id'];

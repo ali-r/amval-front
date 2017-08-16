@@ -128,11 +128,15 @@
                     <div class="form-group">
                       <label>*Qr Code</label>
                       <br/>
-                      <div class="btn btn-info btn-sm" ngf-select="controller.uploadProductPic()" ng-model="controller.qrCodeFile" name="productPic" ngf-pattern="'.jpg,.png,.jpeg,.png'"
+                      <div class="btn btn-info btn-sm" ng-hide = "uploading" ngf-select="controller.uploadProductPic()" ng-model="controller.qrCodeFile" name="productPic" ngf-pattern="'.jpg,.png,.jpeg,.png'"
                         ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && $parent.checkWrite('product')" ng-required="!controller.product.qr_code" ng-disabled="uploading">
                         بارگذاری بارکد
                         <i class="fa fa-qrcode fa-lg"></i>
-                        </div>
+                      </div>
+                      <p ng-show="uploading">
+                         در حال بارگذاری
+                        ({{uploadPercentage | pNumber}})
+                      </p>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="controller.product.qr_code && $parent.checkWrite('product')"
                       ng-click=" controller.deleteKey(controller.product,'qr_code')">حذف بارکد</button>
                       <br/>
@@ -140,10 +144,10 @@
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
                     </div>
                   </div>
-                  <div class="col-md-1">
+                  <div class="col-md-1" ng-if="controller.product.qr_code">
                     <div class="form-group">
                       <a href="{{uploadUrl + controller.product.qr_code}}" data-lightbox="بارکد کالا" data-title="بارکد کالا">
-                        <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + controller.product.qr_code}}" ng-if="controller.product.qr_code" id='qrCodeImage'>
+                        <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + controller.product.qr_code}}"  id='qrCodeImage'>
                       </a>
                     </div>
                   </div>
@@ -157,10 +161,10 @@
                     <h5>{{meta.key  | lengthLimit:30}}</h5>
                   </div>
                   <div class="col-md-6">
-                    <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="controller.product.meta_data[$index].value" >
-                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="controller.product.meta_data[$index].value" >
-                    <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="controller.product.meta_data[$index].value" >
-                    <input ng-if="meta.type == 'float'" class="form-control form-ltr" type="number" ng-model="product.obj.meta_data[$index].value">
+                    <input ng-if="meta.type == 'str'" class="form-control" type="text" ng-model="controller.product.meta_data[$index]['value']" >
+                    <input ng-if="meta.type == 'int'" class="form-control" type="number" ng-model="controller.product.meta_data[$index]['value']" >
+                    <input ng-if="meta.type == 'bool'" type="checkbox" ng-model="controller.product.meta_data[$index]['value']" >
+                    <input ng-if="meta.type == 'float'" class="form-control form-ltr" type="number" ng-model="product.obj.meta_data[$index]['value']">
                   </div>
                   <div class="col-md-3" >
                   </div>
@@ -413,20 +417,7 @@
           <br>
           -
           حداکثر حجم مجاز برای آپلود تصویر ۲ مگابایت است.
-          <hr ng-show = "$parent.stage === 0">
         </p>
-        <div ng-show = "$parent.stage === 0">
-          <p ng-show = "uploading" style="text-align : center;">
-            <i class="fa fa-refresh fa-spin fa-lg"></i>
-            در حال  بارگذاری ...
-          </p>
-        </div>
-        <div class="progress active" ng-hide = "$parent.uploadPercentage == 0 || $parent.stage != 0">
-          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-          aria-valuemin="0" id="uploadPercentBox" aria-valuemax="100" ng-style="{ 'width' : uploadPercentage }">
-          {{uploadPercentage}}
-          </div>
-        </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

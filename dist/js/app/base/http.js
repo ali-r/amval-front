@@ -134,7 +134,6 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
         data: {image: file, 'type': type}
     }).then(function (resp) {
         console.log('Success ' + 'uploaded. Response: ');
-        console.log( resp.data);
         scope.uploadPercentage = 0;
         callback(resp.data);
         scope.uploading = false;
