@@ -14,6 +14,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   controller.obj = {};
   controller.tmp = {};
   controller.tmp.formShow = false;
+  $scope.selectStage = 0;
   controller.addOne={};
   controller.addOne.extra={};
   controller.selectProductObj = {
@@ -74,7 +75,6 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   controller.relateWarehouseId = $routeParams.id;
-  console.log($localStorage.assetData);
   $scope.userId = $localStorage.assetData.id;
 
   controller.objConfig = function(obj){
@@ -100,7 +100,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       outObj.ticket_type = parseInt(outObj.ticket_type);
     }
     return outObj;
-  }
+  };
+
   
   controller.getConfig = function(obj){
     setTimeout(function () {
@@ -135,19 +136,16 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   }
 
   controller.openSelection = function(s,n,f){
-    $scope.openModal();
+    mainAsset.openModal('#selectModal');
+    $scope.selectStage = s;
     controller.selectThings(s,n,f);
   }
 
-  controller.checkStage = function(){
-    if($scope.stage!=0){
-      $scope.openModal('ticket');
-      return true;
-    }
-    else{
-      mainAsset.closeModal('#ticketModal');
-      return false;
-    }
+
+  controller.selectObj = function(field_,item_){
+    controller.obj[field_] = item_;
+    mainAsset.closeModal('#selectModal');
+
   }
 
   controller.setSourceType = function(){
