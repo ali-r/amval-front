@@ -13,6 +13,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   controller.obj = {};
   controller.tmp = {};
+  controller.tmp.formShow = false;
   controller.addOne={};
   controller.addOne.extra={};
   controller.selectProductObj = {
@@ -108,6 +109,11 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     $scope.stage = 0;
   };
   
+  controller.setNewInvoiceForm = function(){
+    $scope.reset();
+    controller.tmp.formShow = true;
+  };
+
   controller.setSourceType = function(){
     var url = assetPanelData.serverUrl + 'warehouse/'+controller.relateWarehouseId;
     requestHelper.get(

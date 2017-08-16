@@ -28,11 +28,11 @@
       </adm-dtp>
     </div>
   </search-tools>
-  <div class="col-md-12 col-sm-12 col-xs-12">
+  <div ng-class = "{'col-xs-12':!ticket.tmp.formShow , 'col-xs-6' : ticket.tmp.formShow}">
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa"></i>تیکت‌ها</h2>
-        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
+        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success btn-sm pull-left" name="button" ng-click="ticket.setNewInvoiceForm()">
           تیکت جدید
         </button>
         <div class="clearfix"></div>
@@ -61,7 +61,7 @@
               <td>{{ list.datetime | jalaliDate}}</td>
               <td></td>
               <td>
-                <a ng-click="ticket.getObject(list.id); editMode = true" href>
+                <a ng-click="ticket.getObject(list.id); editMode = true;ticket.tmp.formShow = true" href>
                   <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                 </a>
               </td>
@@ -72,13 +72,12 @@
       </div>
     </div>
   </div>
-</div>
 
-<!-- ticket Modal -->
-<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div class="col-xs-6" ng-hide="!ticket.tmp.formShow">
+    <div class="x_panel">
+      <div class="x_title">
+        <h3 class="modal-title" ng-hide="editMode">افزودن تیکت جدید</h3>
+        <h3 class="modal-title" ng-show="editMode">مشاهده ی تیکت</h3>
         <div class="pull-left">
           <button type="button" ng-if = "checkWrite('ticket')" ng-show = "stage == 0 && !editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
@@ -87,10 +86,9 @@
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h3 class="modal-title" ng-hide="editMode">افزودن تیکت جدید</h3>
-        <h3 class="modal-title" ng-show="editMode">مشاهده ی تیکت</h3>
-      </div>
-      <div class="modal-body">
+        <div class="clearfix"></div>
+      </div><!-- /.X_title -->
+      <div class="x_content" ng-hide="loadSide">
 
         <div ng-show="stage == 0">
           <form name="ticketForm" role="form" ng-hide="loadModal" novalidate>
@@ -271,12 +269,11 @@
         <search-stage ng-show = "stage == 2" obj="ticket.selectDestinationObj" controller = "ticket"></search-stage>
         <!-- End of Stage 2 -->
 
+      </div><!-- /.X_content -->
+
+      <div class="load-spinner" ng-show = "loadSide" style="text-align:center">
+        <i class="fa fa-spinner fa-pulse fa-3x" ></i>
       </div>
-      <div class="modal-footer">
-        <p ng-show = "stage == 0 && !editMode"> −
-          پر کردن فیلد هایی که با * مشخص شده اجباری است
-        </p>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div><!-- /.X_panel -->
+  </div>
+</div>
