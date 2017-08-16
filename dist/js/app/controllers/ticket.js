@@ -102,8 +102,15 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     return outObj;
   }
   
+  controller.getConfig = function(obj){
+    setTimeout(function () {
+      $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
+    },500);
+    return obj;
+  }
+
   crud.initModals($scope, controller, apiName, []);
-  crud.init($scope, controller, apiName, controller.objConfig);
+  crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig);
   controller.allowedSource = false;
   controller.addProduct = function(list){
     controller.obj.product = list;
@@ -120,9 +127,6 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     $scope.loadSide = true;
     controller.tmp.formShow = true;
     controller.getObject(id);
-    setTimeout(function () {
-      $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
-    },1000);
   };
 
   controller.createTicket = function(editMode_){
