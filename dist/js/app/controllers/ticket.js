@@ -77,7 +77,6 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   controller.objConfig = function(obj){
     var outObj = angular.copy(obj);
-    console.log($scope.editMode);
     if($scope.editMode){ //config object for editing
 
     }
