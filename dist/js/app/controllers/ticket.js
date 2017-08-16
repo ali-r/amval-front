@@ -129,6 +129,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       .then(
       function(response) { //for success response
         requestHelper.successCallback(response);
+        controller.obj = response.data;
         console.log(response.data);
         delete controller.tmp['text'];
         $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
@@ -148,6 +149,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       .then(
       function(response) { //for success response
         requestHelper.successCallback(response);
+        controller.obj = response.data;
         console.log(response.data);
         $scope.loadStatus = false;
       },
