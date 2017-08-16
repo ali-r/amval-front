@@ -165,8 +165,4 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       }
     );
   }
-
-  controller.deleteSelected = function(field_){
-    delete controller.obj[field_];
-  }
 });
