@@ -111,11 +111,11 @@
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(1,'product','use_case=0&model')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.selectThings(1,'product','use_case=0&model')">انتخاب</button>
                         <button class="btn btn-warning btn-beside-input" type="button"
                         ng-show="ticket.obj.product && ticket.obj.product!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'product')"> 
-                          <i class="fa fa-remove" ></i> </button>
+                          حذف کالا </button>
                       </span>
                     </div>
                     <p ng-show="editMode"> {{ticket.obj.product.model | lengthLimit:20}} </p>
@@ -195,11 +195,15 @@
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.to_warehouse.title" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource" class="btn btn-info btn-beside-input" ng-click="ticket.selectThings(2,'warehouse','title')">انتخاب</button>
+                        <button type="button" class="btn btn-info btn-beside-input"
+                        ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource"  
+                        ng-hide="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
+                        ng-click="ticket.selectThings(2,'warehouse','title')">
+                          انتخاب</button>
                         <button class="btn btn-warning btn-beside-input" type="button"
                         ng-show="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'to_warehouse')"> 
-                          <i class="fa fa-remove" ></i> </button>
+                          حذف انبار مقصد </button>
                       </span>
                     </div>
                     <p ng-show="editMode"> {{ticket.obj.to_warehouse.title | lengthLimit:30}} </p>
