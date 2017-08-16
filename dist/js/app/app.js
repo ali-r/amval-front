@@ -285,7 +285,7 @@ app.filter('userOrWarehouseName',function(){
   return function(input){
     if(input){
       if(input.type=="User")
-        {return (input.obj.last_name || '')}
+        {return (input.obj.first_name + ' ' + input.obj.last_name || '')}
       else
         {return (input.obj.title || '')}
     }

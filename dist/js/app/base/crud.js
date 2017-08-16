@@ -160,7 +160,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         scope.apiUrl + "/" + id,  scope,
         function(response) {
           controller.obj = getConfig(response.data);
-          console.log(response.data);
+          console.log(controller.obj);
           scope.loadModal = false;
           scope.loadSide = false;
         });
