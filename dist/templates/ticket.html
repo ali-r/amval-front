@@ -135,11 +135,11 @@
                   <p> {{ticket.obj.status | ticketStatus}} </p>
                 </div>
                 <div style="padding-top=0.5em;" class="col-xs-3" ng-show="editMode">
-                  <button style="float:left" type="button" class="btn btn-success" ng-click="ticket.changeStatus(1)" 
+                  <button style="float:left" type="button" class="btn btn-success btn-sm" ng-click="ticket.changeStatus(1)" 
                   ng-show="ticket.obj.status == 0 && !loadStatus">
                     شروع پیگیری
                   </button>
-                  <button style="float:left" type="button" class="btn btn-warning" ng-click="ticket.changeStatus(2)" 
+                  <button style="float:left" type="button" class="btn btn-warning btn-sm" ng-click="ticket.changeStatus(2)" 
                   ng-show="ticket.obj.status == 1 && !loadStatus">
                     اتمام
                   </button>
