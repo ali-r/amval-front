@@ -105,36 +105,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
 
-  this.deleteChild = function(index){
-    controller.obj.children.splice (index, 1);
-  };
-
-  this.deleteField = function(obj,field){
-    delete obj[field];
-  }
-
-  this.checkDuplicate = function (obj, array) {
-    var checkResult = true;
-
-    if(!array)
-      array = [];
-
-    for (var i = 0; i < array.length; i++) {
-      if( array[i].id == obj.id){
-        checkResult = false;
-      };
-    }
-    return checkResult;
-  }
-
-  this.addBundleProduct = function(list){
-
-    if(!controller.obj.children)
-      controller.obj.children = [];
-
-    controller.obj.children.push(list);
-    //$scope.stage = 0;
-  };
+  
 
   controller.obj.qr_code = '';
   this.uploadPic = function() {

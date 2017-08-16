@@ -6,7 +6,7 @@
         <div class="pull-left">
           <button type="button" ng-disabled="!productForm.$valid || !controller.product.qr_code"
           ng-click="sendOrEdit($parent.editMode)" ng-show = "$parent.stage == 0" ng-show = "$parent.checkWrite('product')" class="btn btn-success">ذخیره</button>
-          <button type="button" class="btn btn-danger" ng-show = "$parent.stage == 0" ng-click="reset(); controller.product = {}" data-dismiss="modal">بستن</button>
+          <button type="button" class="btn btn-danger" ng-show = "$parent.stage == 0" ng-click="productReset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "$parent.stage != 0" ng-click="$parent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
@@ -134,7 +134,7 @@
                         <i class="fa fa-qrcode fa-lg"></i>
                         </div>
                       <button type="button" class="btn btn-sm btn-danger" ng-if="controller.product.qr_code && $parent.checkWrite('product')"
-                      ng-click=" controller.product.qr_code = ''">حذف بارکد</button>
+                      ng-click=" controller.deleteKey(product.obj,'qr_code')">حذف بارکد</button>
                       <br/>
                       <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -400,13 +400,14 @@
           </div>
       </div>
       <div class="modal-footer">
+        <!-- 
         <ul>
           <li ng-repeat="(key, errors) in productForm.$error track by $index"> <strong>{{ key }}</strong> errors
               <ul>
               <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
               </ul>
           </li>
-        </ul>
+        </ul> -->
         <p ng-show = "$parent.stage === 0"> −
           پر کردن فیلد هایی که با * مشخص شده اجباری است
           <br>

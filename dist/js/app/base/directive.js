@@ -178,6 +178,11 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         ]
       };
 
+      scope.productReset = function(){
+        scope.controller.product = {};
+        scope.controller.tmp.meta = {};
+      }
+
       scope.setGroupStage = function(){
         scope.controller.tmp.searchD = false;
         scope.controller.tmp.searchQuery = "";
@@ -281,6 +286,33 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           scope.controller.product = {};
         });
       }
+
+      scope.controller.deleteChild = function(index){
+        scope.controller.obj.children.splice (index, 1);
+      };
+      /*
+      this.checkDuplicate = function (obj, array) {
+        var checkResult = true;
+
+        if(!array)
+          array = [];
+
+        for (var i = 0; i < array.length; i++) {
+          if( array[i].id == obj.id){
+            checkResult = false;
+          };
+        }
+        return checkResult;
+      }
+
+      this.addBundleProduct = function(list){
+
+        if(!controller.obj.children)
+          controller.obj.children = [];
+
+        controller.obj.children.push(list);
+        //$scope.stage = 0;
+      };*/
 
     },
     templateUrl: '/dist/js/app/directive/creatproduct.html'
