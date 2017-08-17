@@ -67,8 +67,9 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     this.openModal = function (modal) {
       $(modal).modal({
           backdrop: 'static',
-          keyboard: false
+          keyboard: true
         });
+      
       $(modal).modal('show');
     };
 

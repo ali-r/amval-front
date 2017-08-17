@@ -28,6 +28,9 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       mainAsset.closeModal('#' + apiName + 'Modal');
       scope.reset();
     }
+    $('#' + apiName + 'Modal').on('hide.bs.modal',function(){
+        scope.reset();
+    })
   }
 
   this.init = function(scope, controller, apiName, objConfig, getConfig) {
