@@ -32,7 +32,7 @@
     <div class="x_panel">
       <div class="x_title">
         <h2><i class="fa"></i>تیکت‌ها</h2>
-        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success pull-left" name="button" ng-click="ticket.setNewTicketForm()">
+        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success pull-left btn-sm" name="button" ng-click="ticket.setNewTicketForm()">
           تیکت جدید
         </button>
         <div class="clearfix"></div>
@@ -79,8 +79,8 @@
         <h2  ng-hide="editMode"><i class="fa"></i>افزودن تیکت جدید</h2>
         <h2  ng-show="editMode"><i class="fa"></i>مشاهده ی تیکت</h2>
         <div class="pull-left">
-          <button type="button" ng-if = "checkWrite('ticket')" ng-show = "!editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.createTicket(editMode)" class="btn btn-success">ذخیره</button>
-          <button type="button" class="btn btn-danger"  ng-click="reset()">بستن</button>
+          <button type="button" ng-if = "checkWrite('ticket')" ng-show = "!editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.createTicket(editMode)" class="btn btn-success btn-sm">ذخیره</button>
+          <button type="button" class="btn btn-danger btn-sm"  ng-click="reset()">بستن</button>
         </div>
         <div class="clearfix"></div>
       </div><!-- /.X_title -->
