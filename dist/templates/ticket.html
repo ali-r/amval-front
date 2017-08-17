@@ -116,13 +116,11 @@
                   </div>
 
                 </div>
-                <div class="col-sm-3" ng-show="editMode && ticket.obj.product">
-                  <label>مدل کالا</label>
-                  <p> {{ticket.obj.product.model | lengthLimit:20}} </p>
-                </div>
-                <div class="col-sm-3" ng-show="editMode && ticket.obj.product">
-                  <label>سریال کالا</label>
-                  <p> {{ticket.obj.product.serial_number | lengthLimit:20}} </p>
+                <div class="col-sm-6" ng-show="editMode && ticket.obj.product">
+                  <label>کالا</label>
+                  <p> 
+                    {{ticket.obj.product.model | lengthLimit:20}} 
+                    ({{ticket.obj.product.serial_number | lengthLimit:20}}) </p>
                 </div>
 
                 <div class="clearfix"></div>
@@ -131,7 +129,7 @@
                   use ticketStatus filter for show  status
                  -->
                 <div class="col-xs-6" ng-show="editMode" >
-                  <label>زمان</label>
+                  <label>زمان ایجاد</label>
                   <p> {{ticket.obj.datetime | jalaliDate}} </p>
                 </div>
                 <div class="col-xs-3" ng-show="editMode">
@@ -209,7 +207,7 @@
                         <button class="btn btn-warning btn-beside-input" type="button"
                         ng-show="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'to_warehouse')"> 
-                          حذف انبار مقصد </button>
+                          حذف</button>
                       </span>
                     </div>
                     <p ng-show="editMode"> {{ticket.obj.to_warehouse.title | lengthLimit:30}} </p>
@@ -275,7 +273,7 @@
   </div>
 </div>
 
-<!-- Select product Modal -->
+<!-- Select product & to_warehouse Modal -->
 <div class="modal fade" id="selectModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -300,9 +298,9 @@
 
                                     <form name="selectProductForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="ticket.tmp.searchField" required>
+                                        <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=0&model__contains=' + ticket.tmp.searchField)">جستجوی کالا</button>
+                                          <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=0&model__contains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
                                         </span>
                                       </div>
                                     </form>
@@ -349,9 +347,9 @@
 
                                     <form name="selectWarehouseForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" placeholder="نام انبار" ng-model="ticket.tmp.searchField" required>
+                                        <input type="text" class="form-control" name="searchText" placeholder="نام انبار" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse','title__contains=' + ticket.tmp.searchField)">جستجوی انبار</button>
+                                          <button type="button" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse','title')">جستجوی انبار</button>
                                         </span>
                                       </div>
                                     </form>
@@ -364,6 +362,7 @@
                                             <th>نام انبار</th>
                                             <th>محل</th>
                                             <th>شماره تلفن</th>
+                                            <th></th>
                                           </tr>
 
                                           <tr  ng-repeat = "list in ticket.tmp.searchResult">

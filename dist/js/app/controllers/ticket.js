@@ -200,4 +200,22 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       }
     );
   }
+
+  controller.getFilteredData = function(){
+
+    var editedObj = angular.copy(controller.addOne);
+
+    if(editedObj.extra.datetime__gte){
+      editedObj.extra.datetime__gte = mainAsset.toGregorianDate(controller.addOne.extra.datetime__gte);
+    }
+    else{editedObj.extra.datetime__gte=""}
+    if(editedObj.extra.datetime__lte){
+      editedObj.extra.datetime__lte = mainAsset.toGregorianDate(controller.addOne.extra.datetime__lte);
+    }
+    else{editedObj.extra.datetime__lte=""}
+    $scope.page = 1;
+    controller.paginationConfig.addOne = editedObj;
+    $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
+    controller.getData();
+  }
 });
