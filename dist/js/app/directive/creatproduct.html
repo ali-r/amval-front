@@ -46,9 +46,10 @@
                     </div>
                   </div>
                   <div class="clearfix"></div>
+                  <hr>
                   <!-- end of model serial group -->
 
-                  <!-- guarantor producer seller -->
+                  <!-- productin date producer Qr code -->
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>تولید کننده*</label>
@@ -60,6 +61,41 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : productForm.cardno.$valid && controller.product.card_no}">
+                      <label>تاریخ تولید*</label>
+                      <adm-dtp ng-model="controller.product.production_date" ></adm-dtp>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>*Qr Code</label>
+                      <br/>
+                      <div class="btn btn-info btn-sm" ng-hide = "uploading" ngf-select="controller.uploadProductPic()" ng-model="controller.qrCodeFile" name="productPic" ngf-pattern="'.jpg,.png,.jpeg,.png'"
+                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && $parent.checkWrite('product')" ng-required="!controller.product.qr_code" ng-disabled="uploading">
+                        بارگذاری بارکد
+                        <i class="fa fa-qrcode fa-lg"></i>
+                      </div>
+                      <p ng-show="uploading">
+                         در حال بارگذاری
+                        ({{uploadPercentage | pNumber}})
+                      </p>
+                      <button type="button" class="btn btn-sm btn-danger" ng-if="controller.product.qr_code && $parent.checkWrite('product')"
+                      ng-click=" controller.deleteKey(controller.product,'qr_code')">حذف بارکد</button>
+                      <p ng-show="productForm.productPic.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
+                      <p ng-show="productForm.productPic.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+                    </div>
+                  </div>
+                  <div class="col-md-1" ng-if="controller.product.qr_code">
+                    <a ng-href="{{uploadUrl + controller.product.qr_code}}" data-lightbox="بارکد کالا" data-title="بارکد کالا">
+                      <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + controller.product.qr_code}}"  id='qrCodeImage'>
+                    </a>
+                  </div>
+                  <div class="clearfix"></div>
+                  <hr>
+                  <!-- end of productin date producer Qr code -->
+
+                  <!-- gurantor -->
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>گارانتی*</label>
@@ -77,35 +113,15 @@
                       <adm-dtp ng-model="controller.product.guarantee_start_date" ></adm-dtp>
                     </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <!-- end of guarantor producer seller -->
-
-                  <!-- dates -->
                   <div class="col-md-4">
                     <div class="form-group">
                       <label>تاریخ پایان گارانتی*</label>
                       <adm-dtp ng-model="controller.product.guarantee_end_date"></adm-dtp>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group" ng-class="{'has-success' : productForm.cardno.$valid && controller.product.card_no}">
-                      <label>تاریخ تولید*</label>
-                      <adm-dtp ng-model="controller.product.production_date" ></adm-dtp>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label></label>  
-                      <div class="row">
-                        <div class="col-sm-6">
-                          خارج از سامانه
-                          <input class="" type="checkbox" ng-model="controller.product.is_out_of_system">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="clearfix"></div>
-                  <!-- end date -->
+                  <hr>
+                  <!-- end gurantor -->
 
                   <!-- subgroup and time of deprication -->
                   
@@ -124,31 +140,15 @@
                       <input type="number" class="form-control" ng-model="controller.product.deprication_period" required>
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <div class="form-group">
-                      <label>*Qr Code</label>
-                      <br/>
-                      <div class="btn btn-info btn-sm" ng-hide = "uploading" ngf-select="controller.uploadProductPic()" ng-model="controller.qrCodeFile" name="productPic" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && $parent.checkWrite('product')" ng-required="!controller.product.qr_code" ng-disabled="uploading">
-                        بارگذاری بارکد
-                        <i class="fa fa-qrcode fa-lg"></i>
+                      <label></label>  
+                      <div class="row">
+                        <div class="col-sm-6">
+                          خارج از سامانه
+                          <input class="" type="checkbox" ng-model="controller.product.is_out_of_system">
+                        </div>
                       </div>
-                      <p ng-show="uploading">
-                         در حال بارگذاری
-                        ({{uploadPercentage | pNumber}})
-                      </p>
-                      <button type="button" class="btn btn-sm btn-danger" ng-if="controller.product.qr_code && $parent.checkWrite('product')"
-                      ng-click=" controller.deleteKey(controller.product,'qr_code')">حذف بارکد</button>
-                      <br/>
-                      <p ng-show="productForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
-                      <p ng-show="productForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
-                    </div>
-                  </div>
-                  <div class="col-md-1" ng-if="controller.product.qr_code">
-                    <div class="form-group">
-                      <a href="{{uploadUrl + controller.product.qr_code}}" data-lightbox="بارکد کالا" data-title="بارکد کالا">
-                        <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + controller.product.qr_code}}"  id='qrCodeImage'>
-                      </a>
                     </div>
                   </div>
                   <div class="clearfix"></div>
