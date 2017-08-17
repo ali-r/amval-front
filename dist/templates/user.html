@@ -99,9 +99,9 @@
                       </select>
                     </div>
                   </div>
-                  
-                  
                   <div class="clearfix"></div>
+                  <hr>
+
                   <div class="col-md-6" ng-if="!(editMode || user.obj.clearance_level == 0)">
                     <div class="form-group" ng-class=" {'has-error' : userForm.password.$invalid && user.obj.password,
                       'has-success' : !userForm.password.$invalid }  ">
@@ -123,6 +123,8 @@
                     </div>
                   </div>
                   <div class="clearfix"></div>
+                  <hr ng-hide="editMode">
+                  
                   <div class="col-md-6">
                     <div class="form-group" ng-class=" {'has-error' : userForm.phone.$invalid && user.obj.phone,
                       'has-success' : userForm.phone.$valid && user.obj.phone } ">
