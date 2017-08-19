@@ -4310,8 +4310,8 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 .filter-option{
   display: inline;
-  min-width: 130px;
-  max-width: 300px;
+  min-width: 150px;
+  max-width: 250px;
   width: 20%;
   vertical-align: top;
   padding: 2px 15px;
@@ -4595,4 +4595,9 @@ div#deleteModal {
     padding: 4px 12px;
     border: 1px solid #e4e4e4;
     min-height: 34px;
+}
+.report-field{
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
 }
