@@ -77,9 +77,23 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
     };
 
     this.toGregorianDate = function(pDate){
-      var dateArray = pDate.split('-');
-      var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      return (gDate.year + '-' + gDate.month + '-' + gDate.day);
+      if(!pDate)
+        pDate = '';
+      
+      if(pDate.indexOf(' ') >= 0){
+        var splitted = pDate.split(' ');
+        var time = splitted[0];
+        var dateArray = splitted[1].split('-');
+        var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+        var outDate = moment( gDate.year + '-' + gDate.month + '-' + gDate.day + ' ' + time + ':00' ,"YYYY-MM-DD HH:mm:ss");
+        outDate = moment(outDate).utcOffset(0).format('YYYY-MM-DDTHH:mm:ss')
+        return (outDate);  
+      }
+      else{
+        var dateArray = pDate.split('-');
+        var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+        return (gDate.year + '-' + gDate.month + '-' + gDate.day);  
+      }
     }
 
     this.toJalaliDate = function(pDate){
@@ -172,15 +186,37 @@ app.filter('ticketStatus', function() {
     var output;
     switch(input){
         case 0:
-          output = "درخواست";
+          output = "درخواست شده";
         break;
         case 1:
-          output = "در حال پردازش";
+          output = "در حال پیگیری";
         break;
         case 2:
           output = "بسته شده";
         break;
     }
+    return output;
+  }
+});
+
+app.filter('ticketType', function() {
+  return function(input) {
+    var output="";
+    if(input==0 || input=="0") output = "غیره";
+    else if(input==1 || input=="1") output = "خرید";
+    else if(input==2 || input=="2") output = "تخصیص";
+    else if(input==3 || input=="3") output = "عودت";
+    return output;
+  }
+});
+
+app.filter('ticketReason', function() {
+  return function(input) {
+    var output = "";
+    if(input==0 || input=="0") output = "غیره";
+    else if(input==1 || input=="1") output = "تسویه";
+    else if(input==2 || input=="2") output = "خرابی";
+    else if(input==3 || input=="3") output = "استهلاک";
     return output;
   }
 });
@@ -290,4 +326,25 @@ app.filter('userOrWarehouseName',function(){
         {return (input.obj.title || '')}
     }
   }
+});
+
+app.filter('productName',function(){
+  return function(input){
+    if(input){
+      return (input.model || '')
+    }
+  }
+});
+
+app.filter('nullFilter',function(){
+  return function(input){return(input || '');}
+});
+
+app.filter('useFilter', function($filter) {
+    return function() {
+        var filterName = [].splice.call(arguments, 1, 1)[0];
+        if(!!filterName){return $filter(filterName).apply(null, arguments);}
+        else{return $filter('nullFilter').apply(null, arguments);}
+        
+    };
 });

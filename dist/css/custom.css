@@ -4481,7 +4481,7 @@ ul#temp-products li{
     background-color: #95d6e9; 
 }
 .limited-width-col{
-    max-width: 3em;
+    max-width: 30px;
     word-wrap: break-word;
 }
 .longer-limited-width-col{
@@ -4600,4 +4600,36 @@ div#deleteModal {
     display: inline-block;
     margin: 0px;
     padding: 0px;
+}
+.message-body{
+    padding: 5px;
+}
+.ticket-message{
+    display: block;
+    margin: 5px 0px;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-top-width: 2px;
+}
+.ticket-message-self{
+    background-color : #d9edf7 !important;
+}
+.message-list-container{
+    max-height: 200px;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    padding-left: 5px; 
+}
+.ticket-description{
+    min-height: 20px;
+    max-height: 50px;
+    overflow-y: auto;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #d9d9d9;
+    width: 95%;
+}
+.button-padding{
+    padding-top:7px;
+    padding-left:5px;
 }

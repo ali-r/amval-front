@@ -1,0 +1,398 @@
+<div class="row">
+  <search-tools sobject="ticket.searchObject" scontroller="ticket">    
+    <select class="form-control filter-option" ng-model="ticket.addOne.extra.reason" title="علت تیکت">
+      <option value="">-- علت تیکت --</option>
+      <option value="1">تسویه</option>
+      <option value="2">خرابی</option>
+      <option value="3">استهلاک</option>
+      <option value="0">غیره</option>
+    </select>
+
+    <select class="form-control filter-option" ng-model="ticket.addOne.extra.ticket_type" title="نوع تیکت">
+      <option value="">-- نوع تیکت --</option>
+      <option value="1">خرید</option>
+      <option value="2">تخصیص</option>
+      <option value="3">عودت</option>
+      <option value="0">غیره</option>
+    </select>
+    از تاریخ :
+    <div class="sort-option-edited">
+      <adm-dtp ng-model="ticket.addOne.extra.datetime__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+        <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
+      </adm-dtp>
+    </div>
+    تا تاریخ :
+    <div class="sort-option-edited">
+      <adm-dtp ng-model="ticket.addOne.extra.datetime__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+        <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
+      </adm-dtp>
+    </div>
+  </search-tools>
+  <div ng-class = "{'col-xs-12':!ticket.tmp.formShow , 'col-xs-6' : ticket.tmp.formShow}">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa"></i>تیکت‌ها</h2>
+        <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success pull-left btn-sm" name="button" ng-click="ticket.setNewTicketForm()">
+          تیکت جدید
+        </button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table table-striped jambo_table asset-tables">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>عنوان</th>
+              <th ng-hide="ticket.tmp.formShow">توضیحات</th>
+              <th ng-hide="ticket.tmp.formShow">نوع تیکت</th>
+              <th ng-hide="ticket.tmp.formShow">علت تیکت</th>
+              <th>زمان ایجاد</th>
+              <th></th>
+              <th ng-if = "checkWrite('ticket')"></th>
+            </tr>
+          </thead>
+          <tbody ng-hide="load">
+            <tr ng-repeat = "list in ticket.note" ng-class="{'info':list.id==ticket.obj.id}">
+              <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
+              <td>{{list.title | lengthLimit:30}}</td>
+              <td ng-hide="ticket.tmp.formShow">{{list.description | lengthLimit:30}}</td>
+              <td ng-hide="ticket.tmp.formShow">{{list.ticket_type | ticketType}}</td>
+              <td ng-hide="ticket.tmp.formShow">{{list.reason | ticketReason}}</td>
+              <td>{{ list.datetime | jalaliDate}}</td>
+              <td></td>
+              <td>
+                <a ng-click="ticket.readTicket(list.id,$index,this)" href>
+                  <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <req-pagination itemmeta="meta" itempage="page" controller="ticket" config="ticket.paginationConfig"></req-pagination>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-6" ng-hide="!ticket.tmp.formShow">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2  ng-hide="editMode"><i class="fa"></i>افزودن تیکت جدید</h2>
+        <h2  ng-show="editMode"><i class="fa"></i>مشاهده ی تیکت</h2>
+        <div class="pull-left">
+          <button type="button" ng-if = "checkWrite('ticket')" ng-show = "!editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.createTicket(editMode)" class="btn btn-success btn-sm">ذخیره</button>
+          <button type="button" class="btn btn-danger btn-sm"  ng-click="reset()">بستن</button>
+        </div>
+        <div class="clearfix"></div>
+      </div><!-- /.X_title -->
+      <div class="x_content" ng-hide="loadSide">
+
+        <div>
+          <form name="ticketForm" role="form" ng-hide="loadModal" novalidate>
+            
+            <div class="row">
+              <fieldset ng-disabled ="!checkWrite('ticket')">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label ng-show="!editMode">عنوان * </label>
+                    <label ng-show="editMode">عنوان</label>
+                    <input type="text" class="form-control" ng-model="ticket.obj.title" required ng-hide="editMode">
+                    <p ng-show="editMode"> {{ticket.obj.title | lengthLimit:20}} </p>
+                  </div>
+                </div>
+                <div class="col-sm-6" ng-show="!editMode">
+                  <div class="form-group" >
+                    <label>کالا</label>
+                    <div class="input-group" ng-hide="editMode">
+                      <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
+                      <span class="input-group-btn">
+                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelection(0,'product','use_case=0&model')">انتخاب</button>
+                        <button class="btn btn-danger btn-beside-input" type="button"
+                        ng-show="ticket.obj.product && ticket.obj.product!=''" 
+                        ng-click="ticket.deleteKey(ticket.obj,'product')"> 
+                          حذف کالا </button>
+                      </span>
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="col-sm-6" ng-show="editMode && ticket.obj.product">
+                  <label>کالا</label>
+                  <p> 
+                    {{ticket.obj.product.model | lengthLimit:20}} 
+                    ({{ticket.obj.product.serial_number | lengthLimit:20}}) </p>
+                </div>
+
+                <div class="clearfix"></div>
+                <!--
+                  date and status only in editMode
+                  use ticketStatus filter for show  status
+                 -->
+                <div class="col-xs-6" ng-show="editMode" >
+                  <label>زمان ایجاد</label>
+                  <p> {{ticket.obj.datetime | jalaliDate}} </p>
+                </div>
+                <div class="col-xs-3" ng-show="editMode">
+                  <label>وضعیت</label>
+                  <p> {{ticket.obj.status | ticketStatus}} </p>
+                </div>
+                <div class="pull-left button-padding" ng-show="editMode">
+                  <button  type="button" class="btn btn-success btn-sm" ng-click="ticket.changeStatus(1)" 
+                  ng-show="ticket.obj.status == 0 && !loadStatus">
+                    شروع پیگیری
+                  </button>
+                  <button  type="button" class="btn btn-warning btn-sm" ng-click="ticket.changeStatus(2)" 
+                  ng-show="ticket.obj.status == 1 && !loadStatus">
+                    اتمام
+                  </button>
+                  <i ng-show="loadStatus" class="fa fa-spinner fa-pulse fa-2x" ></i>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label ng-hide="editMode">علت تیکت*</label>
+                    <label ng-show="editMode">علت تیکت</label>
+                    <select class="form-control" ng-model="ticket.obj.reason" title="علت تیکت" required 
+                    ng-hide="editMode">
+                      <option value="1">تسویه</option>
+                      <option value="2">خرابی</option>
+                      <option value="3">استهلاک</option>
+                      <option value="0">غیره</option>
+                    </select>
+                    <p ng-show="editMode"> {{ticket.obj.reason | ticketReason}} </p>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label ng-hide="editMode">نوع تیکت*</label>
+                    <label ng-show="editMode">نوع تیکت</label>
+
+                    <select class="form-control" ng-model="ticket.obj.ticket_type" title="نوع تیکت" required
+                    ng-hide="editMode">
+                      <option value="1">خرید</option>
+                      <option value="2">تخصیص</option>
+                      <option value="3">عودت</option>
+                      <option value="0">غیره</option>
+                    </select>
+                    <p ng-show="editMode"> {{ticket.obj.ticket_type | ticketType}} </p>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <!--
+                  warehouse_id is forbidden when source is normal warehouse
+                 -->
+                <div class="col-sm-6" ng-show="editMode">
+                  <div class="form-group">
+                    <label>انبار مبدا</label>
+                    <p> {{ticket.obj.from_warehouse.title | lengthLimit:30}} </p>
+                  </div>
+                </div>
+              
+                <div class="col-sm-6">
+                  <div class="form-group" ng-show="ticket.allowedSource || editMode">
+                    <label ng-hide="editMode">انبار مقصد*</label>
+                    <label ng-show="editMode">انبار مقصد</label>
+                    <div class="input-group" ng-hide="editMode">
+                      <input type="text" class="form-control" ng-model="ticket.obj.to_warehouse.title" disabled
+                      ng-required="ticket.allowedSource">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-beside-input"
+                        ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource"  
+                        ng-hide="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
+                        ng-click="ticket.openSelection(1,'warehouse','title')">
+                          انتخاب</button>
+                        <button class="btn btn-danger btn-beside-input" type="button"
+                        ng-show="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
+                        ng-click="ticket.deleteKey(ticket.obj,'to_warehouse')"> 
+                          حذف</button>
+                      </span>
+                    </div>
+                    <p ng-show="editMode"> {{ticket.obj.to_warehouse.title | lengthLimit:30}} </p>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+              
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label ng-hide="editMode">توضیحات تیکت*</label>
+                    <label ng-show="editMode">توضیحات تیکت</label>
+
+                    <div>
+                      <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.description" required
+                      ng-hide="editMode">
+                      </textarea>
+                      <p ng-show="editMode" class="ticket-description"> 
+                        {{ticket.obj.description}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </fieldset>
+            </div>
+          </form> 
+          <!-- message is only show in editMode -->
+          <div class="message-body" ng-show="editMode && !loadModal">
+            <hr>
+            <h4>پیام ها</h4>
+            <div class="message-list-container">
+              <div ng-class="{'ticket-message-self':msg.sender.id == userId}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
+                <h4>
+                  {{msg.sender.card_no | lengthLimit:20}}
+                  <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
+                </h4>
+                <p> {{msg.text}} </p>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-10">
+                <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-warning" ng-click="ticket.addMessage()" 
+                ng-disabled="ticket.tmp.text =='' || !ticket.tmp.text" ng-hide="sendingMessage">
+                  ارسال
+                </button>
+                <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- /.X_content -->
+
+      <div class="load-spinner" ng-show="loadSide" style="text-align:center">
+        <i class="fa fa-spinner fa-pulse fa-3x" ></i>
+      </div>
+    </div><!-- /.X_panel -->
+  </div>
+</div>
+
+<!-- Select product & to_warehouse Modal -->
+<div class="modal fade" id="selectModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="pull-left">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+                </div>
+            </div><!-- /.modal-header -->
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                          <!-- Stage == 0 -> product -->
+                          <div class="panel panel-info" ng-show="selectStage == 0">
+                                <div class="panel-heading">
+                                    انتخاب کالا
+                                    <div class="pull-left">
+                                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+                                    <form name="selectProductForm" role="form" novalidate>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="ticket.tmp.searchQuery" required>
+                                        <span class="input-group-btn">
+                                          <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=0&model__contains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
+                                        </span>
+                                      </div>
+                                    </form>
+
+
+                                    <table class="table table-hover table-border" ng-hide = "ticket.tmp.searchResult == '' || loadSearch">
+                                        <tbody>
+                                          <tr>
+                                            <th>ردیف</th>
+                                            <th>مدل کالا</th>
+                                            <th>شماره سریال</th>
+                                            <th>انتخاب</th>
+                                          </tr>
+
+                                          <tr  ng-repeat = "list in ticket.tmp.searchResult">
+                                            <td >{{$index+1}}</td>
+                                            <td>
+                                              {{list.model | lengthLimit:15}}
+                                            </td>
+                                            <td>
+                                              {{list.serial_number | lengthLimit:15}}
+                                            </td>
+                                            <td>
+                                              <a  ng-click="ticket.selectObj('product',list)" href>
+                                                <i class="fa fa-check-square-o fa-lg"></i>
+                                              </a>
+                                                
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                          </div>
+
+                          <!-- Stage == 1 -> to_warehouse -->
+                          <div class="panel panel-info" ng-show="selectStage == 1">
+                                <div class="panel-heading">
+                                    انتخاب انبار مقصد
+                                    <div class="pull-left">
+                                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+                                    <form name="selectWarehouseForm" role="form" novalidate>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control" name="searchText" placeholder="نام انبار" ng-model="ticket.tmp.searchQuery" required>
+                                        <span class="input-group-btn">
+                                          <button type="button" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse','title')">جستجوی انبار</button>
+                                        </span>
+                                      </div>
+                                    </form>
+
+
+                                    <table class="table table-hover table-border" ng-hide = "ticket.tmp.searchResult == '' || loadSearch">
+                                        <tbody>
+                                          <tr>
+                                            <th>ردیف</th>
+                                            <th>نام انبار</th>
+                                            <th>محل</th>
+                                            <th>شماره تلفن</th>
+                                            <th></th>
+                                          </tr>
+
+                                          <tr  ng-repeat = "list in ticket.tmp.searchResult">
+                                            <td >{{$index+1}}</td>
+                                            <td>
+                                              {{list.title | lengthLimit:15}}
+                                            </td>
+                                            <td>
+                                              {{list.location | lengthLimit:15}}
+                                            </td>
+                                            <td dir="ltr">
+                                              {{list.phone | lengthLimit:15}}
+                                            </td>
+                                            <td>
+                                              <a  ng-click="ticket.selectObj('to_warehouse',list)" href>
+                                                <i class="fa fa-check-square-o fa-lg"></i>
+                                              </a>
+                                                
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                          </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+            </div><!-- /.modal-footer -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

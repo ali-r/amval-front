@@ -2,7 +2,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
   scope = null
   httpService = this
   headers = {'Content-Type': 'application/json; charset=UTF-8'}
-
+  httpService.headers = headers;
   this.init = function(scope) {
     this.scope = scope
     scope.assetData = $localStorage.assetData;
