@@ -4454,6 +4454,7 @@ select.form-control{
   color: #ffffff;
   border-radius: 2px 2px 2px 2px;
   font-size: 0.95em;
+  word-break: break-all;
 }
 .remove-box > li > span {
   font-size: 1.1em;

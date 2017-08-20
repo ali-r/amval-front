@@ -302,7 +302,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       }
 
       scope.controller.deleteChild = function(index){
-        scope.controller.obj.children.splice (index, 1);
+        scope.controller.product.children.splice (index, 1);
       };
     
       scope.controller.checkDuplicate = function (obj, array) {
@@ -320,11 +320,11 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       }
 
       scope.controller.addBundleProduct = function(list){
+        console.log('ok')
+        if(!scope.controller.product.children)
+          scope.controller.product.children = [];
 
-        if(!scope.controller.obj.children)
-          scope.controller.obj.children = [];
-
-        scope.controller.obj.children.push(list);
+        scope.controller.product.children.push(list);
       };
 
     },
