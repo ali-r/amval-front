@@ -142,8 +142,9 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
       _base[_target] = _source;
 
-      if(_stage)
+      if( typeof(_stage) != 'undefined'){
         scope.stage = _stage;
+      }
 
       if(_callback)
         _callback();

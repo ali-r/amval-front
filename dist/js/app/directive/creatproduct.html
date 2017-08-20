@@ -215,7 +215,7 @@
             </div>
             <!-- end of Stage 0 -->
 
-            <search-stage ng-show = "$parent.stage == 1" obj="selectGuarantorObj" controller = "controller" target=" 'product' "></search-stage>
+            <search-stage ng-show = "$parent.stage == 1" obj="selectGuarantorObj" controller = "controller" target="product"></search-stage>
             <!-- end of Stage 1 -->
             
             <div class="row" ng-show="$parent.stage == 2">
@@ -354,7 +354,7 @@
                             <td>{{list.title | lengthLimit:30}}</td>
                             <td>{{list.description | lengthLimit:30}}</td>
                             <td>
-                              <a ng-click="controller.selectTarget(list.id, list.title, 'title', 'subgroup', 'product'); loadMeta(list.id)" href>
+                              <a ng-click="controller.selectTarget(list, controller.product, 'subgroup', 0); loadMeta(list.id)" href>
                                 <i class="fa fa-check-square-o fa-lg"></i>
                               </a>
                             </td>
@@ -380,7 +380,7 @@
                                     <td>{{chd.title | lengthLimit:30}}</td>
                                     <td>{{chd.description | lengthLimit:30}}</td>
                                     <td>
-                                      <a ng-click="controller.selectTarget(chd.id, chd.title, 'title', 'subgroup', 'product'); loadMeta(chd.id)" href>
+                                      <a ng-click="controller.selectTarget(list, controller.product, 'subgroup', 0); loadMeta(list.id)" href>
                                         <i class="fa fa-check-square-o fa-lg"></i>
                                       </a>
                                     </td>
@@ -398,7 +398,7 @@
             </div>
             <!-- end of Stage 3 -->
 
-            <search-stage ng-show = "$parent.stage == 4" obj="selectProducerObj" controller = "controller" target=" 'product' "></search-stage>
+            <search-stage ng-show = "$parent.stage == 4" obj="selectProducerObj" controller = "controller" target="product"></search-stage>
             <!-- end of Stage 4 -->
             
           </div>
