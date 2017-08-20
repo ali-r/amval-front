@@ -138,16 +138,16 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       controller.getData();
     };
 
-    controller.selectTarget = function(id, title, titleFiled, variable, targetObj){
-      console.log(targetObj)
-      if ( typeof(targetObj) == 'undefined' ) {
-        targetObj = 'obj';
-      }
+    controller.selectTarget = function(_source, _base, _target, _stage, _callback){
 
-      controller[targetObj][variable] = {};
-      controller[targetObj][variable][titleFiled] = title;
-      controller[targetObj][variable].id = id;
-      scope.stage = 0;
+      _base[_target] = _source;
+
+      if(_stage)
+        scope.stage = _stage;
+
+      if(_callback)
+        _callback();
+
     };
 
     controller.getObject = function(id) {
@@ -244,7 +244,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         searchUrl, scope,
         function(response) {
           controller.tmp.searchResult = response.data[cat + 's'];
-          console.log(response.data);
           scope.loadSearch = false;
         });
     };
