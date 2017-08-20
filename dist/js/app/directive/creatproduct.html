@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <label ng-hide="$parent.editMode">
+          <label ng-hide="$parent.editMode || $parent.stage != 0">
             <input type="checkbox" ng-model="makeDuplicate">
             ایجاد کالای مشابه
           </label>
