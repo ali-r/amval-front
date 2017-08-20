@@ -96,8 +96,8 @@
       <div class="modal-body">
 
         <div ng-show="stage == 0">
-          <form name="transactionForm" role="form" ng-hide="loadModal" novalidate>
-            
+          <form name="transactionForm" role="form" ng-hide="loadModal" novalidate ng-submit="!editMode && transactionForm.$valid && transaction.sendOrEdit(editMode)">
+            <button type="submit" hidden></button>
             <div class="row">
               <fieldset ng-disabled ="!checkWrite('transaction')">
                 <div class="col-sm-6">
@@ -225,7 +225,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو کالا" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1&model__contains=' + transaction.tmp.searchQuery)">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1&model__contains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>
@@ -294,7 +294,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو کاربر" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user', '?last_name__contains=' + transaction.tmp.searchQuery)">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user', '?last_name__contains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>
@@ -356,7 +356,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو انبار" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse', '?title__contains=' + transaction.tmp.searchQuery)">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse', '?title__contains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>

@@ -56,7 +56,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-6" ng-show="productShow">
+  <div class="col-xs-6" ng-show="productShow" esc-event="productShow = false; wareHouseId=''">
     <div class="col-xs-12">
       <div class="x-panel-search">
         <form class="filter-form">
@@ -142,7 +142,9 @@
       <div class="modal-body">
         <div ng-show = "stage == 0">
           <fieldset ng-disabled="!checkWrite('warehouse')">
-            <form name="warehouseForm" role="form" ng-hide="loadModal" novalidate>
+            <form name="warehouseForm" role="form" ng-hide="loadModal" novalidate 
+            ng-submit="warehouseForm.$valid && warehouse.sendOrEdit(editMode)">
+            <button type="submit" hidden></button>
               <div class="form-group" ng-class="{'has-success' : warehouseForm.title.$valid && warehouse.obj.title}">
                 <label>نام انبار*</label>
                 <input type="text" class="form-control" name="title" placeholder="نام انبار" ng-model = "warehouse.obj.title" required>
@@ -184,7 +186,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" name="searchText" ng-model="warehouse.tmp.searchQuery" required>
                     <span class="input-group-btn">
-                      <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="warehouse.search('user','last_name')">جستجوی کاربر</button>
+                      <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="warehouse.search('user','last_name')">جستجوی کاربر</button>
                     </span>
                   </div>
                 </form>
@@ -235,7 +237,8 @@
 <product-stat controller = "warehouse"></product-stat>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+enter-event="true,warehouse.deleteObject(warehouse.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">

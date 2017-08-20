@@ -131,7 +131,8 @@
       </div>
       <div class="modal-body" ng-hide = "loadModal">
         <div ng-show = "stage == 0">
-          <form name="groupForm" role="form" novalidate>
+          <form name="groupForm" role="form" novalidate  ng-submit="groupForm.$valid && group.sendOrEdit(editMode)">
+            <button type="submit" hidden></button>
             <fieldset ng-disabled="!checkWrite('group')">
               <div class="row">
                 <div class="col-sm-6">
@@ -163,22 +164,22 @@
               </h4>
 
               <div class="meta-case">
-                <button class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('int')">
+                <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('int')">
                   <i class="fa fa-plus"></i>
                   عدد صحیح
                 </button>
 
-                <button class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('float')">
+                <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('float')">
                   <i class="fa fa-plus"></i>
                   عدد اعشاری
                 </button>
 
-                <button class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('str')">
+                <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('str')">
                   <i class="fa fa-plus"></i>
                   متن
                 </button>
 
-                <button class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('bool')">
+                <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('bool')">
                   <i class="fa fa-plus"></i>
                   دوحالتی
                 </button>
@@ -226,7 +227,8 @@
 </div><!-- /.modal -->
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+ enter-event="true,group.deleteObject(group.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">

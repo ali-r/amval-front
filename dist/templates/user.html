@@ -74,7 +74,8 @@
       <div class="modal-body">
           <div class="box-body">
             <div class="row" ng-show = "stage == 0">
-              <form name="userForm" role="form" ng-hide="loadModal" novalidate>
+              <form name="userForm" role="form" ng-hide="loadModal" novalidate ng-submit="userForm.$valid && user.sendOrEdit(editMode)">
+                <button type="submit" hidden></button>
                 <fieldset ng-disabled ="!checkWrite('user')">
                   <div class="col-md-4">
                     <div class="form-group" ng-class="{'has-success' : userForm.firstname.$valid && user.obj.first_name}">
@@ -230,7 +231,7 @@
                           <div class="input-group">
                             <input type="text" class="form-control" name="searchText" ng-model="user.tmp.searchQuery" required>
                             <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="user.search('warehouse','title')">جستجوی انبار</button>
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="user.search('warehouse','title')">جستجوی انبار</button>
                             </span>
                           </div>
                       </form>
@@ -300,7 +301,8 @@
 </div><!-- /.modal -->
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+enter-event="true,user.deleteObject(user.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -339,7 +341,9 @@
         <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">تغییر کلمه عبور کاربر</h4>
       </div>
       <div class="modal-body">
-        <form name="resetPassForm" ng-hide="loadModal" novalidate>
+        <form name="resetPassForm" ng-hide="loadModal" novalidate 
+        ng-submit="resetPassForm.$valid && user.resetPass(user.toResetPassId)">
+        <button type="submit" hidden></button>
           <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine ,
             'has-success' : !resetPassForm.password.$invalid && !resetPassForm.pass.$pristine }">
             <label for="pass">کلمه عبور جدید</label>

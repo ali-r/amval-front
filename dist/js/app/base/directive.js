@@ -376,3 +376,47 @@ app.directive('toggle', function(){
     }
   };
 });
+
+app.directive('enterEvent', function () { //sample usage: enterEvent = "checkMark,function"
+  return function (scope, element, attrs) {
+    element.bind("keydown keypress", function (event) {
+      if(event.which === 13) {
+        var enterEventList = attrs.enterEvent.split(',');
+        var checkMark = scope.$eval(enterEventList[0]);
+        if(checkMark){
+          scope.$apply(function (){
+            scope.$eval(enterEventList[1]);
+          });  
+        }
+        else{
+          if(!!enterEventList[2]){
+            scope.$apply(function (){
+              scope.$eval(enterEventList[2]);
+            }); 
+          }
+          else{
+            new PNotify({
+              title: 'خطا',
+              text: 'درخواست مجاز نیست.',
+              type: 'error'
+            });  
+          }
+        }
+        event.preventDefault();
+      }
+    });
+  };
+});
+
+app.directive('escEvent', function () {
+  return function (scope, element, attrs) {
+    element.bind("keydown keypress keyup", function (event) {
+      if(event.which === 27 || event.keyCode ===27) {
+        scope.$apply(function (){
+          scope.$eval(attrs.escEvent);
+        });
+        event.preventDefault();
+      }
+    });
+  };
+});

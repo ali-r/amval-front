@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" esc-event="reset()">
 
     <!-- Search Object -->
     <search-tools sobject="invoice.searchObject" scontroller="invoice"></search-tools>
@@ -64,7 +64,8 @@
                 <div class="clearfix"></div>
             </div><!-- /.x_title-->
             <div class="x_content" ng-hide="loadSide">
-                <form name="invoiceForm" role="form"  novalidate>
+                <form name="invoiceForm" role="form"  novalidate ng-submit="invoice.validateForm()">
+                    <button type="submit" hidden></button>
                     <fieldset ng-disabled ="!checkWrite('invoice')">
                         <div class="box-body">
                             
@@ -258,7 +259,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectBuyerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('user','last_name')">جستجوی خریدار</button>
+                                          <button type="submit" ng-disabled = "selectBuyerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('user','last_name')">جستجوی خریدار</button>
                                         </span>
                                       </div>
                                     </form>
@@ -305,7 +306,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectSellerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('seller','last_name')">جستجوی فروشنده</button>
+                                          <button type="submit" ng-disabled = "selectSellerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('seller','last_name')">جستجوی فروشنده</button>
                                         </span>
                                       </div>
                                     </form>
@@ -365,7 +366,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','?use_case=0&model__contains=' + invoice.tmp.searchField)">جستجوی کالا</button>
+                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','?use_case=0&model__contains=' + invoice.tmp.searchField)">جستجوی کالا</button>
                                         </span>
                                       </div>
                                     </form>
@@ -415,7 +416,8 @@
 
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+enter-event="deleteStage==1,invoice.deleteProduct(invoice.toDeleteId),invoice.deleteObject(invoice.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -90,5 +90,4 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }
-
 });
