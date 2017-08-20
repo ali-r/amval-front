@@ -4,6 +4,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
+          <label ng-hide="$parent.editMode">
+            <input type="checkbox" ng-model="makeDuplicate">
+            ایجاد کالای مشابه
+          </label>
           <button type="button" ng-disabled="!productForm.$valid || !controller.product.qr_code"
           ng-click="sendOrEdit($parent.editMode)" ng-show = "$parent.stage == 0" ng-show = "$parent.checkWrite('product')" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-danger" ng-show = "$parent.stage == 0" ng-click="productReset()" data-dismiss="modal">بستن</button>

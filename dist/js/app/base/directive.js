@@ -179,6 +179,14 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       };
 
       scope.productReset = function(){
+        scope.$parent.load = false;
+        scope.$parent.loadModal = false;
+        scope.$parent.loadSearch = false;
+        scope.$parent.uploadPercentage = 0;
+        scope.$parent.uploading = false;
+        scope.$parent.stage = 0;
+        scope.$parent.editMode = false;
+        scope.makeDuplicate = false;
         scope.controller.product = {};
         scope.controller.tmp.meta = {};
       }
@@ -245,6 +253,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.is_bundle;
           delete sendCopyObj.price;
           delete sendCopyObj.id;
+        }else{
+          sendCopyObj.is_out_of_system = true;
         }
 
         sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
@@ -281,8 +291,13 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       scope.sendOrEdit = function(eMode){
         scope.controller.sendOrEdit(eMode, scope.objConfig(scope.controller.product), mainAsset.getUrl() + 'product', function(data){
           scope.controller.creatProductCallback(data.data);
-          $('#productModal').modal('hide');
-          scope.controller.product = {};
+          if(scope.makeDuplicate){
+            scope.controller.product.serial_number = '';
+            scope.controller.product.qr_code = '';
+          }else{
+            $('#productModal').modal('hide');
+            scope.productReset();
+          }
         });
       }
 
