@@ -130,7 +130,12 @@ app.directive('searchStage', function() {
     scope : {
       obj : '=',
       controller : '=',
-      target : '='
+      target : '@'
+    },
+    link : function(scope, element, attr){
+      if (!scope.target) {
+        scope.target = 'obj';
+      }
     },
     templateUrl: '/dist/js/app/directive/searchStage.html'
   }

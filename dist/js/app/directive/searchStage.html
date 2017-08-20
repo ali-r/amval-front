@@ -36,7 +36,7 @@
                   {{list[att.en] | useFilter:(att.filter || null) | lengthLimit:30}}
                 </td>
                 <td>
-                  <a ng-click="controller.selectTarget(list.id, list[obj.searchAt.en], obj.searchAt.en, obj.title.en, target)" href>
+                  <a ng-click="controller.selectTarget(list, controller[target], obj.title.en, 0)" href>
                     <i class="fa fa-check-square-o fa-lg"></i>
                   </a>
                 </td>

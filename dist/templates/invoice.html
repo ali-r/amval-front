@@ -281,7 +281,7 @@
                                               {{list.last_name | lengthLimit:15}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.selectItem(list.id, list.last_name, 'last_name', 'buyer')" href>
+                                              <a ng-click="invoice.selectTarget(list, invoice.obj, 'buyer', null, invoice.closeModal('select'))" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
                                             </td>
@@ -328,7 +328,7 @@
                                               {{list.last_name | lengthLimit:15}}
                                             </td>
                                             <td>
-                                              <a ng-click="invoice.selectItem(list.id, list.last_name, 'last_name', 'seller')" href>
+                                              <a ng-click="invoice.selectTarget(list, invoice.obj, 'seller', null, invoice.closeModal('select'))" href>
                                                 <i class="fa fa-check-square-o fa-lg"></i>
                                               </a>
                                             </td>
