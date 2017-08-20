@@ -323,7 +323,7 @@
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="جستجو در بین کالاها" name="searchText" ng-model="product.tmp.searchQuery">
                             <span class="input-group-btn">
-                              <button type="button" ng-disabled = "product.tmp.searchQuery==undefined" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?use_case=2&model__contains=' + product.tmp.searchQuery);">
+                              <button type="submit" ng-disabled = "product.tmp.searchQuery==undefined" class="btn btn-info btn-beside-input" ng-click="product.search('product', '?use_case=2&model__contains=' + product.tmp.searchQuery);">
                                 جستجو
                               </button>
                             </span>
@@ -396,7 +396,7 @@
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="product.tmp.searchQuery">
                             <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('group', 'title'); product.tmp.searchD = true">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('group', 'title'); product.tmp.searchD = true">
                                 جستجو
                               </button>
                             </span>

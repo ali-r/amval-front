@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" esc-event="reset()">
 
     <!-- Search Object -->
     <search-tools sobject="invoice.searchObject" scontroller="invoice"></search-tools>
@@ -50,7 +50,7 @@
     <!-- /invoice list -->
 
     <!-- edit and create column -->
-    <div class="col-xs-6" id="invoiceEditCreateForm" esc-event="reset()">
+    <div class="col-xs-6" id="invoiceEditCreateForm">
         <div class="x_panel " ng-hide="!invoice.tmp.formShow">
             <div class="x_title">
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
@@ -259,7 +259,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectBuyerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('user','last_name')">جستجوی خریدار</button>
+                                          <button type="submit" ng-disabled = "selectBuyerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('user','last_name')">جستجوی خریدار</button>
                                         </span>
                                       </div>
                                     </form>
@@ -306,7 +306,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectSellerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('seller','last_name')">جستجوی فروشنده</button>
+                                          <button type="submit" ng-disabled = "selectSellerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('seller','last_name')">جستجوی فروشنده</button>
                                         </span>
                                       </div>
                                     </form>
@@ -366,7 +366,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="invoice.tmp.searchField" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','?use_case=0&model__contains=' + invoice.tmp.searchField)">جستجوی کالا</button>
+                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','?use_case=0&model__contains=' + invoice.tmp.searchField)">جستجوی کالا</button>
                                         </span>
                                       </div>
                                     </form>

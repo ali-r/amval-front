@@ -19,7 +19,7 @@
               
               <div style="text-align:center">
                 <form name='databaseForm'>
-                  <button type="submit" ng-click="database.download()" class="btn btn-success"> دریافت </button>
+                  <button type="button" ng-click="database.download()" class="btn btn-success"> دریافت </button>
                   <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'"
                     ngf-max-size="2MB">ارسال</div>
                 </form>
@@ -37,7 +37,7 @@
               
               <div style="text-align:center">
                 <form name='uploadForm'>
-                  <button type="submit" ng-click="database.downloadFile()" class="btn btn-success"> دریافت </button>
+                  <button type="button" ng-click="database.downloadFile()" class="btn btn-success"> دریافت </button>
                   <div class="btn btn-success" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'"
                     ngf-max-size="1024MB">ارسال</div>
                 </form>
