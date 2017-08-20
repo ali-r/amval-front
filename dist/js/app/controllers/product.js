@@ -57,6 +57,26 @@ angular.module("assetAdminPanel").controller('productCtrl',
     ]
   };
 
+  controller.selectProductObj = {
+    title : { fa : 'کالا', en : 'product'},
+    searchItem : {
+      fa : 'کالا',
+      en : 'product'
+    },
+    searchAt : {
+      fa : 'مدل',
+      en : 'model'
+    },
+    table : [
+      {fa:'مدل',en:'model'},
+      {fa:'سریال کالا',en:'serial_number'},
+    ],
+    searchFilter:{
+      key: 'is_bundle',
+      value: 'True'
+    }
+  }
+
   $scope.page = 1;
   controller.product = {};
   controller.obj = {};
@@ -66,7 +86,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }
-
+  // controller.addOne.extra.group = {};
   controller.relateWarehouseId = $routeParams.id;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
@@ -115,6 +135,22 @@ angular.module("assetAdminPanel").controller('productCtrl',
         controller.obj.qr_code = data.file_url;
       });
     }
+  }
+
+  this.openSelectionModal = function(stage_, field_, var_){
+    mainAsset.openModal('#selectModal');
+    controller.selectThings(stage_,field_,var_);
+  }
+
+  this.selectReportOption = function(id, title, titleFiled, variable, targetObj){
+    if(!targetObj) targetObj = controller.addOne.extra;
+    if(!variable) {console.log('unable to set report option: not a valid variable'); return}
+
+    if(!targetObj[variable]) targetObj[variable] = {};
+
+    targetObj[variable][titleFiled] = title;
+    targetObj[variable]['id'] = id;
+    mainAsset.closeModal('#selectModal');
   }
 
 });

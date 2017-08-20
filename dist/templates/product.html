@@ -11,6 +11,37 @@
       <option value="False">داخل سامانه</option>
       <option value="True">خارج از سامانه</option>
     </select>
+    <div id="report-field" style="display:none" class="report-field">
+      <div class="input-group report-field-option">
+        <input type="text" class="form-control" placeholder="گروه و زیرگروه" ng-model="product.addOne.extra.group.title" disabled>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.group" 
+            ng-click="product.openSelectionModal(0,'group','group_type=group&title')">انتخاب</button>
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.group"
+            ng-click="product.deleteKey(product.addOne.extra,'group')">حذف</button>
+        </span>
+      </div>
+      <div class="input-group report-field-option">
+        <input type="text" class="form-control" placeholder="پدر باندل" ng-model="product.addOne.extra.parent_bundle.model" disabled>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.parent_bundle" 
+            ng-click="product.openSelectionModal(1,'product','is_bundle=True&model')">انتخاب</button>
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.parent_bundle"
+            ng-click="product.deleteKey(product.addOne.extra,'parent_bundle')">حذف</button>
+        </span>
+      </div>
+      <!-- <input type="text" placeholder="پدر باندل">
+      <input type="text" placeholder="نگهدارنده">
+      <input type="text" placeholder="تولید کننده">
+      <input type="text" placeholder="گارانتی کننده">
+      <input type="text" placeholder="کالاهای درخواست شده برای تعمیر">
+      <input type="text" placeholder="کالاهای مستهلک">
+      <input type="text" placeholder="بازه عودت داده شده ">
+      <input type="text" placeholder="کالاهای درخواست شده برای تعمیر">
+      <input type="text" placeholder="انبار مربوطه">
+      <input type="text" placeholder="فروشنده">
+      <input type="text" placeholder="کالاهای درخواست شده برای تعمیر"> -->
+    </div>
   </search-tools>
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
@@ -100,3 +131,129 @@
   </div>
 </div>
 
+
+<!-- Select Modal -->
+<div class="modal fade" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <!-- <h3 class="modal-title">مدال انتخاب</h3> -->
+      </div>
+
+      <div class="modal-body">
+
+        <!-- stage 0 for group selection -->
+        <div class="row" ng-show="stage == 0">
+              <div class="col-md-12">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    انتخاب زیرگروه
+                    <div class="pull-left">
+                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <form name="searchForm" role="form" novalidate>
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="product.tmp.searchQuery" required>
+                            <span class="input-group-btn">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('group', 'title'); product.tmp.searchD = true">
+                                جستجو
+                              </button>
+                            </span>
+                          </div>
+                      </form>
+                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
+                        <colgroup>
+                          <col span="1" style="width: 5%;">
+                          <col span="1" style="width: 5%;">
+                          <col span="1" style="width: 25%;">
+                          <col span="1" style="width: 45%;">
+                          <col span="1" style="width: 20%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th ng-if="!product.tmp.searchD"></th>
+                            <th>ردیف</th>
+                            <th>
+                              عنوان
+                            </th>
+                            <th>
+                              توضیحات
+                            </th>
+                            <th>انتخاب</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat-start = "list in product.tmp.searchResult">
+                            <td style="text-align : right" ng-if="!product.tmp.searchD">
+                              <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#coll{{$index}}" aria-expanded="false" aria-controls="collapseExample"
+                              ng-click="collaps[$index] = !collaps[$index]" ng-if="list.children" >
+                                <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
+                              </button>
+                            </td>
+                            <td>
+                              {{ $index + 1 }}
+                            </td>
+                            <td>{{list.title | lengthLimit:30}}</td>
+                            <td>{{list.description | lengthLimit:30}}</td>
+                            <td>
+                              <a ng-click="product.selectReportOption(list.id, list.title, 'title', 'group'); loadMeta(list.id)" href>
+                                <i class="fa fa-check-square-o fa-lg"></i>
+                              </a>
+                            </td>
+                          </tr>
+                          <tr ng-hide="product.tmp.searchD" ng-repeat-end class="collapse" id="coll{{$index}}">
+                            <td colspan="6" style="padding:0px;">
+                              <table class="table">
+                                <colgroup>
+                                  <col span="1" style="width: 5%;">
+                                  <col span="1" style="width: 5%;">
+                                  <col span="1" style="width: 25%;">
+                                  <col span="1" style="width: 45%;">
+                                  <col span="1" style="width: 20%;">
+                                </colgroup>
+                                <tbody>
+                                  <tr ng-repeat="chd in list.children" class="group-chd">
+                                    <td style="text-align : right">
+                                      <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+                                    </td>
+                                    <td class="chd-td">
+                                      {{$index+1}}-{{$parent.$index+1}}
+                                    </td>
+                                    <td>{{chd.title | lengthLimit:30}}</td>
+                                    <td>{{chd.description | lengthLimit:30}}</td>
+                                    <td>
+                                      <a ng-click="product.selectReportOption(chd.id, chd.title, 'title', 'group'); loadMeta(chd.id)" href>
+                                        <i class="fa fa-check-square-o fa-lg"></i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              <!-- /.box-body -->
+              </div>
+        </div>
+        <!-- end of Stage 0 -->
+
+        <!-- stage = 1 for parent_bundle selection -->
+        <search-stage ng-show = "stage == 1" obj="product.selectProductObj" controller = "product" target="'controller.addOne.extra.parent_bundle'"></search-stage>
+
+      </div>
+      <div class="modal-footer">
+      </div><!-- /.modal-footer -->
+    </div>
+  </div>
+</div>

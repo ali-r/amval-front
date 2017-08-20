@@ -260,5 +260,9 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       delete obj[key];
     }
 
+    controller.displayMoreFields = function(){
+      $('#report-field').show();
+    }
+
   }
 });
