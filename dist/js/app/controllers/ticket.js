@@ -48,7 +48,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     },
     table : [
       {fa:'مدل کالا',en:'product',filter:'productName'},
-      {fa:'منبع',en:'source',filter:'userOrWarehouseName'},
+      {fa:'مبدا',en:'source',filter:'userOrWarehouseName'},
       {fa:'مقصد',en:'destination',filter:'userOrWarehouseName'},
       {fa:'علت تراکنش',en:'reason',filter:'reasonType'},
       {fa:'نوع تراکنش',en:'transaction_type',filter:'transactionType'}
