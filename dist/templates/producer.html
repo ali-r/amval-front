@@ -58,7 +58,7 @@
         <h3 class="modal-title" ng-show="editMode">ویرایش تولید‌کننده</h3>
       </div>
       <div class="modal-body">
-        <form name="producerForm" role="form" ng-hide="loadModal" novalidate>
+        <form name="producerForm" role="form" ng-hide="loadModal" novalidate ng-submit="producerForm.$valid && producer.sendOrEdit(editMode)">
           <fieldset ng-disabled ="!checkWrite('producer')">
             <div class="box-body">
               <div class="form-group" ng-class="{'has-success' : producerForm.brandname.$valid && producer.obj.brand_name}">
@@ -79,7 +79,8 @@
 </div><!-- /.modal -->
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+enter-event="true,producer.deleteObject(producer.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">

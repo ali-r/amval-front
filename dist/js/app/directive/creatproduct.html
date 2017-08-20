@@ -18,7 +18,9 @@
       <div class="modal-body">
           <div class="box-body">
             <div ng-show = "$parent.stage == 0">
-              <form name="productForm" role="form" ng-hide="$parent.loadModal" novalidate>
+              <form name="productForm" role="form" ng-hide="$parent.loadModal" novalidate 
+              ng-submit="productForm.$valid && sendOrEdit(editMode)">
+              <button type="submit" hidden></button>
                 <fieldset>
                 <div class="row">
                   <!-- model serial group -->
@@ -244,7 +246,7 @@
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="controller.tmp.searchQuery" required>
                             <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('product', '?is_bundle=False&parent_bundle=None&model__contains=' + controller.tmp.searchQuery); controller.tmp.searchD = true">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('product', '?is_bundle=False&parent_bundle=None&model__contains=' + controller.tmp.searchQuery); controller.tmp.searchD = true">
                                 جستجو
                               </button>
                             </span>
@@ -306,7 +308,7 @@
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="controller.tmp.searchQuery" required>
                             <span class="input-group-btn">
-                              <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('group', 'title'); controller.tmp.searchD = true">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('group', 'title'); controller.tmp.searchD = true">
                                 جستجو
                               </button>
                             </span>

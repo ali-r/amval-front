@@ -329,11 +329,18 @@ app.directive('enterEvent', function () { //sample usage: enterEvent = "checkMar
           });  
         }
         else{
-          new PNotify({
-            title: 'خطا',
-            text: 'فرم تکمیل نشده است.',
-            type: 'error'
-          });
+          if(!!enterEventList[2]){
+            scope.$apply(function (){
+              scope.$eval(enterEventList[2]);
+            }); 
+          }
+          else{
+            new PNotify({
+              title: 'خطا',
+              text: 'درخواست مجاز نیست.',
+              type: 'error'
+            });  
+          }
         }
         event.preventDefault();
       }

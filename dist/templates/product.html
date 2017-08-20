@@ -90,7 +90,8 @@
       <div class="modal-body">
           <div class="box-body">
             <div ng-show = "stage == 0">
-              <form name="productForm" role="form" ng-hide="loadModal" novalidate>
+              <form name="productForm" role="form" ng-hide="loadModal" novalidate ng-submit="productForm.$valid && product.sendOrEdit(editMode)">
+                <button type="submit" hidden></button>
                 <fieldset ng-disabled ="!checkWrite('product')">
                 <div class="row">
                   <!-- model serial group -->
@@ -515,7 +516,8 @@
 <product-stat controller = "product"></product-stat>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+enter-event="true,product.deleteObject(product.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">

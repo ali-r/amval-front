@@ -49,7 +49,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form name="loginForm" novalidate enter-event="login.login()">
+            <form name="loginForm" novalidate>
               <h1>صفحه ی ورود</h1>
               <div>
                 <input type="text" class="form-control" placeholder="نام کاربری" ng-model="login.user" required/>
@@ -58,7 +58,7 @@
                 <input type="password" class="form-control" placeholder="کلمه عبور" ng-model="login.pass" required/>
               </div>
               <div>
-                <button type="button" class="btn btn-default submit" ng-disabled="loginForm.$invalid" ng-click = "login.login()" name="button">
+                <button type="submit" class="btn btn-default submit" ng-disabled="loginForm.$invalid" ng-click = "login.login()" name="button">
                   ورود
                 </button>
               </div>

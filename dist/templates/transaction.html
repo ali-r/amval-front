@@ -93,8 +93,8 @@
       <div class="modal-body">
 
         <div ng-show="stage == 0">
-          <form name="transactionForm" role="form" ng-hide="loadModal" novalidate>
-            
+          <form name="transactionForm" role="form" ng-hide="loadModal" novalidate ng-submit="!editMode && transactionForm.$valid && transaction.sendOrEdit(editMode)">
+            <button type="submit" hidden></button>
             <div class="row">
               <fieldset ng-disabled ="!checkWrite('transaction')">
                 <div class="col-sm-6">

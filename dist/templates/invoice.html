@@ -50,7 +50,7 @@
     <!-- /invoice list -->
 
     <!-- edit and create column -->
-    <div class="col-xs-6" id="invoiceEditCreateForm">
+    <div class="col-xs-6" id="invoiceEditCreateForm" esc-event="reset()">
         <div class="x_panel " ng-hide="!invoice.tmp.formShow">
             <div class="x_title">
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
@@ -64,7 +64,8 @@
                 <div class="clearfix"></div>
             </div><!-- /.x_title-->
             <div class="x_content" ng-hide="loadSide">
-                <form name="invoiceForm" role="form"  novalidate>
+                <form name="invoiceForm" role="form"  novalidate ng-submit="invoice.validateForm()">
+                    <button type="submit" hidden></button>
                     <fieldset ng-disabled ="!checkWrite('invoice')">
                         <div class="box-body">
                             
@@ -415,7 +416,8 @@
 
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+enter-event="deleteStage==1,invoice.deleteProduct(invoice.toDeleteId),invoice.deleteObject(invoice.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">

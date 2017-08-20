@@ -66,7 +66,8 @@
         <h3 class="modal-title" ng-show="editMode">ویرایش فروشنده</h3>
       </div>
       <div class="modal-body">
-        <form name="sellerForm" role="form" ng-hide="loadModal" novalidate>
+        <form name="sellerForm" role="form" ng-hide="loadModal" novalidate ng-submit="sellerForm.$valid && seller.sendOrEdit(editMode)">
+          <button type="submit" hidden></button>
           <fieldset ng-disabled ="!checkWrite('seller')">
             <div class="box-body">
               <div class="form-group" ng-class="{'has-success' : sellerForm.name.$valid && seller.obj.first_name}">
@@ -115,7 +116,8 @@
 </div><!-- /.modal -->
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+enter-event="true,seller.deleteObject(seller.toDeleteId)">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
