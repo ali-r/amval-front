@@ -5,17 +5,23 @@ angular.module("assetAdminPanel").controller('logoutCtrl',
     $scope.serverUrl = mainAsset.getUrl();
     $scope.assetData = $localStorage.assetData;
     this.logoutUrl = $scope.serverUrl + "user/logout";
+    $scope.load = true;
 
     /*delete $localStorage.assetData;
     $localStorage.$reset();*/
-
-    if ($scope.assetData) {
+    
+    if ($localStorage.assetData) {
+      
       requestHelper.delete(controller.logoutUrl, $scope, function() {
         localStorage.removeItem('ngStorage-assetData');
-        while ($localStorage.assetData) {
-          delete $localStorage.assetData;
-        }
-        console.log('ok!');
-      },true);
+        $scope.load = false;
+      } ,false);
+
+    while ($localStorage.assetData) {
+      delete $localStorage.assetData;
+    }
+
+    }else{
+      $scope.load = false;
     }
 });
