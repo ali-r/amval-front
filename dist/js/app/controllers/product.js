@@ -43,6 +43,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
       
     ]
   };
+  
   controller.selectGuarantorObj = {
     title : { fa : 'گارانتی', en : 'guarantor'},
     searchItem : {
@@ -110,38 +111,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
       {fa:'نام خانوادگی',en:'last_name'},
       {fa:'شماره کارت',en:'card_no'},
       {fa:'نوع کاربر',en:'clearance_level',filter:'userType'}
-    ]
-  }
-
-  controller.selectWarehouseHolderObj = {
-    title : { fa : 'انبار نگهدارنده', en : 'holder'},
-    searchItem : {
-      fa : 'انبار',
-      en : 'warehouse'
-    },
-    searchAt : {
-      fa : 'نام',
-      en : 'title'
-    },
-    table : [
-      {fa:'نام انبار',en:'title'},
-      {fa:'آدرس',en:'location'}
-    ]
-  }
-
-  controller.selectRelateWarehouseObj = {
-    title : { fa : 'انبار مرتبط', en : 'related_warehouse'},
-    searchItem : {
-      fa : 'انبار',
-      en : 'warehouse'
-    },
-    searchAt : {
-      fa : 'نام',
-      en : 'title'
-    },
-    table : [
-      {fa:'نام انبار',en:'title'},
-      {fa:'آدرس',en:'location'}
     ]
   }
 
@@ -224,6 +193,36 @@ angular.module("assetAdminPanel").controller('productCtrl',
     targetObj[variable][titleFiled] = title;
     targetObj[variable]['id'] = id;
     mainAsset.closeModal('#selectModal');
+  }
+
+  this.getFilteredData = function(){
+    var editedObj = angular.copy(controller.addOne);
+    var ex = editedObj.extra;
+    
+    if(ex.group) ex.group = ex.group.id;
+
+    // if(ex.parent_bundle) ex.parent_bundle = ex.parent_bundle.id;
+
+    if(ex.holder) ex.holder = ex.holder.id;
+    delete ex['holder_type'];
+
+    if(ex.producer) ex.producer = ex.producer.id;
+
+    if(ex.guarantor) ex.guarantor = ex.guarantor.id;
+
+    if(ex.related_warehouse) ex.related_warehouse = ex.related_warehouse.id;
+    
+    if(ex.seller) ex.seller = ex.seller.id;
+
+    if(ex.return_datetime__gte) ex.return_datetime__gte = mainAsset.toGregorianDate(ex.return_datetime__gte);
+
+    if(ex.return_datetime__lte) ex.return_datetime__lte = mainAsset.toGregorianDate(ex.return_datetime__lte);
+    
+    
+    $scope.page = 1;
+    controller.paginationConfig.addOne = editedObj;
+    $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
+    controller.getData();
   }
 
 });

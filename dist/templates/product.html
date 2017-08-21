@@ -12,99 +12,62 @@
       <option value="True">خارج از سامانه</option>
     </select>
     <div id="report-field" style="display:none" class="report-field">
-      <div class="input-group report-field-option input-group-sm">
-        <input type="text" class="form-control" placeholder="گروه و زیرگروه" ng-model="product.addOne.extra.group.title" disabled>
+      <div class="input-group report-field-option">
+        <input type="text" class="btn form-control" placeholder="انتخاب گروه" ng-model="product.addOne.extra.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group&title')" readonly>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.group" 
-            ng-click="product.openSelectionModal(0,'group','group_type=group&title')">انتخاب</button>
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.group"
-            ng-click="product.deleteKey(product.addOne.extra,'group')">حذف</button>
+            ng-click="product.deleteKey(product.addOne.extra,'group')">x</button>
         </span>
-      </div><!-- / subgroup filter -->
-
-      <div class="input-group report-field-option input-group-sm">
-        <input type="text" class="form-control" placeholder="پدر باندل" ng-model="product.addOne.extra.parent_bundle.model" disabled>
+      </div><!-- / group filter -->
+      
+      <div class="input-group report-field-option">
+        <input type="text" class="btn form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.extra.holder.last_name" ng-click="product.openSelectionModal(1,'user','last_name')" readonly>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.parent_bundle" 
-            ng-click="product.openSelectionModal(1,'product','is_bundle=True&model')">انتخاب</button>
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.parent_bundle"
-            ng-click="product.deleteKey(product.addOne.extra,'parent_bundle')">حذف</button>
-        </span>
-      </div><!-- / parent_bundle filter -->
-
-      <div class="input-group report-field-option input-group-sm">
-        <input type="text" class="form-control" placeholder="نگهدارنده" ng-show="product.addOne.extra.holder_type=='user'" ng-model="product.addOne.extra.holder.last_name" disabled>
-        <input type="text" class="form-control" placeholder="نگهدارنده" ng-hide="product.addOne.extra.holder_type=='user'" ng-model="product.addOne.extra.holder.title" disabled>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-info btn-beside-input dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-hide="product.addOne.extra.holder" ng-click="">انتخاب
-            <span class="caret"></span></button>
-          <ul class="dropdown-menu dropdown-menu-right" role="menu">
-            <li><a ng-click="product.addOne.extra.holder_type='user';product.openSelectionModal(2,'user','last_name')" href>کاربر</a></li>
-            <li><a ng-click="product.addOne.extra.holder_type='warehouse';product.openSelectionModal(3,'warehouse','title')" href>انبار</a></li>
-          </ul>
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.holder"
-            ng-click="product.deleteKey(product.addOne.extra,'holder')">حذف</button>
+            ng-click="product.deleteKey(product.addOne.extra,'holder')">x</button>
         </span>
       </div><!-- / holder filter -->
       
-      <div class="input-group report-field-option input-group-sm">
-        <input type="text" class="form-control" placeholder="تولید کننده" ng-model="product.addOne.extra.producer.brand_name" disabled>
+      <div class="input-group report-field-option">
+        <input type="text" class="btn form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.extra.producer.brand_name" readonly ng-click="product.openSelectionModal(2,'producer','brand_name')">
         <span class="input-group-btn">
-        <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.producer" 
-         ng-click="product.openSelectionModal(4,'producer','brand_name')">انتخاب</button>
         <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.producer"
-          ng-click="product.deleteKey(product.addOne.extra,'producer')">حذف</button>
+          ng-click="product.deleteKey(product.addOne.extra,'producer')">x</button>
         </span>
       </div><!-- / producer filter -->
 
-      <div class="input-group report-field-option input-group-sm">
-        <input type="text" class="form-control" placeholder="گارانتی کننده" ng-model="product.addOne.extra.guarantor.secretary_last_name" disabled>
+      <div class="input-group report-field-option">
+        <input type="text" class="btn form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.extra.seller.last_name" readonly ng-click="product.openSelectionModal(3,'seller','last_name')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.guarantor" 
-            ng-click="product.openSelectionModal(5,'guarantor','secretary_last_name')">انتخاب</button>
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.seller"
+              ng-click="product.deleteKey(product.addOne.extra,'seller')">x</button>
+        </span>
+      </div><!-- / seller filter -->
+  
+      <div class="input-group report-field-option">
+        <input type="text" class="btn form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.extra.guarantor.secretary_last_name" readonly ng-click="product.openSelectionModal(4,'guarantor','secretary_last_name')">
+        <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.guarantor"
-              ng-click="product.deleteKey(product.addOne.extra,'guarantor')">حذف</button>
+              ng-click="product.deleteKey(product.addOne.extra,'guarantor')">x</button>
         </span>
       </div><!-- / guarantor filter -->
      
-      <div class="input-group report-field-option input-group-lg">
-          <span >درخواست شده برای تعمیر</span>
-          <input type="checkbox" name="requested-repair" class="btn btn-info btn-lg btn-beside-input" ng-model="product.addOne.extra.requested_for_repair">
-      </div><!-- / repaire requested filter -->
-
-      <div class="input-group report-field-option input-group-lg">
+      <div class="input-group report-field-option">
           <adm-dtp ng-model="product.addOne.extra.return_datetime__gte" title="ابتدای بازه زمانی عودت داده شده" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
               <input type='text' ng-model='date' class="form-control" placeholder="ابتدای بازه زمانی عودت داده شده" dtp-input />
           </adm-dtp>
-      </div><!-- / start of return date filter -->
+      </div><!-- / return_datetime__gte filter -->
 
-      <div class="input-group report-field-option input-group-lg">
+      <div class="input-group report-field-option">
           <adm-dtp ng-model="product.addOne.extra.return_datetime__lte" title="انتهای بازه زمانی عودت داده شده" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
               <input type='text' ng-model='date' class="form-control" placeholder="انتهای بازه زمانی عودت داده شده" dtp-input />
           </adm-dtp>
-      </div><!-- / end of return date filter -->
-
-      <div class="input-group report-field-option input-group-sm">
-        <input type="text" class="form-control" placeholder="انبار مرتبط" ng-model="product.addOne.extra.related_warehouse.title" disabled>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.related_warehouse" 
-            ng-click="product.openSelectionModal(5,'warehouse','title')">انتخاب</button>
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.related_warehouse"
-              ng-click="product.deleteKey(product.addOne.extra,'related_warehouse')">حذف</button>
-        </span>
-      </div><!-- / related warehouse filter -->
-        
-      <div class="input-group report-field-option input-group-sm">
-        <input type="text" class="form-control" placeholder="فروشنده" ng-model="product.addOne.extra.seller.last_name" disabled>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.seller" 
-           ng-click="product.openSelectionModal(6,'seller','last_name')">انتخاب</button>
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.seller"
-            ng-click="product.deleteKey(product.addOne.extra,'seller')">حذف</button>
-        </span>
-      </div><!-- / seller filter -->
-
-
+      </div><!-- / return_datetime__lte filter -->
+       
+      <div class="input-group report-field-option">
+          <span >درخواست شده برای تعمیر</span>
+          <input type="checkbox" name="requested-repair" class="btn btn-info btn-lg btn-beside-input" ng-model="product.addOne.extra.requested_for_repair">
+      </div><!-- / requested_for_repair filter -->
       
     </div>
   </search-tools>
@@ -313,23 +276,18 @@
         </div>
         <!-- end of Stage 0 -->
 
-        <!-- stage = 1 for parent_bundle selection -->
-        <search-stage ng-show = "stage == 1" obj="product.selectProductObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
-
-        <!-- stage = 2 for holder type user selection -->
-        <search-stage ng-show = "stage == 2" obj="product.selectUserHolderObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
-
-        <!-- stage = 3 for holder type warehouse selection -->
-        <search-stage ng-show = "stage == 3" obj="product.selectWarehouseHolderObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <!-- stage = 1 for holder type user selection -->
+        <search-stage ng-show = "stage == 1" obj="product.selectUserHolderObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
         
-        <!-- stage = 4 for producer selection -->
-        <search-stage ng-show = "stage == 4" obj="product.selectProducerObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
-        
-        <!-- stage = 5 for related_warehouse selection -->
-        <search-stage ng-show = "stage == 5" obj="product.selectRelateWarehouseObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <!-- stage = 2 for producer selection -->
+        <search-stage ng-show = "stage == 2" obj="product.selectProducerObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
 
-        <!-- stage = 6 for seller selection -->
-        <search-stage ng-show = "stage == 6" obj="product.selectSellerObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <!-- stage = 3 for seller selection -->
+        <search-stage ng-show = "stage == 3" obj="product.selectSellerObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 4 for gaurantor selection -->
+        <search-stage ng-show = "stage == 4" obj="product.selectGuarantorObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
         
       </div>
       <div class="modal-footer">

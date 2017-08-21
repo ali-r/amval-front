@@ -4597,7 +4597,7 @@ div#deleteModal {
     min-height: 34px;
 }
 .report-field{
-    display: block;
+    display: inline;
     margin: 0px;
     padding: 0px;
 }
@@ -4641,4 +4641,8 @@ div#deleteModal {
     vertical-align: top;
     /*padding: 2px 15px;*/
     margin-top: 4px;
+}
+
+.more-filters-link, .more-filters-link:hover{
+    text-decoration: underline;
 }

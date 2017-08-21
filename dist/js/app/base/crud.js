@@ -23,6 +23,8 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     scope.openModal = function () {
       mainAsset.openModal('#' + apiName + 'Modal');
     }
+
+    
   }
 
   this.init = function(scope, controller, apiName, objConfig, getConfig) {
@@ -260,9 +262,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       delete obj[key];
     }
 
-    controller.displayMoreFields = function(){
-      $('div#report-field').show();
-    }
-
+    
   }
 });
