@@ -78,29 +78,4 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-enter-event="true,producer.deleteObject(producer.toDeleteId)">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="pull-left load-spinner" ng-show = "loadModal">
-          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
-        </div>
-        <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف تولید‌کننده</h4>
-      </div>
-      <div class="modal-body">
-        آیا مایل به حذف تولید‌کننده
-        "{{producer.toDeleteTitle | lengthLimit:30}}"
-        هستید؟
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
-        <button type="button" class="btn btn-success" ng-click="producer.deleteObject(producer.toDeleteId)">بله</button>
-      </div>
-    </div>
-  </div>
-</div>
+<delete-modal controller = "producer"></delete-modal>
