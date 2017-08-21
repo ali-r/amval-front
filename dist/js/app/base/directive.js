@@ -241,6 +241,11 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
         sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);
 
+        if(!sendCopyObj.is_bundle){
+          sendCopyObj.is_bundle = false;
+          delete sendCopyObj.children;
+        }
+
         if(scope.$parent.editMode){
           delete sendCopyObj.deprication_time;
           delete sendCopyObj.holder;
@@ -257,16 +262,11 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         sendCopyObj.guarantee_start_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_start_date);
         sendCopyObj.production_date = mainAsset.toGregorianDate(sendCopyObj.production_date);
 
-        if(obj.children){
+        if(sendCopyObj.children){
           sendCopyObj.children = [];
           for (var i = 0; i < obj.children.length; i++) {
             sendCopyObj.children.push(obj.children[i].id);
           }
-        }
-
-        if(!sendCopyObj.is_bundle){
-          sendCopyObj.is_bundle = false;
-          delete sendCopyObj.children;
         }
 
         if(!sendCopyObj.meta_data){sendCopyObj.meta_data = [];}
