@@ -229,6 +229,9 @@ app.filter('metaType', function() {
         case 'int':
           output = "عدد صحیح";
         break;
+        case 'num':
+          output = "عدد";
+        break;
         case 'str':
           output = "رشته";
         break;
