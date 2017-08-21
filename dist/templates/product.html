@@ -92,13 +92,20 @@
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.related_warehouse"
               ng-click="product.deleteKey(product.addOne.extra,'related_warehouse')">حذف</button>
         </span>
-      </div><!-- / relate warehouse filter -->
+      </div><!-- / related warehouse filter -->
         
+      <div class="input-group report-field-option input-group-sm">
+        <input type="text" class="form-control" placeholder="فروشنده" ng-model="product.addOne.extra.seller.last_name" disabled>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-info btn-beside-input" ng-hide="product.addOne.extra.seller" 
+           ng-click="product.openSelectionModal(6,'seller','last_name')">انتخاب</button>
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.seller"
+            ng-click="product.deleteKey(product.addOne.extra,'seller')">حذف</button>
+        </span>
+      </div><!-- / seller filter -->
 
-      <!-- 
-      <input type="text" placeholder="انبار مربوطه">
-      <input type="text" placeholder="فروشنده">
-      <input type="text" placeholder="کالاهای درخواست شده برای تعمیر"> -->
+
+      
     </div>
   </search-tools>
   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -320,6 +327,9 @@
         
         <!-- stage = 5 for related_warehouse selection -->
         <search-stage ng-show = "stage == 5" obj="product.selectRelateWarehouseObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 6 for seller selection -->
+        <search-stage ng-show = "stage == 6" obj="product.selectSellerObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
         
       </div>
       <div class="modal-footer">
