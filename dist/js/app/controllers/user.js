@@ -45,6 +45,10 @@ angular.module("assetAdminPanel").controller('userCtrl',
         delete sendCopyObj.warehouse_under_management;
       }
 
+    if (sendCopyObj.clearance_level == 0) {
+      delete sendCopyObj.password      
+    }
+    
     delete sendCopyObj.products;
     
     return sendCopyObj;
