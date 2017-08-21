@@ -36,7 +36,7 @@
                                 </a>
                             </td>
                             <td ng-if = "checkWrite('invoice')">
-                                <a ng-click="invoice.openDeleteModal(list.id,list.invoice_no,2)" href>
+																<a ng-click="invoice.toDeleteId = list.id; invoice.toDeleteTitle = list.invoice_no" data-toggle="modal" data-target="#deleteModal" href>
                                     <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -55,7 +55,7 @@
             <div class="x_title">
                 <h2 ng-show="editMode"><i class="fa"></i>ویرایش فاکتور</h2>
                 <h2 ng-hide="editMode"><i class="fa"></i>ایجاد فاکتور جدید</h2>
-                
+
                 <div class="pull-left" ng-hide="loadSide">
                     <button type="button" class="btn btn-danger" ng-click="reset()">لغو</button>
                     <button type="button" ng-if = "checkWrite('invoice')" ng-click="invoice.validateForm()" class="btn btn-success">ذخیره</button>
@@ -68,8 +68,8 @@
                     <button type="submit" hidden></button>
                     <fieldset ng-disabled ="!checkWrite('invoice')">
                         <div class="box-body">
-                            
-                            
+
+
 
                             <div class="row">
 
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            
+
                             <hr>
                             <div class="row">
                                 <div class="col-xs-6">
@@ -145,12 +145,12 @@
                                 <tbody ng-repeat = "product in invoice.obj.products">
                                     <tr>
                                         <td> {{product.model | lengthLimit:30}} </td>
-                                        <td> 
+                                        <td>
                                             <input placeholder="بدون قیمت" dir="ltr" type="number" step="1" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
                                         </td>
                                         <td ng-if = "checkWrite('invoice')">
-                                            <a ng-click="invoice.openDeleteModal($index,product.model,1)" href>
-                                                <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+                                            <a ng-click="invoice.deselect($index)" href>
+																							<strong>×</strong>
                                             </a>
                                         </td>
                                     </tr>
@@ -186,24 +186,24 @@
                                 </div>
 
                                 <div class="col-xs-2">
-                                    
+
                                     <a href="{{uploadUrl + invoice.obj.scanned_invoice}}" data-lightbox="تصویر فاکتور" data-title="تصویر فاکتور">
                                        <img class="img-responsive img-thumbnail" ng-src="{{uploadUrl + invoice.obj.scanned_invoice}}" ng-if="invoice.obj.scanned_invoice">
                                     </a>
-                                    
+
                                 </div>
                                 <br/>
                                 <p ng-show="invoiceForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                                 <p ng-show="invoiceForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
-                                
+
                             </div>
-                            
+
                             <hr></hr>
 
 
 
                             <div style="text-align:right" ng-hide = "invoiceForm.$valid && invoice.obj.products.length>0">
-                                <p> 
+                                <p>
                                   پر کردن فیلد هایی که با * مشخص شده اجباری است.
                                 </p>
                             </div>
@@ -218,7 +218,7 @@
                                 </ul> -->
                             </div>
 
-                            
+
 
                         </div><!-- /.box-body -->
                     </fieldset>
@@ -337,7 +337,7 @@
                                         </tbody>
                                     </table>
 
-                                    
+
 
                                 </div>
                             </div><!-- /.panel -->
@@ -415,42 +415,6 @@
 
 
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-enter-event="deleteStage==1,invoice.deleteProduct(invoice.toDeleteId),invoice.deleteObject(invoice.toDeleteId)">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="pull-left load-spinner" ng-show = "loadModal">
-          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
-        </div>
-        <h4 class="modal-title" id="myModalLabel" ng-show = "deleteStage == 1">حذف کالا از فاکتور</h4>
-        <h4 class="modal-title" id="myModalLabel" ng-show = "deleteStage == 2">حذف فاکتور</h4>
-      </div>
-      <div class="modal-body" ng-show = "deleteStage == 1">
-        آیا مایل به حذف کالای
-        <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle  | lengthLimit:30}}"
-        </div >
-        هستید؟
-      </div>
-      <div class="modal-body" ng-show = "deleteStage == 2">
-        آیا مایل به حذف فاکتور به شماره
-        <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle  | lengthLimit:30}}"
-        </div>
-        هستید؟
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
-        <button type="button" class="btn btn-success" ng-show="deleteStage == 1" ng-click="invoice.deleteProduct(invoice.toDeleteId)">بله</button>
-        <button type="button" class="btn btn-success" ng-show="deleteStage == 2" ng-click="invoice.deleteObject(invoice.toDeleteId)">بله</button>
-      </div>
-    </div>
-  </div>
-</div>
+<delete-modal controller = "invoice"></delete-modal>
 
 <creat-product controller = "invoice"></creat-product>

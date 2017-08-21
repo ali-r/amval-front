@@ -1,0 +1,25 @@
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" enter-event="true,controller.deleteObject(controller.toDeleteId)">
+ <div class="modal-dialog modal-sm" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="$parent.loadModal">
+         <span aria-hidden="true">&times;</span>
+       </button>
+       <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
+         <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+       </div>
+       <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">حذف</h4>
+     </div>
+     <div class="modal-body" ng-hide ="$parent.loadModal">
+       آیا مایل به حذف
+       "{{controller.toDeleteTitle | lengthLimit:30}}"
+       هستید؟
+     </div>
+     <div class="modal-footer" ng-hide ="$parent.loadModal">
+       <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
+       <button type="button" class="btn btn-success" ng-click="controller.deleteObject(controller.toDeleteId)">بله</button>
+     </div>
+   </div>
+ </div>
+</div>
