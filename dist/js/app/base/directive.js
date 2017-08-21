@@ -239,11 +239,6 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         if(!sendCopyObj.is_out_of_system)
             sendCopyObj.is_out_of_system = false;
 
-        if(!sendCopyObj.is_bundle || sendCopyObj.is_bundle == false){
-          sendCopyObj.is_bundle = false;
-          delete sendCopyObj.children;
-        }
-
         sendCopyObj.deprication_type = Number(sendCopyObj.deprication_type);
 
         if(scope.$parent.editMode){
@@ -254,7 +249,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.price;
           delete sendCopyObj.id;
         }else{
-          sendCopyObj.is_out_of_system = true;
+          if(!sendCopyObj.is_bundle)
+            sendCopyObj.is_out_of_system = true;
         }
 
         sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
@@ -268,6 +264,11 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           }
         }
 
+        if(!sendCopyObj.is_bundle){
+          sendCopyObj.is_bundle = false;
+          delete sendCopyObj.children;
+        }
+
         if(!sendCopyObj.meta_data){sendCopyObj.meta_data = [];}
         
         for (var i = obj.meta_data.length-1 ; i >= 0; i--) {
@@ -276,7 +277,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
               sendCopyObj.meta_data.splice(i, 1);
             }
         }
-
+        
         return sendCopyObj;
       };
 
