@@ -16,14 +16,14 @@
         <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h3 class="modal-title" ng-hide="editMode">افزودن کالای جدید</h3>
-        <h3 class="modal-title" ng-show="editMode">ویرایش کالا</h3>
+        <h3 class="modal-title" ng-hide="$parent.editMode">افزودن کالای جدید</h3>
+        <h3 class="modal-title" ng-show="$parent.editMode">ویرایش کالا</h3>
       </div>
       <div class="modal-body">
           <div class="box-body">
             <div ng-show = "$parent.stage == 0">
               <form name="productForm" role="form" ng-hide="$parent.loadModal" novalidate 
-              ng-submit="productForm.$valid && sendOrEdit(editMode)">
+              ng-submit="productForm.$valid && sendOrEdit($parent.editMode)">
               <button type="submit" hidden></button>
                 <fieldset>
                 <div class="row">
@@ -187,7 +187,7 @@
                     </div>
                   </div>
                   <div class="col-md-6" style="text-align:left"> 
-                    <button type="button" class="btn btn-round btn-success" ng-show="controller.product.is_bundle" ng-click="controller.selectThings(2, 'product', '?is_bundle=False&parent_bundle=None')">
+                    <button type="button" class="btn btn-round btn-success" ng-show="controller.product.is_bundle" ng-click="controller.selectThings(2, 'product', '?use_case=2')">
                       افزودن کالا به باندل
                       <i class="fa fa-plus"></i>
                     </button>
