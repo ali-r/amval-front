@@ -77,6 +77,56 @@ angular.module("assetAdminPanel").controller('productCtrl',
     }
   }
 
+  controller.selectUserHolderObj = {
+    title : { fa : 'کاربر نگهدارنده', en : 'holder'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربر',en:'clearance_level',filter:'userType'}
+    ]
+  }
+
+  controller.selectWarehouseHolderObj = {
+    title : { fa : 'انبار نگهدارنده', en : 'holder'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام انبار',en:'title'},
+      {fa:'آدرس',en:'location'}
+    ]
+  }
+
+  controller.selectRelateWarehouseObj = {
+    title : { fa : 'انبار مرتبط', en : 'related_warehouse'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام انبار',en:'title'},
+      {fa:'آدرس',en:'location'}
+    ]
+  }
+
   $scope.page = 1;
   controller.product = {};
   controller.obj = {};
