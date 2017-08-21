@@ -415,42 +415,6 @@
 
 
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-enter-event="deleteStage==1,invoice.deleteProduct(invoice.toDeleteId),invoice.deleteObject(invoice.toDeleteId)">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="pull-left load-spinner" ng-show = "loadModal">
-          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
-        </div>
-        <h4 class="modal-title" id="myModalLabel" ng-show = "deleteStage == 1">حذف کالا از فاکتور</h4>
-        <h4 class="modal-title" id="myModalLabel" ng-show = "deleteStage == 2">حذف فاکتور</h4>
-      </div>
-      <div class="modal-body" ng-show = "deleteStage == 1">
-        آیا مایل به حذف کالای
-        <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle  | lengthLimit:30}}"
-        </div >
-        هستید؟
-      </div>
-      <div class="modal-body" ng-show = "deleteStage == 2">
-        آیا مایل به حذف فاکتور به شماره
-        <div class="longer-limited-width-col">
-            "{{invoice.toDeleteTitle  | lengthLimit:30}}"
-        </div>
-        هستید؟
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
-        <button type="button" class="btn btn-success" ng-show="deleteStage == 1" ng-click="invoice.deleteProduct(invoice.toDeleteId)">بله</button>
-        <button type="button" class="btn btn-success" ng-show="deleteStage == 2" ng-click="invoice.deleteObject(invoice.toDeleteId)">بله</button>
-      </div>
-    </div>
-  </div>
-</div>
+<delete-modal controller = "invoice"></delete-modal>
 
 <creat-product controller = "invoice"></creat-product>
