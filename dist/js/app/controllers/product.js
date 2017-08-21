@@ -58,7 +58,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   };
 
   controller.selectProductObj = {
-    title : { fa : 'کالا', en : 'product'},
+    title : { fa : 'کالا', en : 'parent_bundle'},
     searchItem : {
       fa : 'کالا',
       en : 'product'
@@ -140,6 +140,11 @@ angular.module("assetAdminPanel").controller('productCtrl',
   this.openSelectionModal = function(stage_, field_, var_){
     mainAsset.openModal('#selectModal');
     controller.selectThings(stage_,field_,var_);
+  }
+
+  this.closeSelectionModal = function(){
+    mainAsset.closeModal('#selectModal');
+    $scope.reset();
   }
 
   this.selectReportOption = function(id, title, titleFiled, variable, targetObj){

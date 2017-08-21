@@ -138,7 +138,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
@@ -249,7 +249,7 @@
         <!-- end of Stage 0 -->
 
         <!-- stage = 1 for parent_bundle selection -->
-        <search-stage ng-show = "stage == 1" obj="product.selectProductObj" controller = "product" target="controller.addOne.extra.parent_bundle"></search-stage>
+        <search-stage ng-show = "stage == 1" obj="product.selectProductObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
 
       </div>
       <div class="modal-footer">

@@ -139,15 +139,15 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     };
 
     controller.selectTarget = function(_source, _base, _target, _stage, _callback){
-
+      
       _base[_target] = _source;
-
+      
       if( typeof(_stage) != 'undefined'){
         scope.stage = _stage;
       }
 
       if(_callback)
-        _callback();
+        eval(_callback);
 
     };
 
@@ -261,7 +261,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     }
 
     controller.displayMoreFields = function(){
-      $('#report-field').show();
+      $('div#report-field').show();
     }
 
   }

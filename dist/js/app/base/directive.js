@@ -130,11 +130,19 @@ app.directive('searchStage', function() {
     scope : {
       obj : '=',
       controller : '=',
-      target : '@'
+      target : '@',
+      subbase: '@',
+      func: '@'
     },
     link : function(scope, element, attr){
       if (!scope.target) {
         scope.target = 'obj';
+      }
+      if(!scope.subbase || scope.subbase==''){
+        scope.subbase = undefined;
+      }
+      if(!scope.func || scope.func==''){
+        scope.func = undefined
       }
     },
     templateUrl: '/dist/js/app/directive/searchStage.html'
