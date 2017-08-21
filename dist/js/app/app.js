@@ -338,7 +338,19 @@ app.filter('productName',function(){
 });
 
 app.filter('nullFilter',function(){
-  return function(input){return(input || '');}
+  return function(input){return(input || '−−ندارد−−');}
+});
+
+app.filter('clerkFilter',function(){
+  return function(input){
+    var output;
+    if (input) {
+      output = input.first_name + ' ' + input.last_name
+    }else{
+      output = '-- ندارد --'
+    }
+    return(output);
+  }
 });
 
 app.filter('useFilter', function($filter) {
