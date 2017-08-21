@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" esc-event="reset()">
   <search-tools sobject="ticket.searchObject" scontroller="ticket">    
     <select class="form-control filter-option" ng-model="ticket.addOne.extra.reason" title="علت تیکت">
       <option value="">-- علت تیکت --</option>
@@ -92,8 +92,8 @@
       <div class="x_content" ng-hide="loadSide">
 
         <div>
-          <form name="ticketForm" role="form" ng-hide="loadModal" novalidate>
-            
+          <form name="ticketForm" role="form" ng-hide="loadModal" novalidate ng-submit="ticketForm.$valid && ticket.createTicket(editMode)">
+            <button hidden type="submit"></button>
             <div class="row">
               <fieldset ng-disabled ="!checkWrite('ticket')">
                 <div class="col-sm-6">
@@ -305,7 +305,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=1&model__contains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
+                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=1&model__contains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
                                         </span>
                                       </div>
                                     </form>
@@ -354,7 +354,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="نام انبار" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
-                                          <button type="button" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse','title')">جستجوی انبار</button>
+                                          <button type="submit" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse','title')">جستجوی انبار</button>
                                         </span>
                                       </div>
                                     </form>
