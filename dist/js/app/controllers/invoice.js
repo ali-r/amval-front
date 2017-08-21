@@ -5,7 +5,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.apiName = 'invoice';
       $scope.editMode = true;    //Edit: true, Create: false
       $scope.selectStage = 0;       //Buyer:1, Seller:2, Product:3 usage in select modal
-      $scope.deleteStage = 1;       //Product:1 , Invoice:2 , usage in delete modal
 
       controller.searchObject = [
           {'fname' : 'شماره فاکتور', 'field' : 'invoice_no'},
@@ -67,13 +66,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.closeModal = function(name){
         mainAsset.closeModal('#' + name + 'Modal')
       }
-
-      controller.openDeleteModal=function(id_,title_,stage_){
-        controller.toDeleteId = id_;
-        controller.toDeleteTitle = title_;
-        $scope.deleteStage = stage_;
-        controller.openModal('delete');
-      } 
 
       crud.initModals($scope, controller, controller.apiName, []);
       crud.init($scope, controller, controller.apiName,controller.objConfig, controller.getConfig);
@@ -145,11 +137,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.deselect = function(item_index){
         controller.obj.products.remove(item_index);
-      }
-
-      controller.deleteProduct = function(item_index){
-        controller.obj.products.remove(item_index);
-        controller.closeModal('delete');
       }
 
       controller.creatProductCallback = function(goods){
