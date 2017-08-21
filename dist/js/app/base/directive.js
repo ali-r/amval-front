@@ -437,6 +437,20 @@ app.directive('productStat', function(mainAsset, requestHelper) {
   }
 });
 
+app.directive('exportFile', function(mainAsset, requestHelper) {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      controller : '='
+    },
+    link : function(scope, element, attr){
+      console.log(scope)
+    },
+    templateUrl: '/dist/js/app/directive/exportToFile.html'
+  }
+});
+
 app.directive('toggle', function(){
   return {
     restrict: 'A',
