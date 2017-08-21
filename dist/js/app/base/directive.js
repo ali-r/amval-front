@@ -377,6 +377,17 @@ app.directive('toggle', function(){
   };
 });
 
+app.directive('deleteModal', function(){
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      controller : '='
+    },
+    templateUrl: '/dist/js/app/directive/deleteModal.html'
+  }
+});
+
 app.directive('enterEvent', function () { //sample usage: enterEvent = "checkMark,function"
   return function (scope, element, attrs) {
     element.bind("keydown keypress", function (event) {
