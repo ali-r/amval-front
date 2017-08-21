@@ -4,13 +4,13 @@
     <form class="filter-form">
       <input type="text" ng-repeat="opt in sobject" class="form-control search-option" id="{{opt.field}}" placeholder="{{opt.fname}}" ng-model="scontroller.searchValue[opt.field]" ng-if="opt.show_in_search != false">
       <ng-transclude></ng-transclude>
-      <select class="form-control filter-option" ng-model="scontroller.searchValue['type']">
+      <select ng-show="sobject.length>0" class="form-control filter-option" ng-model="scontroller.searchValue['type']">
         <option value="">مرتب سازی بر اساس</option>
         <option ng-repeat="opt in sobject" value="{{opt.field}}">
           {{opt.fname | lengthLimit:30}}
         </option>
       </select>
-      <select class="form-control sort-option" ng-init = " scontroller.searchValue['order'] = ''" ng-model="scontroller.searchValue['order']">
+      <select ng-hide="scontroller.searchValue['type']=='' || scontroller.searchValue['type']==undefined" class="form-control sort-option" ng-init = " scontroller.searchValue['order'] = ''" ng-model="scontroller.searchValue['order']">
         <option value="">صعودی</option>
         <option value="-">  نزولی</option>
       </select>
