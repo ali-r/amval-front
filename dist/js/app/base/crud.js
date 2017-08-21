@@ -81,8 +81,9 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
             for (var i = 0; i < controller.searchObject.length; i++) {
               keys[controller.searchObject[i].field + '__contains'] = controller.searchValue[controller.searchObject[i].field];
             }
-
-            keys.sort = controller.searchValue.order + controller.searchValue.type
+            
+            if(controller.searchValue.type!='' && controller.searchValue.type!=undefined)
+              keys.sort = controller.searchValue.order + controller.searchValue.type
 
           }
 
