@@ -47,6 +47,7 @@
               <th ng-hide="ticket.tmp.formShow">نوع تیکت</th>
               <th ng-hide="ticket.tmp.formShow">علت تیکت</th>
               <th>زمان ایجاد</th>
+              <th ng-hide="ticket.tmp.formShow">وضعیت</th>
               <th></th>
               <th ng-if = "checkWrite('ticket')"></th>
             </tr>
@@ -59,6 +60,10 @@
               <td ng-hide="ticket.tmp.formShow">{{list.ticket_type | ticketType}}</td>
               <td ng-hide="ticket.tmp.formShow">{{list.reason | ticketReason}}</td>
               <td>{{ list.datetime | jalaliDate}}</td>
+              <td ng-hide="ticket.tmp.formShow" >
+                <span disabled class="btn btn-xs" ng-class="{'btn-default':list.status==2,'btn-success':list.status==1,
+                'btn-warning':list.status==0}">{{list.status | ticketStatus}}</span>
+                </td>
               <td></td>
               <td>
                 <a ng-click="ticket.readTicket(list.id,$index,this)" href>
