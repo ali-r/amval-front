@@ -1,6 +1,6 @@
 angular.module("assetAdminPanel").controller('productCtrl',
   function($scope, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
-
+  
   var controller = this;
   var apiName = 'product';
 
@@ -217,8 +217,18 @@ angular.module("assetAdminPanel").controller('productCtrl',
     if(ex.return_datetime__gte) ex.return_datetime__gte = mainAsset.toGregorianDate(ex.return_datetime__gte);
 
     if(ex.return_datetime__lte) ex.return_datetime__lte = mainAsset.toGregorianDate(ex.return_datetime__lte);
-    
-    
+
+    if(ex.deprecated)
+      ex.deprication_time__lte = moment().utcOffset(0).format('YYYY-MM-DDTHH:mm:ss');
+    delete ex['deprecated'];
+
+    if(ex.requested_for_repair){
+      ex.requested_for_repair = "True";
+    }
+    else{
+      delete ex['requested_for_repair'];
+    }
+
     $scope.page = 1;
     controller.paginationConfig.addOne = editedObj;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
@@ -226,3 +236,4 @@ angular.module("assetAdminPanel").controller('productCtrl',
   }
 
 });
+

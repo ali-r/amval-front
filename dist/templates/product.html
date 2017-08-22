@@ -16,7 +16,9 @@
         <input type="text" class="btn form-control" placeholder="انتخاب گروه" ng-model="product.addOne.extra.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group&title')" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.group"
-            ng-click="product.deleteKey(product.addOne.extra,'group')">x</button>
+            ng-click="product.deleteKey(product.addOne.extra,'group')">
+            <i class="fa fa-remove"></i>
+          </button>
         </span>
       </div><!-- / group filter -->
       
@@ -24,7 +26,9 @@
         <input type="text" class="btn form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.extra.holder.last_name" ng-click="product.openSelectionModal(1,'user','last_name')" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.holder"
-            ng-click="product.deleteKey(product.addOne.extra,'holder')">x</button>
+            ng-click="product.deleteKey(product.addOne.extra,'holder')">
+            <i class="fa fa-remove"></i>
+          </button>
         </span>
       </div><!-- / holder filter -->
       
@@ -32,7 +36,9 @@
         <input type="text" class="btn form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.extra.producer.brand_name" readonly ng-click="product.openSelectionModal(2,'producer','brand_name')">
         <span class="input-group-btn">
         <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.producer"
-          ng-click="product.deleteKey(product.addOne.extra,'producer')">x</button>
+          ng-click="product.deleteKey(product.addOne.extra,'producer')">
+          <i class="fa fa-remove"></i>
+        </button>
         </span>
       </div><!-- / producer filter -->
 
@@ -40,15 +46,18 @@
         <input type="text" class="btn form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.extra.seller.last_name" readonly ng-click="product.openSelectionModal(3,'seller','last_name')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.seller"
-              ng-click="product.deleteKey(product.addOne.extra,'seller')">x</button>
+          ng-click="product.deleteKey(product.addOne.extra,'seller')">
+            <i class="fa fa-remove"></i>
+          </button>
         </span>
       </div><!-- / seller filter -->
   
       <div class="input-group report-field-option">
         <input type="text" class="btn form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.extra.guarantor.secretary_last_name" readonly ng-click="product.openSelectionModal(4,'guarantor','secretary_last_name')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.guarantor"
-              ng-click="product.deleteKey(product.addOne.extra,'guarantor')">x</button>
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.guarantor"             ng-click="product.deleteKey(product.addOne.extra,'guarantor')">
+            <i class="fa fa-remove"></i>  
+          </button>
         </span>
       </div><!-- / guarantor filter -->
      
@@ -64,11 +73,16 @@
           </adm-dtp>
       </div><!-- / return_datetime__lte filter -->
        
-      <div class="input-group report-field-option">
-          <span >درخواست شده برای تعمیر</span>
+      <div class="input-group report-field-option button-padding">
+          <span class="button-padding">درخواست شده برای تعمیر</span>
           <input type="checkbox" name="requested-repair" class="btn btn-info btn-lg btn-beside-input" ng-model="product.addOne.extra.requested_for_repair">
       </div><!-- / requested_for_repair filter -->
       
+      <div class="input-group report-field-option button-padding">
+        <span class="button-padding">مستهلک شده</span>
+        <input type="checkbox" name="requested-repair" class="btn btn-info btn-lg btn-beside-input" ng-model="product.addOne.extra.deprecated">
+      </div><!-- / deprecated filter -->
+
     </div>
   </search-tools>
   <div class="col-md-12 col-sm-12 col-xs-12">

@@ -118,10 +118,14 @@ app.directive('searchTools', function() {
       sobject : '=',
       scontroller : '='
     },
+    link:function(scope,element,attr){
+      $('#more-filters').on('click',function(){
+        $('div#report-field').toggle();
+      });
+    },
     templateUrl: '/dist/js/app/directive/search.html'
   }
 });
-
 
 app.directive('searchStage', function() {
   return {
