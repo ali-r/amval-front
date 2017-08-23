@@ -445,7 +445,27 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
       controller : '='
     },
     link : function(scope, element, attr){
-      console.log(scope)
+      
+      scope.makeExport = function(fromat){
+
+        var exportConf = {
+          'type' : 'products_export',
+          'request_url' : scope.$parent.getUrl
+        };
+
+        var makeExportUrl = mainAsset.getUrl() + 'export/' + fromat;
+
+        requestHelper.post( makeExportUrl, exportConf, scope,
+          function(response) {
+            console.log(response)
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = response.data.download_url;
+            link.click();
+        }, true);
+
+      };
+
     },
     templateUrl: '/dist/js/app/directive/exportToFile.html'
   }
