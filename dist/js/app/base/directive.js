@@ -295,6 +295,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           if(scope.makeDuplicate){
             scope.controller.product.serial_number = '';
             scope.controller.product.qr_code = '';
+            scope.controller.product.children = [];
           }else{
             $('#productModal').modal('hide');
             scope.productReset();
