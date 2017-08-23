@@ -14,8 +14,8 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>نام مسئول</th>
-              <th>نام خانوادگی مسئول</th>
+              <th>نام شرکت</th>
+              <th>سایت</th>
               <th>شماره تلفن</th>
               <th>آدرس</th>
               <th></th>
@@ -25,8 +25,12 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in guarantor.note">
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
-              <td>{{list.secretary_first_name | lengthLimit:30}}</td>
-              <td>{{list.secretary_last_name | lengthLimit:30}}</td>
+              <td>{{list.company_name | lengthLimit:30}}</td>
+              <td>
+                <a target="_blank" ng-href="{{list.website_address}}">
+                  <i class="fa fa-lg fa-internet-explorer"></i>
+                </a>
+              </td>
               <td>{{list.office_phone | pNumber}}</td>
               <td>{{list.address | lengthLimit:30 | pNumber}}</td>
               <td>
@@ -35,7 +39,7 @@
                 </a>
               </td>
               <td ng-if = "checkWrite('guarantor')">
-                <a ng-click="guarantor.toDeleteId = list.id; guarantor.toDeleteTitle = list.secretary_first_name + ' ' + list.secretary_last_name" data-toggle="modal" data-target="#deleteModal" href>
+                <a ng-click="guarantor.toDeleteId = list.id; guarantor.toDeleteTitle = list.company_name " data-toggle="modal" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -68,13 +72,13 @@
           <button type="submit" hidden></button>
           <fieldset ng-disabled = "!checkWrite('guarantor')">
             <div class="box-body">
-              <div class="form-group" ng-class="{'has-success' : guarantorForm.name.$valid && guarantor.obj.secretary_first_name}">
-                <label>نام مسئول*</label>
-                <input type="text" class="form-control" name="name" placeholder="نام مسئول" ng-model = "guarantor.obj.secretary_first_name" required>
+              <div class="form-group" ng-class="{'has-success' : guarantorForm.name.$valid && guarantor.obj.company_name}">
+                <label>نام شرکت*</label>
+                <input type="text" class="form-control" name="name" placeholder="نام شرکت" ng-model = "guarantor.obj.company_name" required>
               </div>
-              <div class="form-group" ng-class="{'has-success' : guarantorForm.lastname.$valid && guarantor.obj.secretary_last_name}">
-                <label>نام خانوادگی مسئول*</label>
-                <input type="text" class="form-control" placeholder="نام خانوادگی مسئول" name="lastname" ng-model = "guarantor.obj.secretary_last_name" required>
+              <div class="form-group" ng-class="{'has-success' : guarantorForm.website.$valid && guarantor.obj.website_address}">
+                <label>آدرس سایت*</label>
+                <input type="url" class="form-control ltr-input" placeholder="آدرس وب سایت" name="website" ng-model = "guarantor.obj.website_address" required>
               </div>
               <div class="form-group" ng-class=" {'has-error' : guarantorForm.phone.$invalid && guarantor.obj.office_phone,
                 'has-success' : guarantorForm.phone.$valid && guarantor.obj.office_phone } ">

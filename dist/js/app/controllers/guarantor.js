@@ -5,8 +5,8 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
   var apiName = 'guarantor';
 
   controller.searchObject = [
-    {'fname' : 'نام مسئول', 'field' : 'secretary_first_name'},
-    {'fname' : 'نام خانوادگی مسئول', 'field' : 'secretary_last_name'},
+    {'fname' : 'نام شرکت', 'field' : 'company_name'},
+    {'fname' : 'آدرس سایت', 'field' : 'website_address'},
     {'fname' : 'شماره تلفن', 'field' : 'office_phone'}
   ];
 

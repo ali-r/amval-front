@@ -93,7 +93,7 @@ app.directive('reqPagination', function() {
           }
           safeApply(scope.itempage);
         }
-        console.log(scope.controller.productsPage)
+        
         if(paginationConfig.url){
           paginationConfig.getFunc(scope.itempage);
         }else{
@@ -169,12 +169,12 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           en : 'guarantor'
         },
         searchAt : {
-          fa : 'نام خانوادگی مسئول',
-          en : 'secretary_last_name'
+          fa : 'نام شرکت',
+          en : 'company_name'
         },
         table : [
-          {fa:'نام مسئول ',en:'secretary_first_name'},
-          {fa:'نام خانوادگی مسئول',en:'secretary_last_name'}
+          {fa:'نام شرکت',en:'company_name'},
+          {fa:'تلفن',en:'office_phone'}
         ]
       };
 
