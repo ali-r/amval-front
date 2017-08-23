@@ -4645,10 +4645,13 @@ div#deleteModal {
 
 .more-filters-link{
     text-decoration: underline;
-    position: absolute;
-    bottom: 25px;
-    left: 15px;
+    float: left;
 }
 .more-filters-link:hover{
     text-decoration: underline;    
+}
+.more-filter-link-container{
+    margin-bottom: -5px;
+    margin-top: 5px;
+    margin-left: 5px;
 }

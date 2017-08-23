@@ -122,6 +122,13 @@ app.directive('searchTools', function() {
       $('#more-filters').on('click',function(){
         $('div#report-field').toggle();
       });
+
+      var reportDivExist = ($('#report-field').length>0);
+      var reportFiltersExist = ($('#report-field').children().length>0);
+      if(!reportDivExist || !reportFiltersExist){
+        $('div.more-filter-link-container').hide();
+      }
+
     },
     templateUrl: '/dist/js/app/directive/search.html'
   }
