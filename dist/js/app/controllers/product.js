@@ -10,53 +10,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     {'fname' : 'قیمت', 'field' : 'price', 'show_in_search' : false}
   ];
 
-  controller.selectProducerObj = {
-    title : { fa : 'تولید کننده', en : 'producer'},
-    searchItem : {
-      fa : 'تولید کننده',
-      en : 'producer'
-    },
-    searchAt : {
-      fa : 'نام برند',
-      en : 'brand_name'
-    },
-    table : [
-      {fa:'نام برند',en:'brand_name'}
-    ]
-  };
-
-  controller.selectGuarantorObj = {
-    title : { fa : 'گارانتی', en : 'guarantor'},
-    searchItem : {
-      fa : 'گارانتی',
-      en : 'guarantor'
-    },
-    searchAt : {
-      fa : 'نام خانوادگی مسئول',
-      en : 'secretary_last_name'
-    },
-    table : [
-      {fa:'نام مسئول ',en:'secretary_first_name'},
-      {fa:'نام خانوادگی مسئول',en:'secretary_last_name'}
-    ]
-  };
-
-  controller.selectGroupObj = {
-    title : { fa : 'زیرگروه', en : 'group'},
-    searchItem : {
-      fa : 'زیر گروه',
-      en : 'group'
-    },
-    searchAt : {
-      fa : 'عنوان',
-      en : 'title'
-    },
-    table : [
-      {fa:'عنوان',en:'title'},
-      {fa:'توضیحات',en:'description'}
-    ]
-  };
-
   $scope.page = 1;
   controller.product = {};
   controller.obj = {};
