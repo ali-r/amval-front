@@ -121,6 +121,14 @@ app.directive('searchTools', function() {
     link:function(scope,element,attr){
       $('#more-filters').on('click',function(){
         $('div#report-field').toggle();
+        $('#more-filters').hide();
+        $('#less-filters').show();
+      });
+
+      $('#less-filters').on('click',function(){
+        $('div#report-field').toggle();
+        $('#more-filters').show();
+        $('#less-filters').hide();
       });
 
       var reportDivExist = ($('#report-field').length>0);
