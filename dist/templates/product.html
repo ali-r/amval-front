@@ -73,14 +73,16 @@
           </adm-dtp>
       </div><!-- / return_datetime__lte filter -->
        
-      <div title="فیلتر تقاضا شده ها برای تعمیر" class="input-group report-field-option checkbox">
+      <div title="فیلتر تقاضا شده ها برای تعمیر" class="checkbox checkbox-report-field">
         <label for="requested-repair">
             <input class="checkbox" ng-model="product.addOne.extra.requested_for_repair" id="requested-repair" type="checkbox">
             درخواست شده برای تعمیر
           </label>
       </div><!-- / requested_for_repair filter -->
 
-      <div title="فیلتر مستهلک شده ها" class="input-group report-field-option checkbox">
+      <div hidden></div><!-- preventing bootstrap style when checkboxes come after each other  -->
+
+      <div title="فیلتر مستهلک شده ها" class="checkbox checkbox-report-field">
         <label for="deprecated-filter" >
             <input class="checkbox" id="deprecated-filter" type="checkbox" ng-model="product.addOne.extra.deprecated">
             مستهلک شده
