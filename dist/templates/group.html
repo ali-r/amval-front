@@ -1,10 +1,10 @@
 <div class="row">
  <search-tools sobject="group.searchObject" scontroller="group">
-    <select class="form-control sort-option" ng-model="group.addOne.extra.group_type" title="نمایش گروه یا زیر گروه">
-      <option value="group">
+    <select class="form-control sort-option" ng-model="group.addOne.extra.level__lt" title="نمایش گروه یا زیر گروه">
+      <option value="1">
         گروه
       </option>
-      <option value="subgroup">
+      <option value="6">
         زیر گروه
       </option>
     </select>
@@ -107,6 +107,30 @@
             </tr>
           </tbody>
         </table>
+
+        <div ui-tree id="tree-root" ng-if="group.note.length > 0">
+          <ol ui-tree-nodes ng-model="group.note">
+            <li ng-repeat="node in group.note" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+          </ol>
+        </div>
+
+        <script type="text/ng-template" id="nodes_renderer.html">
+          <div ui-tree-handle class="tree-node tree-node-content">
+            <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+              <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed, 'fa-minus-square': !collapsed}"></span>
+            </a>
+            {{node.title}}
+            <a class="pull-left btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+                class="glyphicon glyphicon-remove"></span></a>
+            <a class="pull-left btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
+                class="glyphicon glyphicon-plus"></span></a>
+          </div>
+          <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+            <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+            </li>
+          </ol>
+        </script>
+
         <req-pagination itemmeta="meta" itempage="page" controller="group" config="group.paginationConfig"></req-pagination>
       </div>
     </div>
@@ -222,3 +246,4 @@
 </div><!-- /.modal -->
 
 <delete-modal controller = "group"></delete-modal>
+

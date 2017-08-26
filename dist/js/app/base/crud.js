@@ -94,9 +94,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
             keys[opt] = config.searchOpt[opt]
           }
         }
-
-        
-
         
 
         for (name in keys) {
@@ -135,6 +132,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
               scope.meta = response.data.meta;
               controller.note = response.data[apiName + 's'];
             }
+          console.log(response)  
         },true);
     };
     if(apiName){

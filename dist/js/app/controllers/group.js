@@ -37,7 +37,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     key: 'group_type',
     value: 'group'
   }
-  controller.addOne.extra.group_type = 'group';
+  //controller.addOne.extra.depth__lt = '2';
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }
@@ -80,11 +80,11 @@ angular.module("assetAdminPanel").controller('groupCtrl',
 
   this.getFilteredData = function(){
     var editedObj = angular.copy(controller.addOne);
-    if(editedObj.extra.group_type)
+    if(editedObj.extra.depth__lt)
       {
-        editedObj.extra.group_type = controller.addOne.extra.group_type;
+        editedObj.extra.depth__lt = controller.addOne.extra.depth__lt;
       }else {
-        editedObj.extra.group_type = 'group';
+        editedObj.extra.depth__lt = '2';
       }
     $scope.page = 1;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
