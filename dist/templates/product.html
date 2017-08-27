@@ -92,7 +92,12 @@
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2><i class="fa fa-cubes"></i>کالا ها</h2>
+        <h2>
+          <i class="fa fa-cubes"></i>کالا ها
+          <span ng-if="meta.total">
+          (تعداد کل: {{meta.total | pNumber}})
+          </span>
+        </h2>        
         <button type="button" ng-if = "checkWrite('product')" class="btn btn-success btn-sm pull-left" ng-click="openModal('#productModal')" name="button">
           افزودن کالا
         </button>
