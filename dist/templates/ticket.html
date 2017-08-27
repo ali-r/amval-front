@@ -39,7 +39,7 @@
       </div>
       <div class="x_content">
         <table class="table table-striped jambo_table asset-tables">
-          <thead>
+          <thead class="ticket-status-border">
             <tr>
               <th>#</th>
               <th>عنوان</th>
@@ -53,7 +53,8 @@
             </tr>
           </thead>
           <tbody ng-hide="load">
-            <tr ng-repeat = "list in ticket.note" ng-class="{'info':list.id==ticket.obj.id}">
+            <tr ng-repeat = "list in ticket.note" ng-class="{'info':list.id==ticket.obj.id,
+            'closed-ticket-color':list.status==2,'progress-ticket-color':list.status==1,'requested-ticket-color':list.status==0}">
               <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td>{{list.title | lengthLimit:30}}</td>
               <td ng-hide="ticket.tmp.formShow">{{list.description | lengthLimit:30}}</td>

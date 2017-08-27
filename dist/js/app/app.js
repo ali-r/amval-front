@@ -193,7 +193,7 @@ app.filter('ticketStatus', function() {
           output = "در حال پیگیری";
         break;
         case 2:
-          output = "بسته شده";
+          output = "پایان یافته";
         break;
     }
     return output;
