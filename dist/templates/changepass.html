@@ -15,7 +15,7 @@
           ng-pattern = "/^[a-z0-9]+$/" placeholder="رمز عبور جدید" ng-model-options="{ allowInvalid: true }" required>
           <p ng-show="passForm.pass.$error.minlength" class="input-error-p">کلمه عبور کوتاه است</p>
           <p ng-show="passForm.pass.$error.maxlength" class="input-error-p">کلمه عبور طولانی است</p>
-          <p ng-show="passForm.pass.$error.pattern" class="input-error-p">فقط اعداد و حروف انگلیسی مجاز است</p>
+          <p ng-show="passForm.pass.$error.pattern" class="input-error-p">فقط اعداد و حروف مجاز است</p>
         </div>
         <div class="form-group" ng-class=" {'has-error' : changepass.tmp.newPassConf != changepass.obj.new_password && !passForm.confPass.$pristine,
           'has-success' : changepass.tmp.newPassConf === changepass.obj.new_password && !passForm.confPass.$pristine}  ">
