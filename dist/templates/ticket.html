@@ -62,7 +62,7 @@
               <td ng-hide="ticket.tmp.formShow">{{list.reason | ticketReason}}</td>
               <td>{{ list.datetime | jalaliDate}}</td>
               <td ng-hide="ticket.tmp.formShow" >
-                <span disabled class="btn btn-xs" ng-class="{'btn-default':list.status==2,'btn-success':list.status==1,
+                <span disabled class="btn btn-xs" ng-class="{'btn-info':list.status==2,'btn-success':list.status==1,
                 'btn-warning':list.status==0}">{{list.status | ticketStatus}}</span>
                 </td>
               <td></td>
