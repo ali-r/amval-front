@@ -1,7 +1,21 @@
 <div class="row">
 
     <!-- Search Object -->
-    <search-tools sobject="invoice.searchObject" scontroller="invoice"></search-tools>
+    <search-tools sobject="invoice.searchObject" scontroller="invoice">
+        <div id="report-field" style="display:none" class="report-field">
+            <div title="فیلتر ابتدای بازه زمانی فاکتورها" class="input-group report-field-option">
+                <adm-dtp inputplaceholder="از تاریخ" ng-model="invoice.addOne.extra.datetime__gte" 
+                options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+                </adm-dtp>
+            </div><!-- / datetime__gte filter -->
+
+            <div title="فیلتر انتهای بازه زمانی فاکتورها" class="input-group report-field-option">
+                <adm-dtp inputplaceholder="تا تاریخ" ng-model="invoice.addOne.extra.datetime__lte" 
+                options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+                </adm-dtp>
+            </div><!-- / datetime__lte filter -->
+        </div>
+    </search-tools>
     <!-- /Search Object-->
 
     <!-- invoice list -->
@@ -43,7 +57,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <req-pagination itemmeta="meta" itempage="page"></req-pagination>
+                <req-pagination itemmeta="meta" itempage="page" config="invoice.paginationConfig"></req-pagination>
             </div><!-- /.x_content-->
         </div><!-- /.x_panel-->
     </div>

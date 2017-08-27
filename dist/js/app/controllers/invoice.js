@@ -23,7 +23,12 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       $scope.page = 1;
       $scope.assetData = $cookieStore.get('assetData');
-
+      controller.obj = {};
+      controller.addOne={};
+      controller.addOne.extra={};
+      controller.paginationConfig = {
+        'addOne' : controller.addOne
+      }
       $scope.apiUrl = mainAsset.getUrl() + controller.apiName;
 
 
@@ -265,6 +270,18 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       }
 
-
+      controller.getFilteredData = function(){
+        var editedObj = angular.copy(controller.addOne);
+        var ex = editedObj.extra;
+        
+        if(ex.datetime__gte) ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte);
+    
+        if(ex.datetime__lte) ex.datetime__lte = mainAsset.toGregorianDate(ex.datetime__lte);
+    
+        $scope.page = 1;
+        controller.paginationConfig.addOne = editedObj;
+        $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
+        controller.getData();
+      }
   }
 );
