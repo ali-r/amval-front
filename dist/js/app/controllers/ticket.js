@@ -165,9 +165,9 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       text : controller.tmp.text
     };
     $scope.sendingMessage = true;
-    $http.put(url, sendObj, {headers: headers})
-      .then(
-      function(response) { //for success response
+    var responseFunction;
+    if(controller.obj.status == 2){
+      responseFunction = function(response){ // with status change
         controller.obj = response.data;
         console.log(response.data);
         delete controller.tmp['text'];
@@ -175,7 +175,23 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
           $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
         },500);
         $scope.sendingMessage = false;
-      },
+        controller.getData();
+      }
+    }
+    else{
+      responseFunction = function(response){ // no status change
+        controller.obj = response.data;
+        console.log(response.data);
+        delete controller.tmp['text'];
+        setTimeout(function () {
+          $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
+        },500);
+        $scope.sendingMessage = false;
+      }
+    }
+    $http.put(url, sendObj, {headers: headers})
+      .then(
+      responseFunction, //for success response
       function(response){ //for error response
         requestHelper.errorCallback(response);
         $scope.sendingMessage = false;
@@ -193,6 +209,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
         controller.obj = response.data;
         console.log(response.data);
         $scope.loadStatus = false;
+        controller.getData();
       },
       function(response){ //for error response
         requestHelper.errorCallback(response);
