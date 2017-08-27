@@ -41,62 +41,39 @@
                 <th ng-if = "checkWrite('group')"></th>
               </tr>
             </thead>
-            <tbody ui-tree-nodes ng-model="group.note">
-              <tr ng-repeat-start="node in group.note" ui-tree-node ui-tree-handle>
+            <tbody ng-hide="load">
+              <tr ng-repeat-start = "list in group.note">
                 <td style="text-align : right">
-                  <a ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
-                    <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed, 'fa-minus-square': !collapsed}"></span>
-                  </a>
+                  <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#collaps{{$index}}" aria-expanded="false" aria-controls="collapseExample"
+                  ng-click="collaps[$index] = !collaps[$index]" ng-if="list.children" >
+                    <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
+                  </button>
                 </td>
                 <td>
                   {{ (page-1)*perPage + $index + 1 | pNumber}}
                 </td>
-                <td>{{node.title | lengthLimit:30}}</td>
-                <td>{{node.description | lengthLimit:30}}</td>
+                <td>{{list.title | lengthLimit:30}}</td>
+                <td>{{list.description | lengthLimit:30}}</td>
                 <td>
-                  {{node.parent.title | lengthLimit:30}}
+                  {{list.parent.title | lengthLimit:30}}
                 </td>
                 <td>
-                  <a ng-click="group.getObject(node.id)" title="مشاهده" href>
+                  <a ng-click="group.getObject(list.id)" title="مشاهده" href>
                     <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
                   </a>
                 </td>
                 <td ng-if = "checkWrite('group')">
-                  <a ng-click="group.toDeleteId = node.id; group.toDeleteTitle = node.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+                  <a ng-click="group.toDeleteId = list.id; group.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
                     <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                   </a>
                 </td>
               </tr>
-              <tr ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}" ng-repeat-end>
-
+              <tr ng-repeat-end class="collapse" id="collaps{{$index}}">
+                <child-table></child-table>
               </tr>
             </tbody>
           </table>
         </div>
-
-       <!-- <div ui-tree id="tree-root" ng-if="group.note.length > 0">
-          <ol ui-tree-nodes ng-model="group.note">
-            <li ng-repeat="node in group.note" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-          </ol>
-        </div> -->
-        <script type="text/ng-template" id="nodes_renderer1.html">
-          
-        </script>
-
-        <script type="text/ng-template" id="nodes_renderer.html">
-          <div ui-tree-handle class="tree-node tree-node-content">
-            
-            {{node.title}}
-            <a class="pull-left btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
-                class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-left btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
-                class="glyphicon glyphicon-plus"></span></a>
-          </div>
-          <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
-            <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
-            </li>
-          </ol>
-        </script>
 
         <req-pagination itemmeta="meta" itempage="page" controller="group" config="group.paginationConfig"></req-pagination>
       </div>

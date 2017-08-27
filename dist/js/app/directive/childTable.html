@@ -1,0 +1,36 @@
+<td colspan="7" style="padding:0px;">
+  <table class="table">
+    <colgroup>
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 35%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 5%;">
+    </colgroup>
+    <tbody>
+      <tr ng-repeat="chd in list.children" class="group-chd">
+        <td style="text-align : right">
+          <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+        </td>
+        <td class="chd-td">
+          {{$index+1 | pNumber}}-{{(page-1)*perPage+$parent.$index+1 | pNumber}}
+        </td>
+        <td>{{chd.title | lengthLimit:30}}</td>
+        <td>{{chd.description | lengthLimit:30}}</td>
+        <td>{{chd.parent.title | lengthLimit:30}}</td>
+        <td>
+          <a ng-click="group.getObject(chd.id)" title="مشاهده" href>
+            <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
+          </a>
+        </td>
+        <td ng-if = "checkWrite('group')">
+          <a ng-click="group.toDeleteId = chd.id; group.toDeleteTitle = chd.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+            <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</td>

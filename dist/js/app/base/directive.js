@@ -136,6 +136,14 @@ app.directive('searchStage', function() {
   }
 });
 
+app.directive('childTable', function() {
+  return {
+    restrict: 'E',
+    replace : true,
+    templateUrl: '/dist/js/app/directive/childTable.html'
+  }
+});
+
 app.directive('creatProduct', function(mainAsset, requestHelper) {
   return {
     restrict: 'E',
