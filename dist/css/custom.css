@@ -4598,7 +4598,7 @@ div#deleteModal {
     min-height: 34px;
 }
 .report-field{
-    display: inline-block;
+    display: inline;
     margin: 0px;
     padding: 0px;
 }
@@ -4649,4 +4649,29 @@ div#deleteModal {
 .requested-ticket-color{
     border-right-style: solid;
     border-right-color: #f0ad4e;
+}
+.report-field-option{
+    display: inline-table;
+    min-width: 150px;
+    max-width: 250px;
+    width: 20%;
+    vertical-align: top;
+    /*padding: 2px 15px;*/
+    margin-top: 4px;
+}
+
+.more-filters-link{
+    text-decoration: underline;
+    float: left;
+}
+.more-filters-link:hover{
+    text-decoration: underline;    
+}
+.more-filter-link-container{
+    margin-bottom: -5px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.checkbox-report-field{
+    display: inline-block;
 }

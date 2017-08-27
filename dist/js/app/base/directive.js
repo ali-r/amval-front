@@ -118,10 +118,29 @@ app.directive('searchTools', function() {
       sobject : '=',
       scontroller : '='
     },
+    link:function(scope,element,attr){
+      $('#more-filters').on('click',function(){
+        $('div#report-field').toggle();
+        $('#more-filters').hide();
+        $('#less-filters').show();
+      });
+
+      $('#less-filters').on('click',function(){
+        $('div#report-field').toggle();
+        $('#more-filters').show();
+        $('#less-filters').hide();
+      });
+
+      var reportDivExist = ($('#report-field').length>0);
+      var reportFiltersExist = ($('#report-field').children().length>0);
+      if(!reportDivExist || !reportFiltersExist){
+        $('div.more-filter-link-container').hide();
+      }
+
+    },
     templateUrl: '/dist/js/app/directive/search.html'
   }
 });
-
 
 app.directive('searchStage', function() {
   return {
@@ -130,7 +149,20 @@ app.directive('searchStage', function() {
     scope : {
       obj : '=',
       controller : '=',
-      target : '='
+      target : '@',
+      subbase: '@',
+      func: '@'
+    },
+    link : function(scope, element, attr){
+      if (!scope.target) {
+        scope.target = 'obj';
+      }
+      if(!scope.subbase || scope.subbase==''){
+        scope.subbase = undefined;
+      }
+      if(!scope.func || scope.func==''){
+        scope.func = undefined
+      }
     },
     templateUrl: '/dist/js/app/directive/searchStage.html'
   }

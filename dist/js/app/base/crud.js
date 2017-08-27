@@ -147,16 +147,17 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       controller.getData();
     };
 
-    controller.selectTarget = function(id, title, titleFiled, variable, targetObj){
-      console.log(targetObj)
-      if ( typeof(targetObj) == 'undefined' ) {
-        targetObj = 'obj';
+    controller.selectTarget = function(_source, _base, _target, _stage, _callback){
+      
+      _base[_target] = _source;
+      
+      if( typeof(_stage) != 'undefined'){
+        scope.stage = _stage;
       }
 
-      controller[targetObj][variable] = {};
-      controller[targetObj][variable][titleFiled] = title;
-      controller[targetObj][variable].id = id;
-      scope.stage = 0;
+      if(_callback)
+        eval(_callback);
+
     };
 
     controller.getObject = function(id) {
@@ -253,7 +254,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         searchUrl, scope,
         function(response) {
           controller.tmp.searchResult = response.data[cat + 's'];
-          console.log(response.data);
           scope.loadSearch = false;
         });
     };
@@ -269,5 +269,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       delete obj[key];
     }
 
+    
   }
 });

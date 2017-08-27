@@ -1,6 +1,6 @@
 angular.module("assetAdminPanel").controller('productCtrl',
   function($scope, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
-
+  
   var controller = this;
   var apiName = 'product';
 
@@ -19,7 +19,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }
-
+  // controller.addOne.extra.group = {};
   controller.relateWarehouseId = $routeParams.id;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
@@ -70,4 +70,66 @@ angular.module("assetAdminPanel").controller('productCtrl',
     }
   }
 
+  this.openSelectionModal = function(stage_, field_, var_){
+    mainAsset.openModal('#selectModal');
+    controller.selectThings(stage_,field_,var_);
+  }
+
+  this.closeSelectionModal = function(){
+    mainAsset.closeModal('#selectModal');
+    $scope.reset();
+  }
+
+  this.selectReportOption = function(id, title, titleFiled, variable, targetObj){
+    if(!targetObj) targetObj = controller.addOne.extra;
+    if(!variable) {console.log('unable to set report option: not a valid variable'); return}
+
+    if(!targetObj[variable]) targetObj[variable] = {};
+
+    targetObj[variable][titleFiled] = title;
+    targetObj[variable]['id'] = id;
+    mainAsset.closeModal('#selectModal');
+  }
+
+  this.getFilteredData = function(){
+    var editedObj = angular.copy(controller.addOne);
+    var ex = editedObj.extra;
+    
+    if(ex.group) ex.group = ex.group.id;
+
+    // if(ex.parent_bundle) ex.parent_bundle = ex.parent_bundle.id;
+
+    if(ex.holder) ex.holder = ex.holder.id;
+    delete ex['holder_type'];
+
+    if(ex.producer) ex.producer = ex.producer.id;
+
+    if(ex.guarantor) ex.guarantor = ex.guarantor.id;
+
+    if(ex.related_warehouse) ex.related_warehouse = ex.related_warehouse.id;
+    
+    if(ex.seller) ex.seller = ex.seller.id;
+
+    if(ex.return_datetime__gte) ex.return_datetime__gte = mainAsset.toGregorianDate(ex.return_datetime__gte);
+
+    if(ex.return_datetime__lte) ex.return_datetime__lte = mainAsset.toGregorianDate(ex.return_datetime__lte);
+
+    if(ex.deprecated)
+      ex.deprication_time__lte = moment().utcOffset(0).format('YYYY-MM-DDTHH:mm:ss');
+    delete ex['deprecated'];
+
+    if(ex.requested_for_repair){
+      ex.requested_for_repair = "True";
+    }
+    else{
+      delete ex['requested_for_repair'];
+    }
+
+    $scope.page = 1;
+    controller.paginationConfig.addOne = editedObj;
+    $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
+    controller.getData();
+  }
+
 });
+

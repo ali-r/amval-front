@@ -218,7 +218,7 @@
             <!-- end of Stage 0 -->
 
             <div class="row" ng-show = "stage == 1">
-              <div class="col-md-10 col-md-offset-1">
+              <div class="col-md-12">
                 <div class="panel panel-info">
                   <div class="panel-heading">
                     انتخاب انبار
@@ -253,7 +253,7 @@
                               {{list.location | lengthLimit:20}}
                             </td>
                             <td>
-                              <a ng-click="user.selectTarget(list.id, list.title, 'title', 'warehouse')" href>
+                              <a ng-click="user.selectTarget(list, user.obj, 'warehouse', 0)" href>
                                 <i class="fa fa-check-square-o fa-lg"></i>
                               </a>
                             </td>

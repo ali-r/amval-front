@@ -113,11 +113,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.search('seller','last_name');
       };
 
-      controller.selectItem = function(id, title, titleFiled, variable){
-        controller.selectTarget(id, title, titleFiled, variable);
-        controller.closeModal('select');
-      }
-
       controller.openProductModal = function(){
         controller.openModal('product');
       };
