@@ -40,7 +40,15 @@
         </span>
       </div><!-- / from_warehouse filter -->
 
-      
+      <div title="فیلتر وضعیت تیکت" class="input-group report-field-option">
+        <select class="form-control" ng-model="ticket.addOne.extra.status" title="وضعیت تیکت">
+          <option value="">-- وضعیت تیکت --</option>
+          <option value="0">درخواست شده</option>
+          <option value="1">در حال پیگیری</option>
+          <option value="2">پایان یافته</option>
+        </select>
+      </div><!-- / ticket status filter -->
+
     </div>        
   </search-tools>
   <div ng-class = "{'col-xs-12':!ticket.tmp.formShow , 'col-xs-6' : ticket.tmp.formShow}">
