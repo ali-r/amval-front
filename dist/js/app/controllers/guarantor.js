@@ -6,8 +6,8 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
 
   controller.searchObject = [
     {'fname' : 'نام شرکت', 'field' : 'company_name'},
-    {'fname' : 'آدرس سایت', 'field' : 'website_address'},
-    {'fname' : 'شماره تلفن', 'field' : 'office_phone'}
+    {'fname' : 'آدرس', 'field' : 'address', 'show_in_order':false},
+    {'fname' : 'شماره تلفن', 'field' : 'office_phone', 'show_in_order':false}
   ];
 
   $scope.page = 1;

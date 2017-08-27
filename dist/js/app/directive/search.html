@@ -2,15 +2,17 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x-panel-search">
     <form class="filter-form">
-      <input type="text" ng-repeat="opt in sobject" class="form-control search-option" id="{{opt.field}}" placeholder="{{opt.fname}}" ng-model="scontroller.searchValue[opt.field]" ng-if="opt.show_in_search != false">
+      <input type="text" ng-repeat="opt in sobject" class="form-control search-option" id="{{opt.field}}" placeholder="{{opt.fname}}" ng-model="scontroller.searchValue[opt.field]" 
+      ng-if="opt.show_in_search != false">
       <ng-transclude></ng-transclude>
       <select ng-show="sobject.length>0" class="form-control filter-option" ng-model="scontroller.searchValue['type']">
         <option value="">مرتب سازی بر اساس</option>
-        <option ng-repeat="opt in sobject" value="{{opt.field}}">
+        <option ng-repeat="opt in sobject" value="{{opt.field}}" ng-if="opt.show_in_order != false">
           {{opt.fname | lengthLimit:30}}
         </option>
       </select>
-      <select ng-hide="scontroller.searchValue['type']=='' || scontroller.searchValue['type']==undefined" class="form-control sort-option" ng-init = " scontroller.searchValue['order'] = ''" ng-model="scontroller.searchValue['order']">
+      <select ng-hide="scontroller.searchValue['type']=='' || scontroller.searchValue['type']==undefined" class="form-control sort-option" ng-init = " scontroller.searchValue['order'] = ''" 
+      ng-model="scontroller.searchValue['order']">
         <option value="">صعودی</option>
         <option value="-">  نزولی</option>
       </select>
