@@ -159,7 +159,7 @@
                 <input type="text" class="form-control ltr-input" name="phone" placeholder="شماره تلفن" ng-model = "warehouse.obj.phone"
                 ng-pattern = "/^[0-9-+]+$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }" required>
                 <p ng-show="warehouseForm.phone.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
-                <p ng-show="warehouseForm.phone.$error.pattern" class="input-error-p">فقط اعداد انگلیسی و علامت های '-' و '+' مجاز است</p>
+                <p ng-show="warehouseForm.phone.$error.pattern" class="input-error-p">فقط اعداد و علامت های '-' و '+' مجاز است</p>
               </div>
               <label>انباردار</label>
               <div class="input-group">
