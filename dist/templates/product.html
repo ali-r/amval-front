@@ -11,8 +11,9 @@
       <option value="False">داخل سامانه</option>
       <option value="True">خارج از سامانه</option>
     </select>
-    <div title="فیلتر گروه" id="report-field" style="display:none" class="report-field">
-      <div class="input-group report-field-option">
+    <div id="report-field" style="display:none" class="report-field">
+      
+      <div title="فیلتر گروه" class="input-group report-field-option">
         <input type="text" class="form-control" placeholder="انتخاب گروه" ng-model="product.addOne.extra.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group&title')" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.group"
@@ -53,9 +54,9 @@
       </div><!-- / seller filter -->
   
       <div title="فیلتر گارانتی کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.extra.guarantor.secretary_last_name" readonly ng-click="product.openSelectionModal(4,'guarantor','secretary_last_name')">
+        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.extra.guarantor.company_name" readonly ng-click="product.openSelectionModal(4,'guarantor','company_name')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.guarantor"             ng-click="product.deleteKey(product.addOne.extra,'guarantor')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.guarantor"        ng-click="product.deleteKey(product.addOne.extra,'guarantor')">
             <i class="fa fa-remove"></i>  
           </button>
         </span>

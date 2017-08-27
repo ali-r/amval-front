@@ -51,12 +51,12 @@ angular.module("assetAdminPanel").controller('productCtrl',
       en : 'guarantor'
     },
     searchAt : {
-      fa : 'نام خانوادگی مسئول',
-      en : 'secretary_last_name'
+      fa : 'نام شرکت',
+      en : 'company_name'
     },
     table : [
-      {fa:'نام مسئول ',en:'secretary_first_name'},
-      {fa:'نام خانوادگی مسئول',en:'secretary_last_name'}
+      {fa:'نام شرکت',en:'company_name'},
+      {fa:'آدرس',en:'address'}
     ]
   };
 
