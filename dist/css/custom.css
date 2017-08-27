@@ -4640,7 +4640,7 @@ div#deleteModal {
 }
 .closed-ticket-color{
     border-right-style: solid;
-    border-right-color: rgba(52, 73, 94, 0.94);
+    border-right-color: #5bc0de;
 }
 .progress-ticket-color{
     border-right-style: solid;
