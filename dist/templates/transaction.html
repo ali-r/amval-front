@@ -113,7 +113,12 @@
               <td>{{list.source | userOrWarehouseName| lengthLimit:30}}</td>
               <td>{{list.destination | userOrWarehouseName | lengthLimit:30}}</td>
               <td>{{list.reason | reasonType}}</td>
-              <td>{{list.transaction_type | transactionType}}</td>
+              <td>
+                <button class="btn btn-sm" disabled
+                ng-class="{'btn-info':list.transaction_type==0, 'btn-danger':list.transaction_type==1, 'btn-default':list.transaction_type==2}">
+                  {{list.transaction_type | transactionType}}
+                </button>
+              </td>
 
               <td></td>
               <td>
