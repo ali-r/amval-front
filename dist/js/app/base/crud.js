@@ -262,6 +262,14 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       delete obj[key];
     }
 
-    
+    controller.openSelectionModal = function(stage_, field_, var_){
+      mainAsset.openModal('#selectModal');
+      controller.selectThings(stage_,field_,var_);
+    }
+  
+    controller.closeSelectionModal = function(){
+      mainAsset.closeModal('#selectModal');
+      scope.reset();
+    }
   }
 });

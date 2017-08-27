@@ -69,6 +69,23 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       {fa:'محل',en:'location'}
       ]
   }
+
+  controller.selectFromWarehouseObj = {
+    title : { fa : 'نقطه سفارش کالا', en : 'from_warehouse'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام انبار',en:'title'},
+      {fa:'محل',en:'location'}
+      ]
+  }
+
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }
@@ -134,13 +151,6 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     $scope.loadSide = true;
     controller.sendOrEdit(editMode_);
   }
-
-  controller.openSelection = function(s,n,f){
-    mainAsset.openModal('#selectModal');
-    $scope.selectStage = s;
-    controller.selectThings(s,n,f);
-  }
-
 
   controller.selectObj = function(field_,item_){
     controller.obj[field_] = item_;
@@ -213,6 +223,9 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       editedObj.extra.datetime__lte = mainAsset.toGregorianDate(controller.addOne.extra.datetime__lte);
     }
     else{editedObj.extra.datetime__lte=""}
+
+    if(editedObj.extra.from_warehouse) editedObj.extra.from_warehouse = editedObj.extra.from_warehouse.id 
+
     $scope.page = 1;
     controller.paginationConfig.addOne = editedObj;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
