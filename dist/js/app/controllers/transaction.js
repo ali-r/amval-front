@@ -87,6 +87,25 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
       {fa:'آدرس',en:'location'}
     ]
   }
+
+  controller.selectAuthorObj = {
+    title : { fa : 'کاربر اعمال کننده تراکنش', en : 'auth_by'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ]
+  }
+
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
   controller.obj = {}
@@ -196,6 +215,8 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     }
 
     if(ex.product) ex.product = ex.product.id;
+
+    if(ex.auth_by) ex.auth_by = ex.auth_by.id;
 
     if(ex.source) ex.source = ex.source.id;
     delete ex['source_type'];

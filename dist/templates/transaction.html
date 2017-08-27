@@ -81,6 +81,16 @@
         </span>
       </div><!-- / destination filter -->
 
+      <div title="فیلتر براساس اعمال کننده" class="input-group report-field-option">
+          <input type="text" class="form-control" placeholder="انتخاب اعمال کننده تراکنش" ng-model="transaction.addOne.extra.auth_by.last_name" readonly ng-click="transaction.openSelectionModal(5,'user','last_name')">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.auth_by"
+            ng-click="transaction.deleteKey(transaction.addOne.extra,'auth_by')">
+              <i class="fa fa-remove"></i>
+            </button>
+          </span>
+        </div><!-- / product filter -->
+
     </div>
   </search-tools>
   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -527,7 +537,9 @@
         <!-- stage = 4 for gaurantor selection -->
         <search-stage ng-show = "stage == 4" obj="transaction.selectWarehouseDestinationObj" controller = "transaction" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
 
-        
+        <!-- stage = 5 for user source selection -->
+        <search-stage ng-show = "stage == 5" obj="transaction.selectAuthorObj" controller = "transaction" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
       </div>
       <div class="modal-footer">
       </div><!-- /.modal-footer -->
