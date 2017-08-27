@@ -95,9 +95,9 @@
       <div class="x_title">
         <h2>
           <i class="fa fa-cubes"></i>کالا ها
-          <span ng-if="meta.total">
+          <small ng-if="meta.total">
           (تعداد کل: {{meta.total | pNumber}})
-          </span>
+          </small>
         </h2>        
         <button type="button" ng-if = "checkWrite('product')" class="btn btn-success btn-sm pull-left" ng-click="openModal('#productModal')" name="button">
           افزودن کالا
