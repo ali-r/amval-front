@@ -49,6 +49,13 @@
         </select>
       </div><!-- / ticket status filter -->
 
+      <div title="فیلتر بسته نشده ها" class="checkbox checkbox-report-field">
+          <label for="not_closed">
+              <input class="checkbox" ng-model="ticket.addOne.extra.not_closed" id="not_closed" type="checkbox">
+              بسته نشده ها
+            </label>
+        </div><!-- / not_closed filter -->
+
     </div>        
   </search-tools>
   <div ng-class = "{'col-xs-12':!ticket.tmp.formShow , 'col-xs-6' : ticket.tmp.formShow}">

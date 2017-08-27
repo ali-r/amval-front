@@ -226,6 +226,13 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
     if(editedObj.extra.from_warehouse) editedObj.extra.from_warehouse = editedObj.extra.from_warehouse.id 
 
+    if(editedObj.extra.not_closed){
+      editedObj.extra.status__ne = "2";
+    }
+    
+    delete editedObj.extra['not_closed'];
+    
+
     $scope.page = 1;
     controller.paginationConfig.addOne = editedObj;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
