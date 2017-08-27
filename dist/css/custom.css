@@ -4634,3 +4634,19 @@ div#deleteModal {
     padding-top:7px;
     padding-left:5px;
 }
+.ticket-status-border{
+    border-right-style: solid;
+    border-right-color: rgba(52, 73, 94, 0.94);
+}
+.closed-ticket-color{
+    border-right-style: solid;
+    border-right-color: rgba(52, 73, 94, 0.94);
+}
+.progress-ticket-color{
+    border-right-style: solid;
+    border-right-color: #26B99A;
+}
+.requested-ticket-color{
+    border-right-style: solid;
+    border-right-color: #f0ad4e;
+}
