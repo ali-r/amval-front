@@ -4634,22 +4634,6 @@ div#deleteModal {
     padding-top:7px;
     padding-left:5px;
 }
-.ticket-status-border{
-    border-right-style: solid;
-    border-right-color: rgba(52, 73, 94, 0.94);
-}
-.closed-ticket-color{
-    border-right-style: solid;
-    border-right-color: #5bc0de;
-}
-.progress-ticket-color{
-    border-right-style: solid;
-    border-right-color: #26B99A;
-}
-.requested-ticket-color{
-    border-right-style: solid;
-    border-right-color: #f0ad4e;
-}
 .report-field-option{
     display: inline-table;
     min-width: 150px;
@@ -4674,4 +4658,29 @@ div#deleteModal {
 }
 .checkbox-report-field{
     display: inline-block;
+}
+
+.obj-default-border{
+    border-right-style: solid;
+    border-right-color: rgba(52, 73, 94, 0.94);
+}
+.obj-primary-border{
+    border-right-style: solid;
+    border-right-color: #337ab7;
+}
+.obj-success-border{
+    border-right-style: solid;
+    border-right-color: #5cb85c;
+}
+.obj-info-border{
+    border-right-style: solid;
+    border-right-color: #5bc0de;
+}
+.obj-warning-border{
+    border-right-style: solid;
+    border-right-color: #f0ad4e;
+}
+.obj-danger-border{
+    border-right-style: solid;
+    border-right-color: #d9534f;
 }
