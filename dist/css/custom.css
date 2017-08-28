@@ -4652,3 +4652,28 @@ div#deleteModal {
 .more-filters-link:hover{
     text-decoration: underline;    
 }
+
+.obj-default-border{
+    border-right-style: solid;
+    border-right-color: rgba(52, 73, 94, 0.94);
+}
+.obj-primary-border{
+    border-right-style: solid;
+    border-right-color: #337ab7;
+}
+.obj-success-border{
+    border-right-style: solid;
+    border-right-color: #5cb85c;
+}
+.obj-info-border{
+    border-right-style: solid;
+    border-right-color: #5bc0de;
+}
+.obj-warning-border{
+    border-right-style: solid;
+    border-right-color: #f0ad4e;
+}
+.obj-danger-border{
+    border-right-style: solid;
+    border-right-color: #d9534f;
+}

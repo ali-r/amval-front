@@ -46,7 +46,7 @@
         </a>
         <ul id="dropdown-filter-source" class="dropdown-menu dropdown-menu-right" role="menu">
           <li>
-            <a ng-click="transaction.openSelectionModal(1,'user','model');transaction.addOne.extra.source_type='user'" href>کاربر</a>
+            <a ng-click="transaction.openSelectionModal(1,'user','last_name');transaction.addOne.extra.source_type='user'" href>کاربر</a>
           </li>
           <li>
             <a ng-click="transaction.openSelectionModal(2,'warehouse','model');transaction.addOne.extra.source_type='warehouse'" href>انبار</a>
@@ -67,7 +67,7 @@
         </a>
         <ul id="dropdown-filter-destination" class="dropdown-menu dropdown-menu-right" role="menu">
           <li>
-            <a ng-click="transaction.openSelectionModal(3,'user','model');transaction.addOne.extra.destination_type='user'" href>کاربر</a>
+            <a ng-click="transaction.openSelectionModal(3,'user','last_name');transaction.addOne.extra.destination_type='user'" href>کاربر</a>
           </li>
           <li>
             <a ng-click="transaction.openSelectionModal(4,'warehouse','model');transaction.addOne.extra.destination_type='warehouse'" href>انبار</a>
@@ -82,14 +82,14 @@
       </div><!-- / destination filter -->
 
       <div title="فیلتر براساس اعمال کننده" class="input-group report-field-option">
-          <input type="text" class="form-control" placeholder="انتخاب اعمال کننده تراکنش" ng-model="transaction.addOne.extra.auth_by.last_name" readonly ng-click="transaction.openSelectionModal(5,'user','last_name')">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.auth_by"
-            ng-click="transaction.deleteKey(transaction.addOne.extra,'auth_by')">
-              <i class="fa fa-remove"></i>
-            </button>
-          </span>
-        </div><!-- / product filter -->
+        <input type="text" class="form-control" placeholder="انتخاب اعمال کننده تراکنش" ng-model="transaction.addOne.extra.auth_by.last_name" readonly ng-click="transaction.openSelectionModal(5,'user','last_name')">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.auth_by"
+          ng-click="transaction.deleteKey(transaction.addOne.extra,'auth_by')">
+            <i class="fa fa-remove"></i>
+          </button>
+        </span>
+      </div><!-- / auth_by filter -->
 
     </div>
   </search-tools>
@@ -104,7 +104,7 @@
       </div>
       <div class="x_content">
         <table class="table table-striped jambo_table asset-tables">
-          <thead>
+          <thead class="obj-default-border">
             <tr>
               <th>#</th>
               <th>مدل کالا</th>
@@ -117,17 +117,16 @@
             </tr>
           </thead>
           <tbody ng-hide="load">
-            <tr ng-repeat = "list in transaction.note">
+            <tr ng-repeat = "list in transaction.note" ng-class="{'obj-info-border':list.transaction_type==0, 'obj-danger-border':list.transaction_type==1, 'obj-success-border':list.transaction_type==2}">
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.product.model | lengthLimit:30}}</td>
               <td>{{list.source | userOrWarehouseName| lengthLimit:30}}</td>
               <td>{{list.destination | userOrWarehouseName | lengthLimit:30}}</td>
               <td>{{list.reason | reasonType}}</td>
               <td>
-                <button class="btn btn-sm" disabled
-                ng-class="{'btn-info':list.transaction_type==0, 'btn-danger':list.transaction_type==1, 'btn-default':list.transaction_type==2}">
+                <span class="label" ng-class="{'label-info':list.transaction_type==0, 'label-danger':list.transaction_type==1, 'label-success':list.transaction_type==2}">
                   {{list.transaction_type | transactionType}}
-                </button>
+                </span>
               </td>
 
               <td></td>
@@ -293,7 +292,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو کالا" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1&model__contains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1&model__icontains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>
@@ -362,7 +361,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو کاربر" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user', '?last_name__contains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user', '?last_name__icontains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>
@@ -424,7 +423,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو انبار" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse', '?title__contains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse', '?title__icontains=' + transaction.tmp.searchQuery)">
                             جستجو
                           </button>
                         </span>
