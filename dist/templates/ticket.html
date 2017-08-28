@@ -39,7 +39,7 @@
       </div>
       <div class="x_content">
         <table class="table table-striped jambo_table asset-tables">
-          <thead class="ticket-status-border">
+          <thead class="obj-default-border">
             <tr>
               <th>#</th>
               <th>عنوان</th>
@@ -54,7 +54,7 @@
           </thead>
           <tbody ng-hide="load">
             <tr ng-repeat = "list in ticket.note" ng-class="{'info':list.id==ticket.obj.id,
-            'closed-ticket-color':list.status==2,'progress-ticket-color':list.status==1,'requested-ticket-color':list.status==0}">
+            'obj-info-border':list.status==2,'obj-success-border':list.status==1,'obj-warning-border':list.status==0}">
               <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
               <td>{{list.title | lengthLimit:30}}</td>
               <td ng-hide="ticket.tmp.formShow">{{list.description | lengthLimit:30}}</td>
@@ -62,8 +62,8 @@
               <td ng-hide="ticket.tmp.formShow">{{list.reason | ticketReason}}</td>
               <td>{{ list.datetime | jalaliDate}}</td>
               <td ng-hide="ticket.tmp.formShow" >
-                <span disabled class="btn btn-xs" ng-class="{'btn-info':list.status==2,'btn-success':list.status==1,
-                'btn-warning':list.status==0}">{{list.status | ticketStatus}}</span>
+                <span disabled class="label" ng-class="{'label-info':list.status==2,'label-success':list.status==1,
+                'label-warning':list.status==0}">{{list.status | ticketStatus}}</span>
                 </td>
               <td></td>
               <td>
