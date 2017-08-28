@@ -129,6 +129,8 @@ app.directive('searchTools', function() {
         $('div#report-field').toggle();
         $('#more-filters').show();
         $('#less-filters').hide();
+        scope.scontroller.addOne.extra = {} 
+        scope.$apply();
       });
 
       var reportDivExist = ($('#report-field').length>0);
