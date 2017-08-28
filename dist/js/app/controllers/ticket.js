@@ -71,7 +71,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   }
 
   controller.selectFromWarehouseObj = {
-    title : { fa : 'نقطه سفارش کالا', en : 'from_warehouse'},
+    title : { fa : 'انبار مبدا', en : 'from_warehouse'},
     searchItem : {
       fa : 'انبار',
       en : 'warehouse'
