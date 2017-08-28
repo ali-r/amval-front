@@ -10,6 +10,110 @@ angular.module("assetAdminPanel").controller('productCtrl',
     {'fname' : 'قیمت', 'field' : 'price', 'show_in_search' : false}
   ];
 
+  controller.selectProducerObj = {
+    title : { fa : 'تولید کننده', en : 'producer'},
+    searchItem : {
+      fa : 'تولید کننده',
+      en : 'producer'
+    },
+    searchAt : {
+      fa : 'نام برند',
+      en : 'brand_name'
+    },
+    table : [
+      {fa:'نام برند',en:'brand_name'}
+    ]
+  };
+
+  controller.selectSellerObj = {
+    title : { fa : 'فروشنده', en : 'seller'},
+    searchItem : {
+      fa : 'فروشنده',
+      en : 'seller'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'نام فروشگاه',en:'store_name'},
+      {fa:'آدرس',en:'address'},
+      
+    ]
+  };
+  
+  controller.selectGuarantorObj = {
+    title : { fa : 'گارانتی', en : 'guarantor'},
+    searchItem : {
+      fa : 'گارانتی',
+      en : 'guarantor'
+    },
+    searchAt : {
+      fa : 'نام شرکت',
+      en : 'company_name'
+    },
+    table : [
+      {fa:'نام شرکت',en:'company_name'},
+      {fa:'آدرس',en:'address'}
+    ]
+  };
+
+  controller.selectGroupObj = {
+    title : { fa : 'زیرگروه', en : 'group'},
+    searchItem : {
+      fa : 'زیر گروه',
+      en : 'group'
+    },
+    searchAt : {
+      fa : 'عنوان',
+      en : 'title'
+    },
+    table : [
+      {fa:'عنوان',en:'title'},
+      {fa:'توضیحات',en:'description'}
+    ]
+  };
+
+  controller.selectProductObj = {
+    title : { fa : 'کالا', en : 'parent_bundle'},
+    searchItem : {
+      fa : 'کالا',
+      en : 'product'
+    },
+    searchAt : {
+      fa : 'مدل',
+      en : 'model'
+    },
+    table : [
+      {fa:'مدل',en:'model'},
+      {fa:'سریال کالا',en:'serial_number'},
+    ],
+    searchFilter:{
+      key: 'is_bundle',
+      value: 'True'
+    }
+  }
+
+  controller.selectUserHolderObj = {
+    title : { fa : 'کاربر نگهدارنده', en : 'holder'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربر',en:'clearance_level',filter:'userType'}
+    ]
+  }
+
   $scope.page = 1;
   controller.product = {};
   controller.obj = {};
