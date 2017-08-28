@@ -30,7 +30,7 @@
     <div id="report-field" style="display:none" class="report-field">
       
       <div title="فیلتر براساس کالا" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.extra.product.model" readonly ng-click="transaction.openSelectionModal(0,'product','model')">
+        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.extra.product.model" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1&model')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.product"
           ng-click="transaction.deleteKey(transaction.addOne.extra,'product')">
