@@ -6,6 +6,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   headers = requestHelper.headers;
   controller.searchObject = [
     {'fname' : 'عنوان', 'field' : 'title'},
+    {'fname' : 'تاریخ ایجاد', 'field' : 'datetime','show_in_search' : false}
   ];
 
   $scope.page = 1;
