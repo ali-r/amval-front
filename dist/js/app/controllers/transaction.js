@@ -197,7 +197,6 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   };
 
   controller.getFilteredData = function(){
-    console.log('checking transaction filtered data function')
     var editedObj = angular.copy(controller.addOne);
     var ex = editedObj.extra;
     Object.assign(ex,controller.addOne.reportFields);    //merge extra with reportFields

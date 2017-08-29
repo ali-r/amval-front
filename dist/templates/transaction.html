@@ -475,3 +475,43 @@
 </div><!-- /.modal -->
 
 <delete-modal controller = "transaction"></delete-modal>
+
+<!-- Select Modal -->
+<div class="modal fade" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <!-- <h3 class="modal-title">مدال انتخاب</h3> -->
+      </div>
+
+      <div class="modal-body">
+        <!-- stage = 0 for product selection -->
+        <search-stage ng-show = "stage == 0" obj="transaction.selectProductObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 1 for user source selection -->
+        <search-stage ng-show = "stage == 1" obj="transaction.selectUserSourceObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        
+        <!-- stage = 2 for producer selection -->
+        <search-stage ng-show = "stage == 2" obj="transaction.selectWarehouseSourceObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 3 for seller selection -->
+        <search-stage ng-show = "stage == 3" obj="transaction.selectUserDestinationObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 4 for gaurantor selection -->
+        <search-stage ng-show = "stage == 4" obj="transaction.selectWarehouseDestinationObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 5 for user source selection -->
+        <search-stage ng-show = "stage == 5" obj="transaction.selectAuthorObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+      </div>
+      <div class="modal-footer">
+      </div><!-- /.modal-footer -->
+    </div>
+  </div>
+</div>
