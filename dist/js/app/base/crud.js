@@ -273,11 +273,10 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       mainAsset.openModal('#selectModal');
       controller.selectThings(stage_,field_,var_);
     }
-
+  
     controller.closeSelectionModal = function(){
       mainAsset.closeModal('#selectModal');
       scope.reset();
     }
-  
   }
 });

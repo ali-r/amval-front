@@ -27,6 +27,36 @@
         <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
       </adm-dtp>
     </div>
+
+    <div id="report-field" style="display:none" class="report-field">
+        
+      <div title="فیلتر انتخاب انبار مبدا" class="input-group report-field-option">
+        <input type="text" class="form-control" placeholder="فیلتر انتخاب انبار مبدا" ng-model="ticket.addOne.extra.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','title')">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="ticket.addOne.extra.from_warehouse"
+            ng-click="ticket.deleteKey(ticket.addOne.extra,'from_warehouse')">
+            <i class="fa fa-remove"></i>
+          </button>
+        </span>
+      </div><!-- / from_warehouse filter -->
+
+      <div title="فیلتر وضعیت تیکت" class="input-group report-field-option">
+        <select class="form-control" ng-model="ticket.addOne.extra.status" title="وضعیت تیکت">
+          <option value="">-- وضعیت تیکت --</option>
+          <option value="0">درخواست شده</option>
+          <option value="1">در حال پیگیری</option>
+          <option value="2">پایان یافته</option>
+        </select>
+      </div><!-- / ticket status filter -->
+
+      <div title="فیلتر بسته نشده ها" class="checkbox checkbox-report-field">
+          <label for="not_closed">
+              <input class="checkbox" ng-model="ticket.addOne.extra.not_closed" id="not_closed" type="checkbox">
+              بسته نشده ها
+            </label>
+        </div><!-- / not_closed filter -->
+
+    </div>        
   </search-tools>
   <div ng-class = "{'col-xs-12':!ticket.tmp.formShow , 'col-xs-6' : ticket.tmp.formShow}">
     <div class="x_panel">
@@ -111,7 +141,7 @@
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelection(0,'product','use_case=1&model')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelectionModal(0,'product','use_case=0&model')">انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
                         ng-show="ticket.obj.product && ticket.obj.product!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'product')"> 
@@ -208,7 +238,7 @@
                         <button type="button" class="btn btn-info btn-beside-input"
                         ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource"  
                         ng-hide="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
-                        ng-click="ticket.openSelection(1,'warehouse','title')">
+                        ng-click="ticket.openSelectionModal(1,'warehouse','title')">
                           انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
                         ng-show="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
@@ -293,7 +323,7 @@
                     <div class="row">
                         <div class="col-md-12">
                           <!-- Stage == 0 -> product -->
-                          <div class="panel panel-info" ng-show="selectStage == 0">
+                          <div class="panel panel-info" ng-show="stage == 0">
                                 <div class="panel-heading">
                                     انتخاب کالا
                                     <div class="pull-left">
@@ -342,7 +372,7 @@
                           </div>
 
                           <!-- Stage == 1 -> to_warehouse -->
-                          <div class="panel panel-info" ng-show="selectStage == 1">
+                          <div class="panel panel-info" ng-show="stage == 1">
                                 <div class="panel-heading">
                                     انتخاب انبار مقصد
                                     <div class="pull-left">
@@ -393,6 +423,9 @@
                                     </table>
                                 </div>
                           </div>
+
+                          <!-- Stage == 2 -> from_warehouse -->
+                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
                         </div>
                     </div>
                 </div><!-- /.box-body -->
