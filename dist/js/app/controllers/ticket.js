@@ -18,6 +18,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   $scope.selectStage = 0;
   controller.addOne={};
   controller.addOne.extra={};
+  controller.addOne.reportFields={};
   controller.selectProductObj = {
     title : { fa : 'کالا', en : 'product'},
     searchItem : {
@@ -232,7 +233,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   controller.getFilteredData = function(){
 
     var editedObj = angular.copy(controller.addOne);
-
+    Object.assign(editedObj.extra,controller.addOne.reportFields);    //merge extra with reportFields
+    
     if(editedObj.extra.datetime__gte){
       editedObj.extra.datetime__gte = mainAsset.toGregorianDate(controller.addOne.extra.datetime__gte);
     }

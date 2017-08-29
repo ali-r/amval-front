@@ -4,13 +4,13 @@
     <search-tools sobject="invoice.searchObject" scontroller="invoice">
         <div id="report-field" style="display:none" class="report-field">
             <div title="فیلتر ابتدای بازه زمانی فاکتورها" class="input-group report-field-option">
-                <adm-dtp inputplaceholder="از تاریخ" ng-model="invoice.addOne.extra.datetime__gte" 
+                <adm-dtp inputplaceholder="از تاریخ" ng-model="invoice.addOne.reportFields.datetime__gte" 
                 options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
                 </adm-dtp>
             </div><!-- / datetime__gte filter -->
 
             <div title="فیلتر انتهای بازه زمانی فاکتورها" class="input-group report-field-option">
-                <adm-dtp inputplaceholder="تا تاریخ" ng-model="invoice.addOne.extra.datetime__lte" 
+                <adm-dtp inputplaceholder="تا تاریخ" ng-model="invoice.addOne.reportFields.datetime__lte" 
                 options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
                 </adm-dtp>
             </div><!-- / datetime__lte filter -->
