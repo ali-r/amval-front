@@ -15,6 +15,15 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
+  controller.objConfig = function (obj) {
+    sendCopyObj = angular.copy(obj);
+
+    if(!sendCopyObj.website_address)
+      delete sendCopyObj.website_address;
+
+    return sendCopyObj;
+  };
+
   controller.obj = {}
   crud.initModals($scope, controller, apiName, [
     controller.obj.company_name,
@@ -22,5 +31,5 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
     controller.obj.office_phone,
     controller.obj.address
   ]);
-  crud.init($scope, controller, apiName);
+  crud.init($scope, controller, apiName, controller.objConfig);
 });

@@ -27,9 +27,12 @@
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.company_name | lengthLimit:30}}</td>
               <td>
-                <a target="_blank" ng-href="{{list.website_address}}">
+                <a target="_blank" ng-href="{{list.website_address}}" ng-show="list.website_address">
                   <i class="fa fa-lg fa-internet-explorer"></i>
                 </a>
+                <i ng-hide="list.website_address">
+                  -- ندارد --
+                </i>
               </td>
               <td>{{list.office_phone | pNumber}}</td>
               <td>{{list.address | lengthLimit:30 | pNumber}}</td>
@@ -77,8 +80,9 @@
                 <input type="text" class="form-control" name="name" placeholder="نام شرکت" ng-model = "guarantor.obj.company_name" required>
               </div>
               <div class="form-group" ng-class="{'has-success' : guarantorForm.website.$valid && guarantor.obj.website_address}">
-                <label>آدرس سایت*</label>
-                <input type="url" class="form-control ltr-input" placeholder="آدرس وب سایت" name="website" ng-model = "guarantor.obj.website_address" required>
+                <label>آدرس سایت</label>
+                <input type="text" class="form-control ltr-input" placeholder="آدرس وب سایت" name="website" ng-model = "guarantor.obj.website_address"
+                ng-pattern="'(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]\\.[^\\s]{2,})'">
               </div>
               <div class="form-group" ng-class=" {'has-error' : guarantorForm.phone.$invalid && guarantor.obj.office_phone,
                 'has-success' : guarantorForm.phone.$valid && guarantor.obj.office_phone } ">
