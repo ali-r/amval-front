@@ -140,6 +140,9 @@ app.directive('childTable', function() {
   return {
     restrict: 'E',
     replace : true,
+    scope : {
+
+    },
     templateUrl: '/dist/js/app/directive/childTable.html'
   }
 });

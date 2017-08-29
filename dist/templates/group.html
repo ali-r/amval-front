@@ -44,7 +44,7 @@
             <tbody ng-hide="load">
               <tr ng-repeat-start = "list in group.note">
                 <td style="text-align : right">
-                  <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#collaps{{$index}}" aria-expanded="false" aria-controls="collapseExample"
+                  <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#collaps{{list.id}}" aria-expanded="false" aria-controls="collapseExample"
                   ng-click="collaps[$index] = !collaps[$index]" ng-if="list.children" >
                     <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
                   </button>
@@ -68,8 +68,9 @@
                   </a>
                 </td>
               </tr>
-              <tr ng-repeat-end class="collapse" id="collaps{{$index}}">
-                <child-table></child-table>
+              <tr ng-repeat-end class="collapse" id="collaps{{list.id}}">
+                <td colspan="7" style="padding:0px;" ng-include="'nodes_renderer.html'">
+                </td>
               </tr>
             </tbody>
           </table>
@@ -80,6 +81,47 @@
     </div>
   </div>
 </div>
+
+<script type="text/ng-template" id="nodes_renderer.html">
+  <table class="table" style="margin:0px">
+    <colgroup>
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 35%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 5%;">
+    </colgroup>
+    <tbody>
+      <tr ng-repeat-start="list in list.children track by list.id" class="group-chd">
+        <td style="text-align : right">
+          <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+        </td>
+        <td class="chd-td">
+          {{$index+1 | pNumber}}-{{(page-1)*perPage+$parent.$index+1 | pNumber}}
+        </td>
+        <td>{{list.title | lengthLimit:30}}</td>
+        <td>{{list.description | lengthLimit:30}}</td>
+        <td>{{list.parent.title | lengthLimit:30}}</td>
+        <td>
+          <a ng-click="group.getObject(list.id)" title="مشاهده" href>
+            <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
+          </a>
+        </td>
+        <td ng-if = "checkWrite('group')">
+          <a ng-click="group.toDeleteId = list.id; group.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+            <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+      <tr ng-repeat-end class="collapse" id="collaps{{$list.id}}">
+        <td colspan="7" style="padding:0px;" ng-include="'nodes_renderer.html'">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
 
 <!-- group Modal -->
 <div class="modal fade" id="groupModal" tabindex="-1" role="dialog">
