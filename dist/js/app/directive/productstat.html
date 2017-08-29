@@ -138,7 +138,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="t in controller.productStat.transactions">
+                  <tr ng-repeat="t in controller.productStat.transactions" 
+                  ng-class="{'info':t.transaction_type==0,'danger':t.transaction_type==1,'default':t.transaction_type==2}">
                     <td>{{$index + 1 | pNumber}}</td>
                     <td>
                       {{t.source.obj.last_name}}

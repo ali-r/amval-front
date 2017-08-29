@@ -4,6 +4,107 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   var controller = this;
   var apiName = 'transaction';
   controller.searchObject = [];
+  controller.selectProductObj = {
+    title : { fa : 'کالا', en : 'product'},
+    searchItem : {
+      fa : 'کالا',
+      en : 'product'
+    },
+    searchAt : {
+      fa : 'مدل',
+      en : 'model'
+    },
+    table : [
+      {fa:'مدل',en:'model'},
+      {fa:'سریال کالا',en:'serial_number'}
+    ],
+    searchFilter:{
+      key: 'use_case',
+      value: '1'
+    }
+  }
+  controller.selectUserSourceObj = {
+    title : { fa : 'کاربر مبدا', en : 'source'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ]
+  }
+  controller.selectUserDestinationObj = {
+    title : { fa : 'کاربر مقصد', en : 'destination'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ]
+  }
+  controller.selectWarehouseSourceObj = {
+    title : { fa : 'انبار منبع', en : 'source'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام',en:'title'},
+      {fa:'آدرس',en:'location'}
+    ]
+  }
+  controller.selectWarehouseDestinationObj = {
+    title : { fa : 'انبار مقصد', en : 'destination'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام',en:'title'},
+      {fa:'آدرس',en:'location'}
+    ]
+  }
+
+  controller.selectAuthorObj = {
+    title : { fa : 'کاربر اعمال کننده تراکنش', en : 'auth_by'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ]
+  }
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
@@ -95,19 +196,33 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   };
 
   controller.getFilteredData = function(){
-
+    console.log('checking transaction filtered data function')
     var editedObj = angular.copy(controller.addOne);
+    var ex = editedObj.extra;
+    
+    if(ex.reason){ex.reason = parseInt(ex.reason);}
+    
+    if(ex.transaction_type){ex.transaction_type = parseInt(ex.transaction_type);}
+    
+    if(ex.datetime__gte){
+      if(ex.datetime__gte=="") delete ex['datetime__gte'];
+      else ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte);
+    }
 
-    if(editedObj.extra.reason){editedObj.extra.reason = parseInt(controller.addOne.extra.reason);}
-    if(editedObj.extra.transaction_type){editedObj.extra.transaction_type = parseInt(controller.addOne.extra.transaction_type);}
-    if(editedObj.extra.time__gte){
-      editedObj.extra.time__gte = controller.toGregorianDate(controller.addOne.extra.time__gte,true,true);
+    if(ex.datetime__lte){
+      if(ex.datetime__lte=="") delete ex['datetime__lte']; 
+      else ex.datetime__lte = mainAsset.toGregorianDate(ex.datetime__lte);
     }
-    else{editedObj.extra.time__gte=""}
-    if(editedObj.extra.time__lte){
-      editedObj.extra.time__lte = controller.toGregorianDate(controller.addOne.extra.time__lte,true,true);
-    }
-    else{editedObj.extra.time__lte=""}
+
+    if(ex.product) ex.product = ex.product.id;
+
+    if(ex.auth_by) ex.auth_by = ex.auth_by.id;
+
+    if(ex.source) ex.source = ex.source.id;
+    delete ex['source_type'];
+    if(ex.destination) ex.destination = ex.destination.id;
+    delete ex['destination_type'];
+    
     $scope.page = 1;
     controller.paginationConfig.addOne = editedObj;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);

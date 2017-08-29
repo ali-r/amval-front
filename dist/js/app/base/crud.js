@@ -79,7 +79,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           if(controller.searchValue){
 
             for (var i = 0; i < controller.searchObject.length; i++) {
-              keys[controller.searchObject[i].field + '__contains'] = controller.searchValue[controller.searchObject[i].field];
+              keys[controller.searchObject[i].field + '__icontains'] = controller.searchValue[controller.searchObject[i].field];
             }
             
             if(controller.searchValue.type!='' && controller.searchValue.type!=undefined)
@@ -245,7 +245,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       var searchUrl = mainAsset.getUrl() + cat;
 
       if(field.indexOf('?') == -1 && field != ''){
-        searchUrl += '?' + field + '__contains=' + controller.tmp.searchQuery + filterSection;
+        searchUrl += '?' + field + '__icontains=' + controller.tmp.searchQuery + filterSection;
       }else{
         searchUrl += field;
       }
@@ -269,6 +269,15 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       delete obj[key];
     }
 
-    
+    controller.openSelectionModal = function(stage_, field_, var_){
+      mainAsset.openModal('#selectModal');
+      controller.selectThings(stage_,field_,var_);
+    }
+
+    controller.closeSelectionModal = function(){
+      mainAsset.closeModal('#selectModal');
+      scope.reset();
+    }
+  
   }
 });

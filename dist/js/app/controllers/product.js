@@ -174,16 +174,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     }
   }
 
-  this.openSelectionModal = function(stage_, field_, var_){
-    mainAsset.openModal('#selectModal');
-    controller.selectThings(stage_,field_,var_);
-  }
-
-  this.closeSelectionModal = function(){
-    mainAsset.closeModal('#selectModal');
-    $scope.reset();
-  }
-
   this.selectReportOption = function(id, title, titleFiled, variable, targetObj){
     if(!targetObj) targetObj = controller.addOne.extra;
     if(!variable) {console.log('unable to set report option: not a valid variable'); return}
