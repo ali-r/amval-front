@@ -4311,10 +4311,11 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .filter-option{
   display: inline;
   min-width: 150px;
-  max-width: 250px;
+  /* max-width: 250px; */
+  max-width: 300px;
   width: 20%;
   vertical-align: top;
-  padding: 2px 15px;
+  /* padding: 2px 15px; */
   margin-top: 4px;
 }
 .seller-filter-option{
@@ -4497,7 +4498,7 @@ ul#temp-products li{
 }
 .sort-option-edited{
     display: inline-block;
-    width: 18%;
+    width: 20%;
     margin-top: 4px;
 }
 .calender-text{
