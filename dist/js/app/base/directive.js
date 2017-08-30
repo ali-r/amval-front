@@ -151,6 +151,7 @@ app.directive('searchStage', function() {
     scope : {
       obj : '=',
       controller : '=',
+      filterId: '@',
       target : '@',
       subbase: '@',
       func: '@'
@@ -164,6 +165,9 @@ app.directive('searchStage', function() {
       }
       if(!scope.func || scope.func==''){
         scope.func = undefined
+      }
+      if(!scope.filterId || scope.filterId==''){
+        scope.filterId = undefined
       }
     },
     templateUrl: '/dist/js/app/directive/searchStage.html'

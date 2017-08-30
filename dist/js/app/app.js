@@ -123,20 +123,15 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
 });
 
 app.filter('filterObjById',function(){
-  return function(input,itemId){
-    var index = -1;
-    if(!input) input = [];
-    if(!input.length) input.length = 0;
-    for(var i = 0; i<input.length;i++){
-      if(input[i].id == itemId){
-        index = i;
-        break;
+  return function( items, filterId) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      if(item.id != filterId) {
+        filtered.push(item);
       }
-    }
-
-    if(index>-1) input.splice(index,1);
-    return input
-  }
+    });
+    return filtered;
+  };
 })
 
 app.filter('jalaliDate', function (mainAsset) {

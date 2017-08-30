@@ -419,7 +419,7 @@
                           </div>
 
                           <!-- Stage == 2 -> from_warehouse -->
-                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()" ,filterId="-1"></search-stage>
                         </div>
                     </div>
                 </div><!-- /.box-body -->
