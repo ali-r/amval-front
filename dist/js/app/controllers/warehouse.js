@@ -68,4 +68,9 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     controller.getProducts();
   }
 
+  $scope.closeSide = function(){
+    $scope.productShow = false; 
+    $scope.wareHouseId='';
+  }
+
 });

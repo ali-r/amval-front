@@ -285,19 +285,24 @@
               </div>
             </div>
             <br />
-            <div class="row">
-              <div class="col-md-10">
-                <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
+            <form name="messageForm" role="form" ng-show="editMode" novalidate ng-submit="!!ticket.tmp.text && ticket.tmp.text!='' && !sendingMessage">
+              <div class="row">
+                <fieldset>
+                    <div class="col-md-10">
+                        <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control" required>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="submit" class="btn btn-warning" ng-click="ticket.addMessage()" 
+                        ng-hide="sendingMessage" ng-disabled="!ticket.tmp.text || ticket.tmp.text=='' || sendingMessage">
+                          ارسال
+                        </button>
+                        <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
+                      </div>
+                </fieldset>
+                
               </div>
-              <div class="col-md-2">
-                <button type="button" class="btn btn-warning" ng-click="ticket.addMessage()" 
-                ng-disabled="ticket.tmp.text =='' || !ticket.tmp.text" ng-hide="sendingMessage">
-                  ارسال
-                </button>
-                <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
-              </div>
-            </div>
-
+            </form>
+            
           </div>
         </div>
       </div><!-- /.X_content -->
