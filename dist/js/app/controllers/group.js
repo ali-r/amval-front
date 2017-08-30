@@ -37,7 +37,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     key: 'group_type',
     value: 'group'
   }
-  //controller.addOne.extra.depth__lt = '2';
+  controller.addOne.extra.depth__lt = '2';
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }

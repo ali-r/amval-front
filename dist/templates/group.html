@@ -1,11 +1,11 @@
 <div class="row">
  <search-tools sobject="group.searchObject" scontroller="group">
-    <select class="form-control sort-option" ng-model="group.addOne.extra.level__lt" title="نمایش گروه یا زیر گروه">
-      <option value="1">
+    <select class="form-control sort-option" ng-model="group.addOne.extra.depth__lt" title="نمایش گروه یا زیر گروه">
+      <option value="2">
         گروه
       </option>
       <option value="6">
-        زیر گروه
+        گروه و زیرگروه
       </option>
     </select>
   </search-tools>
@@ -96,7 +96,11 @@
     <tbody>
       <tr ng-repeat-start="list in list.children track by list.id" class="group-chd">
         <td style="text-align : right">
-          <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+          <i ng-hide="list.children" class = "fa fa-lg fa-level-down fa-rotate-90"></i>
+          <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#collaps{{list.id}}" aria-expanded="false" aria-controls="collapseExample"
+          ng-click="collaps[$index] = !collaps[$index]" ng-show="list.children" >
+            <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
+          </button>
         </td>
         <td class="chd-td">
           {{$index+1 | pNumber}}-{{(page-1)*perPage+$parent.$index+1 | pNumber}}
@@ -115,7 +119,7 @@
           </a>
         </td>
       </tr>
-      <tr ng-repeat-end class="collapse" id="collaps{{$list.id}}">
+      <tr ng-repeat-end class="collapse" id="collaps{{list.id}}">
         <td colspan="7" style="padding:0px;" ng-include="'nodes_renderer.html'">
         </td>
       </tr>
@@ -152,7 +156,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="form-group" ng-hide="group.obj.children.length>0">
+                  <div class="form-group">
                       <label>پدر</label>
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="group.obj.parent.title" disabled>
