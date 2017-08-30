@@ -14,67 +14,67 @@
     <div id="report-field" style="display:none" class="report-field">
       
       <div title="فیلتر گروه" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب گروه" ng-model="product.addOne.extra.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group&title')" readonly>
+        <input type="text" class="form-control" placeholder="انتخاب گروه" ng-model="product.addOne.reportFields.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group&title')" readonly>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.group"
-            ng-click="product.deleteKey(product.addOne.extra,'group')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.group"
+            ng-click="product.deleteKey(product.addOne.reportFields,'group')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
       </div><!-- / group filter -->
       
       <div title="فیلتر شخص نگهدارنده" class="input-group report-field-option">
-        <input type="text" class="form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.extra.holder.last_name" ng-click="product.openSelectionModal(1,'user','last_name')" readonly>
+        <input type="text" class="form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.reportFields.holder.last_name" ng-click="product.openSelectionModal(1,'user','last_name')" readonly>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.holder"
-            ng-click="product.deleteKey(product.addOne.extra,'holder')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.holder"
+            ng-click="product.deleteKey(product.addOne.reportFields,'holder')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
       </div><!-- / holder filter -->
       
       <div title="فیلتر تولید کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.extra.producer.brand_name" readonly ng-click="product.openSelectionModal(2,'producer','brand_name')">
+        <input type="text" class="form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.reportFields.producer.brand_name" readonly ng-click="product.openSelectionModal(2,'producer','brand_name')">
         <span class="input-group-btn">
-        <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.producer"
-          ng-click="product.deleteKey(product.addOne.extra,'producer')">
+        <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.producer"
+          ng-click="product.deleteKey(product.addOne.reportFields,'producer')">
           <i class="fa fa-remove"></i>
         </button>
         </span>
       </div><!-- / producer filter -->
 
       <div title="فیلتر فروشنده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.extra.seller.last_name" readonly ng-click="product.openSelectionModal(3,'seller','last_name')">
+        <input type="text" class="form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.reportFields.seller.last_name" readonly ng-click="product.openSelectionModal(3,'seller','last_name')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.seller"
-          ng-click="product.deleteKey(product.addOne.extra,'seller')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.seller"
+          ng-click="product.deleteKey(product.addOne.reportFields,'seller')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
       </div><!-- / seller filter -->
   
       <div title="فیلتر گارانتی کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.extra.guarantor.company_name" readonly ng-click="product.openSelectionModal(4,'guarantor','company_name')">
+        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.reportFields.guarantor.company_name" readonly ng-click="product.openSelectionModal(4,'guarantor','company_name')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.extra.guarantor"        ng-click="product.deleteKey(product.addOne.extra,'guarantor')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.guarantor"        ng-click="product.deleteKey(product.addOne.reportFields,'guarantor')">
             <i class="fa fa-remove"></i>  
           </button>
         </span>
       </div><!-- / guarantor filter -->
       
       <div title="فیلتر ابتدای بازه زمانی عودت داده شده" class="input-group report-field-option">
-          <adm-dtp inputplaceholder="ابتدای بازه زمانی عودت داده شده" ng-model="product.addOne.extra.return_datetime__gte" title="ابتدای بازه زمانی عودت داده شده" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+          <adm-dtp inputplaceholder="ابتدای بازه زمانی عودت داده شده" ng-model="product.addOne.reportFields.return_datetime__gte" title="ابتدای بازه زمانی عودت داده شده" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
           </adm-dtp>
       </div><!-- / return_datetime__gte filter -->
       
       <div title="فیلتر انتهای بازه زمانی عودت داده شده" class="input-group report-field-option">
-          <adm-dtp inputplaceholder="انتهای بازه زمانی عودت داده شده" ng-model="product.addOne.extra.return_datetime__lte" title="انتهای بازه زمانی عودت داده شده" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
+          <adm-dtp inputplaceholder="انتهای بازه زمانی عودت داده شده" ng-model="product.addOne.reportFields.return_datetime__lte" title="انتهای بازه زمانی عودت داده شده" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
           </adm-dtp>
       </div><!-- / return_datetime__lte filter -->
        
       <div title="فیلتر تقاضا شده ها برای تعمیر" class="checkbox checkbox-report-field">
         <label for="requested-repair">
-            <input class="checkbox" ng-model="product.addOne.extra.requested_for_repair" id="requested-repair" type="checkbox">
+            <input class="checkbox" ng-model="product.addOne.reportFields.requested_for_repair" id="requested-repair" type="checkbox">
             درخواست شده برای تعمیر
           </label>
       </div><!-- / requested_for_repair filter -->
@@ -83,7 +83,7 @@
 
       <div title="فیلتر مستهلک شده ها" class="checkbox checkbox-report-field">
         <label for="deprecated-filter" >
-            <input class="checkbox" id="deprecated-filter" type="checkbox" ng-model="product.addOne.extra.deprecated">
+            <input class="checkbox" id="deprecated-filter" type="checkbox" ng-model="product.addOne.reportFields.deprecated">
             مستهلک شده
           </label>
       </div><!-- / deprecated filter -->
@@ -277,16 +277,16 @@
         <!-- end of Stage 0 -->
 
         <!-- stage = 1 for holder type user selection -->
-        <search-stage ng-show = "stage == 1" obj="product.selectUserHolderObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-stage ng-show = "stage == 1" obj="product.selectUserHolderObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
         
         <!-- stage = 2 for producer selection -->
-        <search-stage ng-show = "stage == 2" obj="product.selectProducerObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-stage ng-show = "stage == 2" obj="product.selectProducerObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
 
         <!-- stage = 3 for seller selection -->
-        <search-stage ng-show = "stage == 3" obj="product.selectSellerObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-stage ng-show = "stage == 3" obj="product.selectSellerObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
 
         <!-- stage = 4 for gaurantor selection -->
-        <search-stage ng-show = "stage == 4" obj="product.selectGuarantorObj" controller = "product" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-stage ng-show = "stage == 4" obj="product.selectGuarantorObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
 
         
       </div>

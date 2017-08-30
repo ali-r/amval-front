@@ -111,6 +111,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   controller.obj = {}
   controller.addOne={};
   controller.addOne.extra={};
+  controller.addOne.reportFields={};
   controller.addOne.extra.reason = '';
   controller.addOne.extra.transaction_type = '';
   controller.addOne.extra.time__gte = '';
@@ -196,9 +197,9 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   };
 
   controller.getFilteredData = function(){
-    console.log('checking transaction filtered data function')
     var editedObj = angular.copy(controller.addOne);
     var ex = editedObj.extra;
+    Object.assign(ex,controller.addOne.reportFields);    //merge extra with reportFields
     
     if(ex.reason){ex.reason = parseInt(ex.reason);}
     

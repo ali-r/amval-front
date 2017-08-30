@@ -14,26 +14,20 @@
       <option value="1">عودت</option>
       <option value="2">انتقال</option>
     </select>
-    از تاریخ :
-    <div class="sort-option-edited">
-      <adm-dtp ng-model="transaction.addOne.extra.datetime__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
-        <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
-      </adm-dtp>
+    <div class="sort-option-edited filter-option">
+      <adm-dtp inputplaceholder="ابتدا بازه زمانی" ng-model="transaction.addOne.extra.datetime__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'></adm-dtp>
     </div>
-    تا تاریخ :
-    <div class="sort-option-edited">
-      <adm-dtp ng-model="transaction.addOne.extra.datetime__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
-        <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
-      </adm-dtp>
+    <div class="sort-option-edited filter-option">
+      <adm-dtp inputplaceholder="پایان بازه زمانی" ng-model="transaction.addOne.extra.datetime__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'></adm-dtp>
     </div>
 
     <div id="report-field" style="display:none" class="report-field">
       
       <div title="فیلتر براساس کالا" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.extra.product.model" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1&model')">
+        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.reportFields.product.model" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1&model')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.product"
-          ng-click="transaction.deleteKey(transaction.addOne.extra,'product')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.product"
+          ng-click="transaction.deleteKey(transaction.addOne.reportFields,'product')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
@@ -41,20 +35,20 @@
 
       <div title="فیلتر براساس منبع" class="input-group report-field-option">
         <a class="dropdown-toggle" href data-toggle="dropdown" aria-expanded="false">
-            <input type="text" class="form-control"  placeholder="انتخاب منبع" ng-model="transaction.addOne.extra.source.last_name" readonly  ng-hide="transaction.addOne.extra.source_type == 'warehouse'">
-            <input type="text" class="form-control" placeholder="انتخاب منبع" ng-model="transaction.addOne.extra.source.title" readonly  ng-show="transaction.addOne.extra.source_type == 'warehouse'">
+            <input type="text" class="form-control"  placeholder="انتخاب منبع" ng-model="transaction.addOne.reportFields.source.last_name" readonly  ng-hide="transaction.addOne.reportFields.source_type == 'warehouse'">
+            <input type="text" class="form-control" placeholder="انتخاب منبع" ng-model="transaction.addOne.reportFields.source.title" readonly  ng-show="transaction.addOne.reportFields.source_type == 'warehouse'">
         </a>
         <ul id="dropdown-filter-source" class="dropdown-menu dropdown-menu-right" role="menu">
           <li>
-            <a ng-click="transaction.openSelectionModal(1,'user','last_name');transaction.addOne.extra.source_type='user'" href>کاربر</a>
+            <a ng-click="transaction.openSelectionModal(1,'user','last_name');transaction.addOne.reportFields.source_type='user'" href>کاربر</a>
           </li>
           <li>
-            <a ng-click="transaction.openSelectionModal(2,'warehouse','model');transaction.addOne.extra.source_type='warehouse'" href>انبار</a>
+            <a ng-click="transaction.openSelectionModal(2,'warehouse','model');transaction.addOne.reportFields.source_type='warehouse'" href>انبار</a>
           </li>
         </ul>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.source"
-          ng-click="transaction.deleteKey(transaction.addOne.extra,'source')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.source"
+          ng-click="transaction.deleteKey(transaction.addOne.reportFields,'source')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
@@ -62,30 +56,30 @@
 
       <div title="فیلتر بر اساس مقصد" class="input-group report-field-option">
         <a class="dropdown-toggle" href data-toggle="dropdown" aria-expanded="false">
-          <input type="text" class="form-control"  placeholder="انتخاب مقصد" ng-model="transaction.addOne.extra.destination.last_name"     readonly  ng-hide="transaction.addOne.extra.destination_type == 'warehouse'">
-          <input type="text" class="form-control" placeholder="انتخاب مقصد" ng-model="transaction.addOne.extra.destination.title" readonly  ng-show="transaction.addOne.extra.destination_type == 'warehouse'">
+          <input type="text" class="form-control"  placeholder="انتخاب مقصد" ng-model="transaction.addOne.reportFields.destination.last_name"     readonly  ng-hide="transaction.addOne.reportFields.destination_type == 'warehouse'">
+          <input type="text" class="form-control" placeholder="انتخاب مقصد" ng-model="transaction.addOne.reportFields.destination.title" readonly  ng-show="transaction.addOne.reportFields.destination_type == 'warehouse'">
         </a>
         <ul id="dropdown-filter-destination" class="dropdown-menu dropdown-menu-right" role="menu">
           <li>
-            <a ng-click="transaction.openSelectionModal(3,'user','last_name');transaction.addOne.extra.destination_type='user'" href>کاربر</a>
+            <a ng-click="transaction.openSelectionModal(3,'user','last_name');transaction.addOne.reportFields.destination_type='user'" href>کاربر</a>
           </li>
           <li>
-            <a ng-click="transaction.openSelectionModal(4,'warehouse','model');transaction.addOne.extra.destination_type='warehouse'" href>انبار</a>
+            <a ng-click="transaction.openSelectionModal(4,'warehouse','model');transaction.addOne.reportFields.destination_type='warehouse'" href>انبار</a>
           </li>
         </ul>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.destination"
-          ng-click="transaction.deleteKey(transaction.addOne.extra,'destination')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.destination"
+          ng-click="transaction.deleteKey(transaction.addOne.reportFields,'destination')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
       </div><!-- / destination filter -->
 
       <div title="فیلتر براساس اعمال کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب اعمال کننده تراکنش" ng-model="transaction.addOne.extra.auth_by.last_name" readonly ng-click="transaction.openSelectionModal(5,'user','last_name')">
+        <input type="text" class="form-control" placeholder="انتخاب اعمال کننده تراکنش" ng-model="transaction.addOne.reportFields.auth_by.last_name" readonly ng-click="transaction.openSelectionModal(5,'user','last_name')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.extra.auth_by"
-          ng-click="transaction.deleteKey(transaction.addOne.extra,'auth_by')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.auth_by"
+          ng-click="transaction.deleteKey(transaction.addOne.reportFields,'auth_by')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
@@ -481,3 +475,43 @@
 </div><!-- /.modal -->
 
 <delete-modal controller = "transaction"></delete-modal>
+
+<!-- Select Modal -->
+<div class="modal fade" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <!-- <h3 class="modal-title">مدال انتخاب</h3> -->
+      </div>
+
+      <div class="modal-body">
+        <!-- stage = 0 for product selection -->
+        <search-stage ng-show = "stage == 0" obj="transaction.selectProductObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 1 for user source selection -->
+        <search-stage ng-show = "stage == 1" obj="transaction.selectUserSourceObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        
+        <!-- stage = 2 for producer selection -->
+        <search-stage ng-show = "stage == 2" obj="transaction.selectWarehouseSourceObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 3 for seller selection -->
+        <search-stage ng-show = "stage == 3" obj="transaction.selectUserDestinationObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 4 for gaurantor selection -->
+        <search-stage ng-show = "stage == 4" obj="transaction.selectWarehouseDestinationObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+        <!-- stage = 5 for user source selection -->
+        <search-stage ng-show = "stage == 5" obj="transaction.selectAuthorObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+
+      </div>
+      <div class="modal-footer">
+      </div><!-- /.modal-footer -->
+    </div>
+  </div>
+</div>

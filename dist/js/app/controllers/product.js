@@ -119,7 +119,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.obj = {};
   controller.addOne={};
   controller.addOne.extra={};
-  controller.addOne.extra.product_filter = "";
+  controller.addOne.reportFields = {}
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }
@@ -188,7 +188,8 @@ angular.module("assetAdminPanel").controller('productCtrl',
   this.getFilteredData = function(){
     var editedObj = angular.copy(controller.addOne);
     var ex = editedObj.extra;
-    
+    Object.assign(ex,controller.addOne.reportFields);    //merge extra with reportFields
+
     if(ex.group) ex.group = ex.group.id;
 
     // if(ex.parent_bundle) ex.parent_bundle = ex.parent_bundle.id;

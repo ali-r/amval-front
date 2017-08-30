@@ -15,33 +15,27 @@
       <option value="3">عودت</option>
       <option value="0">غیره</option>
     </select>
-    از تاریخ :
-    <div class="sort-option-edited">
-      <adm-dtp ng-model="ticket.addOne.extra.datetime__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
-        <input type='text' ng-model='date' class="form-control" placeholder="ابتدا بازه زمانی" dtp-input />
-      </adm-dtp>
+    <div class="sort-option-edited filter-option">
+      <adm-dtp inputplaceholder="ابتدا بازه زمانی" ng-model="ticket.addOne.extra.datetime__gte" title="ابتدا بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'></adm-dtp>
     </div>
-    تا تاریخ :
-    <div class="sort-option-edited">
-      <adm-dtp ng-model="ticket.addOne.extra.datetime__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'>
-        <input type='text' ng-model='date' class="form-control" placeholder="پایان بازه زمانی" dtp-input />
-      </adm-dtp>
+    <div class="sort-option-edited filter-option">
+      <adm-dtp inputplaceholder="پایان بازه زمانی" ng-model="ticket.addOne.extra.datetime__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'></adm-dtp>
     </div>
 
     <div id="report-field" style="display:none" class="report-field">
         
       <div title="فیلتر انتخاب انبار مبدا" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="فیلتر انتخاب انبار مبدا" ng-model="ticket.addOne.extra.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','title')">
+        <input type="text" class="form-control" placeholder="فیلتر انتخاب انبار مبدا" ng-model="ticket.addOne.reportFields.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','title')">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-danger btn-beside-input" ng-show="ticket.addOne.extra.from_warehouse"
-            ng-click="ticket.deleteKey(ticket.addOne.extra,'from_warehouse')">
+          <button type="button" class="btn btn-danger btn-beside-input" ng-show="ticket.addOne.reportFields.from_warehouse"
+            ng-click="ticket.deleteKey(ticket.addOne.reportFields,'from_warehouse')">
             <i class="fa fa-remove"></i>
           </button>
         </span>
       </div><!-- / from_warehouse filter -->
 
       <div title="فیلتر وضعیت تیکت" class="input-group report-field-option">
-        <select class="form-control" ng-model="ticket.addOne.extra.status" title="وضعیت تیکت">
+        <select class="form-control" ng-model="ticket.addOne.reportFields.status" title="وضعیت تیکت">
           <option value="">-- وضعیت تیکت --</option>
           <option value="0">درخواست شده</option>
           <option value="1">در حال پیگیری</option>
@@ -51,7 +45,7 @@
 
       <div title="فیلتر بسته نشده ها" class="checkbox checkbox-report-field">
           <label for="not_closed">
-              <input class="checkbox" ng-model="ticket.addOne.extra.not_closed" id="not_closed" type="checkbox">
+              <input class="checkbox" ng-model="ticket.addOne.reportFields.not_closed" id="not_closed" type="checkbox">
               بسته نشده ها
             </label>
         </div><!-- / not_closed filter -->
@@ -425,7 +419,7 @@
                           </div>
 
                           <!-- Stage == 2 -> from_warehouse -->
-                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="extra" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
                         </div>
                     </div>
                 </div><!-- /.box-body -->

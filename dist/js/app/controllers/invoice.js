@@ -25,6 +25,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.obj = {};
       controller.addOne={};
       controller.addOne.extra={};
+      controller.addOne.reportFields={};
       controller.paginationConfig = {
         'addOne' : controller.addOne
       }
@@ -260,6 +261,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       controller.getFilteredData = function(){
         var editedObj = angular.copy(controller.addOne);
         var ex = editedObj.extra;
+        Object.assign(ex,controller.addOne.reportFields);    //merge extra with reportFields
         
         if(ex.datetime__gte) ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte);
     
