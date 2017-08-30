@@ -133,6 +133,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
               callback(response);
             }else{
               scope.meta = response.data.meta;
+              if(response.data.total_price) scope.total_price = response.data.total_price;
               controller.note = response.data[apiName + 's'];
             }
         },true);
