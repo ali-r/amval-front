@@ -330,7 +330,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=1&model__contains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
+                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=1&model__icontains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
                                         </span>
                                       </div>
                                     </form>
