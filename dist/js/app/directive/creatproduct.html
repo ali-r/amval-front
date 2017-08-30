@@ -250,7 +250,7 @@
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="controller.tmp.searchQuery" required>
                             <span class="input-group-btn">
-                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('product', '?is_bundle=False&parent_bundle=None&model__contains=' + controller.tmp.searchQuery); controller.tmp.searchD = true">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('product', '?is_bundle=False&parent_bundle=None&model__icontains=' + controller.tmp.searchQuery); controller.tmp.searchD = true">
                                 جستجو
                               </button>
                             </span>
