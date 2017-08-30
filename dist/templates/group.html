@@ -61,12 +61,12 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="form-group">
+                  <div class="form-group" ng-show="group.obj.level < 6">
                       <label>پدر</label>
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="group.obj.parent.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent.title" ng-click="group.selectThings(1, 'group', 'group_type=group&title')">انتخاب پدر</button>
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent.title" ng-click="group.selectThings(1, 'group','depth__lt=' + (group.obj.depth || 6) + '&title')">انتخاب پدر</button>
                           <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-danger btn-beside-input" ng-show="group.obj.parent.title" ng-click="group.deleteKey(group.obj, 'parent')">حذف پدر</button>
                         </span>
                       </div>

@@ -23,8 +23,8 @@ angular.module("assetAdminPanel").controller('groupCtrl',
       {fa:'توضیحات',en:'description'}
     ],
     searchFilter:{
-      key: 'group_type',
-      value: 'group'
+      key: 'depth__lte',
+      value: '6'
     }
   };
 
@@ -33,16 +33,18 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   controller.obj = {};
   controller.addOne={};
   controller.addOne.extra={};
-  controller.addOne.filter={
-    key: 'group_type',
-    value: 'group'
-  }
+ 
   controller.addOne.extra.depth__lt = '2';
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
+
+  controller.getConfig = function(obj){
+    controller.selectGroupObj.searchFilter.value = (obj.depth || 6)
+    return obj;
+  };
 
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
@@ -68,7 +70,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   }
 
   crud.initModals($scope, controller, apiName);
-  crud.init($scope, controller, apiName, controller.objConfig)
+  crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
 
   this.deleteMeta = function(index){
     controller.obj.self_meta_template.splice (index, 1);
