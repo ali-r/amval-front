@@ -1,36 +1,24 @@
-<td colspan="7" style="padding:0px;">
-  <table class="table">
-    <colgroup>
-      <col span="1" style="width: 5%;">
-      <col span="1" style="width: 5%;">
-      <col span="1" style="width: 25%;">
-      <col span="1" style="width: 35%;">
-      <col span="1" style="width: 20%;">
-      <col span="1" style="width: 5%;">
-      <col span="1" style="width: 5%;">
-    </colgroup>
-    <tbody>
-      <tr ng-repeat="chd in list.children" class="group-chd">
-        <td style="text-align : right">
-          <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
-        </td>
-        <td class="chd-td">
-          {{$index+1 | pNumber}}-{{(page-1)*perPage+$parent.$index+1 | pNumber}}
-        </td>
-        <td>{{chd.title | lengthLimit:30}}</td>
-        <td>{{chd.description | lengthLimit:30}}</td>
-        <td>{{chd.parent.title | lengthLimit:30}}</td>
-        <td>
-          <a ng-click="group.getObject(chd.id)" title="مشاهده" href>
-            <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
-          </a>
-        </td>
-        <td ng-if = "checkWrite('group')">
-          <a ng-click="group.toDeleteId = chd.id; group.toDeleteTitle = chd.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
-            <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</td>
+<div class="tree-node tree-node-content row">
+    <div class="col-md-1">
+    <a ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+        <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed,'fa-minus-square': !collapsed}"></span>
+    </a>
+    </div>
+    <div class="col-md-3">
+    {{node.title | lengthLimit:30}}
+    </div>
+    <div class="col-md-6 text-center">
+    {{node.description | lengthLimit:40}}
+    </div>
+    <div class="col-md-2">
+    <a class="pull-left" title="انتخاب" href ng-click="controller.selectTarget(chd.id, chd.title, 'title', 'subgroup', 'product');loadMeta(chd.id)" href>
+        <i class="fa fa-check-square-o fa-lg"></i>
+    </a>
+    </div>
+</div>
+
+<ol ui-tree-nodes="" class="tree-chd" ng-model="node.children" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.children" ui-tree-node>
+      <child-table></child-table>
+    </li>
+</ol>
