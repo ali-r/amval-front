@@ -46,9 +46,12 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     $scope.loadSide = true;
     var getUrl = controller.makeUrl(page, controller.productPageConf);
     requestHelper.get(getUrl, $scope, function(response){
+      console.log(response.data)
       controller.products = response.data.products;
       controller.productsMeta = response.data.meta;
       controller.productsPage = response.data.meta.page;
+      if(response.data.total_price) $scope.products_total_price = response.data.total_price;
+      else delete $scope['products_total_price']
       $scope.loadSide = false;
     });
   };
