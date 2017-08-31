@@ -184,9 +184,9 @@
               <div class="panel-body">
                 <form name="searchForm" role="form" novalidate>
                   <div class="input-group">
-                    <input type="text" class="form-control" name="searchText" ng-model="warehouse.tmp.searchQuery" required>
+                    <input type="text" class="form-control" name="searchText" ng-model="warehouse.tmp.searchQuery" required placeholder="جستجوی فیلدهای متنی">
                     <span class="input-group-btn">
-                      <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="warehouse.search('user','last_name')">جستجوی کاربر</button>
+                      <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="warehouse.search('user')">جستجوی کاربر</button>
                     </span>
                   </div>
                 </form>

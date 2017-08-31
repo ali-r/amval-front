@@ -107,7 +107,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.openModal('select');
         if(controller.tmp.searchField==undefined){controller.tmp.searchField = "";}
         controller.tmp.searchQuery = controller.tmp.searchField;
-        controller.search('user','last_name');
+        controller.search('user');
       };
 
       controller.selectSeller = function(){
@@ -116,7 +116,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.openModal('select');
         if(controller.tmp.searchField==undefined){controller.tmp.searchField = "";}
         controller.tmp.searchQuery = controller.tmp.searchField;
-        controller.search('seller','last_name');
+        controller.search('seller');
       };
 
       controller.openProductModal = function(){

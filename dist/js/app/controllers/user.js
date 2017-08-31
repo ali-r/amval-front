@@ -25,7 +25,8 @@ angular.module("assetAdminPanel").controller('userCtrl',
     table : [
       {fa:'نام انبار',en:'title'},
       {fa:'محل',en:'location'}
-    ]
+    ],
+    searchFilter: {key:'parent_warehouse__ne',value:'None'}
   };
 
   $scope.page = 1;
@@ -89,6 +90,6 @@ angular.module("assetAdminPanel").controller('userCtrl',
   controller.selectWareHouse = function() {
     $scope.stage = 1;
     controller.tmp.searchQuery = '';
-    controller.search('warehouse','title');
+    controller.search('warehouse');
   }
 });

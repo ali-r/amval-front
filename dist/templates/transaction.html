@@ -196,10 +196,10 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
                           <li>
-                            <a ng-click="transaction.selectThings(2, 'user', '')" href>کاربر</a>
+                            <a ng-click="transaction.selectThings(2, 'user')" href>کاربر</a>
                           </li>
                           <li>
-                            <a ng-click="transaction.selectThings(3, 'warehouse', '')" href>انبار</a>
+                            <a ng-click="transaction.selectThings(3, 'warehouse')" href>انبار</a>
                           </li>
                         </ul>
                       </div>
@@ -284,9 +284,9 @@
               <div class="panel-body">
                 <form name="searchForm" role="form" novalidate>
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو کالا" name="searchText" ng-model="transaction.tmp.searchQuery" required>
+                        <input type="text" class="form-control" placeholder="جستجو در بین فیلدهای متنی" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1&model__icontains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1')">
                             جستجو
                           </button>
                         </span>
@@ -353,9 +353,9 @@
               <div class="panel-body">
                 <form name="searchForm" role="form" novalidate>
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو کاربر" name="searchText" ng-model="transaction.tmp.searchQuery" required>
+                        <input type="text" class="form-control" placeholder="جستجو در تمامی فیلدهای متنی" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user', '?last_name__icontains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user')">
                             جستجو
                           </button>
                         </span>
@@ -415,9 +415,9 @@
               <div class="panel-body">
                 <form name="searchForm" role="form" novalidate>
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو انبار" name="searchText" ng-model="transaction.tmp.searchQuery" required>
+                        <input type="text" class="form-control" placeholder="جستجوی فیلدهای متنی" name="searchText" ng-model="transaction.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse', '?title__icontains=' + transaction.tmp.searchQuery)">
+                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse')">
                             جستجو
                           </button>
                         </span>

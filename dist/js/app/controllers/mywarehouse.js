@@ -14,7 +14,7 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     this.selectWareHouseModal = function(){
       controller.tmp.searchQuery = '';
       mainAsset.openModal('#warehouseModal');
-      controller.search('warehouse', 'title');
+      controller.search('warehouse');
     }
     
     this.selectWarehouse = function(obj){

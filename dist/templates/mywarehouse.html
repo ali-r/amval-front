@@ -142,11 +142,11 @@
                 </div>
               </div>
               <div class="panel-body">
-                <form name="searchForm" role="form" novalidate ng-submit="searchForm.$valid && mywarehouse.search('warehouse', 'title');">
+                <form name="searchForm" role="form" novalidate ng-submit="searchForm.$valid && mywarehouse.search('warehouse');">
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو در بین انبار ها" name="searchText" ng-model="mywarehouse.tmp.searchQuery" required>
+                        <input type="text" class="form-control" placeholder="جستجوی فیلدهای متنی" name="searchText" ng-model="mywarehouse.tmp.searchQuery" required>
                         <span class="input-group-btn">
-                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="mywarehouse.search('warehouse', 'title');">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="mywarehouse.search('warehouse');">
                             جستجو
                           </button>
                         </span>

@@ -39,7 +39,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   controller.selectUser = function(){
     $scope.stage = 1;
     controller.tmp.searchQuery = '';
-    controller.search('user','last_name');
+    controller.search('user');
   };
 
   controller.getProducts = function(page){
