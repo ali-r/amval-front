@@ -10,7 +10,6 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       if ($scope.assetData.warehouse_under_management) {
         controller.warehouseFilter = $scope.assetData.warehouse_under_management.id;
       } 
-      console.log('To Do')
     }
     else{
       controller.warehouse = $scope.assetData.warehouse_under_management;

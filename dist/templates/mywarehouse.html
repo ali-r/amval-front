@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-4">
-          <div class="input-group pull-left select-warehouse" ng-show="assetData.clearance_level > 1">
+          <div class="input-group pull-left select-warehouse" ng-show="assetData.clearance_level > 1 && mywarehouse.pageType!=0">
             <input type="text" class="form-control" ng-model="mywarehouse.warehouse.title" readonly>
             <span class="input-group-btn">
               <button type="button" class="btn btn-primary btn-beside-input" ng-hide="mywarehouse.warehouse.title" ng-click="mywarehouse.selectWareHouseModal()">انتخاب انبار</button>
