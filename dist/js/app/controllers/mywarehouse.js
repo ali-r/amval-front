@@ -1,10 +1,17 @@
 angular.module("assetAdminPanel").controller('mywarehouseCtrl',
-  function($scope, $localStorage, requestHelper, mainAsset, crud){
+  function($scope, $localStorage, requestHelper, mainAsset, crud, $routeParams){
 
     var controller = this;
     $scope.assetData = $localStorage.assetData;
-
-    if ($scope.assetData.warehouse_under_management) {
+    controller.pageType = 0;
+    controller.warehouseFilter = -1;
+    if($routeParams.pageType){
+      controller.pageType = $routeParams.pageType; 
+      if ($scope.assetData.warehouse_under_management) {
+        controller.warehouseFilter = $scope.assetData.warehouse_under_management.id;
+      } 
+    }
+    else{
       controller.warehouse = $scope.assetData.warehouse_under_management;
     }
 

@@ -88,8 +88,16 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#mywarehouse">
-                    <i class="fa fa-building"></i> انبار من
+                  <a href="#mywarehouse" ng-if="userData.clearance_level==1 || userData.clearance_level==2">
+                    <i class="fa fa-flag"></i> انبار من
+                  </a>
+                  <a href="#mywarehouse?pageType=2" ng-if="userData.clearance_level==3">
+                      <i class="fa fa-building"></i> انبار ها
+                    </a>
+                </li>
+                <li>
+                  <a href="#mywarehouse?pageType=1" ng-if="userData.clearance_level==2">
+                    <i class="fa fa-building"></i> سایر انبار ها
                   </a>
                 </li>
                   <li ng-if="main.checkPer('user')">
@@ -107,7 +115,9 @@
                       <li ng-if="main.checkPer('seller')"><a href="#seller">فروشنده</a></li>
                       <li ng-if="main.checkPer('guarantor')"><a href="#guarantor">گارانتی</a></li>
                       <li ng-if="main.checkPer('producer')"><a href="#producer">تولید کننده</a></li>
-                      <li ng-if="main.checkPer('product')"><a href="#product">کالا</a></li>
+                      <li ng-if="main.checkPer('product') && (userData.clearance_level==3 || userData.clearance_level==2)">
+                        <a href="#product">کالا</a>
+                      </li>
                       <li ng-if="main.checkPer('invoice')"><a href="#invoice">فاکتور </a></li>
                       <li ng-if="main.checkPer('group')"><a href="#group">گروه</a></li>
                       <li ng-if="main.checkPer('transaction')"><a href="#transaction">تراکنش</a></li>
@@ -288,9 +298,9 @@
     <script src="/vendors/plugins/nprogress/nprogress.js"></script>
     <script src="/vendors/plugins/skycons/skycons.js"></script>
     <script src="/vendors/plugins/dateTimePicker/dist/ADM-dateTimePicker.js"></script>
+    <script src="/vendors/plugins/fastclick/lib/fastclick.js"></script>
     <script src="/vendors/plugins/pnotify/dist/pnotify.custom.js"></script>
     <script src="/vendors/plugins/qcode-decoder-master/build/qcode-decoder.min.js"></script>
-    <script src="/vendors/plugins/fastclick/lib/fastclick.js"></script>
     <script src="/dist/js/custom.js"></script>
     <script src="/dist/js/app/app.js"></script>
     <script src="/dist/js/app/base/crud.js"></script>
