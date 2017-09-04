@@ -99,7 +99,7 @@
             (تعداد کل: {{meta.total | pNumber}})
           </small>
 
-          <small ng-if="total_price>0 && !load">
+          <small ng-if="total_price && !load">
               (قیمت کل: {{total_price | productPrice | pNumber}})
           </small>
         </h2>        
