@@ -324,12 +324,15 @@
                             </span>
                           </div>
                       </form>
-                      
-                      <div ui-tree id="tree-root" ng-hide = "controller.tmp.searchResult == '' || $parent.loadSearch">
-                        <ol ui-tree-nodes ng-model="controller.tmp.searchResult">
-                          <li ng-repeat="node in controller.tmp.searchResult" ui-tree-node ng-include="'nodes_renderer1.html'"></li>
-                        </ol>
+
+                      <div ng-hide = "controller.tmp.searchResult == '' || $parent.loadSearch">
+                        <div ui-tree id="tree-root" >
+                          <ol ui-tree-nodes ng-model="controller.tmp.searchResult">
+                            <li ng-repeat="node in controller.tmp.searchResult" ui-tree-node ng-include="'nodes_renderer1.html'"></li>
+                          </ol>
+                        </div>
                       </div>
+                      
                   </div>
                 </div>
               <!-- /.box-body -->
@@ -345,7 +348,7 @@
       <script type="text/ng-template" id="nodes_renderer1.html">
         <div class="tree-node tree-node-content row">
           <div class="col-md-1">
-            <a ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+            <a ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)" ng-hide="controller.tmp.searchD">
               <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed,'fa-minus-square': !collapsed}"></span>
             </a>
           </div>

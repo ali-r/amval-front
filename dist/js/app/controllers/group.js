@@ -23,7 +23,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
       {fa:'توضیحات',en:'description'}
     ],
     searchFilter:{
-      key: 'depth__lte',
+      key: 'depth__lt',
       value: '6'
     }
   };
@@ -42,7 +42,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   controller.getConfig = function(obj){
-    controller.selectGroupObj.searchFilter.value = (obj.depth || 6)
+    controller.selectGroupObj.searchFilter.value = ((obj.level) ? 7 - obj.level : 6)
     return obj;
   };
 
