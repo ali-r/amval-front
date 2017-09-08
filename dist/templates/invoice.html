@@ -29,7 +29,9 @@
                     </small>
                 
                     <small ng-if="total_price && !load">
-                        (قیمت کل: {{total_price | productPrice | pNumber}})
+                        (قیمت کل: {{total_price | currency:'':0 | productPrice | pNumber}}
+                        {{ "ریال" + " " }}
+                        )
                     </small>
                 
                 
