@@ -81,7 +81,8 @@
           <div class="col-xs-4">
             <label>قیمت</label>
             <h5 class="product-stat">
-              {{controller.productStat.price | productPrice | pNumber}}
+              {{controller.productStat.price | currency:'':0 | productPrice | pNumber}}
+              {{ "ریال" + " " }}
             </h5>
           </div>
           <div class="clearfix"></div>
@@ -205,7 +206,7 @@
                     <th>#</th>
                     <th>مدل</th>
                     <th>سریال</th>
-                    <th>قیمت</th>
+                    <th> قیمت (ریال) </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -218,7 +219,7 @@
                       {{c.serial_number}}
                     </td>
                     <td>
-                      {{c.price | pNumber}}
+                      {{c.price | currency:'':0 | pNumber}}
                     </td>
                   </tr>
                 </tbody>

@@ -100,7 +100,9 @@
           </small>
 
           <small ng-if="total_price && !load">
-              (قیمت کل: {{total_price | productPrice | pNumber}})
+              (قیمت کل: {{total_price | currency:'':0 | productPrice | pNumber}}
+              {{ "ریال" + " " }}
+              )
           </small>
         </h2>        
         <button type="button" ng-if = "checkWrite('product')" class="btn btn-success btn-sm pull-left" ng-click="openModal('#productModal')" name="button">
@@ -114,7 +116,7 @@
             <tr>
               <th>#</th>
               <th>مدل کالا</th>
-              <th>قیمت</th>
+              <th> قیمت (ریال) </th>
               <th>سازنده</th>
               <th>تاریخ تولید</th>
               <th>پایان گارانتی</th>
@@ -128,7 +130,7 @@
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.model | lengthLimit:30}}</td>
               <td dir="ltr">
-                {{list.price  | productPrice | pNumber | lengthLimit:15}}
+                {{list.price | currency:'':0 | productPrice | pNumber | lengthLimit:15}}
               </td>
               <td>{{list.producer.brand_name | lengthLimit:30}}</td>
               <td>{{list.production_date | jalaliDate | pNumber}}</td>

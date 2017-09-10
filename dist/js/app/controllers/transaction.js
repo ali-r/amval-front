@@ -58,7 +58,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     ]
   }
   controller.selectWarehouseSourceObj = {
-    title : { fa : 'انبار منبع', en : 'source'},
+    title : { fa : 'انبار مبدا', en : 'source'},
     searchItem : {
       fa : 'انبار',
       en : 'warehouse'

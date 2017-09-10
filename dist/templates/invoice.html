@@ -29,7 +29,9 @@
                     </small>
                 
                     <small ng-if="total_price && !load">
-                        (قیمت کل: {{total_price | productPrice | pNumber}})
+                        (قیمت کل: {{total_price | currency:'':0 | productPrice | pNumber}}
+                        {{ "ریال" + " " }}
+                        )
                     </small>
                 
                 
@@ -45,7 +47,7 @@
                         <tr>
                             <th>#</th>
                             <th>شماره فاکتور</th>
-                            <th>قیمت کل</th>
+                            <th> قیمت کل (ریال) </th>
                             <th></th>
                             <th ng-if = "checkWrite('invoice')"></th>
                         </tr>
@@ -54,7 +56,7 @@
                         <tr ng-repeat = "list in invoice.note">
                             <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
                             <td class="limited-width-col">{{list.invoice_no  | lengthLimit:30}}</td>
-                            <td class="limited-width-col">{{list.price | lengthLimit:30 | pNumber}}</td>
+                            <td class="limited-width-col">{{list.price | currency:'':0 | lengthLimit:30 | pNumber}}</td>
                             <td>
                                 <a ng-click="invoice.readInvoice(list.id)" href>
                                     <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('invoice') , 'fa-eye' : !checkWrite('invoice')}" aria-hidden="true"></i>
@@ -134,7 +136,7 @@
                                 <div class="clearfix"></div>
 
                                 <div class="col-xs-6">
-                                    <label>قیمت کل*</label>
+                                    <label> قیمت کل (ریال) * </label>
                                     <input type="number" min="0" step="1" class="form-control form-ltr" ng-model="invoice.obj.price">
                                 </div>
                                 <div class="col-xs-6">
@@ -163,7 +165,7 @@
                                 <thead>
                                     <tr>
                                         <th>نام کالا</th>
-                                        <th>قیمت</th>
+                                        <th> قیمت (ریال) </th>
                                         <th></th>
                                     </tr>
                                 </thead>
