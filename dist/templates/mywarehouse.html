@@ -23,43 +23,43 @@
       </div>
       <div class="x_content">
         <div class="" id='myTabs' role="tabpanel" data-example-id="myTabs" ng-if="mywarehouse.warehouse">
-          <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+          <ul id="myTab" class="nav nav-tabs bar_tabs mywarehouse-tab" role="tablist">
             <li role="presentation">
-              <a href="#tickets" role="tab" data-toggle="tab" aria-expanded="false">تیکت ها</a>
+              <a href role="tab" data-toggle="tab" aria-expanded="false" ng-click="tabStage = 1">تیکت ها</a>
             </li>
             <li role="presentation">
-              <a href="#transactions" role="tab" data-toggle="tab" aria-expanded="true">تراکنش ها</a>
+              <a href role="tab" data-toggle="tab" aria-expanded="true" ng-click="tabStage = 2">تراکنش ها</a>
             </li>
             <li role="presentation">
-              <a href="#products" role="tab" data-toggle="tab" aria-expanded="true">کالا ها</a>
+              <a href role="tab" data-toggle="tab" aria-expanded="true" ng-click="tabStage = 3">کالا ها</a>
             </li>
             <li role="presentation">
-              <a href="#users" role="tab" data-toggle="tab" aria-expanded="true">کارمندان</a>
+              <a href role="tab" data-toggle="tab" aria-expanded="true" ng-click="tabStage = 4">کارمندان</a>
             </li>
           </ul>
-          <div id="myTabContent" class="tab-content">
-            <div role="tabpanel" class="tab-pane fade" id="tickets" aria-labelledby="ticket-tab">
-              <div ng-controller="ticketCtrl as ticket">
+          <div class="tab-content mywarehouse-tab-content">
+            <div ng-if="tabStage == 1">
+             <div ng-controller="ticketCtrl as ticket">
                 <ng-include src="'../dist/templates/ticket.html'">
                 </ng-include>
               </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="transactions" aria-labelledby="transaction-tab">
+            <div ng-if="tabStage == 2">
               <div ng-controller="transactionCtrl as transaction">
                 <ng-include src="'../dist/templates/transaction.html'">
                 </ng-include>
               </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="products" aria-labelledby="product-tab">
+            <div ng-if="tabStage == 3">
               <div ng-controller="productCtrl as product">
                 <ng-include src="'../dist/templates/product.html'">
                 </ng-include>
               </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="users" aria-labelledby="user-tab">
+            <div ng-if="tabStage == 4">
               <div ng-controller="userCtrl as user">
                 <ng-include src="'../dist/templates/user.html'">
                 </ng-include>
@@ -79,7 +79,7 @@
   
   <div class="clearfix"></div>
 
-  <div class="col-xs-8 col-xs-offset-2" ng-show="mywarehouse.warehouse">
+  <!-- <div class="col-xs-8 col-xs-offset-2" ng-show="mywarehouse.warehouse">
     <div class="my-warehouse-data">
       <h4 style="text-align:center">
         اطلاعات انبار
@@ -119,7 +119,7 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 </div>

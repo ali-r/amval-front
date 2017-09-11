@@ -5,6 +5,7 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     $scope.assetData = $localStorage.assetData;
     controller.pageType = 0;
     controller.warehouseFilter = -1;
+    $scope.tabStage = 1;
 
     if($routeParams.pageType){
       controller.pageType = $routeParams.pageType; 
@@ -28,7 +29,7 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     this.selectWarehouse = function(obj){
       controller.warehouse = obj;
       mainAsset.closeModal('#warehouseModal');
-
+      $routeParams.id = obj.id;
       setTimeout(
         function () {
           $('#myTabs a').click(function (e) {
