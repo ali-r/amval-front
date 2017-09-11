@@ -4556,7 +4556,7 @@ div#deleteModal {
     text-align: center;
 }
 .mywarehouse-box > .x_panel{
-    margin-bottom: 10px !important;
+  /*  margin-bottom: 10px !important; */
 }
 .tile-my-warehouse{
     position: relative;
@@ -4684,4 +4684,14 @@ div#deleteModal {
 .obj-danger-border{
     border-right-style: solid;
     border-right-color: #d9534f;
+}
+.mywarehouse-tab{
+    margin-bottom: 0px !important;
+}
+.mywarehouse-tab-content{
+    border : 1px solid #f0f0f0;
+    padding: 10px 10px;
+}
+.x_panel .x_panel{
+    margin-bottom: 10px;
 }
