@@ -22,49 +22,52 @@
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
-        <div class="row top_tiles" ng-show="mywarehouse.warehouse">
+        <div class="" id='myTabs' role="tabpanel" data-example-id="myTabs" ng-if="mywarehouse.warehouse">
+          <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+            <li role="presentation">
+              <a href="#tickets" role="tab" data-toggle="tab" aria-expanded="false">تیکت ها</a>
+            </li>
+            <li role="presentation">
+              <a href="#transactions" role="tab" data-toggle="tab" aria-expanded="true">تراکنش ها</a>
+            </li>
+            <li role="presentation">
+              <a href="#products" role="tab" data-toggle="tab" aria-expanded="true">کالا ها</a>
+            </li>
+            <li role="presentation">
+              <a href="#users" role="tab" data-toggle="tab" aria-expanded="true">کارمندان</a>
+            </li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade" id="tickets" aria-labelledby="ticket-tab">
+              <div ng-controller="ticketCtrl as ticket">
+                <ng-include src="'../dist/templates/ticket.html'">
+                </ng-include>
+              </div>
+            </div>
 
-          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-my-warehouse">
-              <a ng-href="{{ '#ticket/' + mywarehouse.warehouse.id }}">
-                <div class="icon"><i class="fa fa-file-text-o fa-2x"></i></div>
-                <h3>تیکت ها</h3>
-                <p>مشاهده تیکت های انبار</p>
-              </a>
+            <div role="tabpanel" class="tab-pane fade" id="transactions" aria-labelledby="transaction-tab">
+              <div ng-controller="transactionCtrl as transaction">
+                <ng-include src="'../dist/templates/transaction.html'">
+                </ng-include>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="products" aria-labelledby="product-tab">
+              <div ng-controller="productCtrl as product">
+                <ng-include src="'../dist/templates/product.html'">
+                </ng-include>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="users" aria-labelledby="user-tab">
+              <div ng-controller="userCtrl as user">
+                <ng-include src="'../dist/templates/user.html'">
+                </ng-include>
+              </div>
             </div>
           </div>
-
-          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-my-warehouse">
-              <a ng-href="{{ '#transaction/' + mywarehouse.warehouse.id }}">
-                <div class="icon"><i class="fa fa-exchange fa-2x"></i></div>
-                <h3>تراکنش ها</h3>
-                <p>مشاهده تراکنش های انبار</p>
-              </a>
-            </div>
-          </div>
-
-          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-my-warehouse">
-              <a ng-href="{{ '#product/' + mywarehouse.warehouse.id }}">
-                <div class="icon"><i class="fa fa-cubes fa-2x"></i></div>
-                <h3>کالا ها</h3>
-                <p>مشاهده کالا های موجود</p>
-              </a>
-            </div>
-          </div>
-
-          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-my-warehouse">
-              <a ng-href="{{ '#user/' + mywarehouse.warehouse.id }}">
-                <div class="icon"><i class="fa fa-users fa-2x"></i></div>
-                <h3>کارمند ها</h3>
-                <p>مشاهده کارمند های متصل انبار</p>
-              </a>
-            </div>
-          </div>
-
         </div>
+        
         <div ng-hide="mywarehouse.warehouse">
           <h3 style="text-align:center;" class="text-info">
             با انتخاب یک انبار میتوانید جزئیات آن را مشاهده کنید
@@ -117,6 +120,8 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
 
 <!-- Warehouse Modal -->

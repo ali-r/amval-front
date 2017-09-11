@@ -49,6 +49,11 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
       controller : "ticketCtrl",
       controllerAs : "ticket"
     })
+    /*.when("/mywarehouse/:id?" , {
+      templateUrl : "../dist/templates/mywarehouse.html",
+      controller : "mywarehouseCtrl",
+      controllerAs : "mywarehouse"
+    })*/
     .when("/transaction/:id?" , {
       templateUrl : "../dist/templates/transaction.html",
       controller : "transactionCtrl",
