@@ -23,8 +23,8 @@ angular.module("assetAdminPanel").controller('groupCtrl',
       {fa:'توضیحات',en:'description'}
     ],
     searchFilter:{
-      key: 'group_type',
-      value: 'group'
+      key: 'parent_for',
+      value: ''
     }
   };
 
@@ -33,21 +33,26 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   controller.obj = {};
   controller.addOne={};
   controller.addOne.extra={};
-  controller.addOne.filter={
-    key: 'group_type',
-    value: 'group'
-  }
-  controller.addOne.extra.group_type = 'group';
+ 
+  controller.addOne.extra.depth__lt = '2';
   controller.paginationConfig = {
     'addOne' : controller.addOne
   }
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
+  controller.getConfig = function(obj){
+    controller.selectGroupObj.searchFilter.value = obj.id
+    return obj;
+  };
+
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
     if (sendCopyObj.children)
       delete sendCopyObj.children;
+
+    delete sendCopyObj.level;
+    delete sendCopyObj.depth;
 
     if (sendCopyObj.parent)
       {
@@ -65,7 +70,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   }
 
   crud.initModals($scope, controller, apiName);
-  crud.init($scope, controller, apiName, controller.objConfig)
+  crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
 
   this.deleteMeta = function(index){
     controller.obj.self_meta_template.splice (index, 1);
@@ -80,11 +85,11 @@ angular.module("assetAdminPanel").controller('groupCtrl',
 
   this.getFilteredData = function(){
     var editedObj = angular.copy(controller.addOne);
-    if(editedObj.extra.group_type)
+    if(editedObj.extra.depth__lt)
       {
-        editedObj.extra.group_type = controller.addOne.extra.group_type;
+        editedObj.extra.depth__lt = controller.addOne.extra.depth__lt;
       }else {
-        editedObj.extra.group_type = 'group';
+        editedObj.extra.depth__lt = '2';
       }
     $scope.page = 1;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);

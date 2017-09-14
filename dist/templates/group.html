@@ -1,11 +1,11 @@
 <div class="row">
  <search-tools sobject="group.searchObject" scontroller="group">
-    <select class="form-control sort-option" ng-model="group.addOne.extra.group_type" title="نمایش گروه یا زیر گروه">
-      <option value="group">
+    <select class="form-control sort-option" ng-model="group.addOne.extra.depth__lt" title="نمایش گروه یا زیر گروه">
+      <option value="2">
         گروه
       </option>
-      <option value="subgroup">
-        زیر گروه
+      <option value="7">
+        گروه و زیرگروه
       </option>
     </select>
   </search-tools>
@@ -19,94 +19,13 @@
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
-        <table class="table jambo_table asset-tables">
-          <colgroup>
-            <col span="1" style="width: 5%;">
-            <col span="1" style="width: 5%;">
-            <col span="1" style="width: 25%;">
-            <col span="1" style="width: 35%;">
-            <col span="1" style="width: 20%;">
-            <col span="1" style="width: 5%;">
-            <col span="1" style="width: 5%;">
-          </colgroup>
-          <thead>
-            <tr>
-              <th></th>
-              <th>#</th>
-              <th>تیتر</th>
-              <th>توضیحات</th>
-              <th>پدر</th>
-              <th></th>
-              <th ng-if = "checkWrite('group')"></th>
-            </tr>
-          </thead>
-          <tbody ng-hide="load">
-            <tr ng-repeat-start = "list in group.note">
-              <td style="text-align : right">
-                <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#collaps{{$index}}" aria-expanded="false" aria-controls="collapseExample"
-                ng-click="collaps[$index] = !collaps[$index]" ng-if="list.children" >
-                  <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
-                </button>
-              </td>
-              <td>
-                {{ (page-1)*perPage + $index + 1 | pNumber}}
-              </td>
-              <td>{{list.title | lengthLimit:30}}</td>
-              <td>{{list.description | lengthLimit:30}}</td>
-              <td>
-                {{list.parent.title | lengthLimit:30}}
-              </td>
-              <td>
-                <a ng-click="group.getObject(list.id)" title="مشاهده" href>
-                  <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
-                </a>
-              </td>
-              <td ng-if = "checkWrite('group')">
-                <a ng-click="group.toDeleteId = list.id; group.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
-                  <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
-                </a>
-              </td>
-            </tr>
-            <tr ng-repeat-end class="collapse" id="collaps{{$index}}">
-              <td colspan="7" style="padding:0px;">
-                <table class="table">
-                  <colgroup>
-                    <col span="1" style="width: 5%;">
-                    <col span="1" style="width: 5%;">
-                    <col span="1" style="width: 25%;">
-                    <col span="1" style="width: 35%;">
-                    <col span="1" style="width: 20%;">
-                    <col span="1" style="width: 5%;">
-                    <col span="1" style="width: 5%;">
-                  </colgroup>
-                  <tbody>
-                    <tr ng-repeat="chd in list.children" class="group-chd">
-                      <td style="text-align : right">
-                        <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
-                      </td>
-                      <td class="chd-td">
-                        {{$index+1 | pNumber}}-{{(page-1)*perPage+$parent.$index+1 | pNumber}}
-                      </td>
-                      <td>{{chd.title | lengthLimit:30}}</td>
-                      <td>{{chd.description | lengthLimit:30}}</td>
-                      <td>{{chd.parent.title | lengthLimit:30}}</td>
-                      <td>
-                        <a ng-click="group.getObject(chd.id)" title="مشاهده" href>
-                          <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                      <td ng-if = "checkWrite('group')">
-                        <a ng-click="group.toDeleteId = chd.id; group.toDeleteTitle = chd.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
-                          <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+        <div ui-tree id="tree-root">
+          <ol ui-tree-nodes ng-model="group.note">
+            <li ng-repeat="node in group.note" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+          </ol>
+        </div>
+        
         <req-pagination itemmeta="meta" itempage="page" controller="group" config="group.paginationConfig"></req-pagination>
       </div>
     </div>
@@ -142,12 +61,12 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="form-group" ng-hide="group.obj.children.length>0">
+                  <div class="form-group" ng-hide="group.obj.level >= 6">
                       <label>پدر</label>
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="group.obj.parent.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent.title" ng-click="group.selectThings(1, 'group', 'group_type=group&title')">انتخاب پدر</button>
+                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent.title" ng-click="group.selectThings(1, 'group', ( (group.obj.id) ? 'parent_for=' + group.obj.id : '') + '&title')">انتخاب پدر</button>
                           <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-danger btn-beside-input" ng-show="group.obj.parent.title" ng-click="group.deleteKey(group.obj, 'parent')">حذف پدر</button>
                         </span>
                       </div>
@@ -222,3 +141,31 @@
 </div><!-- /.modal -->
 
 <delete-modal controller = "group"></delete-modal>
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div class="tree-node tree-node-content row">
+    <div class="col-md-1">
+      <a ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+        <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed,'fa-minus-square': !collapsed}"></span>
+      </a>
+    </div>
+    <div class="col-md-3">
+      {{node.title | lengthLimit:30}}
+    </div>
+    <div class="col-md-6 text-center">
+      {{node.description | lengthLimit:40}}
+    </div>
+    <div class="col-md-2">
+      <a class="pull-left" ng-click="group.toDeleteId = node.id; group.toDeleteTitle = node.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+        <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+      </a>
+      <a class="pull-left" ng-click="group.getObject(node.id)" title="مشاهده" href style="margin-left: 15px;">
+        <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+
+  <ol ui-tree-nodes="" class="tree-chd" ng-model="node.children" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+</script>
