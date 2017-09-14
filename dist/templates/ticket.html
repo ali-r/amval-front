@@ -8,7 +8,7 @@
       <option value="0">غیره</option>
     </select>
 
-    <select class="form-control filter-option" ng-model="ticket.addOne.extra.ticket_type" title="نوع تیکت">
+    <select class="form-control filter-option" id="ticket_type_report_field" ng-model="ticket.addOne.extra.ticket_type" title="نوع تیکت">
       <option value="">-- نوع تیکت --</option>
       <option value="1">خرید</option>
       <option value="2">تخصیص</option>
@@ -23,32 +23,25 @@
     </div>
 
     <div id="report-field" style="display:none" class="report-field">
-        
-      <div title="فیلتر انتخاب انبار مبدا" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="فیلتر انتخاب انبار مبدا" ng-model="ticket.addOne.reportFields.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','title')">
+      <label class="report-label"> درخواست خرید کالا از انبار:</label>
+      <div title="درخواست خرید کالا از انبار" class="input-group report-field-option">
+        <input type="text" class="form-control" placeholder="انتخاب انبار مبدا" ng-model="ticket.addOne.reportFields.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','title')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="ticket.addOne.reportFields.from_warehouse"
-            ng-click="ticket.deleteKey(ticket.addOne.reportFields,'from_warehouse')">
+            ng-click="ticket.clearPurchaseReport()">
             <i class="fa fa-remove"></i>
           </button>
         </span>
       </div><!-- / from_warehouse filter -->
 
       <div title="فیلتر وضعیت تیکت" class="input-group report-field-option">
-        <select class="form-control" ng-model="ticket.addOne.reportFields.status" title="وضعیت تیکت">
+        <select class="form-control" id="ticket_status_report_field" ng-model="ticket.addOne.reportFields.status" title="وضعیت تیکت">
           <option value="">-- وضعیت تیکت --</option>
           <option value="0">درخواست شده</option>
           <option value="1">در حال پیگیری</option>
           <option value="2">پایان یافته</option>
         </select>
       </div><!-- / ticket status filter -->
-
-      <div title="فیلتر بسته نشده ها" class="checkbox checkbox-report-field">
-          <label for="not_closed">
-              <input class="checkbox" ng-model="ticket.addOne.reportFields.not_closed" id="not_closed" type="checkbox">
-              بسته نشده ها
-            </label>
-        </div><!-- / not_closed filter -->
 
     </div>        
   </search-tools>
@@ -424,7 +417,7 @@
                           </div>
 
                           <!-- Stage == 2 -> from_warehouse -->
-                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()" ,filterId="-1"></search-stage>
+                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.setPurchaseReport()" ,filterId="-1"></search-stage>
                         </div>
                     </div>
                 </div><!-- /.box-body -->
