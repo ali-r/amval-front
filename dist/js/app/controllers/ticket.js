@@ -217,6 +217,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
         controller.obj = response.data;
         console.log(response.data);
         delete controller.tmp['text'];
+        delete controller.tmp['transaction'];        
         setTimeout(function () {
           $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
         },500);
