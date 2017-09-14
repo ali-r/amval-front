@@ -379,11 +379,10 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
       scope.controller.openBundleSelection = function(){
         var searchQuery = '?use_case=2';  //must be packable
-        scope.controller.bundleHolderId = '';
-        console.log(scope.controller.product);        
+        
         if(scope.controller.product.holder)
           scope.controller.bundleHolderId = scope.controller.product.holder.obj.id;
-        else
+        else if(!scope.controller.bundleHolderId)
           scope.controller.bundleHolderId = '';
         
         if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
