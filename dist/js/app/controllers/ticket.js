@@ -49,6 +49,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       en : 'unique_id'
     },
     table : [
+      {fa:'شناسه',en:'unique_id'},      
       {fa:'مدل کالا',en:'product',filter:'productName'},
       {fa:'مبدا',en:'source',filter:'userOrWarehouseName'},
       {fa:'مقصد',en:'destination',filter:'userOrWarehouseName'},
