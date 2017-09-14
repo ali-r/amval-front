@@ -184,7 +184,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
     link : function(scope, element, attr){
 
       scope.uploadUrl = mainAsset.getUploadUrl();
-
+      scope.controller.bundleHolderId = '';
+      
       scope.selectProducerObj = {
         title : { fa : 'تولید کننده', en : 'producer'},
         searchItem : {
@@ -343,6 +344,10 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
       scope.controller.deleteChild = function(index){
         scope.controller.product.children.splice (index, 1);
+        if(scope.controller.product.children.length==0 && !scope.controller.product.holder){
+          scope.controller.bundleHolderId = '';
+          scope.controller.bundleProductSearch();
+        }
       };
     
       scope.controller.checkDuplicate = function (obj, array) {
@@ -360,13 +365,43 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       }
 
       scope.controller.addBundleProduct = function(list){
-        console.log('ok')
         if(!scope.controller.product.children)
           scope.controller.product.children = [];
+                 
+        if(scope.controller.product.children.length==0 && !scope.controller.product.holder){
+          scope.controller.bundleHolderId = list.holder.obj.id;
+          scope.controller.bundleProductSearch();
+        }
 
         scope.controller.product.children.push(list);
       };
 
+      scope.controller.openBundleSelection = function(){
+        var searchQuery = '?use_case=2';  //must be packable
+        
+        if(scope.controller.product.holder)
+          scope.controller.bundleHolderId = scope.controller.product.holder.obj.id;
+        else if(!scope.controller.bundleHolderId)
+          scope.controller.bundleHolderId = '';
+        
+        if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
+          searchQuery += '&holder='+ scope.controller.bundleHolderId;
+        }
+
+        scope.controller.selectThings(2, 'product', searchQuery)
+      }
+
+      scope.controller.bundleProductSearch = function(){
+        var searchQuery = '?use_case=2';  //must be packable
+        if(typeof(scope.controller.tmp.searchQuery)=="string" && scope.controller.tmp.searchQuery != ''){
+          searchQuery += '&model__icontains='+ scope.controller.tmp.searchQuery;          
+        }
+        if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
+          searchQuery += '&holder='+ scope.controller.bundleHolderId;
+        }
+        scope.controller.search('product', searchQuery); 
+        scope.controller.tmp.searchD = true;
+      }
     },
     templateUrl: '/dist/js/app/directive/creatproduct.html'
   }

@@ -186,7 +186,7 @@
                     </div>
                   </div>
                   <div class="col-md-6" style="text-align:left"> 
-                    <button type="button" class="btn btn-round btn-success" ng-show="controller.product.is_bundle" ng-click="controller.selectThings(2, 'product', '?use_case=2')">
+                    <button type="button" class="btn btn-round btn-success" ng-show="controller.product.is_bundle" ng-click="controller.openBundleSelection()">
                       افزودن کالا به باندل
                       <i class="fa fa-plus"></i>
                     </button>
@@ -248,9 +248,9 @@
                   <div class="panel-body">
                     <form name="searchForm" role="form" novalidate>
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="controller.tmp.searchQuery" required>
+                            <input type="text" class="form-control" placeholder="جستجو در بین کالا ها" name="searchText" ng-model="controller.tmp.searchQuery" required>
                             <span class="input-group-btn">
-                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('product', '?is_bundle=False&parent_bundle=None&model__icontains=' + controller.tmp.searchQuery); controller.tmp.searchD = true">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.bundleProductSearch()">
                                 جستجو
                               </button>
                             </span>
