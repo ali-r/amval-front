@@ -262,20 +262,18 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   controller.setPurchaseReport = function(){
     controller.addOne.extra.ticket_type = "1";
     controller.addOne.extra.status__ne = "2";
-    delete controller.addOne.extra['status'];
     $('#ticket_type_report_field').prop('disabled', true);
-    $('#ticket_status_report_field').prop('disabled', true);
+    $('#ticket_status_finished').prop('disabled', true);
     
     controller.closeSelectionModal();
   }
 
   controller.clearPurchaseReport = function(){
     $('#ticket_type_report_field').prop('disabled', false);
-    $('#ticket_status_report_field').prop('disabled', false);
+    $('#ticket_status_finished').prop('disabled', false);
 
     delete controller.addOne.extra['status__ne'];
     delete controller.addOne.extra['ticket_type'];
-    delete controller.addOne.extra['status'];
     
     controller.deleteKey(controller.addOne.reportFields,'from_warehouse')
   }

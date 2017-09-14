@@ -35,11 +35,11 @@
       </div><!-- / from_warehouse filter -->
 
       <div title="فیلتر وضعیت تیکت" class="input-group report-field-option">
-        <select class="form-control" id="ticket_status_report_field" ng-model="ticket.addOne.reportFields.status" title="وضعیت تیکت">
+        <select class="form-control" ng-model="ticket.addOne.reportFields.status" title="وضعیت تیکت">
           <option value="">-- وضعیت تیکت --</option>
           <option value="0">درخواست شده</option>
           <option value="1">در حال پیگیری</option>
-          <option value="2">پایان یافته</option>
+          <option value="2" id="ticket_status_finished">پایان یافته</option>
         </select>
       </div><!-- / ticket status filter -->
 
