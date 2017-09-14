@@ -4614,7 +4614,7 @@ div#deleteModal {
     border-top-width: 2px;
 }
 .ticket-message-self{
-    background-color : #d9edf7 !important;
+    background-color : #d9edf7;
 }
 .message-list-container{
     max-height: 200px;
@@ -4694,4 +4694,7 @@ div#deleteModal {
 }
 .x_panel .x_panel{
     margin-bottom: 10px;
+}
+.ticket-message-attachment{
+    background: rgba(237, 239, 172, 0.50) !important;
 }

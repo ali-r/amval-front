@@ -270,12 +270,18 @@
             <hr>
             <h4>پیام ها</h4>
             <div class="message-list-container">
-              <div ng-class="{'ticket-message-self':msg.sender.id == userId}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
+              <div ng-class="{'ticket-message-self':msg.sender.id == userId , 'ticket-message-attachment': msg.attachments[0].type=='transaction'}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
                 <h4>
                   {{msg.sender.card_no | lengthLimit:20}}
                   <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
                 </h4>
-                <p> {{msg.text}} </p>
+                <p ng-if="msg.text"> {{msg.text}} </p>
+                <p ng-if="msg.attachments[0].type=='transaction'"> 
+                  <small>شناسه تراکنش پیوست شده:</small>
+                  <b ng-if="msg.attachments[0].data.unique_id != ''"> {{msg.attachments[0].data.unique_id}} </b>
+                  <b ng-if="msg.attachments[0].data.unique_id == ''"> -- بدون شناسه -- </b>
+                </p>
+                
               </div>
             </div>
             <br />

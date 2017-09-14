@@ -161,8 +161,6 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   }
 
   controller.closeModal = function(){
-    //log
-    console.log(controller.tmp)
     mainAsset.closeModal('#selectModal')
   }
 
