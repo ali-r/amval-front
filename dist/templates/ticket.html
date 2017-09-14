@@ -289,13 +289,22 @@
             <form name="messageForm" role="form" ng-show="editMode" novalidate ng-submit="!!ticket.tmp.text && ticket.tmp.text!='' && !sendingMessage">
               <div class="row">
                 <!-- for text message -->
-                <fieldset ng-if="!ticket.tmp.transaction"> 
+                <fieldset> 
                     <div class="col-md-9" ng-if="!ticket.tmp.transaction">
                       <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
                     </div>
+                    <div class="col-md-9" ng-if="ticket.tmp.transaction">
+                      <input type="text" readonly class="form-control" 
+                        ng-model="ticket.tmp.transaction.unique_id" placeholder="تراکنش بدون شناسه">
+                    </div>
                     <div class="col-md-1" >
-                      <i ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"  
-                      class="fa fa-paperclip fa-2x" ng-click="ticket.openSelectionModal(3,'transaction','unique_id')" ></i>
+                      <button ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
+                      ng-click="ticket.openSelectionModal(3,'transaction','unique_id')" class="btn btn-default btn-xs">
+                          <i class="fa fa-paperclip fa-2x" ></i>
+                      </button>
+                      <button ng-show="ticket.tmp.transaction" class="btn btn-danger" ng-click="ticket.deleteKey(ticket.tmp,'transaction')">
+                          <i class="fa fa-remove"></i>
+                      </button>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-warning" ng-click="ticket.addMessage()" 
@@ -305,30 +314,6 @@
                       <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
                     </div>
                 </fieldset>
-                
-                <!-- for attachment message -->
-                <fieldset ng-if="ticket.tmp.transaction">
-                  <div class="col-md-9" >
-                    <div class="input-group">
-                        <input type="text" readonly class="form-control" 
-                        ng-model="ticket.tmp.transaction.unique_id" placeholder="تراکنش بدون شناسه">
-                        <span class="input-group-btn">
-                          <button class="btn btn-danger btn-beside-input" ng-click="ticket.deleteKey(ticket.tmp,'transaction')">
-                            <i class="fa fa-remove"></i>
-                          </button>
-                        </span>
-                    </div>
-                  </div>
-                  <div class="col-md-1" >
-                  </div>
-                  <div class="col-md-2">
-                    <button type="submit" class="btn btn-warning" ng-click="ticket.addMessage()" 
-                    ng-hide="sendingMessage" ng-disabled="(!ticket.tmp.text || ticket.tmp.text=='') && (!ticket.tmp.transaction)">
-                      ارسال
-                    </button>
-                    <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
-                  </div>
-              </fieldset>
               </div>
             </form>
             
@@ -345,7 +330,7 @@
 
 <!-- Select product & to_warehouse & attachment transaction Modal -->
 <div class="modal fade" id="selectModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="pull-left">
