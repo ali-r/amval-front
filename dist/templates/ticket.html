@@ -135,7 +135,7 @@
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelectionModal(0,'product','use_case=1&model')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelectionModal(0,'product','model')">انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
                         ng-show="ticket.obj.product && ticket.obj.product!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'product')"> 
@@ -335,7 +335,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=1&model__icontains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
+                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?model__icontains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
                                         </span>
                                       </div>
                                     </form>
