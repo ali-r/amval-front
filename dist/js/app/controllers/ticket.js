@@ -45,8 +45,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       en : 'transaction'
     },
     searchAt : {
-      fa : 'تراکنش',
-      en : 'transaction'
+      fa : 'شناسه',
+      en : 'unique_id'
     },
     table : [
       {fa:'مدل کالا',en:'product',filter:'productName'},
@@ -158,6 +158,12 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     controller.obj[field_] = item_;
     mainAsset.closeModal('#selectModal');
 
+  }
+
+  controller.closeModal = function(){
+    //log
+    console.log(controller.tmp)
+    mainAsset.closeModal('#selectModal')
   }
 
   controller.setSourceType = function(){
