@@ -359,7 +359,7 @@
             {{node.description | lengthLimit:40}}
           </div>
           <div class="col-md-2">
-            <a class="pull-left" title="انتخاب" href ng-click="controller.selectTarget(node.id, node.title, 'title', 'subgroup', 'product');loadMeta(node.id)" href>
+            <a class="pull-left" title="انتخاب" href ng-click="controller.selectTarget(node, controller.product, 'subgroup', 0);loadMeta(node.id)" href>
               <i class="fa fa-check-square-o fa-lg"></i>
             </a>
           </div>
