@@ -365,7 +365,6 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       }
 
       scope.controller.addBundleProduct = function(list){
-        console.log(list.holder);
         if(!scope.controller.product.children)
           scope.controller.product.children = [];
                  
