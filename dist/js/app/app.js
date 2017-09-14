@@ -364,3 +364,15 @@ app.filter('useFilter', function($filter) {
         
     };
 });
+
+app.filter('transactionIdDisplay', function() {
+  return function(input) {
+    var output;
+    if (!input || input=='') {
+      output = '− بدون شناسه −'
+    }else{
+      output = input;
+    }
+    return output;
+  }
+});
