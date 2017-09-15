@@ -101,6 +101,7 @@
           <thead class="obj-default-border">
             <tr>
               <th>#</th>
+              <th> شناسه </th>              
               <th>مدل کالا</th>
               <th>مبدا</th>
               <th>مقصد</th>
@@ -113,6 +114,7 @@
           <tbody ng-hide="load">
             <tr ng-repeat = "list in transaction.note" ng-class="{'obj-info-border':list.transaction_type==0, 'obj-danger-border':list.transaction_type==1, 'obj-success-border':list.transaction_type==2}">
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
+              <td>{{list.unique_id | transactionIdDisplay | pNumber}}</td>              
               <td>{{list.product.model | lengthLimit:30}}</td>
               <td>{{list.source | userOrWarehouseName| lengthLimit:30}}</td>
               <td>{{list.destination | userOrWarehouseName | lengthLimit:30}}</td>
@@ -161,6 +163,14 @@
             <button type="submit" hidden></button>
             <div class="row">
               <fieldset ng-disabled ="!checkWrite('transaction')">
+                <div ng-show="editMode" class="col-sm-6">
+                  <label >شناسه:</label>
+                  <p class="data-show" style="padding:5px;">
+                      {{ transaction.obj.unique_id | transactionIdDisplay | pNumber }}                      
+                  </p>
+                </div>
+                <div class="clearfix" ng-show="editMode"></div>
+                <hr ng-show="editMode">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>کالا*</label>
