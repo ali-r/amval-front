@@ -19,21 +19,25 @@
                         {{controller.transactionStat.unique_id | pNumber}}
                     </h5>
                 </div>
-                <div class="clearfix"></div>
-                <hr>
-
-                <div class="col-sm-6">
-                    <label>کالا</label>
-                    <h5 class="transaction-stat">
-                        {{controller.transactionStat.product.model | lengthLimit:30}}
-                        {{" "}}
-                        ({{controller.transactionStat.product.serial_number}})
-                    </h5>
-                </div>
                 <div class="col-sm-6">
                     <label>تاریخ تراکنش</label>
                     <h5 class="transaction-stat">
                         {{controller.transactionStat.datetime | jalaliDate | pNumber}}
+                    </h5>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+
+                <div class="col-sm-6">
+                    <label>مدل کالا</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.product.model | lengthLimit:30}}
+                    </h5>
+                </div>
+                <div class="col-sm-6">
+                    <label>سریال کالا</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.product.serial_number}}
                     </h5>
                 </div>
                 <div class="clearfix"></div>
