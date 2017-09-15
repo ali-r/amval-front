@@ -4,7 +4,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   var controller = this;
   var apiName = 'transaction';
   controller.searchObject = [
-    {'fname' : 'شناسه منحصربفرد', 'field' : 'unique_id'}
+    {'fname' : 'شناسه', 'field' : 'unique_id'}
   ];
   controller.selectProductObj = {
     title : { fa : 'کالا', en : 'product'},
