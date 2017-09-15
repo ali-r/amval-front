@@ -102,7 +102,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       controller.selectBuyer = function(){
-        controller.tmp.searchField = '';
+        controller.tmp.searchQuery = '';
         $scope.selectStage = 1;
         controller.openModal('select');
         if(controller.tmp.searchField==undefined){controller.tmp.searchField = "";}
@@ -111,7 +111,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       };
 
       controller.selectSeller = function(){
-        controller.tmp.searchField = '';
+        controller.tmp.searchQuery = '';
         $scope.selectStage = 2;
         controller.openModal('select');
         if(controller.tmp.searchField==undefined){controller.tmp.searchField = "";}
@@ -124,7 +124,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       };
 
       controller.selectProduct = function(){
-        controller.tmp.searchField = '';
+        controller.tmp.searchQuery = '';
         $scope.selectStage = 3;
         controller.openModal('select');
         controller.search('product','?use_case=0');
