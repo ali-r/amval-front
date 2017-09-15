@@ -471,3 +471,34 @@ app.directive('escEvent', function () {
     });
   };
 });
+
+app.directive('transactionStat', function(mainAsset, requestHelper) {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      controller : '='
+    },
+    link : function(scope, element, attr){
+
+      scope.controller.getTransactionStat = function(id){
+        scope.$parent.loadModal = true;
+        var getUrl = mainAsset.getUrl() + 'transaction/' + id
+        requestHelper.get(getUrl, scope.$parent, function(response){
+          scope.controller.transactionStat = response.data;
+          console.log(scope.controller.transactionStat)
+          scope.$parent.loadModal = false;
+        });
+
+      }
+
+      scope.controller.openTransactionStatModal = function(t){
+        mainAsset.openModal('#transactionStatModal');
+        scope.controller.getTransactionStat(t.id);
+      }
+
+    },
+    templateUrl: '/dist/js/app/directive/transactionStat.html'
+  }
+});
+

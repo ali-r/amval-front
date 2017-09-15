@@ -1,0 +1,87 @@
+<!-- transaction status Modal -->
+<div class="modal fade" id="transactionStatModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="pull-left">
+                <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+              </div>
+              <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
+                <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+              </div>
+              <h3 class="modal-title" ng-hide="editMode">مشاهده وضعیت تراکنش</h3>
+            </div>
+            <div class="modal-body">
+              <div class="row" ng-hide="$parent.loadModal">
+                <div class="col-sm-6">
+                    <label>شناسه</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.unique_id | pNumber}}
+                    </h5>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+
+                <div class="col-sm-6">
+                    <label>کالا</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.product.model | lengthLimit:30}}
+                        {{" "}}
+                        ({{controller.transactionStat.product.serial_number}})
+                    </h5>
+                </div>
+                <div class="col-sm-6">
+                    <label>تاریخ تراکنش</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.datetime | jalaliDate | pNumber}}
+                    </h5>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+
+                <div class="col-sm-6">
+                    <label>مقصد</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.destination | userOrWarehouseName | lengthLimit:30}}
+                    </h5>
+                </div>
+                
+                <div class="col-sm-6">
+                    <label>مبدا</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.source | userOrWarehouseName | lengthLimit:30}}
+                    </h5>
+                </div>                
+                <div class="clearfix"></div>
+                <hr>
+
+                <div class="col-sm-6">
+                    <label>نوع تراکنش</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.transaction_type | transactionType}}
+                    </h5>
+                </div>
+                    
+                <div class="col-sm-6">
+                    <label>علت تراکنش</label>
+                    <h5 class="transaction-stat">
+                        {{controller.transactionStat.reason | reasonType}}
+                    </h5>
+                </div>
+                
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-sm-12">
+                    <label>توضیحات تراکنش</label>
+                    <p class="transaction-stat">
+                        {{controller.transactionStat.details}}
+                    </p>
+                </div>
+               
+              </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->

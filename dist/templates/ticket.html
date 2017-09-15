@@ -279,8 +279,10 @@
                 <p ng-if="msg.text"> {{msg.text}} </p>
                 <p ng-if="msg.attachments[0].type=='transaction'"> 
                   <small>شناسه تراکنش پیوست شده:</small>
-                  <b ng-if="msg.attachments[0].data.unique_id != ''"> {{msg.attachments[0].data.unique_id}} </b>
-                  <b ng-if="msg.attachments[0].data.unique_id == ''"> -- بدون شناسه -- </b>
+                  <a href ng-click="ticket.openTransactionStatModal(msg.attachments[0].data)">
+                    <b ng-if="msg.attachments[0].data.unique_id != ''"> {{msg.attachments[0].data.unique_id}} </b>
+                    <b ng-if="msg.attachments[0].data.unique_id == ''"> -- بدون شناسه -- </b>
+                  </a>
                 </p>
                 
               </div>
@@ -458,3 +460,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<transaction-stat controller = "ticket"></transaction-stat>
