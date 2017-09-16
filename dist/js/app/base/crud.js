@@ -8,7 +8,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     scope.reset = function() {
       
       if(!extraReset){
-        ext = function(){return true;}
+        extraReset = function(){return true;}
       }
 
       scope.load = false;
