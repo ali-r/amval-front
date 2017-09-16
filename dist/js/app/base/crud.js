@@ -1,9 +1,16 @@
 app.service('crud', function($localStorage,requestHelper, mainAsset) {
   crudService = this
 
-  this.initModals = function(scope, controller, apiName, variables) {
+  this.initModals = function(scope, controller, apiName, variables, extraReset) {
+    
     scope.meta = {};
+
     scope.reset = function() {
+      
+      if(!extraReset){
+        ext = function(){return true;}
+      }
+
       scope.load = false;
       scope.loadModal = false;
       scope.loadSearch = false;
@@ -15,9 +22,11 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
       controller.obj = {};
       controller.tmp = {};
+      extraReset();
       for (variable in variables)
         variable = "";
     }
+
     scope.reset();
 
     scope.openModal = function () {
