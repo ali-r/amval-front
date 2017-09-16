@@ -8,25 +8,30 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     {'fname' : 'عنوان', 'field' : 'title'}
   ];
 
-  controller.selectGroupObj = {
-    title : { fa : 'پدر', en : 'parent'},
-    searchItem : {
-      fa : 'گروه',
-      en : 'group'
-    },
-    searchAt : {
-      fa : 'عنوان',
-      en : 'title'
-    },
-    table : [
-      {fa:'عنوان',en:'title'},
-      {fa:'توضیحات',en:'description'}
-    ],
-    searchFilter:{
-      key: 'parent_for',
-      value: ''
-    }
-  };
+  controller.resetExt = function(){
+    
+    controller.selectGroupObj = {
+      title : { fa : 'پدر', en : 'parent'},
+      searchItem : {
+        fa : 'گروه',
+        en : 'group'
+      },
+      searchAt : {
+        fa : 'عنوان',
+        en : 'title'
+      },
+      table : [
+        {fa:'عنوان',en:'title'},
+        {fa:'توضیحات',en:'description'}
+      ],
+      searchFilter:{
+        key: 'depth__lt',
+        value: '6'
+      }
+    };
+  }
+
+  controller.resetExt();
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
@@ -42,6 +47,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   controller.getConfig = function(obj){
+    controller.selectGroupObj.searchFilter.key = "parent_for"
     controller.selectGroupObj.searchFilter.value = obj.id
     return obj;
   };
@@ -69,7 +75,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     delete obj.parent;
   }
 
-  crud.initModals($scope, controller, apiName);
+  crud.initModals($scope, controller, apiName, [], controller.resetExt);
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
 
   this.deleteMeta = function(index){
