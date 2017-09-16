@@ -243,12 +243,21 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       }
       scope.loadSearch = true;
       var searchUrl = mainAsset.getUrl() + cat;
-
-      if(field.indexOf('?') == -1 && field != ''){
-        searchUrl += '?' + field + '__icontains=' + controller.tmp.searchQuery + filterSection;
-      }else{
-        searchUrl += field;
+      if(field){
+        if(field.indexOf('?') == -1 && field != ''){
+          searchUrl += '?' + field  + filterSection;
+        }else{
+          searchUrl += field + filterSection;
+        }
       }
+      else{
+        searchUrl += '?' + filterSection;
+      }
+
+      if(controller.tmp.searchQuery && controller.tmp.searchQuery!=''){
+        searchUrl += '&text_search='+ controller.tmp.searchQuery;        
+      }
+      
       console.log(searchUrl);
       requestHelper.get(
         searchUrl, scope,

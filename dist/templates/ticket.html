@@ -128,7 +128,7 @@
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelectionModal(0,'product','model')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelectionModal(0,'product','use_case=1')">انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
                         ng-show="ticket.obj.product && ticket.obj.product!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'product')"> 
@@ -225,7 +225,7 @@
                         <button type="button" class="btn btn-info btn-beside-input"
                         ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource"  
                         ng-hide="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
-                        ng-click="ticket.openSelectionModal(1,'warehouse','title')">
+                        ng-click="ticket.openSelectionModal(1,'warehouse','')">
                           انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
                         ng-show="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
@@ -326,9 +326,13 @@
 
                                     <form name="selectProductForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" placeholder="مدل کالا را وارد کنید" ng-model="ticket.tmp.searchQuery" required>
+                                        <input type="text" class="form-control" name="searchText" placeholder="جستجوی فیلدهای متنی" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
+<<<<<<< HEAD
                                           <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?model__icontains=' + ticket.tmp.searchQuery)">جستجوی کالا</button>
+=======
+                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','?use_case=1')">جستجوی کالا</button>
+>>>>>>> feature/fullTextSearch
                                         </span>
                                       </div>
                                     </form>
@@ -375,9 +379,9 @@
 
                                     <form name="selectWarehouseForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" placeholder="نام انبار" ng-model="ticket.tmp.searchQuery" required>
+                                        <input type="text" class="form-control" name="searchText" placeholder="جستجوی فیلدهای متنی" ng-model="ticket.tmp.searchQuery" required>
                                         <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse','title')">جستجوی انبار</button>
+                                          <button type="submit" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse')">جستجوی انبار</button>
                                         </span>
                                       </div>
                                     </form>

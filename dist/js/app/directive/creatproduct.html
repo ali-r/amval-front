@@ -62,7 +62,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="controller.product.producer.brand_name" disabled required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!$parent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(4, 'producer', 'brand_name')">انتخاب</button>
+                          <button type="button" ng-disabled="!$parent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(4, 'producer')">انتخاب</button>
                         </span>
                       </div>
                     </div>
@@ -108,7 +108,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="controller.product.guarantor.company_name" disabled required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!$parent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(1, 'guarantor', 'company_name')">انتخاب</button>
+                          <button type="button" ng-disabled="!$parent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(1, 'guarantor')">انتخاب</button>
                         </span>
                       </div>
                     </div>
@@ -248,9 +248,9 @@
                   <div class="panel-body">
                     <form name="searchForm" role="form" novalidate>
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جستجو در بین کالا ها" name="searchText" ng-model="controller.tmp.searchQuery" required>
+                            <input type="text" class="form-control" placeholder="جستجوی فیلدهای متنی" name="searchText" ng-model="controller.tmp.searchQuery" required>
                             <span class="input-group-btn">
-                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.bundleProductSearch()">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('product', '?is_bundle=False&parent_bundle=None'); controller.tmp.searchD = true">
                                 جستجو
                               </button>
                             </span>
@@ -316,9 +316,9 @@
                   <div class="panel-body">
                     <form name="searchForm" role="form" novalidate>
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جستجو در بین گروه ها" name="searchText" ng-model="controller.tmp.searchQuery" required>
+                            <input type="text" class="form-control" placeholder="جستجوی فیلدهای متنی" name="searchText" ng-model="controller.tmp.searchQuery" required>
                             <span class="input-group-btn">
-                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('group', 'title'); controller.tmp.searchD = true">
+                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="controller.search('group'); controller.tmp.searchD = true">
                                 جستجو
                               </button>
                             </span>
