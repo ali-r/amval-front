@@ -284,7 +284,7 @@
                                 <div class="panel-body">
                                     <form name="selectBuyerForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery" required placeholder="جستجوی فیلدهای متنی">
+                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery"  placeholder="جستجو">
                                         <span class="input-group-btn">
                                           <button type="submit" ng-disabled = "selectBuyerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('user')">جستجوی خریدار</button>
                                         </span>
@@ -331,7 +331,7 @@
                                 <div class="panel-body">
                                     <form name="selectSellerForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery" required placeholder="جستجوی فیلدهای متنی">
+                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery"  placeholder="جستجو">
                                         <span class="input-group-btn">
                                           <button type="submit" ng-disabled = "selectSellerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('seller')">جستجوی فروشنده</button>
                                         </span>
@@ -391,7 +391,7 @@
 
                                     <form name="selectProductForm" role="form" novalidate>
                                       <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" placeholder="جستجوی فیلدهای متنی" ng-model="invoice.tmp.searchQuery" required>
+                                        <input type="text" class="form-control" name="searchText" placeholder="جستجو" ng-model="invoice.tmp.searchQuery" >
                                         <span class="input-group-btn">
                                           <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','?use_case=0')">جستجوی کالا</button>
                                         </span>
