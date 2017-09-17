@@ -18,8 +18,10 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
   controller.objConfig = function (obj) {
     sendCopyObj = angular.copy(obj);
 
-    if(!sendCopyObj.website_address)
+    if(!sendCopyObj.website_address || sendCopyObj.website_address=="")
       delete sendCopyObj.website_address;
+    else if(sendCopyObj.website_address.indexOf('http')==-1)
+      sendCopyObj.website_address = 'http://' + sendCopyObj.website_address;
 
     return sendCopyObj;
   };
