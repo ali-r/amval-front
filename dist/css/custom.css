@@ -4704,3 +4704,6 @@ div#deleteModal {
     word-break: break-all;
     margin: 8px 7px;
 }
+.icon-padding{
+    padding: 3px;
+}

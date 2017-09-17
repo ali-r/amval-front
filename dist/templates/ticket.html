@@ -271,11 +271,17 @@
             <h4>پیام ها</h4>
             <div class="message-list-container">
               <div ng-class="{'ticket-message-self':msg.sender.id == userId}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
-                <h4>
-                  {{msg.sender.card_no | lengthLimit:20}}
-                  <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
-                  <span ng-if="msg.attachments[0].type=='transaction'" class="label label-warning" style="float:left">تراکنش</span>
-                </h4>
+                <div class="row">
+                  <h4 class="col col-sm-6">
+                    {{msg.sender.card_no | lengthLimit:20}}
+                    <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
+                    
+                  </h4>
+                  <h2 class="col col-sm-2 col-sm-pull-4">
+                    <a ng-click="ticket.openTransactionStatModal(msg.attachments[0].data)" ng-if="msg.attachments[0].type=='transaction'" class="label label-warning" >تراکنش</a>
+                  </h2>
+                </div>
+                
                 <p ng-if="msg.text"> {{msg.text}} </p>
                 <p ng-if="msg.attachments[0].type=='transaction'"> 
                   <small>شناسه تراکنش پیوست شده:</small>
@@ -298,13 +304,13 @@
                       <input type="text" readonly class="form-control" 
                         ng-model="ticket.tmp.transaction.unique_id" placeholder="تراکنش بدون شناسه">
                     </div>
-                    <div class="col-md-1" >
-                      <button ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
+                    <div class="col-md-1" style="padding-left:0px;padding-right:3px;">
+                      <button type="button" ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
                       ng-click="ticket.openSelectionModal(3,'transaction','unique_id')" 
                       class="btn btn-default btn-xs" title="پیوست تراکنش"> 
-                          <i class="fa fa-paperclip fa-2x" ></i>
+                          <i class="fa fa-paperclip fa-2x icon-padding" ></i>
                       </button>
-                      <button ng-show="ticket.tmp.transaction" class="btn btn-danger" ng-click="ticket.deleteKey(ticket.tmp,'transaction')" title="حذف پیوست">
+                      <button type="button" ng-show="ticket.tmp.transaction && !sendingMessage" class="btn btn-danger" ng-click="ticket.deleteKey(ticket.tmp,'transaction')" title="حذف پیوست">
                           <i class="fa fa-remove"></i>
                       </button>
                     </div>
