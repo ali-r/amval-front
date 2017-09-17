@@ -228,6 +228,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         scope.makeDuplicate = false;
         scope.controller.product = {};
         scope.controller.tmp.meta = {};
+        scope.controller.bundleHolderId = '';
       }
 
       scope.setGroupStage = function(){
@@ -322,6 +323,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
       scope.closeModal = function(){
         scope.controller.tmp = {};
+        scope.controller.bundleHolderId = '';
         scope.controller.tmp.formShow = true;
         $('#productModal').modal('hide');
         scope.controller.product = {};
