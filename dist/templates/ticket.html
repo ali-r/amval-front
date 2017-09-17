@@ -22,10 +22,10 @@
       <adm-dtp inputplaceholder="پایان بازه زمانی" ng-model="ticket.addOne.extra.datetime__lte" title="پایان بازه زمانی" options='{format: "hh:mm YYYY-MM-DD",dtpType : "date&time"}'></adm-dtp>
     </div>
 
-    <div id="report-field" style="display:none" class="report-field">
-      <label class="report-label"> درخواست خرید کالا از انبار:</label>
-      <div title="درخواست خرید کالا از انبار" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب انبار مبدا" ng-model="ticket.addOne.reportFields.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','title')">
+    <div id="report-field" style="display:none" class="report-field" >
+      <label class="report-label" ng-if="ticket.centralWarehouse"> درخواست خرید کالا از انبار:</label>
+      <div ng-if="ticket.centralWarehouse" title="درخواست خرید کالا از انبار" class="input-group report-field-option">
+        <input type="text" class="form-control" placeholder="انتخاب انبار مبدا" ng-model="ticket.addOne.reportFields.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="ticket.addOne.reportFields.from_warehouse"
             ng-click="ticket.clearPurchaseReport()">
