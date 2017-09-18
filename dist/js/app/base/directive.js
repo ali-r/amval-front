@@ -482,12 +482,12 @@ app.directive('transactionStat', function(mainAsset, requestHelper) {
     link : function(scope, element, attr){
 
       scope.controller.getTransactionStat = function(id){
-        scope.$parent.loadModal = true;
+        scope.$parent.loadingTransactionData = true;
         var getUrl = mainAsset.getUrl() + 'transaction/' + id
         requestHelper.get(getUrl, scope.$parent, function(response){
           scope.controller.transactionStat = response.data;
           console.log(scope.controller.transactionStat)
-          scope.$parent.loadModal = false;
+          scope.$parent.loadingTransactionData = false;
         });
 
       }
