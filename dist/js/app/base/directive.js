@@ -395,9 +395,6 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
       scope.controller.bundleProductSearch = function(){
         var searchQuery = '?use_case=2';  //must be packable
-        if(typeof(scope.controller.tmp.searchQuery)=="string" && scope.controller.tmp.searchQuery != ''){
-          searchQuery += '&model__icontains='+ scope.controller.tmp.searchQuery;          
-        }
         if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
           searchQuery += '&holder='+ scope.controller.bundleHolderId;
         }
