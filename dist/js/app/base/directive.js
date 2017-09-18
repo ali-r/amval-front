@@ -93,12 +93,11 @@ app.directive('reqPagination', function() {
           }
           safeApply(scope.itempage);
         }
-        
         if(paginationConfig.url){
           paginationConfig.getFunc(scope.itempage);
         }else{
           scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
-          scope.controller.getData();
+          scope.controller.getData('', scope.$parent.getUrl);
         }
 
       };
