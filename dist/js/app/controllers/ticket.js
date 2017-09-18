@@ -93,7 +93,12 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   }
 
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-  controller.relateWarehouseId = $routeParams.id;
+  if($routeParams.id){
+    controller.relateWarehouseId = $routeParams.id;
+  }
+  else{
+    controller.relateWarehouseId = $localStorage.assetData.warehouse_under_management.id
+  }
   $scope.userId = $localStorage.assetData.id;
   controller.centralWarehouse = false;
   
@@ -175,7 +180,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
           controller.allowedSource = true;
           controller.centralWarehouse = true;
         }
-    },true);
+      },true);
   }
   controller.setSourceType();
 
