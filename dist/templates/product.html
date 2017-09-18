@@ -14,7 +14,7 @@
     <div id="report-field" style="display:none" class="report-field">
       
       <div title="فیلتر گروه" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب گروه" ng-model="product.addOne.reportFields.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group&title')" readonly>
+        <input type="text" class="form-control" placeholder="انتخاب گروه" ng-model="product.addOne.reportFields.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group')" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.group"
             ng-click="product.deleteKey(product.addOne.reportFields,'group')">
@@ -24,7 +24,7 @@
       </div><!-- / group filter -->
       
       <div title="فیلتر شخص نگهدارنده" class="input-group report-field-option">
-        <input type="text" class="form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.reportFields.holder.last_name" ng-click="product.openSelectionModal(1,'user','last_name')" readonly>
+        <input type="text" class="form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.reportFields.holder.last_name" ng-click="product.openSelectionModal(1,'user','')" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.holder"
             ng-click="product.deleteKey(product.addOne.reportFields,'holder')">
@@ -34,7 +34,7 @@
       </div><!-- / holder filter -->
       
       <div title="فیلتر تولید کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.reportFields.producer.brand_name" readonly ng-click="product.openSelectionModal(2,'producer','brand_name')">
+        <input type="text" class="form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.reportFields.producer.brand_name" readonly ng-click="product.openSelectionModal(2,'producer','')">
         <span class="input-group-btn">
         <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.producer"
           ng-click="product.deleteKey(product.addOne.reportFields,'producer')">
@@ -44,7 +44,7 @@
       </div><!-- / producer filter -->
 
       <div title="فیلتر فروشنده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.reportFields.seller.last_name" readonly ng-click="product.openSelectionModal(3,'seller','last_name')">
+        <input type="text" class="form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.reportFields.seller.last_name" readonly ng-click="product.openSelectionModal(3,'seller','')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.seller"
           ng-click="product.deleteKey(product.addOne.reportFields,'seller')">
@@ -54,7 +54,7 @@
       </div><!-- / seller filter -->
   
       <div title="فیلتر گارانتی کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.reportFields.guarantor.company_name" readonly ng-click="product.openSelectionModal(4,'guarantor','company_name')">
+        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.reportFields.guarantor.company_name" readonly ng-click="product.openSelectionModal(4,'guarantor','')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.guarantor"        ng-click="product.deleteKey(product.addOne.reportFields,'guarantor')">
             <i class="fa fa-remove"></i>  

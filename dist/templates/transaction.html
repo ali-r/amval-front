@@ -24,7 +24,7 @@
     <div id="report-field" style="display:none" class="report-field">
       
       <div title="فیلتر براساس کالا" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.reportFields.product.model" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1&model')">
+        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.reportFields.product.model" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.product"
           ng-click="transaction.deleteKey(transaction.addOne.reportFields,'product')">
@@ -40,10 +40,10 @@
         </a>
         <ul id="dropdown-filter-source" class="dropdown-menu dropdown-menu-right" role="menu">
           <li>
-            <a ng-click="transaction.openSelectionModal(1,'user','last_name');transaction.addOne.reportFields.source_type='user'" href>کاربر</a>
+            <a ng-click="transaction.openSelectionModal(1,'user','');transaction.addOne.reportFields.source_type='user'" href>کاربر</a>
           </li>
           <li>
-            <a ng-click="transaction.openSelectionModal(2,'warehouse','model');transaction.addOne.reportFields.source_type='warehouse'" href>انبار</a>
+            <a ng-click="transaction.openSelectionModal(2,'warehouse','');transaction.addOne.reportFields.source_type='warehouse'" href>انبار</a>
           </li>
         </ul>
         <span class="input-group-btn">
@@ -61,10 +61,10 @@
         </a>
         <ul id="dropdown-filter-destination" class="dropdown-menu dropdown-menu-right" role="menu">
           <li>
-            <a ng-click="transaction.openSelectionModal(3,'user','last_name');transaction.addOne.reportFields.destination_type='user'" href>کاربر</a>
+            <a ng-click="transaction.openSelectionModal(3,'user','');transaction.addOne.reportFields.destination_type='user'" href>کاربر</a>
           </li>
           <li>
-            <a ng-click="transaction.openSelectionModal(4,'warehouse','model');transaction.addOne.reportFields.destination_type='warehouse'" href>انبار</a>
+            <a ng-click="transaction.openSelectionModal(4,'warehouse','');transaction.addOne.reportFields.destination_type='warehouse'" href>انبار</a>
           </li>
         </ul>
         <span class="input-group-btn">
@@ -76,7 +76,7 @@
       </div><!-- / destination filter -->
 
       <div title="فیلتر براساس اعمال کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب اعمال کننده تراکنش" ng-model="transaction.addOne.reportFields.auth_by.last_name" readonly ng-click="transaction.openSelectionModal(5,'user','last_name')">
+        <input type="text" class="form-control" placeholder="انتخاب اعمال کننده تراکنش" ng-model="transaction.addOne.reportFields.auth_by.last_name" readonly ng-click="transaction.openSelectionModal(5,'user','')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.auth_by"
           ng-click="transaction.deleteKey(transaction.addOne.reportFields,'auth_by')">
@@ -292,11 +292,11 @@
                 </div>
               </div>
               <div class="panel-body">
-                <form name="searchForm" role="form" novalidate>
+                <form name="searchForm" role="form" novalidate ng-submit="transaction.search('product', '?use_case=1')">
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="transaction.tmp.searchQuery" >
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('product', '?use_case=1')">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input">
                             جستجو
                           </button>
                         </span>
@@ -361,11 +361,11 @@
                 </div>
               </div>
               <div class="panel-body">
-                <form name="searchForm" role="form" novalidate>
+                <form name="searchForm" role="form" novalidate ng-submit="transaction.search('user')">
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="transaction.tmp.searchQuery" >
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('user')">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input">
                             جستجو
                           </button>
                         </span>
@@ -423,11 +423,11 @@
                 </div>
               </div>
               <div class="panel-body">
-                <form name="searchForm" role="form" novalidate>
+                <form name="searchForm" role="form" novalidate ng-submit="transaction.search('warehouse')">
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="transaction.tmp.searchQuery" >
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="transaction.search('warehouse')">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input">
                             جستجو
                           </button>
                         </span>
