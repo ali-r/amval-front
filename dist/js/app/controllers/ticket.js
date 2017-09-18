@@ -45,10 +45,11 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       en : 'transaction'
     },
     searchAt : {
-      fa : 'تراکنش',
-      en : 'transaction'
+      fa : 'شناسه',
+      en : 'unique_id'
     },
     table : [
+      {fa:'شناسه',en:'unique_id'},      
       {fa:'مدل کالا',en:'product',filter:'productName'},
       {fa:'مبدا',en:'source',filter:'userOrWarehouseName'},
       {fa:'مقصد',en:'destination',filter:'userOrWarehouseName'},
@@ -166,6 +167,10 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   }
 
+  controller.closeModal = function(){
+    mainAsset.closeModal('#selectModal')
+  }
+
   controller.setSourceType = function(){
     var url = assetPanelData.serverUrl + 'warehouse/'+controller.relateWarehouseId;
     requestHelper.get(
@@ -186,9 +191,26 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   controller.addMessage = function(){
     var url = assetPanelData.serverUrl + apiName+'/' + controller.obj.id + '/message';
-    var sendObj = {
-      text : controller.tmp.text
-    };
+    var sendObj={};
+    if(controller.tmp.text && controller.tmp.text!=""){
+      sendObj['text'] = controller.tmp.text;
+    }
+    else if(controller.tmp.transaction){
+      sendObj['attachments'] = [
+        {
+          type: 'transaction',
+          data: controller.tmp.transaction.id
+        }
+      ]
+    }
+    else{
+      new PNotify({
+        title: 'خطا',
+        text: 'پیام باید حاوی متن بوده یا یک تراکنش به آن ضمبمه شده باشد.',
+        type: 'error'
+      }); 
+      return;
+    }
     $scope.sendingMessage = true;
     var responseFunction;
     if(controller.obj.status == 2){
@@ -196,6 +218,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
         controller.obj = response.data;
         console.log(response.data);
         delete controller.tmp['text'];
+        delete controller.tmp['transaction'];        
         setTimeout(function () {
           $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
         },500);
@@ -208,6 +231,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
         controller.obj = response.data;
         console.log(response.data);
         delete controller.tmp['text'];
+        delete controller.tmp['transaction'];        
         setTimeout(function () {
           $('.message-list-container')[0].scrollTop = $('.message-list-container')[0].scrollHeight;
         },500);

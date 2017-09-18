@@ -4612,7 +4612,7 @@ div#deleteModal {
     border-top-width: 2px;
 }
 .ticket-message-self{
-    background-color : #d9edf7 !important;
+    background-color : #d9edf7;
 }
 .message-list-container{
     max-height: 200px;
@@ -4738,4 +4738,15 @@ ol.tree-chd li:after {
     right: -13px;
     position: absolute;
     top: 0
+}
+.transaction-stat{
+    padding: 10px 10px;
+    background-color: #f5f5f5;
+    font-size: 1em;
+    border: 1px solid #f3f3f3;
+    word-break: break-all;
+    margin: 8px 7px;
+}
+.icon-padding{
+    padding: 3px;
 }

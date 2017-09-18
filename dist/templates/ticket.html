@@ -264,29 +264,57 @@
             <h4>پیام ها</h4>
             <div class="message-list-container">
               <div ng-class="{'ticket-message-self':msg.sender.id == userId}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
-                <h4>
-                  {{msg.sender.card_no | lengthLimit:20}}
-                  <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
-                </h4>
-                <p> {{msg.text}} </p>
+                <div class="row">
+                  <h4 class="col col-sm-6">
+                    {{msg.sender.card_no | lengthLimit:20}}
+                    <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
+                    
+                  </h4>
+                  <h2 class="col col-sm-2 col-sm-pull-4">
+                    <a ng-click="ticket.openTransactionStatModal(msg.attachments[0].data)" ng-if="msg.attachments[0].type=='transaction'" class="label label-warning" >تراکنش</a>
+                  </h2>
+                </div>
+                
+                <p ng-if="msg.text"> {{msg.text}} </p>
+                <p ng-if="msg.attachments[0].type=='transaction'"> 
+                  <small>شناسه تراکنش پیوست شده:</small>
+                  <a href ng-click="ticket.openTransactionStatModal(msg.attachments[0].data)">
+                    <b ng-if="msg.attachments[0].data.unique_id != ''"> {{msg.attachments[0].data.unique_id}} </b>
+                    <b ng-if="msg.attachments[0].data.unique_id == ''"> -- بدون شناسه -- </b>
+                  </a>
+                </p>
+                
               </div>
             </div>
             <br />
             <form name="messageForm" role="form" ng-show="editMode" novalidate ng-submit="!!ticket.tmp.text && ticket.tmp.text!='' && !sendingMessage">
               <div class="row">
-                <fieldset>
-                    <div class="col-md-10">
-                        <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control" required>
-                      </div>
-                      <div class="col-md-2">
-                        <button type="submit" class="btn btn-warning" ng-click="ticket.addMessage()" 
-                        ng-hide="sendingMessage" ng-disabled="!ticket.tmp.text || ticket.tmp.text=='' || sendingMessage">
-                          ارسال
-                        </button>
-                        <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
-                      </div>
+                <fieldset> 
+                    <div class="col-md-9" ng-if="!ticket.tmp.transaction">
+                      <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
+                    </div>
+                    <div class="col-md-9" ng-if="ticket.tmp.transaction">
+                      <input type="text" readonly class="form-control" 
+                        ng-model="ticket.tmp.transaction.unique_id" placeholder="تراکنش بدون شناسه">
+                    </div>
+                    <div class="col-md-1" style="padding-left:0px;padding-right:3px;">
+                      <button type="button" ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
+                      ng-click="ticket.openSelectionModal(3,'transaction','unique_id')" 
+                      class="btn btn-default btn-xs" title="پیوست تراکنش"> 
+                          <i class="fa fa-paperclip fa-2x icon-padding" ></i>
+                      </button>
+                      <button type="button" ng-show="ticket.tmp.transaction && !sendingMessage" class="btn btn-danger" ng-click="ticket.deleteKey(ticket.tmp,'transaction')" title="حذف پیوست">
+                          <i class="fa fa-remove"></i>
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="submit" class="btn btn-warning" ng-click="ticket.addMessage()" 
+                      ng-hide="sendingMessage" ng-disabled="(!ticket.tmp.text || ticket.tmp.text=='') && (!ticket.tmp.transaction)">
+                        ارسال
+                      </button>
+                      <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
+                    </div>
                 </fieldset>
-                
               </div>
             </form>
             
@@ -301,9 +329,9 @@
   </div>
 </div>
 
-<!-- Select product & to_warehouse Modal -->
+<!-- Select product & to_warehouse & attachment transaction Modal -->
 <div class="modal fade" id="selectModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="pull-left">
@@ -417,7 +445,11 @@
                           </div>
 
                           <!-- Stage == 2 -> from_warehouse -->
-                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.setPurchaseReport()" ,filterId="-1"></search-stage>
+                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()" ,filterId="-1"></search-stage>
+
+                          <!-- Stage == 3 -> transaction for message attachment -->
+                          <search-stage ng-show = "stage == 3" obj="ticket.selectTransactionObj" controller = "ticket" target="tmp"  func="controller.closeModal()" ,filterId="-1"></search-stage>
+                          
                         </div>
                     </div>
                 </div><!-- /.box-body -->
@@ -427,3 +459,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<transaction-stat controller = "ticket"></transaction-stat>
