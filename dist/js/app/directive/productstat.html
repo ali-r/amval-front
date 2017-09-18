@@ -124,10 +124,10 @@
           </div>
           <div class="clearfix"></div>
 
-          <hr>
-          <div class="col-xs-12">
+          <hr ng-show="controller.productStat.transactions.length > 0 || controller.productStat.repair_tickets.length > 0">
+          <div class="col-xs-12" ng-show="controller.productStat.transactions.length > 0">
             <br>
-            <label style="text-align:center" class="center-block">تراکنش ها</label>
+            <label style="text-align:center"  class="center-block">تراکنش ها</label>
             <div class="stat-box" ng-show="controller.productStat.transactions.length > 0">
               <table class="table table-striped" >
                 <thead>
@@ -168,7 +168,7 @@
               </table>
             </div>
           </div>
-          <div class="col-xs-12">
+          <div class="col-xs-12" ng-show="controller.productStat.repair_tickets.length > 0">
             <br>
             <label style="text-align:center" class="center-block">تیکت های تعمیرات</label>
             <div class="stat-box" ng-show="controller.productStat.repair_tickets.length > 0">
