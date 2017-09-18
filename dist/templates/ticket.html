@@ -445,7 +445,7 @@
                           </div>
 
                           <!-- Stage == 2 -> from_warehouse -->
-                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()" ,filterId="-1"></search-stage>
+                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.setPurchaseReport()" ,filterId="-1"></search-stage>
 
                           <!-- Stage == 3 -> transaction for message attachment -->
                           <search-stage ng-show = "stage == 3" obj="ticket.selectTransactionObj" controller = "ticket" target="tmp"  func="controller.closeModal()" ,filterId="-1"></search-stage>
