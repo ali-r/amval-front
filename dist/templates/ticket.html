@@ -248,8 +248,8 @@
                       <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.description" required
                       ng-hide="editMode">
                       </textarea>
-                      <p ng-show="editMode" class="ticket-description"> 
-                        {{ticket.obj.description}}
+                      <p ng-show="editMode" class="ticket-description" 
+                      ng-bind-html="ticket.obj.description | breaklineEditor"> 
                       </p>
                     </div>
                   </div>
@@ -271,16 +271,15 @@
                     
                   </h4>
                   <h2 class="col col-sm-2 col-sm-pull-4">
-                    <a ng-click="ticket.openTransactionStatModal(msg.attachments[0].data)" ng-if="msg.attachments[0].type=='transaction'" class="label label-warning" >تراکنش</a>
+                    <a title="نمایش جزییات تراکنش پیوست شده" ng-click="ticket.openTransactionStatModal(msg.attachments[0].data.id)" ng-if="msg.attachments[0].type=='transaction'" class="label label-warning" >تراکنش</a>
                   </h2>
                 </div>
                 
                 <p ng-if="msg.text"> {{msg.text}} </p>
                 <p ng-if="msg.attachments[0].type=='transaction'"> 
                   <small>شناسه تراکنش پیوست شده:</small>
-                  <a href ng-click="ticket.openTransactionStatModal(msg.attachments[0].data)">
-                    <b ng-if="msg.attachments[0].data.unique_id != ''"> {{msg.attachments[0].data.unique_id}} </b>
-                    <b ng-if="msg.attachments[0].data.unique_id == ''"> -- بدون شناسه -- </b>
+                  <a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(msg.attachments[0].data.id)">
+                    <b> {{msg.attachments[0].data.unique_id | transactionIdDisplay}} </b>
                   </a>
                 </p>
                 
@@ -294,8 +293,11 @@
                       <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
                     </div>
                     <div class="col-md-9" ng-if="ticket.tmp.transaction">
-                      <input type="text" readonly class="form-control" 
-                        ng-model="ticket.tmp.transaction.unique_id" placeholder="تراکنش بدون شناسه">
+                      پیوست تراکنش به شناسه
+                        <a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(ticket.tmp.transaction.id)">
+                          <b>{{ticket.tmp.transaction.unique_id | transactionIdDisplay}}</b>
+                        </a>
+                        به تیکت
                     </div>
                     <div class="col-md-1" style="padding-left:0px;padding-right:3px;">
                       <button type="button" ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
