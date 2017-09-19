@@ -248,7 +248,7 @@
                       <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.description" required
                       ng-hide="editMode">
                       </textarea>
-                      <textarea ng-show="editMode" class="ticket-description" 
+                      <textarea ng-show="editMode" rows="3" class="ticket-description" 
                       ng-model="ticket.obj.description"> 
                       </textarea>
                     </div>
@@ -265,14 +265,17 @@
             <div class="message-list-container">
               <div ng-class="{'ticket-message-self':msg.sender.id == userId}" class="ticket-message" ng-repeat="msg in ticket.obj.messages">
                 <div class="row">
-                  <h4 class="col col-sm-6">
-                    {{msg.sender.card_no | lengthLimit:20}}
-                    <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
-                    
-                  </h4>
-                  <h2 class="col col-sm-2 col-sm-pull-4">
-                    <a title="نمایش جزییات تراکنش پیوست شده" ng-click="ticket.openTransactionStatModal(msg.attachments[0].data.id)" ng-if="msg.attachments[0].type=='transaction'" class="label label-warning" >تراکنش</a>
-                  </h2>
+                  <div class="col-sm-6">
+                    <h4>
+                      {{msg.sender.card_no | lengthLimit:20}}
+                      <small> به تاریخ {{msg.datetime | jalaliDate}} </small>
+                    </h4>
+                  </div>
+                  <div class="col col-sm-2 col-sm-pull-4">
+                    <h2>
+                      <a title="نمایش جزییات تراکنش پیوست شده" ng-click="ticket.openTransactionStatModal(msg.attachments[0].data.id)" ng-if="msg.attachments[0].type=='transaction'" class="label label-warning" >تراکنش</a>
+                    </h2>
+                  </div>
                 </div>
                 
                 <textarea ng-if="msg.text" cols="15" class="form-control ticket-message-style" rows="2"> {{msg.text}} </textarea>
@@ -293,31 +296,32 @@
                       <textarea type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control" cols="10" rows="3">
                       </textarea>
                     </div>
-                    <div class="col-md-9 ticket-message-attached-transaction" ng-if="ticket.tmp.transaction">
-                      پیوست تراکنش به شناسه:
-                      (
-                        <a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(ticket.tmp.transaction.id)">
-                          <b>{{ticket.tmp.transaction.unique_id | transactionIdDisplay}}</b>
-                        </a>
-                        )
-                        به تیکت
+                    <div class="col-md-9" ng-if="ticket.tmp.transaction">
+                      <p class="ticket-message-attached-transaction">
+                          پیوست تراکنش به شناسه:
+                          (<a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(ticket.tmp.transaction.id)">
+                            <b>
+                              <u>{{ticket.tmp.transaction.unique_id | transactionIdDisplay}}</u>
+                            </b>
+                          </a>)
+                          به تیکت
+                      </p>
                     </div>
-                    <div class="col-md-1" style="padding-left:0px;padding-right:3px;">
-                      <button type="button" ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
-                      ng-click="ticket.openSelectionModal(3,'transaction','')" 
-                      class="btn btn-default btn-xs" title="پیوست تراکنش"> 
-                          <i class="fa fa-paperclip fa-2x icon-padding" ></i>
-                      </button>
-                      <button type="button" ng-show="ticket.tmp.transaction && !sendingMessage" class="btn btn-danger" ng-click="ticket.deleteKey(ticket.tmp,'transaction')" title="حذف پیوست">
-                          <i class="fa fa-remove"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-2">
-                      <button type="submit" class="btn btn-warning" ng-click="ticket.addMessage()" 
-                      ng-hide="sendingMessage" ng-disabled="(!ticket.tmp.text || ticket.tmp.text=='') && (!ticket.tmp.transaction)">
+                    <div class="col-md-3">
+                      <button type="submit" class="btn btn-success" ng-click="ticket.addMessage()" ng-hide="sendingMessage" ng-disabled="(!ticket.tmp.text || ticket.tmp.text=='') && (!ticket.tmp.transaction)"
+                      style="width:100%; margin-bottom:6px;">
                         ارسال
                       </button>
-                      <i ng-show="sendingMessage" class="fa fa-spinner fa-pulse fa-2x" ></i>
+                      <button type="button" ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
+                      ng-click="ticket.openSelectionModal(3,'transaction','')" class="btn btn-primary" title="پیوست تراکنش"> 
+                        پیوست تراکنش
+                      </button>
+                      <button type="button" ng-show="ticket.tmp.transaction && !sendingMessage" class="btn btn-danger" ng-click="ticket.deleteKey(ticket.tmp,'transaction')" title="حذف پیوست" style="width:100%;">
+                          <i class="fa fa-lg fa-remove"></i>
+                      </button>
+                      <button ng-show="sendingMessage" class="btn btn-info" style="width:100%;">
+                          <i class="fa fa-spinner fa-pulse fa-lg" ></i>
+                      </button>
                     </div>
                 </fieldset>
               </div>
