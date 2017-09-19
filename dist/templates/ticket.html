@@ -293,13 +293,13 @@
                       <textarea type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control" cols="10" rows="3">
                       </textarea>
                     </div>
-                    <div class="col-md-9" ng-if="ticket.tmp.transaction">
+                    <div class="col-md-9 ticket-message-attached-transaction" ng-if="ticket.tmp.transaction">
                       پیوست تراکنش به شناسه:
-                      ((
+                      (
                         <a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(ticket.tmp.transaction.id)">
                           <b>{{ticket.tmp.transaction.unique_id | transactionIdDisplay}}</b>
                         </a>
-                        ))
+                        )
                         به تیکت
                     </div>
                     <div class="col-md-1" style="padding-left:0px;padding-right:3px;">
