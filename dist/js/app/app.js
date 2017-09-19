@@ -369,19 +369,7 @@ app.filter('transactionIdDisplay', function() {
   return function(input) {
     var output;
     if (!input || input=='') {
-      ou, $scetput = '− بدون شناسه −'
-    }else{
-      output = input;
-    }
-    return output;
-  }
-});
-
-app.filter('breaklineEditor', function() {
-  return function(input) {
-    var output;
-    if (!!input && input!='') {
-      output = input.replace(/\r?\n/g, '<br />');
+      output = '− بدون شناسه −'
     }else{
       output = input;
     }

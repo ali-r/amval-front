@@ -4750,3 +4750,8 @@ ol.tree-chd li:after {
 .icon-padding{
     padding: 3px;
 }
+.ticket-message-style{
+    border:none;
+    background-color:inherit;
+    height: initial;
+}

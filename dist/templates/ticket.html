@@ -248,9 +248,9 @@
                       <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.description" required
                       ng-hide="editMode">
                       </textarea>
-                      <p ng-show="editMode" class="ticket-description" 
-                      ng-bind-html="ticket.obj.description | breaklineEditor"> 
-                      </p>
+                      <textarea ng-show="editMode" class="ticket-description" 
+                      ng-model="ticket.obj.description"> 
+                      </textarea>
                     </div>
                   </div>
                 </div>
@@ -275,7 +275,7 @@
                   </h2>
                 </div>
                 
-                <p ng-if="msg.text"> {{msg.text}} </p>
+                <textarea ng-if="msg.text" cols="15" class="form-control ticket-message-style" rows="2"> {{msg.text}} </textarea>
                 <p ng-if="msg.attachments[0].type=='transaction'"> 
                   <small>شناسه تراکنش پیوست شده:</small>
                   <a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(msg.attachments[0].data.id)">
@@ -290,13 +290,16 @@
               <div class="row">
                 <fieldset> 
                     <div class="col-md-9" ng-if="!ticket.tmp.transaction">
-                      <input type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control">
+                      <textarea type="text" ng-model="ticket.tmp.text" placeholder="پیام را اینجا بنویسید ..." class="form-control" cols="10" rows="3">
+                      </textarea>
                     </div>
                     <div class="col-md-9" ng-if="ticket.tmp.transaction">
-                      پیوست تراکنش به شناسه
+                      پیوست تراکنش به شناسه:
+                      ((
                         <a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(ticket.tmp.transaction.id)">
                           <b>{{ticket.tmp.transaction.unique_id | transactionIdDisplay}}</b>
                         </a>
+                        ))
                         به تیکت
                     </div>
                     <div class="col-md-1" style="padding-left:0px;padding-right:3px;">
