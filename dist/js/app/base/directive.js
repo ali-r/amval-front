@@ -442,28 +442,38 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
     restrict: 'E',
     replace : true,
     scope : {
-      controller : '='
+      exptype : '@',
+      id : '='
     },
     link : function(scope, element, attr){
       
-      scope.makeExport = function(fromat){
+      scope.makeExport = function(expFromat){
+        if( scope.id ){
 
-        var exportConf = {
-          'type' : 'products_export',
-          'request_url' : scope.$parent.getUrl
-        };
+          var exportConf = {
+            'file_type' : expFromat,
+            'id' : scope.id
+          };
 
-        var makeExportUrl = mainAsset.getUrl() + 'export/' + fromat;
+        }else{
+
+          var exportConf = {
+            'file_type' : expFromat,
+            'request_url' : scope.$parent.getUrl
+          };
+
+        }
+
+        var makeExportUrl = mainAsset.getUrl() + 'export/' + scope.exptype;
 
         requestHelper.post( makeExportUrl, exportConf, scope,
           function(response) {
-            console.log(response)
             var link = document.createElement("a");
             link.download = name;
             link.href = response.data.download_url;
             link.click();
         }, true);
-
+        
       };
 
     },

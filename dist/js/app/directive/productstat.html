@@ -6,6 +6,9 @@
         <div class="pull-left">
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
+        <div class="pull-left single-export">
+          <export-file exptype="product" id="controller.productStat.id"></export-file>
+        </div>
         <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
