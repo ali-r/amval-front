@@ -52,6 +52,7 @@
         <button type="button" ng-if = "checkWrite('ticket')" class="btn btn-success pull-left btn-sm" name="button" ng-click="ticket.setNewTicketForm()">
           افزودن تیکت
         </button>
+        <export-file exptype="ticket_list"></export-file>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -104,6 +105,9 @@
         <div class="pull-left">
           <button type="button" ng-if = "checkWrite('ticket')" ng-show = "!editMode" ng-disabled="!ticketForm.$valid" ng-click="ticket.createTicket(editMode)" class="btn btn-success btn-sm">ذخیره</button>
           <button type="button" class="btn btn-danger btn-sm"  ng-click="reset()">بستن</button>
+        </div>
+        <div class="pull-left single-export" ng-show="editMode">
+          <export-file exptype="ticket" id="ticket.obj.id"></export-file>
         </div>
         <div class="clearfix"></div>
       </div><!-- /.X_title -->

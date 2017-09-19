@@ -437,6 +437,50 @@ app.directive('productStat', function(mainAsset, requestHelper) {
   }
 });
 
+app.directive('exportFile', function(mainAsset, requestHelper) {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      exptype : '@',
+      id : '='
+    },
+    link : function(scope, element, attr){
+      
+      scope.makeExport = function(expFromat){
+        if( scope.id ){
+
+          var exportConf = {
+            'file_type' : expFromat,
+            'id' : scope.id
+          };
+
+        }else{
+
+          var exportConf = {
+            'file_type' : expFromat,
+            'request_url' : scope.$parent.getUrl
+          };
+
+        }
+
+        var makeExportUrl = mainAsset.getUrl() + 'export/' + scope.exptype;
+
+        requestHelper.post( makeExportUrl, exportConf, scope,
+          function(response) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = response.data.download_url;
+            link.click();
+        }, true);
+        
+      };
+
+    },
+    templateUrl: '/dist/js/app/directive/exportToFile.html'
+  }
+});
+
 app.directive('toggle', function(){
   return {
     restrict: 'A',

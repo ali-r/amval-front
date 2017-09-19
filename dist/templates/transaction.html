@@ -94,6 +94,7 @@
         <button type="button" ng-if = "checkWrite('transaction')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
           افزودن تراکنش
         </button>
+        <export-file exptype="transaction_list"></export-file>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -149,6 +150,9 @@
           <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0 && !editMode" ng-disabled="!transactionForm.$valid || !transaction.obj.destination" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left single-export" ng-show="editMode">
+          <export-file exptype="transaction" id="transaction.obj.id"></export-file>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
