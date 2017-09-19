@@ -216,7 +216,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         ]
       };
 
-      scope.productReset = function(){
+      scope.controller.productReset = function(){
         scope.$parent.load = false;
         scope.$parent.loadModal = false;
         scope.$parent.loadSearch = false;
@@ -338,7 +338,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
             scope.controller.product.children = [];
           }else{
             $('#productModal').modal('hide');
-            scope.productReset();
+            scope.controller.productReset();
           }
         });
       }
