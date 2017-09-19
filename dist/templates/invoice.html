@@ -33,12 +33,11 @@
                         {{ "ریال" + " " }}
                         )
                     </small>
-                
-                
                 </h2>
                 <button type="button" ng-if = "checkWrite('invoice')" class="btn btn-success btn-sm pull-left" name="button" ng-click="invoice.setNewInvoiceForm()">
                    افزودن فاکتور
                 </button>
+                <export-file ng-hide="invoice.tmp.formShow" exptype="invoice_list"></export-file>
                 <div class="clearfix"></div>
             </div><!-- /.x_title-->
             <div class="x_content">
@@ -86,6 +85,9 @@
                 <div class="pull-left" ng-hide="loadSide">
                     <button type="button" class="btn btn-danger" ng-click="reset()">لغو</button>
                     <button type="button" ng-if = "checkWrite('invoice')" ng-click="invoice.validateForm()" class="btn btn-success">ذخیره</button>
+                </div>
+                <div class="pull-left single-export" ng-show="editMode">
+                    <export-file exptype="invoice" id="invoice.obj.id"></export-file>
                 </div>
 
                 <div class="clearfix"></div>
