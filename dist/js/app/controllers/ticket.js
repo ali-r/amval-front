@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('ticketCtrl',
-  function($scope, $http, $localStorage, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams) {
+  function($scope, $http, $localStorage, $cookieStore, mainAsset, requestHelper, crud, ADMdtpConvertor, $routeParams, $sce) {
 
   var controller = this;
   var apiName = 'ticket';

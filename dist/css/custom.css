@@ -4606,23 +4606,23 @@ div#deleteModal {
 }
 .ticket-message{
     display: block;
-    margin: 5px 0px;
-    padding: 10px;
+    margin: 3px 0px;
+    padding: 7px;
     border: 1px solid #d9d9d9;
     border-top-width: 2px;
+    border-radius: 3px;
 }
 .ticket-message-self{
-    background-color : #d9edf7;
+    background-color : #A1D5FF;
 }
 .message-list-container{
-    max-height: 200px;
+    max-height: 250px;
     overflow-y: auto; 
     overflow-x: hidden;
     padding-left: 5px; 
 }
 .ticket-description{
     min-height: 20px;
-    max-height: 50px;
     overflow-y: auto;
     padding: 5px;
     margin: 5px;
@@ -4759,4 +4759,15 @@ ol.tree-chd li:after {
 }
 .single-export{
     margin-top: 3px;
+}
+.ticket-message-style{
+    border:none;
+    background-color:inherit;
+    height: initial;
+}
+.ticket-message-attached-transaction{
+    text-align: center;
+    padding: 10px;
+    margin-top: 14px;
+    border: 1px solid #f0f0f0;
 }

@@ -570,10 +570,11 @@ app.directive('transactionStat', function(mainAsset, requestHelper) {
 
       }
 
-      scope.controller.openTransactionStatModal = function(t){
+      scope.controller.openTransactionStatModal = function(id){
         mainAsset.openModal('#transactionStatModal');
-        scope.controller.getTransactionStat(t.id);
+        scope.controller.getTransactionStat(id);
       }
+      
 
     },
     templateUrl: '/dist/js/app/directive/transactionStat.html'
