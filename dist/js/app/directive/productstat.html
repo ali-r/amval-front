@@ -208,14 +208,14 @@
           </div>
           <div class="clearfix"></div>
 
-          <hr ng-show="controller.productStat.is_bundle">
-          <div class="col-xs-4 col-xs-offset-4" ng-show="controller.productStat.is_bundle">
+          <hr ng-show="controller.productStat.children.length>0">
+          <div class="col-xs-4 col-xs-offset-4" ng-show="controller.productStat.children.length>0">
             <h4 style="text-align:center">کالا های زیر مجموعه</h4>
           </div>
 
-          <div class="col-xs-8 col-xs-offset-2">
+          <div class="col-xs-8 col-xs-offset-2" ng-show="controller.productStat.children.length>0">
             <br>
-            <div class="stat-box" ng-show="controller.productStat.is_bundle">
+            <div class="stat-box" >
               <table class="table table-striped" >
                 <thead>
                   <tr>
