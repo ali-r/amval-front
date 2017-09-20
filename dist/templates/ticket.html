@@ -249,11 +249,9 @@
                     <label ng-show="editMode">توضیحات تیکت</label>
 
                     <div>
-                      <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.description" required
-                      ng-hide="editMode">
+                      <textarea class="form-control" style="resize:none" rows="3" ng-model="ticket.obj.description" required ng-hide="editMode">
                       </textarea>
-                      <textarea ng-show="editMode" rows="3" class="ticket-description" 
-                      ng-model="ticket.obj.description"> 
+                      <textarea ng-show="editMode" rows="3" class="ticket-description" ng-model="ticket.obj.description" disabled> 
                       </textarea>
                     </div>
                   </div>
