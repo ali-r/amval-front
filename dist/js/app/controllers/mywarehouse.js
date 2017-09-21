@@ -18,6 +18,18 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       controller.tmp = {};
     }
 
+    function setWarehouse(obj) {
+      controller.warehouse = obj;
+      setTimeout(
+        function () {
+          $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+          })
+          $('#myTabs a:first').tab('show') 
+        },200);
+    }
+
     $scope.reset();
 
     $scope.assetData = $localStorage.assetData;
@@ -29,10 +41,15 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       controller.pageType = $routeParams.pageType; 
       if ($scope.assetData.warehouse_under_management) {
         controller.warehouseFilter = $scope.assetData.warehouse_under_management.id;
-      } 
+      }
+      if($localStorage.assetData.selectedWarehouse){
+        setWarehouse($localStorage.assetData.selectedWarehouse);
+      }
     }
     else{
-      controller.warehouse = $scope.assetData.warehouse_under_management;
+      if($scope.assetData.warehouse_under_management){
+        setWarehouse($scope.assetData.warehouse_under_management);
+      }
     }
 
     controller.ctrlList = [
@@ -55,18 +72,10 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     }
     
     this.selectWarehouse = function(obj){
-      controller.warehouse = obj;
       mainAsset.closeModal('#warehouseModal');
       $routeParams.id = obj.id;
-      setTimeout(
-        function () {
-          $('#myTabs a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-          })
-          $('#myTabs a:first').tab('show') 
-        },500);
-      
+      $localStorage.assetData.selectedWarehouse = obj;
+      setWarehouse(obj);
     }
 
     controller.search = function(cat, field,filter){
@@ -98,6 +107,11 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
           controller.tmp.searchResult = response.data[cat + 's'];
           $scope.loadSearch = false;
         });
+    };
+
+    controller.deleteWarehouse = function(){
+      controller.deleteKey(controller, 'warehouse');
+      $localStorage.assetData.selectedWarehouse = null;
     };
 
 });
