@@ -9,6 +9,12 @@ app.directive('reqPagination', function() {
       controller : '='
     },
     link: function(scope, element, attr){
+      
+      if(scope.$parent.$parent.apiUrl){
+        scope.dParent = scope.$parent.$parent;
+      }else{
+        scope.dParent = scope.$parent;
+      }
 
       if(!scope.config){
         var paginationConfig = {};
@@ -93,11 +99,10 @@ app.directive('reqPagination', function() {
           }
           safeApply(scope.itempage);
         }
-        
         if(paginationConfig.url){
           paginationConfig.getFunc(scope.itempage);
         }else{
-          scope.$parent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
+          scope.dParent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
           scope.controller.getData();
         }
 
@@ -183,6 +188,12 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
     },
     link : function(scope, element, attr){
 
+      if(scope.$parent.$parent.apiUrl){
+        scope.dParent = scope.$parent.$parent;
+      }else{
+        scope.dParent = scope.$parent;
+      }
+
       scope.uploadUrl = mainAsset.getUploadUrl();
       scope.controller.bundleHolderId = '';
       
@@ -217,14 +228,14 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         ]
       };
 
-      scope.productReset = function(){
-        scope.$parent.load = false;
-        scope.$parent.loadModal = false;
-        scope.$parent.loadSearch = false;
-        scope.$parent.uploadPercentage = 0;
-        scope.$parent.uploading = false;
-        scope.$parent.stage = 0;
-        scope.$parent.editMode = false;
+      scope.controller.productReset = function(){
+        scope.dParent.load = false;
+        scope.dParent.loadModal = false;
+        scope.dParent.loadSearch = false;
+        scope.dParent.uploadPercentage = 0;
+        scope.dParent.uploading = false;
+        scope.dParent.stage = 0;
+        scope.dParent.editMode = false;
         scope.makeDuplicate = false;
         scope.controller.product = {};
         scope.controller.tmp.meta = {};
@@ -234,29 +245,29 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       scope.setGroupStage = function(){
         scope.controller.tmp.searchD = false;
         scope.controller.tmp.searchQuery = "";
-        scope.$parent.stage = 3;
-        scope.$parent.loadSearch = true;
+        scope.dParent.stage = 3;
+        scope.dParent.loadSearch = true;
         var searchUrl = mainAsset.getUrl() + 'group?depth__lt=2&page=1&per_page=25';
         requestHelper.get(
-          searchUrl, scope.$parent,
+          searchUrl, scope.dParent,
           function(response) {
             scope.controller.tmp.searchResult = response.data.groups;
-            scope.$parent.loadSearch = false;
+            scope.dParent.loadSearch = false;
           });
       };
 
       scope.loadMeta = function(id){
-        scope.$parent.loadModal = true;
+        scope.dParent.loadModal = true;
         var metaUrl = mainAsset.getUrl() + 'group/' + id;
         requestHelper.get(
-          metaUrl, scope.$parent,
+          metaUrl, scope.dParent,
           function(response) {
             scope.controller.tmp.meta = response.data;
             scope.controller.product.meta_data = [];
             for (var i = 0; i < response.data.meta_template.length; i++) {
              scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key, 'value': null}
             }
-            scope.$parent.loadSearch = false;
+            scope.dParent.loadSearch = false;
           });
       }
       
@@ -286,7 +297,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.children;
         }
 
-        if(scope.$parent.editMode){
+        if(scope.dParent.editMode){
           delete sendCopyObj.deprication_time;
           delete sendCopyObj.holder;
           delete sendCopyObj.parent_bundle;
@@ -339,7 +350,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
             scope.controller.product.children = [];
           }else{
             $('#productModal').modal('hide');
-            scope.productReset();
+            scope.controller.productReset();
           }
         });
       }
@@ -415,14 +426,20 @@ app.directive('productStat', function(mainAsset, requestHelper) {
     },
     link : function(scope, element, attr){
 
+      if(scope.$parent.$parent.apiUrl){
+        scope.dParent = scope.$parent.$parent;
+      }else{
+        scope.dParent = scope.$parent;
+      }
+
       scope.controller.getProductStat = function(id){
-        scope.$parent.loadModal = true;
+        scope.dParent.loadModal = true;
         var getUrl = mainAsset.getUrl() + 'product/' + id + '/stats'
-        requestHelper.get(getUrl, scope.$parent, function(response){
+        requestHelper.get(getUrl, scope.dParent, function(response){
           scope.controller.productStat = response.data;
-          scope.controller.productStat.qr_code = scope.$parent.uploadUrl + scope.controller.productStat.qr_code;
+          scope.controller.productStat.qr_code = scope.dParent.uploadUrl + scope.controller.productStat.qr_code;
           console.log(scope.controller.productStat)
-          scope.$parent.loadModal = false;
+          scope.dParent.loadModal = false;
         });
 
       }
@@ -446,6 +463,12 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
       id : '='
     },
     link : function(scope, element, attr){
+
+      if(scope.$parent.$parent.apiUrl){
+        scope.dParent = scope.$parent.$parent;
+      }else{
+        scope.dParent = scope.$parent;
+      }
       
       scope.makeExport = function(expFromat){
         if( scope.id ){
@@ -459,7 +482,7 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
 
           var exportConf = {
             'file_type' : expFromat,
-            'request_url' : scope.$parent.getUrl
+            'request_url' : scope.dParent.getUrl
           };
 
         }

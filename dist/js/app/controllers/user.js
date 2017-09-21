@@ -68,11 +68,16 @@ angular.module("assetAdminPanel").controller('userCtrl',
       });
   };
 
+  console.log($scope)
   this.openResetPassModal = function(id) {
     controller.toResetPassId = id;
     controller.passToReset = null;
     controller.passToResetConf = '';
-    $scope.resetPassForm.pass.$pristine = true;
+
+    if($scope.resetPassForm){
+      $scope.resetPassForm.pass.$pristine = true;
+    }
+    
     mainAsset.openModal('#resetPassModal');
   };
 

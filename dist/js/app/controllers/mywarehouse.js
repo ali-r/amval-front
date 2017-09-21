@@ -1,7 +1,25 @@
 angular.module("assetAdminPanel").controller('mywarehouseCtrl',
   function($scope, $localStorage, requestHelper, mainAsset, crud, $routeParams){
 
-    var controller = this;
+    var controller = this;    
+
+    $scope.reset = function() {
+
+      $scope.load = false;
+      $scope.loadModal = false;
+      $scope.loadSearch = false;
+      $scope.editMode = false;
+      $scope.uploadPercentage = 0;
+      $scope.uploading = false;
+      $scope.stage = 0;
+      $scope.loadSide = false;
+
+      controller.obj = {};
+      controller.tmp = {};
+    }
+
+    $scope.reset();
+
     $scope.assetData = $localStorage.assetData;
     controller.pageType = 0;
     controller.warehouseFilter = -1;
@@ -17,8 +35,14 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       controller.warehouse = $scope.assetData.warehouse_under_management;
     }
 
-    crud.initModals($scope, controller)
-    crud.init($scope, controller, '', controller.objConfig)
+    controller.ctrlList = [
+      {'src':'' ,'name':''},
+      {'src':'../dist/templates/ticket.html' ,'ctrl':'ticketCtrl as ticket'},
+      {'src':'../dist/templates/transaction.html' ,'ctrl':'transactionCtrl as transaction'},
+      {'src':'../dist/templates/product.html' ,'ctrl':'productCtrl as product'},
+      {'src':'../dist/templates/user.html' ,'ctrl':'userCtrl as user'}
+    ];
+
 
     this.selectWareHouseModal = function(){
       controller.tmp.searchQuery = '';
@@ -40,5 +64,36 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
         },500);
       
     }
+
+    controller.search = function(cat, field,filter){
+      var filterSection = '';
+      if(!!filter && !!filter.key && !!filter.value){
+        filterSection = '&' + filter.key + '=' + filter.value;
+      }
+      $scope.loadSearch = true;
+      var searchUrl = mainAsset.getUrl() + cat;
+      if(field){
+        if(field.indexOf('?') == -1 && field != ''){
+          searchUrl += '?' + field  + filterSection;
+        }else{
+          searchUrl += field + filterSection;
+        }
+      }
+      else{
+        searchUrl += '?' + filterSection;
+      }
+
+      if(controller.tmp.searchQuery && controller.tmp.searchQuery!=''){
+        searchUrl += '&text_search='+ controller.tmp.searchQuery;        
+      }
+      
+      console.log(searchUrl);
+      requestHelper.get(
+        searchUrl, $scope,
+        function(response) {
+          controller.tmp.searchResult = response.data[cat + 's'];
+          $scope.loadSearch = false;
+        });
+    };
 
 });

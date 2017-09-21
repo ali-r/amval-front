@@ -4,29 +4,29 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <label ng-hide="$parent.editMode || $parent.stage != 0">
+          <label ng-hide="dParent.editMode || dParent.stage != 0">
             <input type="checkbox" ng-model="makeDuplicate">
             ایجاد کالای مشابه
           </label>
           <button type="button" ng-disabled="!productForm.$valid || !controller.product.qr_code"
-          ng-click="sendOrEdit($parent.editMode)" ng-show = "$parent.stage == 0" ng-show = "$parent.checkWrite('product')" class="btn btn-success">ذخیره</button>
-          <button type="button" class="btn btn-danger" ng-show = "$parent.stage == 0" ng-click="productReset()" data-dismiss="modal">بستن</button>
-          <button type="button" class="btn btn-info" ng-show = "$parent.stage != 0" ng-click="$parent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
+          ng-click="sendOrEdit(dParent.editMode)" ng-show = "dParent.stage == 0" ng-show = "dParent.checkWrite('product')" class="btn btn-success">ذخیره</button>
+          <button type="button" class="btn btn-danger" ng-show = "dParent.stage == 0" ng-click="controller.productReset()" data-dismiss="modal">بستن</button>
+          <button type="button" class="btn btn-info" ng-show = "dParent.stage != 0" ng-click="dParent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
-        <div class="pull-left single-export" ng-show="$parent.editMode">
+        <div class="pull-left single-export" ng-show="dParent.editMode">
             <export-file exptype="product" id="controller.obj.id"></export-file>
         </div>
-        <div class="pull-left load-spinner" ng-show = "$parent.loadModal">
+        <div class="pull-left load-spinner" ng-show = "dParent.loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h3 class="modal-title" ng-hide="$parent.editMode">افزودن کالای جدید</h3>
-        <h3 class="modal-title" ng-show="$parent.editMode">ویرایش کالا</h3>
+        <h3 class="modal-title" ng-hide="dParent.editMode">افزودن کالای جدید</h3>
+        <h3 class="modal-title" ng-show="dParent.editMode">ویرایش کالا</h3>
       </div>
       <div class="modal-body">
           <div class="box-body">
-            <div ng-show = "$parent.stage == 0">
-              <form name="productForm" role="form" ng-hide="$parent.loadModal" novalidate 
-              ng-submit="productForm.$valid && sendOrEdit($parent.editMode)">
+            <div ng-show = "dParent.stage == 0">
+              <form name="productForm" role="form" ng-hide="dParent.loadModal" novalidate 
+              ng-submit="productForm.$valid && sendOrEdit(dParent.editMode)">
               <button type="submit" hidden></button>
                 <fieldset>
                 <div class="row">
@@ -49,7 +49,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="controller.product.subgroup.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!$parent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="setGroupStage()">انتخاب</button>
+                          <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="setGroupStage()">انتخاب</button>
                         </span>
                       </div>
                     </div>
@@ -65,7 +65,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="controller.product.producer.brand_name" disabled required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!$parent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(4, 'producer')">انتخاب</button>
+                          <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(4, 'producer')">انتخاب</button>
                         </span>
                       </div>
                     </div>
@@ -81,7 +81,7 @@
                       <label>*Qr Code</label>
                       <br/>
                       <div class="btn btn-info btn-sm" ng-hide = "uploading" ngf-select="controller.uploadProductPic()" ng-model="controller.qrCodeFile" name="productPic" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && $parent.checkWrite('product')" ng-required="!controller.product.qr_code" ng-disabled="uploading">
+                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && dParent.checkWrite('product')" ng-required="!controller.product.qr_code" ng-disabled="uploading">
                         بارگذاری بارکد
                         <i class="fa fa-qrcode fa-lg"></i>
                       </div>
@@ -89,7 +89,7 @@
                          در حال بارگذاری
                         ({{uploadPercentage | pNumber}})
                       </p>
-                      <button type="button" class="btn btn-sm btn-danger" ng-if="controller.product.qr_code && $parent.checkWrite('product')"
+                      <button type="button" class="btn btn-sm btn-danger" ng-if="controller.product.qr_code && dParent.checkWrite('product')"
                       ng-click=" controller.deleteKey(controller.product,'qr_code')">حذف بارکد</button>
                       <p ng-show="productForm.productPic.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ مگابایت است</p>
                       <p ng-show="productForm.productPic.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -111,7 +111,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="controller.product.guarantor.company_name" disabled required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!$parent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(1, 'guarantor')">انتخاب</button>
+                          <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(1, 'guarantor')">انتخاب</button>
                         </span>
                       </div>
                     </div>
@@ -150,7 +150,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="form-group" ng-hide = "!$parent.editMode && !controller.product.is_bundle">
+                    <div class="form-group" ng-hide = "!dParent.editMode && !controller.product.is_bundle">
                       <label></label>  
                       <div class="row">
                         <div class="col-sm-6">
@@ -181,7 +181,7 @@
                 <hr ng-show = "controller.apiName != 'invoice'">
                 <div class="row" ng-show = "controller.apiName != 'invoice'">
                   <div class="col-md-6">
-                    <div class="checkbox" ng-hide="$parent.editMode">
+                    <div class="checkbox" ng-hide="dParent.editMode">
                       <label>
                         <input type="checkbox" ng-model="controller.product.is_bundle">
                         آیا کالا باندل است؟
@@ -223,10 +223,10 @@
             </div>
             <!-- end of Stage 0 -->
 
-            <search-stage ng-show = "$parent.stage == 1" obj="selectGuarantorObj" controller = "controller" target="product"></search-stage>
+            <search-stage ng-show = "dParent.stage == 1" obj="selectGuarantorObj" controller = "controller" target="product"></search-stage>
             <!-- end of Stage 1 -->
             
-            <div class="row" ng-show="$parent.stage == 2">
+            <div class="row" ng-show="dParent.stage == 2">
               <div class="col-md-12">
                 <div class="panel panel-primary" ng-show="controller.product.children">
                   <div class="panel-heading">
@@ -245,7 +245,7 @@
                   <div class="panel-heading">
                     افزودن کالا به باندل
                     <div class="pull-left">
-                      <i ng-show = "$parent.loadSearch" class="fa fa-refresh fa-spin"></i>
+                      <i ng-show = "dParent.loadSearch" class="fa fa-refresh fa-spin"></i>
                     </div>
                   </div>
                   <div class="panel-body">
@@ -259,7 +259,7 @@
                             </span>
                           </div>
                       </form>
-                      <table class="table table-hover table-border" ng-hide = "controller.tmp.searchResult == '' || $parent.loadSearch">
+                      <table class="table table-hover table-border" ng-hide = "controller.tmp.searchResult == '' || dParent.loadSearch">
                         <thead>
                           <tr>
                             <th>ردیف</th>
@@ -307,13 +307,13 @@
             </div>
             <!-- end of Stage 2 -->
 
-            <div class="row" ng-show="$parent.stage == 3">
+            <div class="row" ng-show="dParent.stage == 3">
               <div class="col-md-12">
                 <div class="panel panel-info">
                   <div class="panel-heading">
                     انتخاب زیرگروه
                     <div class="pull-left">
-                      <i ng-show = "$parent.loadSearch" class="fa fa-refresh fa-spin"></i>
+                      <i ng-show = "dParent.loadSearch" class="fa fa-refresh fa-spin"></i>
                     </div>
                   </div>
                   <div class="panel-body">
@@ -328,7 +328,7 @@
                           </div>
                       </form>
 
-                      <div ng-hide = "controller.tmp.searchResult == '' || $parent.loadSearch">
+                      <div ng-hide = "controller.tmp.searchResult == '' || dParent.loadSearch">
                         <div ui-tree id="tree-root" >
                           <ol ui-tree-nodes ng-model="controller.tmp.searchResult">
                             <li ng-repeat="node in controller.tmp.searchResult" ui-tree-node ng-include="'nodes_renderer1.html'"></li>
@@ -343,7 +343,7 @@
             </div>
             <!-- end of Stage 3 -->
 
-            <search-stage ng-show = "$parent.stage == 4" obj="selectProducerObj" controller = "controller" target="product"></search-stage>
+            <search-stage ng-show = "dParent.stage == 4" obj="selectProducerObj" controller = "controller" target="product"></search-stage>
             <!-- end of Stage 4 -->
             
           </div>
@@ -382,7 +382,7 @@
               </ul>
           </li>
         </ul> -->
-        <p ng-show = "$parent.stage === 0"> −
+        <p ng-show = "dParent.stage === 0"> −
           پر کردن فیلد هایی که با * مشخص شده اجباری است
           <br>
           -
