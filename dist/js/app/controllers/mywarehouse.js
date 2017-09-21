@@ -23,7 +23,7 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     $scope.assetData = $localStorage.assetData;
     controller.pageType = 0;
     controller.warehouseFilter = -1;
-    $scope.tabStage = 1;
+    $scope.tabStage = 0;
 
     if($routeParams.pageType){
       controller.pageType = $routeParams.pageType; 
@@ -48,6 +48,10 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       controller.tmp.searchQuery = '';
       mainAsset.openModal('#warehouseModal');
       controller.search('warehouse');
+    }
+
+    controller.deleteKey = function(obj, key){
+      delete obj[key];
     }
     
     this.selectWarehouse = function(obj){
