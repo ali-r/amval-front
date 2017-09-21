@@ -35,6 +35,14 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       controller.warehouse = $scope.assetData.warehouse_under_management;
     }
 
+    controller.ctrlList = [
+      {'src':'' ,'name':''},
+      {'src':'../dist/templates/ticket.html' ,'ctrl':'ticketCtrl as ticket'},
+      {'src':'../dist/templates/transaction.html' ,'ctrl':'transactionCtrl as transaction'},
+      {'src':'../dist/templates/product.html' ,'ctrl':'productCtrl as product'},
+      {'src':'../dist/templates/user.html' ,'ctrl':'userCtrl as user'}
+    ];
+
 
     this.selectWareHouseModal = function(){
       controller.tmp.searchQuery = '';

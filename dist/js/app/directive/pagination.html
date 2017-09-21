@@ -1,4 +1,4 @@
-<div class="paging-simple" ng-hide = "$parent.load">
+<div class="paging-simple" ng-hide = "dParent.load">
   <ul class="pagination business-pagination">
     <li class="paginate_button previou" ng-class="{'disabled' : pagination('first')}">
       <a ng-click = "!pagination('first') && pageSet('first')" href>اول</a>
@@ -32,7 +32,7 @@
         تعداد نمایش
         :
   </div>
-  <select class="form-control per-page-select" title="تعداد نمایش" ng-init = "$parent.perPage = '10'" ng-model="$parent.perPage" ng-change="itempage=1;pageSet()" ng-hide = "config.url">
+  <select class="form-control per-page-select" title="تعداد نمایش" ng-init = "dParent.perPage = '10'" ng-model="dParent.perPage" ng-change="itempage=1;pageSet()" ng-hide = "config.url">
     <option value="10">۱۰</option>
     <option value="25">۲۵</option>
     <option value="50">۵۰</option>
