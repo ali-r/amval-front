@@ -25,21 +25,76 @@
         <div class="" id='myTabs' role="tabpanel" data-example-id="myTabs" ng-if="mywarehouse.warehouse">
           <ul id="myTab" class="nav nav-tabs bar_tabs mywarehouse-tab" role="tablist">
             <li role="presentation">
-              <a href role="tab" data-toggle="tab" aria-expanded="false" ng-click="tabStage = 1">تیکت ها</a>
+              <a href ng-click="tabStage = 0">اطلاعات</a>
             </li>
             <li role="presentation">
-              <a href role="tab" data-toggle="tab" aria-expanded="true" ng-click="tabStage = 2">تراکنش ها</a>
+              <a href ng-click="tabStage = 1">تیکت ها</a>
             </li>
             <li role="presentation">
-              <a href role="tab" data-toggle="tab" aria-expanded="true" ng-click="tabStage = 3">کالا ها</a>
+              <a href ng-click="tabStage = 2">تراکنش ها</a>
             </li>
             <li role="presentation">
-              <a href role="tab" data-toggle="tab" aria-expanded="true" ng-click="tabStage = 4">کارمندان</a>
+              <a href ng-click="tabStage = 3">کالا ها</a>
+            </li>
+            <li role="presentation">
+              <a href ng-click="tabStage = 4">کارمندان</a>
             </li>
           </ul>
           <div class="tab-content mywarehouse-tab-content">
+
+            <div ng-if="tabStage == 0">
+              <div class="row">
+                <div class="col-xs-8 col-xs-offset-2" ng-show="mywarehouse.warehouse">
+                  <div class="x_panel">
+                      <div class="x_title">
+                        <h2>
+                          اطلاعات انبار
+                        </h2>
+                        <export-file exptype="warehouse" id="mywarehouse.warehouse.id"></export-file>
+                        <div class="clearfix"></div>
+                      </div>
+                
+                      <div class="x_content">
+                          <div class="warehouse-content row">
+                            <div class="col-md-6">
+                              <label>
+                                نام انبار :
+                              </label>
+                              {{mywarehouse.warehouse.title}}
+                              <span class="label label-info" ng-if="!mywarehouse.warehouse.parent_warehouse">انبار مرکزی</span>
+                            </div>
+                            <div class="col-md-6">
+                              <label>
+                                انباردار :
+                              </label>
+                              {{mywarehouse.warehouse.clerk | clerkFilter}}
+                            </div>
+                            <div class="clearfix"></div>
+                    
+                              <div class="col-md-6">
+                              <label>
+                                شماره تماس :
+                              </label>
+                              <label style="direction:ltr">
+                                {{mywarehouse.warehouse.phone | pNumber}}
+                              </label>
+                            </div>
+                            <div class="col-md-6">
+                              <label>
+                                آدرس :
+                              </label>
+                              {{mywarehouse.warehouse.location}}
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
             <div ng-if="tabStage == 1">
-             <div ng-controller="ticketCtrl as ticket">
+              <div ng-controller="ticketCtrl as ticket">
                 <ng-include src="'../dist/templates/ticket.html'">
                 </ng-include>
               </div>
@@ -79,47 +134,7 @@
   
   <div class="clearfix"></div>
 
-  <!-- <div class="col-xs-8 col-xs-offset-2" ng-show="mywarehouse.warehouse">
-    <div class="my-warehouse-data">
-      <h4 style="text-align:center">
-        اطلاعات انبار
-      </h4>
-      <div class="warehouse-content row">
-
-        <div class="col-md-6">
-          <label>
-            نام انبار :
-          </label>
-          {{mywarehouse.warehouse.title}}
-          <span class="label label-info" ng-if="!mywarehouse.warehouse.parent_warehouse">انبار مرکزی</span>
-        </div>
-        <div class="col-md-6">
-          <label>
-            انباردار :
-          </label>
-          {{mywarehouse.warehouse.clerk | clerkFilter}}
-        </div>
-        <div class="clearfix"></div>
-
-         <div class="col-md-6">
-          <label>
-            شماره تماس :
-          </label>
-          <label style="direction:ltr">
-            {{mywarehouse.warehouse.phone | pNumber}}
-          </label>
-        </div>
-        <div class="col-md-6">
-          <label>
-            آدرس :
-          </label>
-          {{mywarehouse.warehouse.location}}
-        </div>
-        <div class="clearfix"></div>
-
-      </div>
-    </div>
-  </div> -->
+  <!--  -->
 </div>
 
 </div>

@@ -4577,13 +4577,12 @@ div#deleteModal {
     background-color: #ffffff;
     padding: 10px 10px;
     border-top: 4px solid #e4e4e4;
-    margin-bottom: 70px;
+    margin-top: 10px;
 }
 .select-warehouse{
     margin-bottom: 0px !important;
 }
 .warehouse-content{
-    border-top: 1px #e4e4e4 solid;
     padding: 10px 10px;
     text-align: center;
 }
