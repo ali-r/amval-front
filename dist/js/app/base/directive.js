@@ -491,8 +491,16 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
 
         requestHelper.post( makeExportUrl, exportConf, scope,
           function(response) {
+            var notifText = 'در صورت شروع نشدن دانلود بصورت خودکار' + '<a target="_blank" href="' + response.data.download_url + '"> اینجا </a>' + 'را کلیک کنید'
+            new PNotify({
+              title: 'دریافت گزارش',
+              text: notifText,
+              type: 'info'
+             });
+
             var link = document.createElement("a");
             link.download = name;
+            link.target = '_blank'
             link.href = response.data.download_url;
             link.click();
         }, true);
