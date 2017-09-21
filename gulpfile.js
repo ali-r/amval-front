@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     connect = require('gulp-connect');
 
-var devMode = true;
+var devMode = false;
 
 var css = {
   in : {
