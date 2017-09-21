@@ -488,22 +488,29 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
         }
 
         var makeExportUrl = mainAsset.getUrl() + 'export/' + scope.exptype;
-
-        requestHelper.post( makeExportUrl, exportConf, scope,
-          function(response) {
-            var notifText = 'در صورت شروع نشدن دانلود بصورت خودکار' + '<a target="_blank" href="' + response.data.download_url + '"> اینجا </a>' + 'را کلیک کنید'
-            new PNotify({
-              title: 'دریافت گزارش',
-              text: notifText,
-              type: 'info'
-             });
-
-            var link = document.createElement("a");
-            link.download = name;
-            link.target = '_blank'
-            link.href = response.data.download_url;
-            link.click();
-        }, true);
+        if(expFromat == 'docx'){
+          new PNotify({
+            title: 'دریافت گزارش',
+            text: 'درحال حاضر این امکان وجود ندارد، بزودی در نسخه‌ی بعدی فعال می شود',
+            type: 'danger'
+           });
+        }else{
+          requestHelper.post( makeExportUrl, exportConf, scope,
+            function(response) {
+              var notifText = 'در صورت شروع نشدن دانلود بصورت خودکار' + '<a target="_blank" href="' + response.data.download_url + '"> اینجا </a>' + 'را کلیک کنید'
+              new PNotify({
+                title: 'دریافت گزارش',
+                text: notifText,
+                type: 'info'
+               });
+  
+              var link = document.createElement("a");
+              link.download = name;
+              link.target = '_blank'
+              link.href = response.data.download_url;
+              link.click();
+          }, true);
+        }
         
       };
 
