@@ -438,7 +438,7 @@ app.directive('productStat', function(mainAsset, requestHelper) {
         requestHelper.get(getUrl, scope.dParent, function(response){
           scope.controller.productStat = response.data;
           scope.controller.productStat.qr_code = scope.dParent.uploadUrl + scope.controller.productStat.qr_code;
-          console.log(scope.controller.productStat)
+          mainAsset.log(scope.controller.productStat)
           scope.dParent.loadModal = false;
         });
 
@@ -602,7 +602,7 @@ app.directive('transactionStat', function(mainAsset, requestHelper) {
         var getUrl = mainAsset.getUrl() + 'transaction/' + id
         requestHelper.get(getUrl, scope.$parent, function(response){
           scope.controller.transactionStat = response.data;
-          console.log(scope.controller.transactionStat)
+          mainAsset.log(scope.controller.transactionStat)
           scope.$parent.loadingTransactionData = false;
         });
 

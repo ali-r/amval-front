@@ -40,7 +40,7 @@ angular.module("assetAdminPanel").controller('loginCtrl',
 
       }, function errorCallback(response) {
         NProgress.done();
-        console.log(response)
+        mainAsset.log(response)
         new PNotify({
           title: 'خطا ' ,
           text: response.data.fa,

@@ -45,7 +45,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     if ( typeof(notifyEnable) == 'undefined' ) {
       notifyEnable = true;
     }
-    /*console.log(response.data);*/
+    /*mainAsset.log(response.data);*/
     callback(response)
     if (notifyEnable)
       new PNotify({
@@ -66,7 +66,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }
     notif.type = 'error';
     new PNotify(notif);
-    console.log(response);
+    mainAsset.log(response);
     if (response.status === 401) {
       $localStorage.$reset();
       setTimeout(function () {
@@ -133,7 +133,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
         url: mainAsset.getUploadUrl(),
         data: {image: file, 'type': type}
     }).then(function (resp) {
-        console.log('Success ' + 'uploaded. Response: ');
+        mainAsset.log('Success ' + 'uploaded. Response: ');
         scope.uploadPercentage = 0;
         callback(resp.data);
         scope.uploading = false;
