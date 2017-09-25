@@ -69,7 +69,6 @@ var setContentHeight = function () {
 };
 
   $SIDEBAR_MENU.find('a').on('click', function(ev) {
-	  console.log('clicked - sidebar_menu');
         var $li = $(this).parent();
         var $liParent = $(this).parent().parent();
 
@@ -78,7 +77,6 @@ var setContentHeight = function () {
             $('ul:first', $li).slideUp(function() {
                 setContentHeight();
             });
-            console.log('here');
         } else {
             // prevent closing menu if we are on child menu
             if (!$li.parent().is('.child_menu')) {
@@ -103,7 +101,6 @@ var setContentHeight = function () {
 
 // toggle small or large menu
 $MENU_TOGGLE.on('click', function() {
-		console.log('clicked - menu toggle');
 
 		if ($BODY.hasClass('nav-md')) {
 			$SIDEBAR_MENU.find('li.active ul').hide();
@@ -259,7 +256,6 @@ $(document).ready(function() {
 	function init_skycons(){
 
 			if( typeof (Skycons) === 'undefined'){ return; }
-			console.log('init_skycons');
 
 			var icons = new Skycons({
 				"color": "#73879C"
@@ -283,7 +279,6 @@ $(document).ready(function() {
 		function init_parsley() {
 
 			if( typeof (parsley) === 'undefined'){ return; }
-			console.log('init_parsley');
 
 			$/*.listen*/('parsley:field:validate', function() {
 			  validateFront();

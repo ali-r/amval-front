@@ -163,7 +163,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       this.uploadPic = function() {
-        console.log($scope.invoiceForm.file.$error)
+        mainAsset.log($scope.invoiceForm.file.$error)
         if(!$scope.invoiceForm.file.$error.maxSize && controller.scannedFile)
         {
           requestHelper.uploadFileReq(controller.scannedFile, 'invoice', $scope, function(data){
@@ -179,7 +179,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           bank += item.price;
         })
         
-        console.log(bank)
+        mainAsset.log(bank)
         if (bank == controller.obj.price) {
           return false;
         }else{

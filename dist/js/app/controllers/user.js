@@ -68,7 +68,7 @@ angular.module("assetAdminPanel").controller('userCtrl',
       });
   };
 
-  console.log($scope)
+  mainAsset.log($scope)
   this.openResetPassModal = function(id) {
     controller.toResetPassId = id;
     controller.passToReset = null;
@@ -83,7 +83,7 @@ angular.module("assetAdminPanel").controller('userCtrl',
 
   controller.obj.scanned_signature = '';
   this.uploadPic = function() {
-    console.log($scope.userForm.file.$error)
+    mainAsset.log($scope.userForm.file.$error)
     if(!$scope.userForm.file.$error.maxSize && controller.sigFile)
     {
       requestHelper.uploadFileReq(controller.sigFile, 'signature', $scope, function(data){

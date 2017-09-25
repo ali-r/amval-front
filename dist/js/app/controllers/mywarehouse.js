@@ -100,7 +100,7 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
         searchUrl += '&text_search='+ controller.tmp.searchQuery;        
       }
       
-      console.log(searchUrl);
+      mainAsset.log(searchUrl);
       requestHelper.get(
         searchUrl, $scope,
         function(response) {

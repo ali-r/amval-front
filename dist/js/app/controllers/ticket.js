@@ -176,7 +176,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     requestHelper.get(
       url,$scope,
       function(response){
-        console.log(response.data);
+        mainAsset.log(response.data);
         if(response.data.parent_warehouse){
           controller.allowedSource = false;
           controller.centralWarehouse = false;
@@ -216,7 +216,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     if(controller.obj.status == 2){
       responseFunction = function(response){ // with status change
         controller.obj = response.data;
-        console.log(response.data);
+        mainAsset.log(response.data);
         delete controller.tmp['text'];
         delete controller.tmp['transaction'];        
         setTimeout(function () {
@@ -229,7 +229,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     else{
       responseFunction = function(response){ // no status change
         controller.obj = response.data;
-        console.log(response.data);
+        mainAsset.log(response.data);
         delete controller.tmp['text'];
         delete controller.tmp['transaction'];        
         setTimeout(function () {
@@ -256,7 +256,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       function(response) { //for success response
         requestHelper.successCallback(response);
         controller.obj = response.data;
-        console.log(response.data);
+        mainAsset.log(response.data);
         $scope.loadStatus = false;
         controller.getData();
       },

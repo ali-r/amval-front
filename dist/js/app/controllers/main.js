@@ -2,7 +2,7 @@ angular.module("assetAdminPanel").controller('mainCtrl',
   function( $scope, $http, $localStorage, $window){
 
 
-    /*console.log($localStorage.assetData);*/
+    /*mainAsset.log($localStorage.assetData);*/
     if(!$localStorage.assetData)
     {
       setTimeout(
