@@ -4770,3 +4770,13 @@ ol.tree-chd li:after {
     margin-top: 14px;
     border: 1px solid #f0f0f0;
 }
+
+ul.msg_list li a .image img{
+    float:right;
+    margin-right: initial;
+    margin-left: 10px;
+}
+ul.msg_list li a .time{
+    right: initial;
+    left: 35px;
+}
