@@ -1,0 +1,33 @@
+<div class="row">
+        <search-tools sobject="notification.searchObject" scontroller="notification"></search-tools>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2><i class="fa fa-envelop"></i> اعلان ها</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <table class="table table-striped jambo_table asset-tables">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>مبدا</th>
+                    <th>متن اعلان</th>
+                    <th>زمان</th>
+                  </tr>
+                </thead>
+                <tbody ng-hide = "load">
+                  <tr ng-repeat = "list in notification.note">
+                    <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
+                    <td>{{list.source | lengthLimit:30}}</td>
+                    <td>{{list.message | lengthLimit:30}}</td>
+                    <td>{{list.time | lengthLimit:30}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <req-pagination itemmeta="meta" itempage="page" controller="user"></req-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+      
