@@ -143,8 +143,8 @@ angular.module("assetAdminPanel").controller('productCtrl',
     for (var i = 0; i < controller.tmp.meta.meta_template.length; i++) {
       for (var j = 0; j < obj.meta_data.meta_template.length; j++) {
 
-        console.log(controller.tmp.meta[i]);
-        console.log(obj.meta_data[i]);
+        mainAsset.log(controller.tmp.meta[i]);
+        mainAsset.log(obj.meta_data[i]);
         
       }
     
@@ -164,7 +164,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   controller.obj.qr_code = '';
   this.uploadPic = function() {
-    console.log($scope.productForm.file.$error)
+    mainAsset.log($scope.productForm.file.$error)
     if(!$scope.productForm.file.$error.maxSize && controller.qrCodeFile)
     {
       requestHelper.uploadFileReq(controller.qrCodeFile, 'qrcode', $scope, function(data){
@@ -176,7 +176,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   this.selectReportOption = function(id, title, titleFiled, variable, targetObj){
     if(!targetObj) targetObj = controller.addOne.extra;
-    if(!variable) {console.log('unable to set report option: not a valid variable'); return}
+    if(!variable) {mainAsset.log('unable to set report option: not a valid variable'); return}
 
     if(!targetObj[variable]) targetObj[variable] = {};
 

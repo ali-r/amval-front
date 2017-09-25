@@ -151,10 +151,10 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
 
     if(date_included && time_included){
       var dateTimeSplitted = pDate.split(' ');
-      console.log(dateTimeSplitted);
+      mainAsset.log(dateTimeSplitted);
       var dateArray = dateTimeSplitted[1].split('-');
       var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      console.log(gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]);
+      mainAsset.log(gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]);
       return (gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]+':00');
     }
     else if(date_included){
@@ -171,7 +171,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   controller.toJalaliDate = function(pDate){
     if(!pDate){return '';}
     pDate = pDate.split('T');
-    console.log(pDate)
+    mainAsset.log(pDate)
     var dateArray = pDate[0].split('-');
     var transactionTime = pDate[1];
     var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));

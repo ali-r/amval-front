@@ -124,7 +124,11 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       return output;
     };
 
-
+    this.log = function(logText){
+      if(assetPanelData.devMode){
+        console.log(logText)
+      }
+    };
 });
 
 app.filter('filterObjById',function(){
