@@ -133,6 +133,16 @@
                       <li ng-if="main.checkPer('db')"><a href="#database">مدیریت دیتابیس</a></li>
                     </ul>
                   </li>
+                  <li ng-if="main.checkPer('config')">
+                      <a>
+                        <i class="fa fa-cog"></i> تنظیمات
+                        <span class="fa fa-chevron-down"></span>
+                      </a>
+                      <ul class="nav child_menu">
+                        <li ng-if="main.checkPer('config')"><a href="#config">مدیریت تنظیمات</a></li>
+                      </ul>
+                    </li>
+                    
                   <!--
                   <li><a><i class="fa fa-envelope"></i> تیکت ها <span class="fa fa-chevron-down"></span></a>
                   </li>
@@ -309,6 +319,7 @@
     <script src="/dist/js/app/base/directive.js"></script>
     <script src="/dist/js/app/base/http.js"></script>
     <script src="/dist/js/app/controllers/changePassword.js"></script>
+    <script src="/dist/js/app/controllers/config.js"></script>
     <script src="/dist/js/app/controllers/database.js"></script>
     <script src="/dist/js/app/controllers/group.js"></script>
     <script src="/dist/js/app/controllers/guarantor.js"></script>
