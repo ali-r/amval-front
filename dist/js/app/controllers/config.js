@@ -21,7 +21,6 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload,
   requestHelper.init($scope);
 
   controller.loadConfig = function(){
-    console.log('config url: '+controller.configUrl);
     requestHelper.get(
         controller.configUrl, $scope,
         function(response){
@@ -43,6 +42,7 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload,
     $scope.loadModal = true
     requestHelper.put(requestUrl, obj, $scope, 
         function(response){
+            controller.loadConfig();
             mainAsset.log(response.data);
             $scope.loadModal = false;
         }, '');

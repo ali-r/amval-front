@@ -14,13 +14,12 @@
                     <div ng-show="loadModal" class="text-center">
                         <i class="fa fa-spinner fa-pulse fa-4x"></i>
                     </div>
-                    <form ng-hide="loadModal" name="ldapForm" ng-submit="config.hasChanges('LdapConfig') && config.setConfig('ldap')">
+                    <form ng-hide="loadModal" name="ldapForm" ng-submit="config.hasChanges('ldap') && config.setConfig('ldap')">
                         <fieldset>
                             <div class="col-md-6 col-md-pull-3">
-                                <div class="form-group" ng-class="{'has-error':ldapForm.hostname.$invalid && config.obj.LdapConfig.hostname , 'has-success':!ldapForm.hostname.$invalid && config.obj.LdapConfig.hostname }">
+                                <div class="form-group" ng-class="{'has-error':ldapForm.hostname.$invalid && config.obj.ldap.hostname , 'has-success':!ldapForm.hostname.$invalid && config.obj.ldap.hostname }">
                                     <label> آدرس میزبان </label>
-                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.LdapConfig.hostname" 
-                                    ng-pattern="'(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]\\.[^\\s]{2,})'">
+                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.ldap.hostname">
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -28,7 +27,7 @@
                             <div class="col-md-6 col-md-pull-3" title="فعال و غیر فعال کردن ldap">
                                 <div  class="checkbox">
                                     <label>
-                                        <input class="checkbox" ng-model="config.obj.LdapConfig.ldap_on" id="ldap_on_off" type="checkbox">
+                                        <input class="checkbox" ng-model="config.obj.ldap.ldap_on" id="ldap_on_off" type="checkbox">
                                             روشن بودن ldap
                                     </label>
                                 </div>
@@ -36,7 +35,7 @@
                             <div class="clearfix"></div>
                             
                             <div class="col-md-2 col-md-pull-8">
-                                <button ng-disabled="ldapForm.hostname.$invalid || !config.hasChanges('LdapConfig')" class="btn btn-success" type="submit"> ارسال </button>
+                                <button ng-disabled="ldapForm.hostname.$invalid || !config.hasChanges('ldap')" class="btn btn-success" type="submit"> ارسال </button>
                             </div>
 
                         </fieldset>
@@ -47,20 +46,19 @@
                     <div ng-show="loadModal" class="text-center">
                         <i class="fa fa-spinner fa-pulse fa-4x"></i>
                     </div>
-                    <form ng-hide="loadModal" name="syslogForm" ng-submit="config.hasChanges('SyslogConfig') && config.setConfig('syslog')">
+                    <form ng-hide="loadModal" name="syslogForm" ng-submit="config.hasChanges('syslog') && config.setConfig('syslog')">
                         <fieldset>
                             <div class="col-md-6 col-md-pull-3">
-                                <div class="form-group" ng-class="{'has-error':syslogForm.hostname.$invalid && config.obj.SyslogConfig.hostname , 'has-success':!syslogForm.hostname.$invalid && config.obj.SyslogConfig.hostname}">
+                                <div class="form-group" ng-class="{'has-error':syslogForm.hostname.$invalid && config.obj.syslog.hostname , 'has-success':!syslogForm.hostname.$invalid && config.obj.syslog.hostname}">
                                     <label> آدرس میزبان </label>
-                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.SyslogConfig.hostname"
-                                    ng-pattern="'(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]\\.[^\\s]{2,})'">
+                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.syslog.hostname">
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-md-6 col-md-pull-3" title="فعال و غیر فعال کردن لاگ های سیستم">
                                 <div class="checkbox">
                                     <label>
-                                        <input class="checkbox" ng-model="config.obj.SyslogConfig.syslog_on" id="syslog_on_off" type="checkbox">
+                                        <input class="checkbox" ng-model="config.obj.syslog.syslog_on" id="syslog_on_off" type="checkbox">
                                             روشن بودن لاگ های سیستم
                                     </label>
                                 </div>
@@ -68,7 +66,7 @@
                             <div class="clearfix"></div>
                             
                             <div class="col-md-2 col-md-pull-8">
-                                <button ng-disabled="syslogForm.hostname.$invalid || !config.hasChanges('SyslogConfig')" class="btn btn-success" type="submit"> ارسال </button>
+                                <button ng-disabled="syslogForm.hostname.$invalid || !config.hasChanges('syslog')" class="btn btn-success" type="submit"> ارسال </button>
                             </div>
 
                         </fieldset>
