@@ -21,16 +21,19 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload,
   requestHelper.init($scope);
 
   controller.loadConfig = function(){
+    $scope.loadModal = true;    
     requestHelper.get(
         controller.configUrl, $scope,
         function(response){
             mainAsset.log(response.data);
             controller.initialConfig = response.data;
             controller.obj = angular.copy(controller.initialConfig);
+            $scope.loadModal = false;
         },
         function(response){
             mainAsset.log('Error loading config:');
             mainAsset.log(response)
+            $scope.loadModal = false;
         }
     )
   }

@@ -2,10 +2,10 @@
     <div class="col-md-6 col-md-offset-3 dataBaseplace-box">
         <div class="" id='myTabs' role="tabpanel" data-example-id="myTabs">
             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                <li role="presentation">
+                <li role="presentation" ng-click="config.loadConfig()">
                     <a href="#ldap" role="tab" data-toggle="tab" aria-expanded="false">Ldap</a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" ng-click="config.loadConfig()">
                     <a href="#syslog" role="tab" data-toggle="tab" aria-expanded="false">لاگ های سیستم</a>
                 </li>
             </ul>
@@ -19,7 +19,8 @@
                             <div class="col-md-6 col-md-pull-3">
                                 <div class="form-group" ng-class="{'has-error':ldapForm.hostname.$invalid && config.obj.ldap.hostname , 'has-success':!ldapForm.hostname.$invalid && config.obj.ldap.hostname }">
                                     <label> آدرس میزبان </label>
-                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.ldap.hostname">
+                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.ldap.hostname"
+                                    ng-pattern="/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})(([:][0-9]{1,5}){0,1})$/">
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -51,7 +52,7 @@
                             <div class="col-md-6 col-md-pull-3">
                                 <div class="form-group" ng-class="{'has-error':syslogForm.hostname.$invalid && config.obj.syslog.hostname , 'has-success':!syslogForm.hostname.$invalid && config.obj.syslog.hostname}">
                                     <label> آدرس میزبان </label>
-                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.syslog.hostname">
+                                    <input type="text" class="form-control" dir="ltr" name="hostname" placeholder="www.example.com/..." ng-model = "config.obj.syslog.hostname" ng-pattern="/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})(([:][0-9]{1,5}){0,1})$/">
                                 </div>
                             </div>
                             <div class="clearfix"></div>
