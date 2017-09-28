@@ -9,7 +9,7 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload,
     $(this).tab('show')
   })
   $('#myTabs a:first').tab('show') 
-
+  $(":input").inputmask();
   var apiName = 'config'
   $scope.page = 1;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
@@ -19,7 +19,9 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload,
   this.obj = {}
 
   requestHelper.init($scope);
-
+  $scope.ipConfigObject = {
+    allowPort: true
+  };
   controller.loadConfig = function(){
     $scope.loadModal = true;    
     requestHelper.get(
@@ -48,12 +50,48 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload,
             controller.loadConfig();
             mainAsset.log(response.data);
             $scope.loadModal = false;
+            $('#ldap-submit').hide();
+            $('#syslog-submit').hide();
         }, '');
 
   }
 
-  controller.hasChanges = function(configType){
-    return (!(controller.initialConfig[configType] == controller.obj[configType]));
-  }
+    $('#ldap-host').on('change',function(){
+        controller.obj.ldap.hostname = $('#ldap-host').val();
+        if(controller.hasChanges('ldap'))
+            $('#ldap-submit').show();
+        else
+            $('#ldap-submit').hide();        
+    })
+
+    $('#syslog-host').on('change',function(){
+        controller.obj.syslog.hostname =$('#syslog-host').val()
+        
+        if(controller.hasChanges('syslog'))
+            $('#syslog-submit').show();
+        else
+            $('#syslog-submit').hide();
+    })
+
+    $('#ldap_on_off').on('click',function(){
+        controller.obj.ldap.ldap_on = $('#ldap_on_off').val();
+        if(controller.hasChanges('ldap'))
+            $('#ldap-submit').show();
+        else
+            $('#ldap-submit').hide();
+    })
+
+    $('#syslog_on_off').on('click',function(){
+        controller.obj.syslog.syslog_on = $('#syslog_on_off').val();
+        if(controller.hasChanges('syslog'))
+            $('#syslog-submit').show();
+        else
+            $('#syslog-submit').hide();
+    })
+
+    controller.hasChanges = function(configType){
+        var compareResult = angular.equals(controller.initialConfig[configType],controller.obj[configType]);
+        return (!compareResult);
+    }
 
 });
