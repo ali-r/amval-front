@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('configCtrl',
-function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload, crud){
+function($scope, $http, $cookieStore, mainAsset, requestHelper){
     $scope.loadModal = true;
   var controller = this;
   $scope.assetData = $cookieStore.get("assetData");
