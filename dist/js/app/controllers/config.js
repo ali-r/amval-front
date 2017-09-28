@@ -56,7 +56,8 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
 
   }
 
-    $('#ldap-host').on('change',function(){
+  $(document).ready(function(){
+    $('#ldap-host').bind('propertychange change click keyup keydown input paste',function(event){
         controller.obj.ldap.hostname = $('#ldap-host').val();
         if(controller.hasChanges('ldap'))
             $('#ldap-submit').show();
@@ -64,9 +65,8 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
             $('#ldap-submit').hide();        
     })
 
-    $('#syslog-host').on('change',function(){
+    $('#syslog-host').bind('propertychange change click keyup keydown input paste',function(){
         controller.obj.syslog.hostname =$('#syslog-host').val()
-        
         if(controller.hasChanges('syslog'))
             $('#syslog-submit').show();
         else
@@ -89,6 +89,9 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
             $('#syslog-submit').hide();
     })
 
+
+  });
+    
     controller.hasChanges = function(configType){
         var compareResult = angular.equals(controller.initialConfig[configType],controller.obj[configType]);
         return (!compareResult);
