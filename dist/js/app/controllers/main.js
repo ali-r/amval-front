@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('mainCtrl',
-  function( $scope, $http, $localStorage, $window){
+  function( $scope, requestHelper, $localStorage, $window, mainAsset){
 
 
     /*console.log($localStorage.assetData);*/
@@ -39,5 +39,16 @@ angular.module("assetAdminPanel").controller('mainCtrl',
         return true;
       }
     }
+
+    $scope.notifList = []
+    this.loadNotifications = function(){
+      var url = mainAsset.getUrl() + 'notification';
+      requestHelper.get(url, $scope,
+      function(response){
+        console.log(response.data);
+        $scope.notifList = response.data.notifications;
+      });
+    }
+    this.loadNotifications();
 
 });

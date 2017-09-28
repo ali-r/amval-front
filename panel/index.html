@@ -191,7 +191,8 @@
                     <span class="badge bg-green">6</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
+                    <!-- example -->
+                    <!-- <li>
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
@@ -202,43 +203,19 @@
                           Film festivals used to be do-or-die moments for movie makers. They were where...
                         </span>
                       </a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <li ng-repeat="notif in notifList | limitTo:5">
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>حامد کبیری</span>
+                          <span> {{notif.title}} </span>
                           <span class="time">5 دقیقه پیش</span>
                         </span>
                         <span class="message">
-                          ایجاد رابط کاربری مناسب برای اعلان ها
+                          {{notif.message}}
                         </span>
                       </a>
                     </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
+
                     <li>
                       <div class="text-center" style="width:100%">
                         <a href="#notification">
