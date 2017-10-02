@@ -1,7 +1,9 @@
 angular.module("assetAdminPanel").controller('configCtrl',
 function($scope, $http, $cookieStore, mainAsset, requestHelper){
-    $scope.loadModal = true;
+    
   var controller = this;
+  $scope.loadModal = true;
+  controller.hostnamePattern = new RegExp('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})(([:][0-9]{1,5}){0,1})$');
   $scope.assetData = $cookieStore.get("assetData");
   $scope.serverUrl = mainAsset.getUrl();
   $('#myTabs a').click(function (e) {
@@ -22,6 +24,14 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
   $scope.ipConfigObject = {
     allowPort: true
   };
+
+  controller.validateResult = {ldap:false,syslog:false,touched:false};
+  controller.validateForm = function(configType,input_){
+    controller.validateResult.touched = true;
+    controller.validateResult[configType] = controller.hostnamePattern.test(input_);
+    $scope.$apply();
+  }
+
   controller.loadConfig = function(){
     $scope.loadModal = true;    
     requestHelper.get(
@@ -31,11 +41,13 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
             controller.initialConfig = response.data;
             controller.obj = angular.copy(controller.initialConfig);
             $scope.loadModal = false;
+            controller.validateResult.touched = false;
         },
         function(response){
             mainAsset.log('Error loading config:');
             mainAsset.log(response)
             $scope.loadModal = false;
+            controller.validateResult.touched = false;
         }
     )
   }
@@ -57,44 +69,31 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
   }
 
   $(document).ready(function(){
-    $('#ldap-host').bind('propertychange change click keyup keydown input paste',function(event){
+    $('#ldap-host').bind('propertychange change keyup keydown input paste',function(event){
         controller.obj.ldap.hostname = $('#ldap-host').val();
-        if(controller.hasChanges('ldap'))
-            $('#ldap-submit').show();
-        else
-            $('#ldap-submit').hide();        
+        controller.validateForm('ldap',controller.obj.ldap.hostname);
+        $('#ldap-submit').show();
     })
 
-    $('#syslog-host').bind('propertychange change click keyup keydown input paste',function(){
+    $('#syslog-host').bind('propertychange change keyup keydown input paste',function(){
         controller.obj.syslog.hostname =$('#syslog-host').val()
-        if(controller.hasChanges('syslog'))
-            $('#syslog-submit').show();
-        else
-            $('#syslog-submit').hide();
+        controller.validateForm('syslog',controller.obj.syslog.hostname);
+        $('#syslog-submit').show();
     })
 
     $('#ldap_on_off').on('click',function(){
         controller.obj.ldap.ldap_on = $('#ldap_on_off').val();
-        if(controller.hasChanges('ldap'))
-            $('#ldap-submit').show();
-        else
-            $('#ldap-submit').hide();
+        controller.validateForm('ldap',controller.obj.ldap.hostname);
+        $('#ldap-submit').show();
     })
 
     $('#syslog_on_off').on('click',function(){
         controller.obj.syslog.syslog_on = $('#syslog_on_off').val();
-        if(controller.hasChanges('syslog'))
-            $('#syslog-submit').show();
-        else
-            $('#syslog-submit').hide();
+        controller.validateForm('syslog',controller.obj.syslog.hostname);
+        $('#syslog-submit').show();
     })
 
 
   });
     
-    controller.hasChanges = function(configType){
-        var compareResult = angular.equals(controller.initialConfig[configType],controller.obj[configType]);
-        return (!compareResult);
-    }
-
 });
