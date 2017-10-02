@@ -205,7 +205,7 @@
                       </a>
                     </li> -->
                     <li ng-repeat="notif in notifList | limitTo:notifDisplayLimit">
-                      <a>
+                      <div class="pre-a">
                         <h5>
                           <span> {{notif.title}} </span>
                           <!-- <span class="time">5 دقیقه پیش</span> -->
@@ -213,7 +213,7 @@
                         <span id="{{'msg-'+$index}}" class="message">
                           <!-- {{notif.message}} -->
                         </span>
-                      </a>
+                      </div>
                     </li>
 
                     <li>
