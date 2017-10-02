@@ -41,12 +41,25 @@ angular.module("assetAdminPanel").controller('mainCtrl',
     }
 
     $scope.notifList = []
+    $scope.notifDisplayLimit = 5;
     this.loadNotifications = function(){
       var url = mainAsset.getUrl() + 'notification';
       requestHelper.get(url, $scope,
       function(response){
         console.log(response.data);
         $scope.notifList = response.data.notifications;
+        setTimeout(
+          function () {
+            
+            for(var i =0;i<$scope.notifDisplayLimit;i++){
+              marked($scope.notifList[i].message,function(err,content){
+                $('#msg-'+i)[0].innerHTML = content ;            
+                
+              })
+            }
+
+          },500);
+        
       });
     }
     this.loadNotifications();

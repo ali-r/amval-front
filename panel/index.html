@@ -188,7 +188,7 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <!-- <span class="badge bg-green">6</span> -->
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <!-- example -->
@@ -204,14 +204,14 @@
                         </span>
                       </a>
                     </li> -->
-                    <li ng-repeat="notif in notifList | limitTo:5">
+                    <li ng-repeat="notif in notifList | limitTo:notifDisplayLimit">
                       <a>
-                        <span>
+                        <h5>
                           <span> {{notif.title}} </span>
-                          <span class="time">5 دقیقه پیش</span>
-                        </span>
-                        <span class="message">
-                          {{notif.message}}
+                          <!-- <span class="time">5 دقیقه پیش</span> -->
+                        </h5>
+                        <span id="{{'msg-'+$index}}" class="message">
+                          <!-- {{notif.message}} -->
                         </span>
                       </a>
                     </li>
@@ -279,6 +279,7 @@
     <script src="/vendors/plugins/angular-ui-tree-master/dist/angular-ui-tree.js"></script>
     <script src="/vendors/plugins/dateTimePicker/dist/ADM-dateTimePicker.js"></script>
     <script src="/vendors/plugins/fastclick/lib/fastclick.js"></script>
+    <script src="/vendors/plugins/marked/lib/marked.js"></script>
     <script src="/vendors/plugins/pnotify/dist/pnotify.custom.js"></script>
     <script src="/vendors/plugins/qcode-decoder-master/build/qcode-decoder.min.js"></script>
     <script src="/dist/js/custom.js"></script>
