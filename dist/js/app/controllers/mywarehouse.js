@@ -27,6 +27,7 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
             $(this).tab('show')
           })
           $('#myTabs a:first').tab('show') 
+          
         },200);
     }
 
@@ -37,7 +38,13 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     controller.warehouseFilter = -1;
     $scope.tabStage = 0;
 
-    if($routeParams.pageType){
+    console.log($scope.assetData)
+    if($routeParams.ticket_id && $scope.assetData.warehouse_under_management){
+      setWarehouse($scope.assetData.warehouse_under_management);
+      controller.pageType = 0;
+      $scope.tabStage = 1;
+    }
+    else if($routeParams.pageType){
       controller.pageType = $routeParams.pageType; 
       if ($scope.assetData.warehouse_under_management) {
         controller.warehouseFilter = $scope.assetData.warehouse_under_management.id;
@@ -49,6 +56,10 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     else{
       if($scope.assetData.warehouse_under_management){
         setWarehouse($scope.assetData.warehouse_under_management);
+      }
+      else{
+        controller.pageType = 2;
+        $scope.tabStage = 0;
       }
     }
 

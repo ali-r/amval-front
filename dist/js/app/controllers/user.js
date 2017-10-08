@@ -97,4 +97,8 @@ angular.module("assetAdminPanel").controller('userCtrl',
     controller.tmp.searchQuery = '';
     controller.search('warehouse');
   }
+
+  if($routeParams.chp_user_id){
+    controller.getObject($routeParams.chp_user_id)
+  }
 });

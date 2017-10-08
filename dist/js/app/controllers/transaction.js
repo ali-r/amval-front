@@ -231,5 +231,30 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }
+
+  if($routeParams.product_id){
+    $scope.openModal();
+    $scope.loadModal = true;    
+    requestHelper.get(
+      mainAsset.getUrl() + 'product/'+$routeParams.product_id
+      , $scope,
+      function(response) {
+        controller.obj.product = response.data;
+        controller.obj.holder = controller.obj.product.holder;
+        $scope.loadModal = false;
+    });
+    requestHelper.get(
+      mainAsset.getUrl() + 'warehouse/'+$routeParams.destination_id
+      , $scope,
+      function(response) {
+        console.log('---------warehouse destination ----');
+        controller.obj.destination = {
+          type: 'Warehouse',
+          obj: response.data
+        };
+        console.log(controller.obj);
+        $scope.loadModal = false;
+    });
+  }
   
 });

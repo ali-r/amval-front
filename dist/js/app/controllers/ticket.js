@@ -314,4 +314,9 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     
     controller.deleteKey(controller.addOne.reportFields,'from_warehouse')
   }
+  
+  if($routeParams.ticket_id){
+    controller.readTicket($routeParams.ticket_id);
+  }
+
 });
