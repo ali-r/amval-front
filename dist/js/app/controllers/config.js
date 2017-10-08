@@ -25,7 +25,7 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     allowPort: true
   };
 
-  controller.validateResult = {ldap:false,syslog:false,touched:false};
+  controller.validateResult = {ldap:true,syslog:true,touched:false};
   controller.validateForm = function(configType,input_){
     controller.validateResult.touched = true;
     controller.validateResult[configType] = controller.hostnamePattern.test(input_);
@@ -82,14 +82,16 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     })
 
     $('#ldap_on_off').on('click',function(){
-        controller.obj.ldap.ldap_on = $('#ldap_on_off').val();
+        controller.obj.ldap.ldap_on = $('#ldap_on_off')[0].checked;
         controller.validateForm('ldap',controller.obj.ldap.hostname);
+        controller.validateResult.touched = true;        
         $('#ldap-submit').show();
     })
 
     $('#syslog_on_off').on('click',function(){
-        controller.obj.syslog.syslog_on = $('#syslog_on_off').val();
+        controller.obj.syslog.syslog_on = $('#syslog_on_off')[0].checked;
         controller.validateForm('syslog',controller.obj.syslog.hostname);
+        controller.validateResult.touched = true;        
         $('#syslog-submit').show();
     })
 
