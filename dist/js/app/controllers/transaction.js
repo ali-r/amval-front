@@ -247,12 +247,10 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
       mainAsset.getUrl() + 'warehouse/'+$routeParams.destination_id
       , $scope,
       function(response) {
-        console.log('---------warehouse destination ----');
         controller.obj.destination = {
           type: 'Warehouse',
           obj: response.data
         };
-        console.log(controller.obj);
         $scope.loadModal = false;
     });
   }

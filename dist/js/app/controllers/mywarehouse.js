@@ -38,7 +38,6 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     controller.warehouseFilter = -1;
     $scope.tabStage = 0;
 
-    console.log($scope.assetData)
     if($routeParams.ticket_id && $scope.assetData.warehouse_under_management){
       setWarehouse($scope.assetData.warehouse_under_management);
       controller.pageType = 0;
