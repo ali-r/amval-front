@@ -25,9 +25,10 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     allowPort: true
   };
 
-  controller.validateResult = {ldap:true,syslog:true,touched:false};
+  controller.validateResult = {ldap:true,syslog:true,touched:false,ldap_touched:false,syslog_touched:false};
   controller.validateForm = function(configType,input_){
     controller.validateResult.touched = true;
+    controller.validateResult[configType+"_touched"] = true;    
     controller.validateResult[configType] = controller.hostnamePattern.test(input_);
     $scope.$apply();
   }

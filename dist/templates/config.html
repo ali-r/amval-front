@@ -17,7 +17,7 @@
                     <form ng-hide="loadModal" name="ldapForm" ng-submit="config.validateResult.ldap && config.setConfig('ldap')">
                         <fieldset>
                             <div class="col-md-6 col-md-pull-3">
-                                <div id="ldap-hostname-container" class="form-group" ng-class="{'has-error':!config.validateResult.ldap && config.validateResult.touched , 'has-success':config.validateResult.ldap && config.validateResult.touched }">
+                                <div id="ldap-hostname-container" class="form-group" ng-class="{'has-error':!config.validateResult.ldap && config.validateResult.ldap_touched , 'has-success':config.validateResult.ldap && config.validateResult.ldap_touched }">
                                     <label> آدرس میزبان </label>
                                     <input id="ldap-host" type="text" class="form-control hostname-input" dir="ltr" name="hostname" ng-model = "config.obj.ldap.hostname" 
                                     data-inputmask="'mask': '9{1,3}.9{1,3}.9{1,3}.9{1,3}(:9{1,4}){0,1}'" >
@@ -52,7 +52,7 @@
                     <form ng-hide="loadModal" name="syslogForm" ng-submit="config.validateResult.syslog && config.setConfig('syslog')">
                         <fieldset>
                             <div class="col-md-6 col-md-pull-3">
-                                <div class="form-group"  id="syslog-hostname-container" ng-class="{'has-error':!config.validateResult.syslog && config.validateResult.touched , 'has-success':config.validateResult.syslog && config.validateResult.touched }">
+                                <div class="form-group"  id="syslog-hostname-container" ng-class="{'has-error':!config.validateResult.syslog && config.validateResult.syslog_touched , 'has-success':config.validateResult.syslog && config.validateResult.syslog_touched }">
                                     <label> آدرس میزبان </label>
                                     <input id="syslog-host" type="text" class="form-control hostname-input" dir="ltr" name="hostname" ng-model = "config.obj.syslog.hostname" data-inputmask="'mask': '9{1,3}.9{1,3}.9{1,3}.9{1,3}(:9{1,4}){0,1}'">
                                 </div>
