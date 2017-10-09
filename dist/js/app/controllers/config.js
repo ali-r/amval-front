@@ -31,7 +31,7 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     controller.validateResult[configType+"_touched"] = true;    
     controller.validateResult[configType] = controller.hostnamePattern.test(input_);
     $scope.$apply();
-  }
+}
 
   controller.loadConfig = function(){
     $scope.loadModal = true;    
@@ -69,34 +69,30 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
 
   }
 
+  controller.configChange = function(configType){
+    var r = angular.equals(controller.initialConfig[configType],controller.obj[configType]);
+    return !r;
+  }
+
+  controller.checkboxClick = function(configType){
+    if(controller.configChange(configType)) $('#'+configType+'-submit').show();
+    else $('#'+configType+'-submit').hide();
+  } 
+  
   $(document).ready(function(){
     $('#ldap-host').bind('propertychange change keyup keydown input paste',function(event){
         controller.obj.ldap.hostname = $('#ldap-host').val();
         controller.validateForm('ldap',controller.obj.ldap.hostname);
-        $('#ldap-submit').show();
+        if(controller.configChange('ldap')) $('#ldap-submit').show();
+        else $('#ldap-submit').hide();
     })
 
     $('#syslog-host').bind('propertychange change keyup keydown input paste',function(){
         controller.obj.syslog.hostname =$('#syslog-host').val()
         controller.validateForm('syslog',controller.obj.syslog.hostname);
-        $('#syslog-submit').show();
+        if(controller.configChange('syslog')) $('#syslog-submit').show();
+        else $('#syslog-submit').hide();
     })
-
-    $('#ldap_on_off').on('click',function(){
-        controller.obj.ldap.ldap_on = $('#ldap_on_off')[0].checked;
-        controller.validateForm('ldap',controller.obj.ldap.hostname);
-        controller.validateResult.touched = true;        
-        $('#ldap-submit').show();
-    })
-
-    $('#syslog_on_off').on('click',function(){
-        controller.obj.syslog.syslog_on = $('#syslog_on_off')[0].checked;
-        controller.validateForm('syslog',controller.obj.syslog.hostname);
-        controller.validateResult.touched = true;        
-        $('#syslog-submit').show();
-    })
-
-
   });
     
 });

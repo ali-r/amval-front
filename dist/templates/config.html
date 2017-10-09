@@ -28,7 +28,7 @@
                             <div class="col-md-6 col-md-pull-3" title="فعال و غیر فعال کردن ldap">
                                 <div  class="checkbox">
                                     <label>
-                                        <input class="checkbox" ng-model="config.obj.ldap.ldap_on" id="ldap_on_off" type="checkbox">
+                                        <input class="checkbox" ng-click="config.checkboxClick('ldap')" ng-model="config.obj.ldap.ldap_on" id="ldap_on_off" type="checkbox">
                                             روشن بودن ldap
                                     </label>
                                 </div>
@@ -61,7 +61,7 @@
                             <div class="col-md-6 col-md-pull-3" title="فعال و غیر فعال کردن لاگ های سیستم">
                                 <div class="checkbox">
                                     <label>
-                                        <input class="checkbox" ng-model="config.obj.syslog.syslog_on" id="syslog_on_off" type="checkbox">
+                                        <input class="checkbox" ng-click="config.checkboxClick('syslog')" ng-model="config.obj.syslog.syslog_on" id="syslog_on_off" type="checkbox">
                                             روشن بودن لاگ های سیستم
                                     </label>
                                 </div>
