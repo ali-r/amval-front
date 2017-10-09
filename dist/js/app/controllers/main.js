@@ -50,8 +50,8 @@ angular.module("assetAdminPanel").controller('mainCtrl',
         $scope.notifList = response.data.notifications;
         setTimeout(
           function () {
-            
-            for(var i =0;i<$scope.notifDisplayLimit;i++){
+            if($scope.notifList.length<1) $('#notif-badge').hide()
+            for(var i =0;i<Math.min($scope.notifDisplayLimit,$scope.notifList.length);i++){
               marked($scope.notifList[i].message,function(err,content){
                 $('#msg-'+i)[0].innerHTML = content ;            
                 
