@@ -230,9 +230,6 @@ app.filter('metaType', function() {
   return function(input) {
     var output;
     switch(input){
-        case 'int':
-          output = "عدد صحیح";
-        break;
         case 'num':
           output = "عدد";
         break;
@@ -241,9 +238,6 @@ app.filter('metaType', function() {
         break;
         case 'bool':
           output = "دو حالتی";
-        break;
-        case 'float':
-          output = "عدد اعشاری";
         break;
     }
     return output;
