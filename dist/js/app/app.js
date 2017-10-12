@@ -24,7 +24,7 @@ app.config(['ADMdtpProvider', function(ADMdtp) {
 }]);
 angular.module("assetAdminPanel").config(function($routeProvider) {
 
-    var assetPages = ['home','database','seller','producer','guarantor','warehouse','changepass','group','invoice','mywarehouse'];
+    var assetPages = ['home','database','seller','producer','guarantor','warehouse','changepass','group','invoice','mywarehouse','config'];
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {

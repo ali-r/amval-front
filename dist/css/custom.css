@@ -4770,3 +4770,6 @@ ol.tree-chd li:after {
     margin-top: 14px;
     border: 1px solid #f0f0f0;
 }
+.hostname-input{
+    font:icon;
+}
