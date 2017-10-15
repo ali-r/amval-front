@@ -101,4 +101,7 @@ angular.module("assetAdminPanel").controller('userCtrl',
   if($routeParams.chp_user_id){
     controller.openResetPassModal($routeParams.chp_user_id)
   }
+  if($routeParams.user_id){
+    controller.getObject($routeParams.user_id)
+  }
 });
