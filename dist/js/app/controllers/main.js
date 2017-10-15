@@ -46,22 +46,31 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       var url = mainAsset.getUrl() + 'notification';
       requestHelper.get(url, $scope,
       function(response){
-        console.log(response.data);
-        $scope.notifList = response.data.notifications;
-        setTimeout(
-          function () {
-            if($scope.notifList.length<1) $('#notif-badge').hide()
-            for(var i =0;i<Math.min($scope.notifDisplayLimit,$scope.notifList.length);i++){
-              marked($scope.notifList[i].message,function(err,content){
-                $('#msg-'+i)[0].innerHTML = content ;            
-                
-              })
-            }
-
-          },500);
-        
+        if(!angular.equals($scope.notifList,response.data.notifications)){
+          $scope.notifList = response.data.notifications;
+          $('#notif-badge').show();
+          setTimeout(
+            function () {
+              if($scope.notifList.length<1){
+                $('#notif-badge').hide();
+              } 
+              for(var i =0;i<Math.min($scope.notifDisplayLimit,$scope.notifList.length);i++){
+                marked($scope.notifList[i].message,function(err,content){
+                  $('#msg-'+i)[0].innerHTML = content ;            
+                  
+                })
+              }
+  
+            },500);
+        }
+        else{
+          if($scope.notifList.length<1){
+            $('#notif-badge').hide();
+          }
+        }
       });
     }
     this.loadNotifications();
+    var intervalLoading = setInterval(this.loadNotifications,2000);
 
 });
