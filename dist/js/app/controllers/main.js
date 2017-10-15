@@ -31,6 +31,10 @@ angular.module("assetAdminPanel").controller('mainCtrl',
     }
 
 
+    $(document).on('click', 'ul#menu1', function (e) {
+      if(!$('ul#menu1 a').is(e.target) && !$('ul#menu1 strong').is(e.target))
+        e.stopPropagation();      
+    });
 
     this.checkPer = function (param){
       if( $scope.per[param] == 'none' || typeof($scope.per[param]) == "undefined"){
