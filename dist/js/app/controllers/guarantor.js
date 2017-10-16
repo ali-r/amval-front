@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('guarantorCtrl',
-  function($scope, $cookieStore, mainAsset, requestHelper, crud) {
+  function($scope, mainAsset, requestHelper, crud) {
 
   var controller = this;
   var apiName = 'guarantor';
@@ -11,8 +11,6 @@ angular.module("assetAdminPanel").controller('guarantorCtrl',
   ];
 
   $scope.page = 1;
-  $scope.assetData = $cookieStore.get('assetData');
-
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   controller.objConfig = function (obj) {
