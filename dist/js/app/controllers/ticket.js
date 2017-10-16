@@ -11,7 +11,9 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
 
   $scope.page = 1;
   $scope.assetData = $cookieStore.get('assetData');
-
+  
+  
+  $scope.currentUser = $localStorage.assetData
   controller.obj = {};
   controller.tmp = {};
   controller.tmp.formShow = false;
@@ -154,7 +156,20 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     $scope.loadSide = true;
     controller.tmp.formShow = true;
     controller.getObject(id);
+    setTimeout(controller.reloadCounts,500)
   };
+
+  controller.reloadCounts = function(){
+    var url = assetPanelData.serverUrl + 'ticket';
+    requestHelper.get(url,$scope,
+      function(response){
+        for(var i=0;i<controller.note.length;i++){
+          controller.note[i].sender_unread_count = response.data.tickets[i].sender_unread_count;
+          controller.note[i].receiver_unread_count = response.data.tickets[i].receiver_unread_count;          
+        }
+      },''
+    )
+  }
 
   controller.createTicket = function(editMode_){
     $scope.loadSide = true;
