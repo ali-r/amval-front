@@ -74,7 +74,15 @@
             <tr ng-repeat = "list in ticket.note" ng-class="{'info':list.id==ticket.obj.id,
             'obj-info-border':list.status==2,'obj-success-border':list.status==1,'obj-warning-border':list.status==0}">
               <td>{{ (page-1)*10 + $index + 1 | pNumber}}</td>
-              <td>{{list.title | lengthLimit:30}}</td>
+              <td>
+                {{list.title | lengthLimit:30}}
+                <span ng-if="list.sender_unread_count>0 && currentUser.warehouse_under_management" ng-show="list.from_warehouse.id == currentUser.warehouse_under_management.id" class="badge bg-green" title="تعداد پیام های خوانده نشده"> 
+                  {{list.sender_unread_count | pNumber}} </span>
+                
+                <span ng-if="list.receiver_unread_count>0 && currentUser.warehouse_under_management" ng-show="list.to_warehouse.id == currentUser.warehouse_under_management.id" class="badge bg-green" title="تعداد پیام های خوانده نشده"> 
+                    {{list.receiver_unread_count | pNumber}} </span>
+                    
+              </td>
               <td ng-hide="ticket.tmp.formShow">{{list.description | lengthLimit:30}}</td>
               <td ng-hide="ticket.tmp.formShow">{{list.ticket_type | ticketType}}</td>
               <td ng-hide="ticket.tmp.formShow">{{list.reason | ticketReason}}</td>
