@@ -3,7 +3,10 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     
   var controller = this;
   $scope.loadModal = true;
-  controller.hostnamePattern = new RegExp('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})(([:][0-9]{1,5}){0,1})$');
+  // $scope.ValidIpAddressRegex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
+  $scope.ValidIpAddressRegex = "^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})(([:][0-9]{1,5}){0,1})$";
+  $scope.ValidHostnameRegex = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+  
   $scope.assetData = $cookieStore.get("assetData");
   $scope.serverUrl = mainAsset.getUrl();
   $('#myTabs a').click(function (e) {
@@ -11,13 +14,11 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     $(this).tab('show')
   })
   $('#myTabs a:first').tab('show') 
-  $(":input").inputmask();
   var apiName = 'config'
   $scope.page = 1;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   this.configUrl = $scope.serverUrl + 'config';
-  this.initialConfig = {}
   this.obj = {}
 
   requestHelper.init($scope);
@@ -25,13 +26,7 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     allowPort: true
   };
 
-  controller.validateResult = {ldap:true,syslog:true,touched:false,ldap_touched:false,syslog_touched:false};
-  controller.validateForm = function(configType,input_){
-    controller.validateResult.touched = true;
-    controller.validateResult[configType+"_touched"] = true;    
-    controller.validateResult[configType] = controller.hostnamePattern.test(input_);
-    $scope.$apply();
-}
+  controller.validateResult = {touched:false,ldap_touched:false,syslog_touched:false};
 
   controller.loadConfig = function(){
     $scope.loadModal = true;    
@@ -65,34 +60,16 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
             $scope.loadModal = false;
             $('#ldap-submit').hide();
             $('#syslog-submit').hide();
+            controller.validateResult['ldap_touched'] = false;
+            controller.validateResult['syslog_touched'] = false;            
         }, '');
 
   }
 
   controller.configChange = function(configType){
-    var r = angular.equals(controller.initialConfig[configType],controller.obj[configType]);
-    return !r;
+    if(angular.equals(controller.initialConfig[configType],controller.obj[configType])) $('#'+configType+'-submit').hide();
+    else $('#'+configType+'-submit').show();
+    controller.validateResult.touched = true;
+    controller.validateResult[configType+'_touched'] = true;
   }
-
-  controller.checkboxClick = function(configType){
-    if(controller.configChange(configType)) $('#'+configType+'-submit').show();
-    else $('#'+configType+'-submit').hide();
-  } 
-  
-  $(document).ready(function(){
-    $('#ldap-host').bind('propertychange change keyup keydown input paste',function(event){
-        controller.obj.ldap.hostname = $('#ldap-host').val();
-        controller.validateForm('ldap',controller.obj.ldap.hostname);
-        if(controller.configChange('ldap')) $('#ldap-submit').show();
-        else $('#ldap-submit').hide();
-    })
-
-    $('#syslog-host').bind('propertychange change keyup keydown input paste',function(){
-        controller.obj.syslog.hostname =$('#syslog-host').val()
-        controller.validateForm('syslog',controller.obj.syslog.hostname);
-        if(controller.configChange('syslog')) $('#syslog-submit').show();
-        else $('#syslog-submit').hide();
-    })
-  });
-    
 });
