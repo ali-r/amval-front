@@ -1,7 +1,6 @@
 angular.module("assetAdminPanel").controller('mainCtrl',
   function( $scope, requestHelper, $localStorage, $window, mainAsset){
-
-
+    var mainController = this;
     /*console.log($localStorage.assetData);*/
     if(!$localStorage.assetData)
     {
@@ -46,35 +45,30 @@ angular.module("assetAdminPanel").controller('mainCtrl',
 
     $scope.notifList = []
     $scope.notifDisplayLimit = 5;
+    mainController.loadingNotif = 0;
     this.loadNotifications = function(){
       var url = mainAsset.getUrl() + 'notification';
+      mainController.loadingNotif = 1;
       requestHelper.get(url, $scope,
       function(response){
         if(!angular.equals($scope.notifList,response.data.notifications)){
           $scope.notifList = response.data.notifications;
-          $('#notif-badge').show();
           setTimeout(
             function () {
-              if($scope.notifList.length<1){
-                $('#notif-badge').hide();
-              } 
               for(var i =0;i<Math.min($scope.notifDisplayLimit,$scope.notifList.length);i++){
                 marked($scope.notifList[i].message,function(err,content){
                   $('#msg-'+i)[0].innerHTML = content ;            
-                  
                 })
               }
-  
+              mainController.loadingNotif = 0;
+              $scope.$apply();
             },500);
         }
         else{
-          if($scope.notifList.length<1){
-            $('#notif-badge').hide();
-          }
+          mainController.loadingNotif = 0;          
         }
       });
     }
     this.loadNotifications();
-    var intervalLoading = setInterval(this.loadNotifications,2000);
 
-});
+  });

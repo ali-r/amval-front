@@ -191,6 +191,11 @@
                     <span ng-hide="notifList.length<1" id="notif-badge" class="badge bg-green"> {{notifList.length}} </span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li ng-show="main.loadingNotif>0">
+                      <span style="width:100%;text-align:center">
+                          <i class="fa fa-refresh fa-3x fa-pulse" ></i>                             
+                      </span>
+                    </li>
                     <!-- example -->
                     <!-- <li>
                       <a>
@@ -204,10 +209,13 @@
                         </span>
                       </a>
                     </li> -->
-                    <li ng-repeat="notif in notifList | limitTo:notifDisplayLimit">
+                    <li ng-show="main.loadingNotif==0" ng-repeat="notif in notifList | limitTo:notifDisplayLimit">
                       <div class="pre-a">
-                        <label>
-                          <b> {{notif.title}} </b>
+                          <button title="بروزرسانی لیست اعلان ها" style="float:left" ng-if="$index==0"  class="btn btn-success btn-xs" ng-click="main.loadNotifications()"> 
+                              <i class="fa fa-refresh"></i>                              
+                          </button>
+                          <label>
+                            <b> {{notif.title}} </b>
                           <!-- <span class="time">5 دقیقه پیش</span> -->
                         </label>
                         <span id="{{'msg-'+$index}}" class="message">
