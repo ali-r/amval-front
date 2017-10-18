@@ -35,7 +35,7 @@ function($scope, mainAsset, requestHelper, crud, $routeParams) {
                 if(response.data.total_price) scope.total_price = response.data.total_price;
                 else delete scope['total_price']
                 controller.note = response.data[apiName + 's'];
-                setTimeout(controller.doConvert,200);
+                setTimeout(controller.doConvert,400);
             }
             console.log(response)  
           },true);
