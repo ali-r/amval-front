@@ -1515,7 +1515,7 @@ ul.msg_list li {
     padding: 5px;
     display: -ms-flexbox;
     display: flex;
-    margin: 6px 6px 0;
+    margin: 3px 3px 0;
     width: 96% !important
 }
 ul.msg_list li:last-child {
@@ -4772,4 +4772,45 @@ ol.tree-chd li:after {
 }
 .hostname-input{
     font:icon;
+}
+.dropdown-menu>li>div.pre-a {
+    color: #5A738E;
+    text-align: right
+}
+.top_nav .dropdown-menu li div.pre-a {
+    width: 100%;
+    padding: 12px 20px;
+		text-align: right;
+}
+ul.msg_list li div.pre-a {
+    padding: 3px 5px !important
+}
+ul.msg_list li div.pre-a .image img {
+    border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    float: left;
+    margin-right: 10px;
+    width: 11%
+}
+ul.msg_list li div.pre-a .time {
+    font-size: 11px;
+    font-style: italic;
+    font-weight: bold;
+    position: absolute;
+    right: 35px
+}
+ul.msg_list li div.pre-a .message {
+    display: block !important;
+    font-size: 11px
+}
+
+
+ul.msg_list li div.pre-a .image img{
+    float:right;
+    margin-right: initial;
+    margin-left: 10px;
+}
+ul.msg_list li div.pre-a .time{
+    right: initial;
+    left: 35px;
 }

@@ -190,6 +190,59 @@
               </div>
 
               <ul class="nav navbar-nav navbar-left">
+                
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span ng-hide="notifList.length<1" id="notif-badge" class="badge bg-green"> {{notifList.length}} </span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li ng-show="main.loadingNotif>0">
+                      <span style="width:100%;text-align:center">
+                          <i class="fa fa-refresh fa-3x fa-pulse" ></i>                             
+                      </span>
+                    </li>
+                    <!-- example -->
+                    <!-- <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li> -->
+                    <li ng-show="main.loadingNotif==0" ng-repeat="notif in notifList | limitTo:notifDisplayLimit">
+                      <div class="pre-a">
+                          
+                          <label>
+                            <b> {{notif.title}} </b>
+                          <!-- <span class="time">5 دقیقه پیش</span> -->
+                        </label>
+                        <span id="{{'msg-'+$index}}" class="message">
+                          <!-- {{notif.message}} -->
+                        </span>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="text-center" style="width:100%">
+                        <a href="#notification">
+                          <i class="fa fa-angle-left"></i>
+                          <strong>نمایش همه ی اعلان ها</strong>
+                          
+                        </a>
+                        <button title="بروزرسانی لیست اعلان ها" style="float:left" class="btn btn-success btn-xs" ng-click="main.loadNotifications()"> 
+                            <i class="fa fa-refresh"></i>                              
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="images/img.jpg" alt="">منوی کاربری
@@ -200,72 +253,7 @@
                     <li><a href="../logout.html"><i class="fa fa-sign-out pull-left"></i> خروج</a></li>
                   </ul>
                 </li>
-                <!--
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              -->
+                
               </ul>
             </nav>
           </div>
@@ -307,6 +295,7 @@
     <script src="/vendors/plugins/angular-ui-tree-master/dist/angular-ui-tree.js"></script>
     <script src="/vendors/plugins/dateTimePicker/dist/ADM-dateTimePicker.js"></script>
     <script src="/vendors/plugins/fastclick/lib/fastclick.js"></script>
+    <script src="/vendors/plugins/marked/lib/marked.js"></script>
     <script src="/vendors/plugins/pnotify/dist/pnotify.custom.js"></script>
     <script src="/vendors/plugins/qcode-decoder-master/build/qcode-decoder.min.js"></script>
     <script src="/dist/js/custom.js"></script>
@@ -325,6 +314,7 @@
     <script src="/dist/js/app/controllers/logout.js"></script>
     <script src="/dist/js/app/controllers/main.js"></script>
     <script src="/dist/js/app/controllers/mywarehouse.js"></script>
+    <script src="/dist/js/app/controllers/notification.js"></script>
     <script src="/dist/js/app/controllers/producer.js"></script>
     <script src="/dist/js/app/controllers/product.js"></script>
     <script src="/dist/js/app/controllers/seller.js"></script>
