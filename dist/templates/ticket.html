@@ -288,7 +288,7 @@
                   </div>
                 </div>
                 
-                <textarea ng-if="msg.text" cols="15" class="form-control ticket-message-style" rows="2"> {{msg.text}} </textarea>
+                <textarea ng-if="msg.text" cols="15" class="form-control ticket-message-style" rows="2" readonly> {{msg.text}} </textarea>
                 <p ng-if="msg.attachments[0].type=='transaction'"> 
                   <small>شناسه تراکنش پیوست شده:</small>
                   <a title="نمایش جزییات تراکنش پیوست شده" href ng-click="ticket.openTransactionStatModal(msg.attachments[0].data.id)">
