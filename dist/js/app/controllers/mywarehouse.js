@@ -38,21 +38,24 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     controller.warehouseFilter = -1;
     $scope.tabStage = 0;
 
-    if($routeParams.ticket_id && $scope.assetData.warehouse_under_management){
+    if($routeParams.ticket_id && $scope.assetData.warehouse_under_management){ //directing to unread ticket notification
       setWarehouse($scope.assetData.warehouse_under_management);
       controller.pageType = 0;
       $scope.tabStage = 1;
     }
-    else if($routeParams.pageType){
+    else if($routeParams.pageType){ // not my_warehouse
       controller.pageType = $routeParams.pageType; 
-      if ($scope.assetData.warehouse_under_management) {
+
+      if ($scope.assetData.warehouse_under_management) { //filter warehouse under management in select warehouse modal
         controller.warehouseFilter = $scope.assetData.warehouse_under_management.id;
       }
-      if($localStorage.assetData.selectedWarehouse){
+
+      if($localStorage.assetData.selectedWarehouse){  // a warehouse has been selected previously
+        $routeParams.id = $localStorage.assetData.selectedWarehouse.id; // setting id for usage in ticket page
         setWarehouse($localStorage.assetData.selectedWarehouse);
       }
     }
-    else{
+    else{ // my_warehouse page
       if($scope.assetData.warehouse_under_management){
         setWarehouse($scope.assetData.warehouse_under_management);
       }
