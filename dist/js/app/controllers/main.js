@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('mainCtrl',
-  function( $scope, requestHelper, $localStorage, $window, mainAsset){
+  function( $scope, requestHelper, $localStorage, $window, mainAsset, $route){
     var mainController = this;
     /*console.log($localStorage.assetData);*/
     if(!$localStorage.assetData)
@@ -42,6 +42,10 @@ angular.module("assetAdminPanel").controller('mainCtrl',
         return true;
       }
     }
+
+    $(document).on('click', 'div.pre-a > span > p > a', function () {
+        $route.reload();
+    });
 
     $scope.notifList = []
     $scope.notifDisplayLimit = 5;
