@@ -43,8 +43,8 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       }
     }
 
-    $(document).on('click', 'div.pre-a > span > p > a', function () {
-        $route.reload();
+    $(document).on('click', '.pre-a > span > p > a', function () {
+        $window.location.reload();
     });
 
     $scope.notifList = []
