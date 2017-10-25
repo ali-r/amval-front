@@ -47,25 +47,50 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }
     /*mainAsset.log(response.data);*/
     callback(response)
+
+    var notif = {};
+    
+    if(response.data._message.type) notif.type = response.data._message.type;
+    else notif.type = 'info'
+
+    if(notif.type == 'info') notif.title = 'موفق';
+    else notif.title = 'هشدار'
+
+    if(response.data._message.fa) notif.text = response.data._message.fa;
+    else notif.text = 'عملیات موفقیت آمیز بود';
+
     if (notifyEnable)
-      new PNotify({
-        title: 'موفق',
-        text: 'عملیات موفقیت آمیز بود',
-        type: 'success'
-      });
+      new PNotify(notif);
     httpService.stopLoading();
   }
 
   this.errorCallback = function(response) {
     var notif = {};
-    notif.title = 'خطا';
-    if(response.data.fa){
-      notif.text = response.data.fa;
-    }else{
+
+    if(response.data._message.type == 'warn'){
+      notif.type = 'warn';
+      notif.title = 'هشدار';
+      notif.text = response.data._message.fa;
+    }
+    else{
+      notif.type == 'error';
+      notif.title = 'خطا';
+    }
+
+    if(response.data._message.fa){
+      notif.text = response.data._message.fa;
+    }
+    else{
       notif.text = 'عملیات موفقیت آمیز نبود.';
     }
-    notif.type = 'error';
-    new PNotify(notif);
+    console.log('notif:')
+    console.log(notif)
+    new PNotify(notif);      
+    
+    if(notif.type == 'warn'){ // handling confirm
+      console.log('TODO:');
+      console.log('a confirm modal must be displayed');
+    }
     mainAsset.log(response);
     if (response.status === 401) {
       $localStorage.$reset();
