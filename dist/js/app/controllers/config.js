@@ -33,8 +33,8 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     requestHelper.get(
         controller.configUrl, $scope,
         function(response){
-            mainAsset.log(response.data);
-            controller.initialConfig = response.data;
+            mainAsset.log(response.data.data);
+            controller.initialConfig = response.data.data;
             controller.obj = angular.copy(controller.initialConfig);
             $scope.loadModal = false;
             controller.validateResult.touched = false;
@@ -56,7 +56,7 @@ function($scope, $http, $cookieStore, mainAsset, requestHelper){
     requestHelper.put(requestUrl, obj, $scope, 
         function(response){
             controller.loadConfig();
-            mainAsset.log(response.data);
+            mainAsset.log(response.data.data);
             $scope.loadModal = false;
             $('#ldap-submit').hide();
             $('#syslog-submit').hide();

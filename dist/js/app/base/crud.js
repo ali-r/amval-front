@@ -139,9 +139,9 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
               callback(response);
             }else{
               scope.meta = response.data.meta;
-              if(response.data.total_price) scope.total_price = response.data.total_price;
+              if(response.data.data.total_price) scope.total_price = response.data.data.total_price;
               else delete scope['total_price']
-              controller.note = response.data[apiName + 's'];
+              controller.note = response.data.data[apiName + 's'];
             }
           mainAsset.log(response)  
         },true);
@@ -178,7 +178,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       requestHelper.get(
         scope.apiUrl + "/" + id,  scope,
         function(response) {
-          controller.obj = getConfig(response.data);
+          controller.obj = getConfig(response.data.data);
           mainAsset.log(controller.obj);
           scope.loadModal = false;
           scope.loadSide = false;
@@ -271,7 +271,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       requestHelper.get(
         searchUrl, scope,
         function(response) {
-          controller.tmp.searchResult = response.data[cat + 's'];
+          controller.tmp.searchResult = response.data.data[cat + 's'];
           scope.loadSearch = false;
         });
     };

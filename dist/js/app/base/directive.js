@@ -251,7 +251,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         requestHelper.get(
           searchUrl, scope.dParent,
           function(response) {
-            scope.controller.tmp.searchResult = response.data.groups;
+            scope.controller.tmp.searchResult = response.data.data.groups;
             scope.dParent.loadSearch = false;
           });
       };
@@ -262,7 +262,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         requestHelper.get(
           metaUrl, scope.dParent,
           function(response) {
-            scope.controller.tmp.meta = response.data;
+            scope.controller.tmp.meta = response.data.data;
             scope.controller.product.meta_data = [];
             for (var i = 0; i < response.data.meta_template.length; i++) {
              scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key, 'value': null}
@@ -436,7 +436,7 @@ app.directive('productStat', function(mainAsset, requestHelper) {
         scope.dParent.loadModal = true;
         var getUrl = mainAsset.getUrl() + 'product/' + id + '/stats'
         requestHelper.get(getUrl, scope.dParent, function(response){
-          scope.controller.productStat = response.data;
+          scope.controller.productStat = response.data.data;
           scope.controller.productStat.qr_code = scope.dParent.uploadUrl + scope.controller.productStat.qr_code;
           mainAsset.log(scope.controller.productStat)
           scope.dParent.loadModal = false;
@@ -497,7 +497,7 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
         }else{
           requestHelper.post( makeExportUrl, exportConf, scope,
             function(response) {
-              var notifText = 'در صورت شروع نشدن دانلود بصورت خودکار' + '<a target="_blank" href="' + response.data.download_url + '"> اینجا </a>' + 'را کلیک کنید'
+              var notifText = 'در صورت شروع نشدن دانلود بصورت خودکار' + '<a target="_blank" href="' + response.data.data.download_url + '"> اینجا </a>' + 'را کلیک کنید'
               new PNotify({
                 title: 'دریافت گزارش',
                 text: notifText,
@@ -507,7 +507,7 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
               var link = document.createElement("a");
               link.download = name;
               link.target = '_blank'
-              link.href = response.data.download_url;
+              link.href = response.data.data.download_url;
               link.click();
           }, true);
         }
@@ -601,7 +601,7 @@ app.directive('transactionStat', function(mainAsset, requestHelper) {
         scope.$parent.loadingTransactionData = true;
         var getUrl = mainAsset.getUrl() + 'transaction/' + id
         requestHelper.get(getUrl, scope.$parent, function(response){
-          scope.controller.transactionStat = response.data;
+          scope.controller.transactionStat = response.data.data;
           mainAsset.log(scope.controller.transactionStat)
           scope.$parent.loadingTransactionData = false;
         });

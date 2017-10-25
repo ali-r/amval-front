@@ -239,7 +239,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
       mainAsset.getUrl() + 'product/'+$routeParams.product_id
       , $scope,
       function(response) {
-        controller.obj.product = response.data;
+        controller.obj.product = response.data.data;
         controller.obj.holder = controller.obj.product.holder;
         $scope.loadModal = false;
     });
@@ -249,7 +249,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
       function(response) {
         controller.obj.destination = {
           type: 'Warehouse',
-          obj: response.data
+          obj: response.data.data
         };
         $scope.loadModal = false;
     });

@@ -117,7 +117,7 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       requestHelper.get(
         searchUrl, $scope,
         function(response) {
-          controller.tmp.searchResult = response.data[cat + 's'];
+          controller.tmp.searchResult = response.data.data[cat + 's'];
           $scope.loadSearch = false;
         });
     };

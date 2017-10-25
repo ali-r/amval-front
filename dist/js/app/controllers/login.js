@@ -32,7 +32,7 @@ angular.module("assetAdminPanel").controller('loginCtrl',
     $http.post(controller.loginUrl, loginData,{headers: $scope.header})
     .then(function successCallback(response) {
       var loginTime = new Date();
-      $localStorage.assetData = response.data;
+      $localStorage.assetData = response.data.data;
       $localStorage.assetData.login_time = Math.floor(loginTime.getTime()/1000);
       /*$localStorage.assetData.permissions.user = 'read';*/
       NProgress.done();
@@ -43,7 +43,7 @@ angular.module("assetAdminPanel").controller('loginCtrl',
         mainAsset.log(response)
         new PNotify({
           title: 'خطا ' ,
-          text: response.data.fa,
+          text: response.data.data.fa,
           type: 'error'
         });
     });

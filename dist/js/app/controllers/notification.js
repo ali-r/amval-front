@@ -32,9 +32,9 @@ function($scope, mainAsset, requestHelper, crud, $routeParams) {
                 callback(response);
               }else{
                 scope.meta = response.data.meta;
-                if(response.data.total_price) scope.total_price = response.data.total_price;
+                if(response.data.data.total_price) scope.total_price = response.data.data.total_price;
                 else delete scope['total_price']
-                controller.note = response.data[apiName + 's'];
+                controller.note = response.data.data[apiName + 's'];
                 setTimeout(controller.doConvert,400);
             }
             console.log(response)  
