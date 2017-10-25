@@ -17,9 +17,9 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
     this.download = function(){
       controller.downloadUrl = null;
       requestHelper.post(controller.databaseUrl + '/backup', {}, $scope, function(response) {
-        $window.open(response.data.download_url, '_blanck');
-        controller.downloadUrl = response.data.download_url;
-        /*requestHelper.get(response.data.download_url, $scope, function(res) {
+        $window.open(response.data.data.download_url, '_blanck');
+        controller.downloadUrl = response.data.data.download_url;
+        /*requestHelper.get(response.data.data.download_url, $scope, function(res) {
           //uriContent = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(res.data);
           //$window.open(uriContent,'file.txt');
           var str = res.data;
@@ -39,8 +39,8 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
     this.downloadFile = function(){
       controller.downloadUrl = null;
       requestHelper.post($scope.uploadUrl + '/database/backup', {}, $scope, function(response) {
-        $window.open(response.data.download_url, '_blanck');
-        controller.downloadUrl = response.data.download_url;
+        $window.open(response.data.data.download_url, '_blanck');
+        controller.downloadUrl = response.data.data.download_url;
       },true)
     }
 

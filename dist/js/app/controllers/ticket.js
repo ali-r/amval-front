@@ -164,8 +164,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     requestHelper.get(url,$scope,
       function(response){
         for(var i=0;i<controller.note.length;i++){
-          controller.note[i].sender_unread_count = response.data.tickets[i].sender_unread_count;
-          controller.note[i].receiver_unread_count = response.data.tickets[i].receiver_unread_count;          
+          controller.note[i].sender_unread_count = response.data.data.tickets[i].sender_unread_count;
+          controller.note[i].receiver_unread_count = response.data.data.tickets[i].receiver_unread_count;          
         }
       },''
     )
@@ -191,8 +191,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     requestHelper.get(
       url,$scope,
       function(response){
-        mainAsset.log(response.data);
-        if(response.data.parent_warehouse){
+        mainAsset.log(response.data.data);
+        if(response.data.data.parent_warehouse){
           controller.allowedSource = false;
           controller.centralWarehouse = false;
         }
@@ -230,8 +230,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     var responseFunction;
     if(controller.obj.status == 2){
       responseFunction = function(response){ // with status change
-        controller.obj = response.data;
-        mainAsset.log(response.data);
+        controller.obj = response.data.data;
+        mainAsset.log(response.data.data);
         delete controller.tmp['text'];
         delete controller.tmp['transaction'];        
         setTimeout(function () {
@@ -243,8 +243,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     }
     else{
       responseFunction = function(response){ // no status change
-        controller.obj = response.data;
-        mainAsset.log(response.data);
+        controller.obj = response.data.data;
+        mainAsset.log(response.data.data);
         delete controller.tmp['text'];
         delete controller.tmp['transaction'];        
         setTimeout(function () {
@@ -270,8 +270,8 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       .then(
       function(response) { //for success response
         requestHelper.successCallback(response);
-        controller.obj = response.data;
-        mainAsset.log(response.data);
+        controller.obj = response.data.data;
+        mainAsset.log(response.data.data);
         $scope.loadStatus = false;
         controller.getData();
       },

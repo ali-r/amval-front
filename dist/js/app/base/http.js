@@ -45,18 +45,18 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     if ( typeof(notifyEnable) == 'undefined' ) {
       notifyEnable = true;
     }
-    /*mainAsset.log(response.data);*/
+    /*mainAsset.log(response.data.data);*/
     callback(response)
 
     var notif = {};
     
-    if(response.data._message.type) notif.type = response.data._message.type;
+    if(response.data.message.type) notif.type = response.data.message.type;
     else notif.type = 'info'
 
     if(notif.type == 'info') notif.title = 'موفق';
     else notif.title = 'هشدار'
 
-    if(response.data._message.fa) notif.text = response.data._message.fa;
+    if(response.data.message.fa) notif.text = response.data.message.fa;
     else notif.text = 'عملیات موفقیت آمیز بود';
 
     if (notifyEnable)
@@ -67,18 +67,18 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
   this.errorCallback = function(response) {
     var notif = {};
 
-    if(response.data._message.type == 'warn'){
+    if(response.data.message.type == 'warn'){
       notif.type = 'warn';
       notif.title = 'هشدار';
-      notif.text = response.data._message.fa;
+      notif.text = response.data.message.fa;
     }
     else{
       notif.type == 'error';
       notif.title = 'خطا';
     }
 
-    if(response.data._message.fa){
-      notif.text = response.data._message.fa;
+    if(response.data.message.fa){
+      notif.text = response.data.message.fa;
     }
     else{
       notif.text = 'عملیات موفقیت آمیز نبود.';

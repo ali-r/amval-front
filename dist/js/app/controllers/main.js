@@ -55,8 +55,8 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       mainController.loadingNotif = 1;
       requestHelper.get(url, $scope,
       function(response){
-        if(!angular.equals($scope.notifList,response.data.notifications)){
-          $scope.notifList = response.data.notifications;
+        if(!angular.equals($scope.notifList,response.data.data.notifications)){
+          $scope.notifList = response.data.data.notifications;
           setTimeout(
             function () {
               for(var i =0;i<Math.min($scope.notifDisplayLimit,$scope.notifList.length);i++){
