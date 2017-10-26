@@ -73,7 +73,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
       notif.text = response.data.message.fa;
     }
     else{
-      notif.type == 'error';
+      notif.type = 'error';
       notif.title = 'خطا';
     }
 
@@ -84,7 +84,6 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
       notif.text = 'عملیات موفقیت آمیز نبود.';
     }
           
-    
     if(notif.type == 'warn'){ // handling confirm
       httpService.openConfirmModal(notif,scope)
     }
