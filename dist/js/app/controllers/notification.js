@@ -37,7 +37,7 @@ function($scope, mainAsset, requestHelper, crud, $routeParams) {
                 controller.note = response.data.data[apiName + 's'];
                 setTimeout(controller.doConvert,400);
             }
-            console.log(response)  
+            mainAsset.log(response)  
           },true);
       };
     controller.getData($scope.apiUrl);
