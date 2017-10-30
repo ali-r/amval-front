@@ -85,7 +85,42 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }
           
     if(notif.type == 'warn'){ // handling confirm
-      httpService.openConfirmModal(notif,scope)
+      (new PNotify({
+        title: notif.title,
+        text: notif.text,
+        type: notif.type,
+        icon: 'glyphicon glyphicon-question-sign',
+        hide: false,
+        confirm: {
+            confirm: true,
+            buttons: [{
+              text: 'تایید',
+              addClass: 'btn'
+            },
+            {
+              text: 'انصراف',
+              addClass: 'btn'
+            }
+          ]
+        },
+        buttons: {
+            closer: false,
+            sticker: false
+        },
+        history: {
+            history: false
+        },
+        addclass: 'stack-modal',
+        stack: {
+            'dir1': 'down',
+            'dir2': 'right',
+            'modal': true
+        }
+        })).get().on('pnotify.confirm', function() {
+            scope.doConfirm(scope.preRequest);
+        }).on('pnotify.cancel', function() {
+          // doing nothing
+        });
     }
     else new PNotify(notif);
     

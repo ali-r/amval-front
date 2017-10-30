@@ -544,18 +544,6 @@ app.directive('deleteModal', function(){
   }
 });
 
-app.directive('confirmModal', function(){
-  return {
-    restrict: 'E',
-    replace : true,
-    scope : {
-      controller : '=',
-      message: '='
-    },
-    templateUrl: '/dist/js/app/directive/confirmModal.html'
-  }
-});
-
 app.directive('enterEvent', function () { //sample usage: enterEvent = "checkMark,function"
   return function (scope, element, attrs) {
     element.bind("keydown keypress", function (event) {

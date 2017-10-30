@@ -131,7 +131,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       }else{
         var crudGetUrl = scope.getUrl;
       }
-      controller.preRequest = {
+      scope.preRequest = {
         type: 'get',
         url: crudGetUrl,
         scope: scope, 
@@ -192,7 +192,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       scope.editMode = true;
       scope.loadModal = true;
       mainAsset.openModal('#' + apiName + 'Modal');
-      controller.preRequest = {
+      scope.preRequest = {
         type: 'get',
         url: scope.apiUrl + "/" + id,
         scope: scope, 
@@ -234,7 +234,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
 
       mainAsset.log(sendObj);
       if(editMode) {
-        controller.preRequest = {
+        scope.preRequest = {
           type: 'put',
           url: sendOrEditUrl + "/" + scope.toEditId,
           json: sendObj,
@@ -260,7 +260,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           }
         });
       } else {
-        controller.preRequest = {
+        scope.preRequest = {
           type: 'post',
           url: sendOrEditUrl,
           json: sendObj,
@@ -291,7 +291,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
     controller.deleteObject = function(id) {
 
       scope.loadModal = true;
-      controller.preRequest = {
+      scope.preRequest = {
         type: 'delete',
         url: scope.apiUrl + "/" + id, 
         scope: scope,
@@ -340,7 +340,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       }
       
       mainAsset.log(searchUrl);
-      controller.preRequest = {
+      scope.preRequest = {
         type: 'get',
         url: searchUrl,
         scope: scope, 
@@ -379,9 +379,8 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       scope.reset();
     }
 
-    controller.doConfirm = function(_reqObj){
+    scope.doConfirm = function(_reqObj){
       scope.loadModal = true;
-      mainAsset.closeModal('#confirmModal')
       requestHelper.headers['Force-Action'] = true
 
       _reqObj.editedCallback = function(response){
