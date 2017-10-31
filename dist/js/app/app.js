@@ -124,6 +124,27 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       return output;
     };
 
+    this.currentToJalaliDate = function(pDate){
+      if(!pDate)
+        pDate = '';
+      if( pDate.indexOf('T') >= 0 )
+        {
+          if ( moment(pDate).isDST() ) {
+            pDate = moment(pDate).utcOffset(270).format('YYYY-MM-DDTHH:mm')
+          }else{
+            pDate = moment(pDate).utcOffset(210).format('YYYY-MM-DDTHH:mm')
+          }
+        }
+      pDate = pDate.split('T');
+      var dateArray = pDate[0].split('-');
+      var transactionTime = pDate[1];
+      var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
+      var output = gDate.year + '/' + gDate.month + '/' + gDate.day;
+      if ( typeof(transactionTime) != 'undefined') {
+        output = output + " ساعت " + transactionTime
+      }
+      return output;
+    };
     this.log = function(logText){
       if(assetPanelData.devMode){
         console.log(logText)
@@ -148,6 +169,13 @@ app.filter('jalaliDate', function (mainAsset) {
         var date = mainAsset.toJalaliDate(inputDate);
         return date;
     }
+});
+
+app.filter('currentJalaliDate', function (mainAsset) {
+  return function (inputDate) {
+    var date = mainAsset.currentToJalaliDate(inputDate);
+    return date;
+}
 });
 
 app.filter('userType', function() {

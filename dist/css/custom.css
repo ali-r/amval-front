@@ -4814,3 +4814,8 @@ ul.msg_list li div.pre-a .time{
     right: initial;
     left: 35px;
 }
+
+ul#left-nav p.current-display{
+    padding: 20px 40px 0;
+
+}
