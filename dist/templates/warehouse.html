@@ -29,6 +29,9 @@
               <td>
                 {{list.title | lengthLimit:30}}
                 <span class="label label-info" ng-if="!list.parent_warehouse">انبار مرکزی</span>
+                <a href ng-click="warehouse.openMywarehouse(list.id)" title="برو به صفحه مدیریت این انبار">
+                    <i class="fa fa-mail-forward fa-lg" aria-hidden="true"></i>                    
+                </a>
               </td>
               <td>
                 {{list.location | lengthLimit:30}}

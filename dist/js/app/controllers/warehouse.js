@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('warehouseCtrl',
-  function($scope, mainAsset, requestHelper, crud, $routeParams) {
+  function($scope, mainAsset, requestHelper, crud, $routeParams, $location) {
 
   var controller = this;
   var apiName = 'warehouse';
@@ -78,5 +78,10 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
 
   if($routeParams.warehouse_id){
     controller.getObject($routeParams.warehouse_id);
+  }
+
+  controller.openMywarehouse= function(_id){
+    $location.url('/mywarehouse/'+_id);
+    
   }
 });
