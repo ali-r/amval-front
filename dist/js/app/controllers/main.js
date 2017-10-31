@@ -29,7 +29,6 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       }
     }
 
-
     $(document).on('click', 'ul#menu1', function (e) {
       if(!$('ul#menu1 a').is(e.target) && !$('ul#menu1 strong').is(e.target))
         e.stopPropagation();      
@@ -74,5 +73,11 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       });
     }
     this.loadNotifications();
+
+    $scope.currentDatetime = new Date();
+    var dateInterval = setInterval(function(){
+      $scope.currentDatetime = new Date();
+      $scope.$apply();  
+    },60000)
 
   });

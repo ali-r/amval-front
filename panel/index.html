@@ -189,8 +189,15 @@
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
 
-              <ul class="nav navbar-nav navbar-left">
+              <ul id="left-nav" class="nav navbar-nav navbar-left">
                 
+                <li>
+                  <p class="current-display">
+                    {{ currentDatetime | date: 'yyyy-MM-ddTHH:mm' | currentJalaliDate }}
+                  </p>
+                  
+                </li>
+
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
