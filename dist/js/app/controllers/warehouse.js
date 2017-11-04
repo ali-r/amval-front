@@ -81,7 +81,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   }
 
   controller.openMywarehouse= function(_id){
-    $location.url('/mywarehouse/'+_id);
+    $location.url('/mywarehouse?linked_warehouse='+_id+'&pageType=2');
     
   }
 });

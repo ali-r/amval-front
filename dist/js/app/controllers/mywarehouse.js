@@ -38,7 +38,22 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
     controller.warehouseFilter = -1;
     $scope.tabStage = 0;
 
-    if($routeParams.ticket_id && $scope.assetData.warehouse_under_management){ //directing to unread ticket notification
+    if($routeParams.linked_warehouse){ // comes from warehouse link
+      controller.pageType = 2;
+
+      // get linked warehouse by its id
+      var url = mainAsset.getUrl() + 'warehouse/' + $routeParams.linked_warehouse;
+      requestHelper.get(url,$scope,
+      function(response){
+        controller.warehouse = response.data.data;
+        $localStorage.assetData.warehouse_under_management = controller.warehouse;
+        $localStorage.assetData.selectedWarehouse = controller.warehouse;
+        setWarehouse($localStorage.assetData.warehouse_under_management);
+        $routeParams.id = $routeParams.linked_warehouse; // setting id for usage in ticket page
+      })
+   
+    }
+    else if($routeParams.ticket_id && $scope.assetData.warehouse_under_management){ //directing to unread ticket notification
       setWarehouse($scope.assetData.warehouse_under_management);
       controller.pageType = 0;
       $scope.tabStage = 1;
