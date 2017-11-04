@@ -82,24 +82,28 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       $(modal).modal('hide');
     };
 
-    this.toGregorianDate = function(pDate){
+    this.toGregorianDate = function(pDate,config){
       if(!pDate)
         pDate = '';
-      
+
+      if(!config) config = {}
+      var outDate = ''
       if(pDate.indexOf(' ') >= 0){
         var splitted = pDate.split(' ');
         var time = splitted[0];
         var dateArray = splitted[1].split('-');
         var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        var outDate = moment( gDate.year + '-' + gDate.month + '-' + gDate.day + ' ' + time + ':00' ,"YYYY-MM-DD HH:mm:ss");
+        outDate = moment( gDate.year + '-' + gDate.month + '-' + gDate.day + ' ' + time + ':00' ,"YYYY-MM-DD HH:mm:ss");
         outDate = moment(outDate).utcOffset(0).format('YYYY-MM-DDTHH:mm:ss')
-        return (outDate);  
       }
       else{
         var dateArray = pDate.split('-');
         var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        return (gDate.year + '-' + gDate.month + '-' + gDate.day);  
+        outDate = gDate.year + '-' + gDate.month + '-' + gDate.day;
       }
+
+      if(config.noTime && outDate.indexOf('T')>=0) outDate = outDate.split('T')[0];
+      return (outDate);        
     }
 
     this.toJalaliDate = function(pDate,config){
