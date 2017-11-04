@@ -102,16 +102,21 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       }
     }
 
-    this.toJalaliDate = function(pDate,baseOffset){
-      if(!baseOffset) baseOffset = 480;
+    this.toJalaliDate = function(pDate,config){
       if(!pDate)
         pDate = '';
+
+      if(!config) config = {};
+      if(!config.baseOffset) config.baseOffset = 480;
+      if(!config.timeText) config.timeText = "در ساعت";
+      if(config.deleteTime && pDate.indexOf('T')>=0) pDate = pDate.split('T')[0]; 
+
       if( pDate.indexOf('T') >= 0 )
         {
           if ( moment(pDate).isDST() ) {
-            pDate = moment(pDate).utcOffset(baseOffset+60).format('YYYY-MM-DDTHH:mm')
+            pDate = moment(pDate).utcOffset(config.baseOffset+60).format('YYYY-MM-DDTHH:mm');
           }else{
-            pDate = moment(pDate).utcOffset(baseOffset).format('YYYY-MM-DDTHH:mm')
+            pDate = moment(pDate).utcOffset(config.baseOffset).format('YYYY-MM-DDTHH:mm');
           }
         }
       pDate = pDate.split('T');
@@ -153,7 +158,7 @@ app.filter('jalaliDate', function (mainAsset) {
 
 app.filter('currentJalaliDate', function (mainAsset) {
   return function (inputDate) {
-    var date = mainAsset.toJalaliDate(inputDate,210);
+    var date = mainAsset.toJalaliDate(inputDate,{baseOffset:210});
     return date;
 }
 });

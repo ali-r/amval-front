@@ -36,7 +36,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         var obj2 = new Object();
         obj2 = angular.copy(obj);
 
-        obj2.datetime = controller.convertToG(controller.obj.datetime);
+        obj2.datetime = mainAsset.toGregorianDate(controller.obj.datetime);
         
         obj2.price = 0
         controller.obj.products.forEach(function(item,index){
@@ -59,7 +59,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       controller.getConfig = function(obj){
-        obj.datetime = controller.convertToJ(obj.datetime);
+        obj.datetime = mainAsset.toJalaliDate(obj.datetime,{deleteTime:true});
         $scope.editMode = true;
         controller.tmp.formShow = true;
         return obj;
@@ -88,18 +88,6 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.tmp.formShow = true;
         controller.getObject(id)
       };
-
-      controller.convertToJ = function(datetime){
-        var dt = datetime.split("T")[0].split("-");
-        dt = ADMdtpConvertor.toJalali(parseInt(dt[0]),parseInt(dt[1]),parseInt(dt[2]));
-        return(dt.year+"-"+dt.month+"-"+dt.day); 
-      }
-
-      controller.convertToG = function(datetime){
-        var gdt = datetime.split("-");
-        gdt = ADMdtpConvertor.toGregorian(parseInt(gdt[0]),parseInt(gdt[1]),parseInt(gdt[2]));
-        return(gdt.year+"-"+gdt.month+"-"+gdt.day);
-      }
 
       controller.selectBuyer = function(){
         controller.tmp.searchQuery = '';
