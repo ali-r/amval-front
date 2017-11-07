@@ -52,6 +52,9 @@ angular.module("assetAdminPanel").controller('userCtrl',
     
     delete sendCopyObj.products;
     
+    if(sendCopyObj.extension_number && sendCopyObj.extension_number=="")
+      delete sendCopyObj.extension_number
+
     return sendCopyObj;
   };
 

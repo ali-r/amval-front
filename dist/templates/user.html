@@ -17,6 +17,8 @@
               <th>شماره کارت</th>
               <th>نوع کاربر</th>
               <th>شماره تلفن </th>
+              <th>شماره داخلی </th>
+              
               <th></th>
               <th ng-if = "checkWrite('user')"></th>
               <th ng-if = "checkWrite('user')"></th>
@@ -30,6 +32,9 @@
               <td ng-click="user.getObject(list.id)">{{list.card_no | lengthLimit:30}}</td>
               <td ng-click="user.getObject(list.id)">{{list.clearance_level | userType}}</td>
               <td ng-click="user.getObject(list.id)" style="direction:ltr;">{{list.phone | pNumber }}</td>
+              <td ng-click="user.getObject(list.id)" ng-show="list.extension_number" style="direction:ltr;">{{list.extension_number | pNumber }}</td>
+              <td ng-click="user.getObject(list.id)" ng-hide="list.extension_number"> -- ندارد --  </td>
+              
               <td>
                 <a ng-click="user.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('user') , 'fa-eye' : !checkWrite('user')}" aria-hidden="true"></i>
@@ -77,19 +82,27 @@
               <form name="userForm" role="form" ng-hide="loadModal" novalidate ng-submit="userForm.$valid && user.sendOrEdit(editMode)">
                 <button type="submit" hidden></button>
                 <fieldset ng-disabled ="!checkWrite('user')">
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="form-group" ng-class="{'has-success' : userForm.firstname.$valid && user.obj.first_name}">
                       <label>نام*</label>
                       <input type="text" class="form-control" name="firstname" placeholder="نام" ng-model = "user.obj.first_name" required>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="form-group" ng-class="{'has-success' : userForm.lastname.$valid && user.obj.last_name}">
                       <label>نام خانوادگی*</label>
                       <input type="text" class="form-control" name="lastname" placeholder="نام خانوادگی" ng-model = "user.obj.last_name" required>
                     </div>
                   </div>
-                  <div class="col-md-4">
+
+                  <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-success' : userForm.cardno.$valid && user.obj.card_no}">
+                      <label>شماره کارت*</label>
+                      <input type="text" name = "cardno" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.obj.card_no" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label>نوع کاربر*</label>
                       <select class="form-control" ng-model="user.obj.clearance_level" required>
@@ -100,6 +113,8 @@
                       </select>
                     </div>
                   </div>
+
+                  
                   <div class="clearfix"></div>
                   <hr>
 
@@ -136,12 +151,18 @@
                       <p ng-show="userForm.phone.$error.pattern" class="input-error-p">فقط اعداد و علامت های '-' و '+' مجاز است</p>
                     </div>
                   </div>
+                  
                   <div class="col-md-6">
-                    <div class="form-group" ng-class="{'has-success' : userForm.cardno.$valid && user.obj.card_no}">
-                      <label>شماره کارت*</label>
-                      <input type="text" name = "cardno" class="form-control form-ltr" placeholder="شماره کارت" ng-model = "user.obj.card_no" required>
+                    <div class="form-group" ng-class=" {'has-error' : userForm.extension.$invalid && user.obj.extension_number,
+                      'has-success' : userForm.extension.$valid && user.obj.extension_number } ">
+                      <label>شماره داخلی</label>
+                      <input type="text" class="form-control form-ltr" name="extension" placeholder="شماره داخلی" ng-model = "user.obj.extension_number"
+                      ng-pattern = "/^[0-9-+]*$/" ng-maxlength="16" ng-model-options="{ allowInvalid: true }">
+                      <p ng-show="userForm.extension.$error.maxlength" class="input-error-p">حداکثر ۱۶ رقم مجاز است</p>
+                      <p ng-show="userForm.extension.$error.pattern" class="input-error-p">فقط اعداد و علامت های '-' و '+' مجاز است</p>
                     </div>
                   </div>
+                  
                   
                   <div class="clearfix"></div>
                   <div class="col-md-6">
