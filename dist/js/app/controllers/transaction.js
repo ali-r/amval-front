@@ -146,42 +146,6 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   ]);
   crud.init($scope, controller, apiName, controller.trConfig, controller.trGetConfig);
 
-  controller.toGregorianDate = function(pDate,date_included,time_included){
-    if(!pDate){return '';}
-
-    if(date_included && time_included){
-      var dateTimeSplitted = pDate.split(' ');
-      mainAsset.log(dateTimeSplitted);
-      var dateArray = dateTimeSplitted[1].split('-');
-      var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      mainAsset.log(gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]);
-      return (gDate.year + '-' + gDate.month + '-' + gDate.day+'T'+dateTimeSplitted[0]+':00');
-    }
-    else if(date_included){
-      var dateArray = pDate.split('-');
-      var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      return (gDate.year + '-' + gDate.month + '-' + gDate.day);  
-    }
-    else{
-      return pDate;
-    }
-    
-  }
-
-  controller.toJalaliDate = function(pDate){
-    if(!pDate){return '';}
-    pDate = pDate.split('T');
-    mainAsset.log(pDate)
-    var dateArray = pDate[0].split('-');
-    var transactionTime = pDate[1];
-    var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-    var output = gDate.year + '/' + gDate.month + '/' + gDate.day;
-    if ( typeof(transactionTime) != 'undefined') {
-      output = output + " در ساعت " + transactionTime
-    }
-    return output;
-  }
-
   controller.addProduct = function(list){
     controller.obj.product = list;
     $scope.stage = 0;
@@ -209,12 +173,12 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     
     if(ex.datetime__gte){
       if(ex.datetime__gte=="") delete ex['datetime__gte'];
-      else ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte);
+      else ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte,{noTime:true});
     }
 
     if(ex.datetime__lte){
       if(ex.datetime__lte=="") delete ex['datetime__lte']; 
-      else ex.datetime__lte = mainAsset.toGregorianDate(ex.datetime__lte);
+      else ex.datetime__lte = mainAsset.toGregorianDate(ex.datetime__lte,{noTime:true});
     }
 
     if(ex.product) ex.product = ex.product.id;

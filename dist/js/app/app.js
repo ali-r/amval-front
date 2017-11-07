@@ -82,35 +82,45 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       $(modal).modal('hide');
     };
 
-    this.toGregorianDate = function(pDate){
+    this.toGregorianDate = function(pDate,config){
       if(!pDate)
         pDate = '';
-      
+
+      if(!config) config = {}
+      var outDate = ''
       if(pDate.indexOf(' ') >= 0){
         var splitted = pDate.split(' ');
         var time = splitted[0];
         var dateArray = splitted[1].split('-');
         var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        var outDate = moment( gDate.year + '-' + gDate.month + '-' + gDate.day + ' ' + time + ':00' ,"YYYY-MM-DD HH:mm:ss");
+        outDate = moment( gDate.year + '-' + gDate.month + '-' + gDate.day + ' ' + time + ':00' ,"YYYY-MM-DD HH:mm:ss");
         outDate = moment(outDate).utcOffset(0).format('YYYY-MM-DDTHH:mm:ss')
-        return (outDate);  
       }
       else{
         var dateArray = pDate.split('-');
         var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        return (gDate.year + '-' + gDate.month + '-' + gDate.day);  
+        outDate = gDate.year + '-' + gDate.month + '-' + gDate.day;
       }
+
+      if(config.noTime && outDate.indexOf('T')>=0) outDate = outDate.split('T')[0];
+      return (outDate);        
     }
 
-    this.toJalaliDate = function(pDate){
+    this.toJalaliDate = function(pDate,config){
       if(!pDate)
         pDate = '';
+
+      if(!config) config = {};
+      if(!config.baseOffset) config.baseOffset = 480;
+      if(!config.timeText) config.timeText = "در ساعت";
+      if(config.deleteTime && pDate.indexOf('T')>=0) pDate = pDate.split('T')[0]; 
+
       if( pDate.indexOf('T') >= 0 )
         {
           if ( moment(pDate).isDST() ) {
-            pDate = moment(pDate).utcOffset(540).format('YYYY-MM-DDTHH:mm')
+            pDate = moment(pDate).utcOffset(config.baseOffset+60).format('YYYY-MM-DDTHH:mm');
           }else{
-            pDate = moment(pDate).utcOffset(480).format('YYYY-MM-DDTHH:mm')
+            pDate = moment(pDate).utcOffset(config.baseOffset).format('YYYY-MM-DDTHH:mm');
           }
         }
       pDate = pDate.split('T');
@@ -124,27 +134,6 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       return output;
     };
 
-    this.currentToJalaliDate = function(pDate){
-      if(!pDate)
-        pDate = '';
-      if( pDate.indexOf('T') >= 0 )
-        {
-          if ( moment(pDate).isDST() ) {
-            pDate = moment(pDate).utcOffset(270).format('YYYY-MM-DDTHH:mm')
-          }else{
-            pDate = moment(pDate).utcOffset(210).format('YYYY-MM-DDTHH:mm')
-          }
-        }
-      pDate = pDate.split('T');
-      var dateArray = pDate[0].split('-');
-      var transactionTime = pDate[1];
-      var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      var output = gDate.year + '/' + gDate.month + '/' + gDate.day;
-      if ( typeof(transactionTime) != 'undefined') {
-        output = output + " ساعت " + transactionTime
-      }
-      return output;
-    };
     this.log = function(logText){
       if(assetPanelData.devMode){
         console.log(logText)
@@ -173,7 +162,7 @@ app.filter('jalaliDate', function (mainAsset) {
 
 app.filter('currentJalaliDate', function (mainAsset) {
   return function (inputDate) {
-    var date = mainAsset.currentToJalaliDate(inputDate);
+    var date = mainAsset.toJalaliDate(inputDate,{baseOffset:210});
     return date;
 }
 });
