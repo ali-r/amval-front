@@ -149,21 +149,9 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         } ,
         progressBar: true
       }
-      requestHelper.get(
-        crudGetUrl, scope,
-        function(response) {
-          if(callback)
-            {
-              callback(response);
-            }else{
-              scope.meta = response.data.meta;
-              if(response.data.data.total_price) scope.total_price = response.data.data.total_price;
-              else delete scope['total_price']
-              controller.note = response.data.data[apiName + 's'];
-            }
-          mainAsset.log(response)  
-        },true);
+      requestHelper.get(scope.preRequest.url, scope.preRequest.scope, scope.preRequest.callback, scope.preRequest.progressBar);
     };
+            
     if(apiName){
       controller.getData();
     }
@@ -203,14 +191,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           scope.loadSide = false;} ,
         progressBar: false
       }
-      requestHelper.get(
-        scope.apiUrl + "/" + id,  scope,
-        function(response) {
-          controller.obj = getConfig(response.data.data);
-          mainAsset.log(controller.obj);
-          scope.loadModal = false;
-          scope.loadSide = false;
-        });
+      requestHelper.get(scope.preRequest.url, scope.preRequest.scope, scope.preRequest.callback, scope.preRequest.progressBar);
     };
 
     controller.sendOrEdit = function(editMode, obj, url, callback){
@@ -249,16 +230,8 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
             }},
           progressBar:false
         }
-        requestHelper.put(sendOrEditUrl + "/" + scope.toEditId , sendObj, scope,
-        function(response) {
-          if(callback){
-            callback(response);
-          }else{
-            $('#' + apiName + 'Modal').modal('hide');
-            controller.getData();
-            scope.reset();
-          }
-        });
+        requestHelper.put(scope.preRequest.url, scope.preRequest.json, scope.preRequest.scope, scope.preRequest.callback, scope.preRequest.progressBar);
+        
       } else {
         scope.preRequest = {
           type: 'post',
@@ -275,16 +248,8 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
              }}, 
           progressBar: false
         }
-        requestHelper.post(sendOrEditUrl , sendObj, scope,
-        function(response) {
-         if(callback){
-            callback(response);
-          }else{
-            $('#' + apiName + 'Modal').modal('hide');
-            controller.getData();
-            scope.reset();
-          }
-        });
+        requestHelper.post(scope.preRequest.url , scope.preRequest.json, scope.preRequest.scope,
+          scope.preRequest.callback, scope.preRequest.progressBar);
       }
     };
 
@@ -305,16 +270,8 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         }, 
         progressBar: false
       }
-      requestHelper.delete(
-        scope.apiUrl + "/" + id,  scope,
-        function(response) {
-          if( controller.note.length == 1 ){
-            if(scope.page != 1){scope.page -= 1;}
-            scope.getUrl = controller.makeUrl();
-          }
-          controller.getData();
-          $('#deleteModal').modal('hide');
-        });
+      requestHelper.delete(scope.preRequest.url,  scope.preRequest.scope, scope.preRequest.callback);
+       
     };
 
     controller.search = function(cat, field,filter){
@@ -351,11 +308,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         progressBar: false
       }
       requestHelper.get(
-        searchUrl, scope,
-        function(response) {
-          controller.tmp.searchResult = response.data.data[cat + 's'];
-          scope.loadSearch = false;
-        });
+        scope.preRequest.url, scope.preRequest.scope,scope.preRequest.callback);
     };
 
     controller.selectThings = function(stage, object, field){
