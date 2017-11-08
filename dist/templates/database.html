@@ -20,7 +20,7 @@
               <div style="text-align:center">
                 <form name='databaseForm'>
                   <button type="button" ng-click="database.download()" class="btn btn-success"> پشتیبان گیری</button>
-                  <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'"
+                  <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'" ngf-accept="'.mdb'"
                     ngf-max-size="2MB"> بازیابی پشتیبان</div>
                 </form>
               </div>
@@ -38,7 +38,7 @@
               <div style="text-align:center">
                 <form name='uploadForm'>
                   <button type="button" ng-click="database.downloadFile()" class="btn btn-success"> پشتیبان گیری </button>
-                  <div class="btn btn-success" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'"
+                  <div class="btn btn-success" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'" ngf-accept="'.zip'"
                     ngf-max-size="1024MB">بازیابی پشتیبان</div>
                 </form>
               </div>
