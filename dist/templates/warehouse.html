@@ -20,6 +20,7 @@
               <th>تلفن</th>
               <th></th>
               <th></th>
+              <th></th>
               <th ng-if = "checkWrite('warehouse')"></th>
             </tr>
           </thead>
@@ -43,6 +44,11 @@
                 <a ng-click="warehouse.openSide(list)" title="مشاهده کالاها" ng-show="assetData.permissions.warehouse_products == 'read'" href>
                   <i class="fa fa-cubes fa-lg" aria-hidden="true"></i>
                 </a>
+              </td>
+              <td>
+                  <a href ng-click="warehouse.openMywarehouse(list.id)" title="برو به صفحه مدیریت این انبار">
+                      <i class="fa fa-mail-forward fa-lg" aria-hidden="true"></i>                    
+                  </a>
               </td>
               <td ng-if = "checkWrite('warehouse')">
                 <a ng-click="warehouse.toDeleteId = list.id; warehouse.toDeleteTitle = list.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
