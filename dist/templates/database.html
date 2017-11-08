@@ -19,9 +19,9 @@
               
               <div style="text-align:center">
                 <form name='databaseForm'>
-                  <button type="button" ng-click="database.download()" class="btn btn-success"> دریافت </button>
+                  <button type="button" ng-click="database.download()" class="btn btn-success"> پشتیبان گیری</button>
                   <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'"
-                    ngf-max-size="2MB">ارسال</div>
+                    ngf-max-size="2MB"> بازیابی پشتیبان</div>
                 </form>
               </div>
               <p ng-show="databaseForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -37,9 +37,9 @@
               
               <div style="text-align:center">
                 <form name='uploadForm'>
-                  <button type="button" ng-click="database.downloadFile()" class="btn btn-success"> دریافت </button>
+                  <button type="button" ng-click="database.downloadFile()" class="btn btn-success"> پشتیبان گیری </button>
                   <div class="btn btn-success" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'"
-                    ngf-max-size="1024MB">ارسال</div>
+                    ngf-max-size="1024MB">بازیابی پشتیبان</div>
                 </form>
               </div>
               <p ng-show="uploadForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
