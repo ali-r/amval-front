@@ -39,8 +39,8 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
     this.downloadFile = function(){
       controller.downloadUrl = null;
       requestHelper.post($scope.uploadUrl + '/database/backup', {}, $scope, function(response) {
-        $window.open(response.data.data.download_url, '_blanck');
-        controller.downloadUrl = response.data.data.download_url;
+        $window.open(response.data.download_url, '_blanck');
+        controller.downloadUrl = response.data.download_url;
       },true)
     }
 

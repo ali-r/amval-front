@@ -50,13 +50,13 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
 
     var notif = {};
     
-    if(response.data.message.type) notif.type = response.data.message.type;
+    if(response.data.message && response.data.message.type) notif.type = response.data.message.type;
     else notif.type = 'info'
 
     if(notif.type == 'info') notif.title = 'موفق';
     else notif.title = 'هشدار'
 
-    if(response.data.message.fa) notif.text = response.data.message.fa;
+    if(response.data.message && response.data.message.fa) notif.text = response.data.message.fa;
     else notif.text = 'عملیات موفقیت آمیز بود';
 
     if (notifyEnable)
@@ -67,7 +67,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
   httpService.errorCallback = function(response,scope) {
     var notif = {};
 
-    if(response.data.message.type == 'warn'){
+    if(response.data.message && response.data.message.type == 'warn'){
       notif.type = 'warn';
       notif.title = 'هشدار';
       notif.text = response.data.message.fa;
@@ -77,7 +77,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
       notif.title = 'خطا';
     }
 
-    if(response.data.message.fa){
+    if(response.data.message && response.data.message.fa){
       notif.text = response.data.message.fa;
     }
     else{
