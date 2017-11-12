@@ -129,7 +129,7 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
       var output = gDate.year + '/' + gDate.month + '/' + gDate.day;
       if ( typeof(transactionTime) != 'undefined') {
-        output = output + " در ساعت " + transactionTime
+        output = output + "  ساعت " + transactionTime
       }
       return output;
     };
