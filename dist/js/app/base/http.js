@@ -3,8 +3,8 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
   httpService = this
   headers = {'Content-Type': 'application/json; charset=UTF-8'}
   httpService.headers = headers;
-  this.init = function(scope) {
-    this.scope = scope
+  httpService.init = function(scope) {
+    httpService.scope = scope
     scope.assetData = $localStorage.assetData;
     if(!scope.assetData)
     {
@@ -18,25 +18,25 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }
   }
 
-  this.startLoading = function(needProgressBar) {
+  httpService.startLoading = function(needProgressBar) {
     if ( typeof(needProgressBar) == 'undefined' ) {
       needProgressBar = false;
     }
     if (needProgressBar) {
       NProgress.start();
-      this.scope.load = true;
+      httpService.scope.load = true;
     }
   }
 
-  this.stopLoading = function() {
+  httpService.stopLoading = function() {
     NProgress.done();
-    this.scope.load = false;
-    this.scope.loadModal = false;
-    this.scope.loadSearch = false;
-    this.scope.loadSide = false;
+    httpService.scope.load = false;
+    httpService.scope.loadModal = false;
+    httpService.scope.loadSearch = false;
+    httpService.scope.loadSide = false;
   }
 
-  this.successCallback = function(response, callback , notifyEnable) {
+  httpService.successCallback = function(response, callback , notifyEnable) {
 
     if ( typeof(callback) == 'undefined' ) {
       callback = function(){};
@@ -50,13 +50,13 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
 
     var notif = {};
     
-    if(response.data.message.type) notif.type = response.data.message.type;
+    if(response.data.message && response.data.message.type) notif.type = response.data.message.type;
     else notif.type = 'info'
 
     if(notif.type == 'info') notif.title = 'موفق';
     else notif.title = 'هشدار'
 
-    if(response.data.message.fa) notif.text = response.data.message.fa;
+    if(response.data.message && response.data.message.fa) notif.text = response.data.message.fa;
     else notif.text = 'عملیات موفقیت آمیز بود';
 
     if (notifyEnable)
@@ -64,33 +64,66 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     httpService.stopLoading();
   }
 
-  this.errorCallback = function(response) {
+  httpService.errorCallback = function(response,scope) {
     var notif = {};
 
-    if(response.data.message.type == 'warn'){
+    if(response.data.message && response.data.message.type == 'warn'){
       notif.type = 'warn';
       notif.title = 'هشدار';
       notif.text = response.data.message.fa;
     }
     else{
-      notif.type == 'error';
+      notif.type = 'error';
       notif.title = 'خطا';
     }
 
-    if(response.data.message.fa){
+    if(response.data.message && response.data.message.fa){
       notif.text = response.data.message.fa;
     }
     else{
       notif.text = 'عملیات موفقیت آمیز نبود.';
     }
-    console.log('notif:')
-    console.log(notif)
-    new PNotify(notif);      
-    
+          
     if(notif.type == 'warn'){ // handling confirm
-      console.log('TODO:');
-      console.log('a confirm modal must be displayed');
+      (new PNotify({
+        title: notif.title,
+        text: notif.text,
+        type: notif.type,
+        icon: 'glyphicon glyphicon-question-sign',
+        hide: false,
+        confirm: {
+            confirm: true,
+            buttons: [{
+              text: 'تایید',
+              addClass: 'btn'
+            },
+            {
+              text: 'انصراف',
+              addClass: 'btn'
+            }
+          ]
+        },
+        buttons: {
+            closer: false,
+            sticker: false
+        },
+        history: {
+            history: false
+        },
+        addclass: 'stack-modal',
+        stack: {
+            'dir1': 'down',
+            'dir2': 'right',
+            'modal': true
+        }
+        })).get().on('pnotify.confirm', function() {
+            scope.doConfirm(scope.preRequest);
+        }).on('pnotify.cancel', function() {
+          // doing nothing
+        });
     }
+    else new PNotify(notif);
+    
     mainAsset.log(response);
     if (response.status === 401) {
       $localStorage.$reset();
@@ -101,58 +134,64 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     httpService.stopLoading();
   }
 
-  this.get = function(url, scope, callback ,progressBar) {
-    this.init(scope);
-    this.startLoading(progressBar);
+  httpService.get = function(url, scope, callback ,progressBar) {
+    httpService.init(scope);
+    httpService.startLoading(progressBar);
 
     $http.get(url , {headers: headers})
       .then(function(response) {
         httpService.successCallback(response, callback, false)
       },
-      this.errorCallback
+      function(response){
+        httpService.errorCallback(response,scope)        
+      }
     );
   };
 
-  this.put = function(url, json, scope, callback, progressBar) {
-    this.init(scope);
-    this.startLoading(progressBar);
+  httpService.put = function(url, json, scope, callback, progressBar) {
+    httpService.init(scope);
+    httpService.startLoading(progressBar);
 
     $http.put(url, json, {headers: headers})
       .then(function(response) {
         httpService.successCallback(response, callback)
       },
-      this.errorCallback
+      function(response){
+        httpService.errorCallback(response,scope)        
+      }
     );
   };
 
-  this.post = function(url, json, scope, callback, progressBar) {
-    this.init(scope);
-    this.startLoading(progressBar);
+  httpService.post = function(url, json, scope, callback, progressBar) {
+    httpService.init(scope);
+    httpService.startLoading(progressBar);
 
     $http.post(url, json, {headers: headers})
       .then(function(response) {
         httpService.successCallback(response, callback)
       },
-      this.errorCallback
+      function(response){
+        httpService.errorCallback(response,scope)        
+      }
     );
   };
 
-  this.delete = function(url, scope, callback, progressBar) {
-    this.init(scope);
-    this.startLoading(progressBar);
+  httpService.delete = function(url, scope, callback, progressBar) {
+    httpService.init(scope);
+    httpService.startLoading(progressBar);
 
     $http.delete(url , {headers: headers})
       .then(function(response) {
         httpService.successCallback(response, callback)
       },
       function(response) {
-        httpService.errorCallback(response);
+        httpService.errorCallback(response,scope);
         $('.modal').modal('hide');
       }
     );
   };
 
-  this.uploadFileReq = function(file, type, scope, callback){
+  httpService.uploadFileReq = function(file, type, scope, callback){
     scope.uploading = true;
     Upload.upload({
         url: mainAsset.getUploadUrl(),
@@ -165,10 +204,18 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }, function (resp) {
         scope.uploading = false;
         scope.uploadPercentage = 0;
-        this.errorCallback(resp.status);
+        httpService.errorCallback(resp.status,scope);
     }, function (evt) {
         scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total) + '%';
     });
   }
+
+
+  httpService.openConfirmModal = function(_message,scope){
+    mainAsset.openModal('#confirmModal');
+    scope.confirmMessage = _message;
+  }
+
+  
 
 });
