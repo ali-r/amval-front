@@ -2,6 +2,7 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
   function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload){
 
     var controller = this;
+    $scope.uploadPercentage = 0;
     $scope.assetData = $cookieStore.get("assetData");
     $scope.serverUrl = mainAsset.getUrl();
     $scope.uploadUrl = mainAsset.getUploadUrl();
@@ -34,7 +35,6 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
 
     this.upload = function(){
       if (!$scope.databaseForm.file.$error.pattern && controller.file) {
-        requestHelper.startLoading(true);
         $scope.uploading = true;        
         Upload.upload({
             url: controller.databaseUrl,
@@ -57,7 +57,6 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
 
     this.uploadServer = function(){
       if (!$scope.uploadForm.file.$error.pattern && controller.uploadFile) {
-        requestHelper.startLoading(true);
         $scope.uploading = true;
         Upload.upload({
             url: $scope.uploadUrl + '/database',

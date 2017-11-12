@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-hide="uploading">
   <div class="col-md-6 col-md-offset-3 dataBaseplace-box">
     <div class="" id='myTabs' role="tabpanel" data-example-id="myTabs">
       <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -20,7 +20,7 @@
               <div style="text-align:center">
                 <form name='databaseForm'>
                   <button type="button" ng-click="database.download()" class="btn btn-success"> پشتیبان گیری</button>
-                  <div class="btn btn-success" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'" ngf-accept="'.mdb'"
+                  <div class="btn btn-primary" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'" ngf-accept="'.mdb'"
                     ngf-max-size="2MB"> بازیابی پشتیبان</div>
                 </form>
               </div>
@@ -38,7 +38,7 @@
               <div style="text-align:center">
                 <form name='uploadForm'>
                   <button type="button" ng-click="database.downloadFile()" class="btn btn-success"> پشتیبان گیری </button>
-                  <div class="btn btn-success" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'" ngf-accept="'.zip'"
+                  <div class="btn btn-primary" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'" ngf-accept="'.zip'"
                     ngf-max-size="1024MB">بازیابی پشتیبان</div>
                 </form>
               </div>
@@ -51,8 +51,29 @@
     
   </div>
 </div>
+
 <div class="clearfix"></div>
 <br>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 dataBaseplace-box" ng-show = "uploading">
+    <p class="text-center">
+      فایل بازیابی شما در حال بارگذاری بر روی سرور است.
+      <br>
+      <b>لطفا صبر کنید ...</b>
+    </p>
+    <br>
+    <div class="progress active" ng-hide = "uploadPercentage == 0">
+      <div class="progress-bar progress-bar-info" role="progressbar"
+      aria-valuemin="0" id="uploadPercentBox" aria-valuemax="100" ng-style="{ 'width' : uploadPercentage }">
+      {{uploadPercentage}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="database.downloadUrl">
