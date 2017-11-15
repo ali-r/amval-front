@@ -42,8 +42,8 @@ angular.module("assetAdminPanel").controller('loginCtrl',
         NProgress.done();
         mainAsset.log(response)
         new PNotify({
-          title: 'خطا ' ,
-          text: response.data.data.fa,
+          title: 'خطا ',
+          text: response.data.message.fa,
           type: 'error'
         });
     });
