@@ -57,13 +57,22 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3 dataBaseplace-box" ng-show = "uploading">
-    <p class="text-center">
+    <p ng-hide=" uploadPercentage == '100%' " class="text-center">
       فایل بازیابی شما در حال بارگذاری بر روی سرور است.
       <br>
       <b>لطفا صبر کنید ...</b>
     </p>
+    <p ng-show=" uploadPercentage == '100%' " class="text-center">
+      فایل شما با موفقیت بارگذاری شد.
+      هم اکنون در حال بازگردانی اطلاعات هستیم.
+      <br>
+      <b>لطفا صبر کنید ...</b>
+      <div class="load-spinner center-block text-center">
+        <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+      </div>
+    </p>
     <br>
-    <div class="progress active" ng-hide = "uploadPercentage == 0">
+    <div class="progress active" ng-hide = "uploadPercentage == 0 || uploadPercentage == '100%'">
       <div class="progress-bar progress-bar-info" role="progressbar"
       aria-valuemin="0" id="uploadPercentBox" aria-valuemax="100" ng-style="{ 'width' : uploadPercentage }">
       {{uploadPercentage}}
