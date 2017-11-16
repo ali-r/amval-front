@@ -48,7 +48,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     requestHelper.get(getUrl, $scope, function(response){
       mainAsset.log(response.data.data)
       controller.products = response.data.data.products;
-      controller.productsMeta = response.data.data.meta;
+      controller.productsMeta = response.data.meta;
       controller.productsPage = response.data.meta.page;
       if(response.data.data.total_price) $scope.products_total_price = response.data.data.total_price;
       else delete $scope['products_total_price']
