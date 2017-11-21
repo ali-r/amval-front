@@ -10,7 +10,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-4">
           <div class="input-group pull-left select-warehouse" ng-show="assetData.clearance_level > 1 && mywarehouse.pageType!=0">
-            <input type="text" class="form-control" ng-model="mywarehouse.warehouse.title" readonly>
+            <input title="انبار در حال مدیریت" type="text" class="form-control" ng-model="mywarehouse.warehouse.title" readonly>
             <span class="input-group-btn">
               <button type="button" class="btn btn-primary btn-beside-input" ng-hide="mywarehouse.warehouse.title" ng-click="mywarehouse.selectWareHouseModal()">انتخاب انبار</button>
               <button type="button" class="btn btn-danger btn-beside-input" ng-show="mywarehouse.warehouse.title" ng-click="mywarehouse.deleteWarehouse()">حذف انبار</button>
@@ -166,7 +166,7 @@
               <div class="panel-body">
                 <form name="searchForm" role="form" novalidate ng-submit="searchForm.$valid && mywarehouse.search('warehouse');">
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="mywarehouse.tmp.searchQuery">
+                        <input title="جستجو در بین فیلدهای متنی" type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="mywarehouse.tmp.searchQuery">
                         <span class="input-group-btn">
                           <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input">
                             جستجو
@@ -198,7 +198,7 @@
                         </td>
                         <td>{{list.location | lengthLimit:20}}</td>
                         <td>
-                          <a ng-click="mywarehouse.selectWarehouse(list)" href>
+                          <a title="انتخاب ردیف" ng-click="mywarehouse.selectWarehouse(list)" href>
                             <i class="fa fa-check-square-o fa-lg"></i>
                           </a>
                         </td>
