@@ -136,18 +136,18 @@
               <td>{{list.producer.brand_name | lengthLimit:30}}</td>
               <td>{{list.production_date | jalaliDate | pNumber}}</td>
               <td>{{list.guarantee_end_date | jalaliDate | pNumber}}</td>
-              <td>
-                <a ng-click="product.getObject(list.id)" href>
+              <td >
+                <a title="ویرایش" ng-click="product.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('product') , 'fa-eye' : !checkWrite('product')}" aria-hidden="true"></i>
                 </a>
               </td>
-              <td>
-                <a ng-click="product.openProductModal(list)" href>
+              <td >
+                <a title="مشاهده جزئیات" ng-click="product.openProductModal(list)" href>
                   <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
                 </a>
               </td>
               <td ng-if = "checkWrite('product')">
-                <a ng-click="product.toDeleteId = list.id; product.toDeleteTitle = list.model" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
+                <a  title="حذف" ng-click="product.toDeleteId = list.id; product.toDeleteTitle = list.model" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>

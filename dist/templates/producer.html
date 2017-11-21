@@ -24,12 +24,12 @@
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.brand_name | lengthLimit:30}}</td>
               <td>
-                <a ng-click="producer.getObject(list.id)" href>
+                <a  title="مشاهده" ng-click="producer.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('producer') , 'fa-eye' : !checkWrite('producer')}" aria-hidden="true"></i>
                 </a>
               </td>
               <td ng-if = "checkWrite('producer')">
-                <a ng-click="producer.toDeleteId = list.id; producer.toDeleteTitle = list.brand_name" data-toggle="modal" data-target="#deleteModal" href>
+                <a title="حذف" ng-click="producer.toDeleteId = list.id; producer.toDeleteTitle = list.brand_name" data-toggle="modal" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
