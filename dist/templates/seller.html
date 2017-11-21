@@ -32,11 +32,11 @@
               <td style="direction:ltr;">{{list.cellphone | pNumber}}</td>
               <td style="direction:ltr;">{{list.phone | pNumber}}</td>
               <td>
-                <a ng-click="seller.getObject(list.id)" href>
+                <a title="مشاهده" ng-click="seller.getObject(list.id)" href>
                   <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('seller') , 'fa-eye' : !checkWrite('seller')}" aria-hidden="true"></i>
                 </a>
               </td>
-              <td ng-if = "checkWrite('seller')">
+              <td title="حذف" ng-if = "checkWrite('seller')">
                 <a ng-click="seller.toDeleteId = list.id; seller.toDeleteTitle = list.store_name" data-toggle="modal" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
