@@ -35,17 +35,17 @@
               <td ng-click="user.getObject(list.id)" ng-show="list.extension_number" style="direction:ltr;">{{list.extension_number | pNumber }}</td>
               <td ng-click="user.getObject(list.id)" ng-hide="list.extension_number"> -- ندارد --  </td>
               
-              <td>
+              <td title="مشاهده اطلاعات کاربر">
                 <a ng-click="user.getObject(list.id)" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('user') , 'fa-eye' : !checkWrite('user')}" aria-hidden="true"></i>
                 </a>
               </td>
-              <td ng-if = "checkWrite('user')">
+              <td title="تغیر رمز عبور کاربر" ng-if = "checkWrite('user')">
                 <a ng-click = "user.openResetPassModal(list.id)" data-toggle="modal" ng-if="assetData.id !== list.id" href>
                   <i class="fa fa-lg fa-key" aria-hidden="true"></i>
                 </a>
               </td>
-              <td ng-if = "checkWrite('user')">
+              <td title="حذف کاربر" ng-if = "checkWrite('user')">
                 <a ng-click="user.toDeleteId = list.id; user.toDeleteTitle = list.first_name+' '+list.last_name" data-toggle="modal" ng-if="assetData.id !== list.id" data-target="#deleteModal" href>
                   <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                 </a>
