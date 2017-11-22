@@ -299,6 +299,7 @@ app.filter('lengthLimit',function(){
 
 app.filter('reasonType', function() {
   return function(input) {
+    input = Number(input)
     var output;
     switch(input){
         case 3:
@@ -320,6 +321,7 @@ app.filter('reasonType', function() {
 
 app.filter('transactionType', function() {
   return function(input) {
+    input = Number(input)
     var output;
     switch(input){
         case 2:
