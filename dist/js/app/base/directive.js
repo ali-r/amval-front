@@ -305,6 +305,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.is_bundle;
           delete sendCopyObj.price;
           delete sendCopyObj.id;
+          delete sendCopyObj.name;
         }else{
           if(!sendCopyObj.is_bundle)
             sendCopyObj.is_out_of_system = true;
