@@ -57,12 +57,12 @@
                             <td class="limited-width-col">{{list.invoice_no  | lengthLimit:30}}</td>
                             <td class="limited-width-col">{{list.price | currency:'':0 | lengthLimit:30 | pNumber}}</td>
                             <td>
-                                <a ng-click="invoice.readInvoice(list.id)" href>
+                                <a title="ویرایش" ng-click="invoice.readInvoice(list.id)" href>
                                     <i class="fa fa-lg"  ng-class = "{'fa-pencil-square-o':checkWrite('invoice') , 'fa-eye' : !checkWrite('invoice')}" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td ng-if = "checkWrite('invoice')">
-																<a ng-click="invoice.toDeleteId = list.id; invoice.toDeleteTitle = list.invoice_no" data-toggle="modal" data-target="#deleteModal" href>
+								<a title="حذف" ng-click="invoice.toDeleteId = list.id; invoice.toDeleteTitle = list.invoice_no" data-toggle="modal" data-target="#deleteModal" href>
                                     <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -152,8 +152,8 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info" ng-click="invoice.openProductModal()">ایجاد کالا</button>
-                                        <button type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
+                                        <button title="ایجاد کالای جدید و افزودن آن به فاکتور" type="button" class="btn btn-info" ng-click="invoice.openProductModal()">ایجاد کالا</button>
+                                        <button title="افزودن کالای موجود در سیستم به فاکتور" type="button" class="btn btn-info" ng-click="invoice.selectProduct()">انتخاب کالا</button>
                                     </span>
                                 </div>
                             </div>

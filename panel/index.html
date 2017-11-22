@@ -186,7 +186,7 @@
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                <a id="menu_toggle" title="باز و بسته کردن منو"><i class="fa fa-bars"></i></a>
               </div>
 
               <ul id="left-nav" class="nav navbar-nav navbar-left">
@@ -198,7 +198,7 @@
                   
                 </li>
 
-                <li role="presentation" class="dropdown">
+                <li role="presentation" class="dropdown" title="اعلان های مربوط به کارهای ضروری شما">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span ng-hide="notifList.length<1" id="notif-badge" class="badge bg-green"> {{notifList.length}} </span>
@@ -222,7 +222,7 @@
                         </span>
                       </a>
                     </li> -->
-                    <li ng-show="main.loadingNotif==0" ng-repeat="notif in notifList | limitTo:notifDisplayLimit">
+                    <li ng-show="main.loadingNotif==0"  ng-repeat="notif in notifList | limitTo:notifDisplayLimit">
                       <div class="pre-a">
                           
                           <label>
@@ -237,7 +237,7 @@
 
                     <li>
                       <div class="text-center" style="width:100%">
-                        <a href="#notification">
+                        <a href="#notification" title="برو به صفحه اعلان ها">
                           <i class="fa fa-angle-left"></i>
                           <strong>نمایش همه ی اعلان ها</strong>
                           

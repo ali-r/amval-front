@@ -92,7 +92,7 @@
                 'label-warning':list.status==0}">{{list.status | ticketStatus}}</span>
                 </td>
               <td></td>
-              <td>
+              <td title="مشاهده تیکت">
                 <a ng-click="ticket.readTicket(list.id,$index,this)" href>
                   <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                 </a>
@@ -172,11 +172,11 @@
                   <p> {{ticket.obj.status | ticketStatus}} </p>
                 </div>
                 <div class="pull-left button-padding" ng-show="editMode">
-                  <button  type="button" class="btn btn-success btn-sm" ng-click="ticket.changeStatus(1)" 
+                  <button title="تغییر وضعیت تیکت به در حال پیگیری" type="button" class="btn btn-success btn-sm" ng-click="ticket.changeStatus(1)" 
                   ng-show="ticket.obj.status == 0 && !loadStatus">
                     شروع پیگیری
                   </button>
-                  <button  type="button" class="btn btn-warning btn-sm" ng-click="ticket.changeStatus(2)" 
+                  <button title="تغییر وضعیت تیکت به بسته شده" type="button" class="btn btn-warning btn-sm" ng-click="ticket.changeStatus(2)" 
                   ng-show="ticket.obj.status == 1 && !loadStatus">
                     اتمام
                   </button>
