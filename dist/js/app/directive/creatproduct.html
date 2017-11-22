@@ -20,7 +20,15 @@
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
         <h3 class="modal-title" ng-hide="dParent.editMode">افزودن کالای جدید</h3>
-        <h3 class="modal-title" ng-show="dParent.editMode">ویرایش کالا</h3>
+        <h3 class="modal-title" ng-show="dParent.editMode && dParent.loadModal">
+            ویرایش کالا
+          </h3>
+        <h3 class="modal-title" ng-show="dParent.editMode && !dParent.loadModal">
+          ویرایش کالای
+          <small>
+              "{{controller.product.name}}"              
+          </small>
+        </h3>
       </div>
       <div class="modal-body">
           <div class="box-body">

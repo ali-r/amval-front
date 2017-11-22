@@ -116,9 +116,9 @@
           <thead>
             <tr>
               <th>#</th>
+              <th>نام کالا</th>
               <th>مدل کالا</th>
               <th> قیمت (ریال) </th>
-              <th>سازنده</th>
               <th>تاریخ تولید</th>
               <th>پایان گارانتی</th>
               <th></th>
@@ -129,11 +129,11 @@
           <tbody ng-hide = "load">
             <tr ng-repeat = "list in product.note">
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
+              <td>{{list.name | lengthLimit:30}}</td>              
               <td>{{list.model | lengthLimit:30}}</td>
               <td dir="ltr">
                 {{list.price | currency:'':0 | productPrice | pNumber | lengthLimit:15}}
               </td>
-              <td>{{list.producer.brand_name | lengthLimit:30}}</td>
               <td>{{list.production_date | jalaliDate | pNumber}}</td>
               <td>{{list.guarantee_end_date | jalaliDate | pNumber}}</td>
               <td >

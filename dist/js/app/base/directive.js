@@ -263,9 +263,10 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           metaUrl, scope.dParent,
           function(response) {
             scope.controller.tmp.meta = response.data.data;
+            var reqMetaData = response.data.data.meta_template;
             scope.controller.product.meta_data = [];
-            for (var i = 0; i < response.data.meta_template.length; i++) {
-             scope.controller.product.meta_data[i] = {'key' : response.data.meta_template[i].key, 'value': null}
+            for (var i = 0; i < reqMetaData.length; i++) {
+             scope.controller.product.meta_data[i] = {'key' : reqMetaData[i].key, 'value': null}
             }
             scope.dParent.loadSearch = false;
           });
