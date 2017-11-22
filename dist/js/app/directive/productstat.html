@@ -17,6 +17,13 @@
       <div class="modal-body">
         <div class="row" ng-hide="dParent.loadModal">
 
+            <div class="col-xs-4">
+              <label>نام کالا</label>
+              <h5 class="product-stat">
+                {{controller.productStat.name}}
+              </h5>
+            </div>
+
           <div class="col-xs-4">
             <label>مدل</label>
             <span class="label label-danger pull-left" ng-show="controller.productStat.is_out_of_system">خارج از سامانه</span>
@@ -34,20 +41,15 @@
               {{controller.productStat.serial_number}}
             </h5>
           </div>
+          
+          <div class="clearfix"></div>
           <div class="col-xs-4">
             <label>زیرگروه</label>
             <h5 class="product-stat">
               {{controller.productStat.subgroup.title}}
             </h5>
           </div>
-          <div class="clearfix"></div>
 
-          <div class="col-xs-4">
-            <label>تولید کننده</label>
-            <h5 class="product-stat">
-              {{controller.productStat.producer.brand_name}}
-            </h5>
-          </div>
           <div class="col-xs-4">
             <label>گارانتی</label>
             <h5 class="product-stat">
@@ -65,6 +67,12 @@
             </h5>
           </div>
           <div class="clearfix"></div>
+          <div class="col-xs-4">
+            <label>تولید کننده</label>
+            <h5 class="product-stat">
+              {{controller.productStat.producer.brand_name}}
+            </h5>
+          </div>
 
           <div class="col-xs-4">
             <label>تاریخ تولید</label>
@@ -81,6 +89,8 @@
               {{controller.productStat.deprication_type | depricateType}}
             </h5>
           </div>
+          <div class="clearfix"></div>
+
           <div class="col-xs-4">
             <label>قیمت</label>
             <h5 class="product-stat">
@@ -88,7 +98,6 @@
               {{ "ریال" + " " }}
             </h5>
           </div>
-          <div class="clearfix"></div>
 
           <div class="col-xs-4">
             <label>نگهدارنده</label>
@@ -106,6 +115,9 @@
               <img ng-src="{{controller.productStat.qr_code}}" class="img-responsive img-thumbnail" >
             </a>
           </div>
+          
+          <div class="clearfix"></div>
+
           <div class="col-xs-4">
             <label ng-show="controller.productStat.parent_bundle">باندل پدر</label>
             <h5 class="product-stat" ng-show="controller.productStat.parent_bundle">
