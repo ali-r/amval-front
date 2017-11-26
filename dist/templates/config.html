@@ -16,6 +16,20 @@
                     </div>
                     <form ng-hide="loadModal" name="ldapForm" ng-submit="!ldapForm.hostname.$error.pattern && config.setConfig('ldap')">
                         <fieldset>
+                            
+                            <div class="col-md-6 col-md-pull-3" title="فعال و غیر فعال کردن ldap">
+                                <div  class="checkbox">
+                                    <label>
+                                        <input class="checkbox" ng-change="config.configChange('ldap')" ng-model="config.obj.ldap.ldap_on" id="ldap_on_off" type="checkbox">
+                                        <b>
+                                                احراز هویت بوسیله ی LDAP
+                                        </b>   
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            
+
                             <div class="col-md-6 col-md-pull-3">
                                 <div id="ldap-hostname-container" class="form-group" ng-class="{'has-error':ldapForm.hostname.$error.pattern && config.validateResult.ldap_touched , 'has-success':!ldapForm.hostname.$error.pattern && config.validateResult.ldap_touched }">
                                     <label> آدرس سرور LDAP </label>
@@ -30,24 +44,21 @@
                                         <label> DN </label>
                                         <input id="ldap-dn" type="text" class="form-control hostname-input" dir="ltr" name="dn" ng-model = "config.obj.ldap.dn" ng-change="config.configChange('ldap')">
                                     </div>
-                                    <p>
-                                        به جای محل قرارگیری علامت سوال 
-                                        username
-                                        قرار دهید.
-
-                                        مانند: <br/>
-                                        cn=?,dc=example,dc=com
-                                    </p>
-                                </div>
+                            </div>
                             <div class="clearfix"></div>
 
-                            <div class="col-md-6 col-md-pull-3" title="فعال و غیر فعال کردن ldap">
-                                <div  class="checkbox">
-                                    <label>
-                                        <input class="checkbox" ng-change="config.configChange('ldap')" ng-model="config.obj.ldap.ldap_on" id="ldap_on_off" type="checkbox">
-                                            احراز هویت بوسیله ی LDAP
-                                    </label>
-                                </div>
+                            <div class="col-md-12 col-md-pull-0">
+                                <p>
+                                    -
+                                    به جای محل قرارگیری علامت سوال نام کاربری  
+                                    (username)
+                                    قرار دهید.
+
+                                    مانند: <br/>
+                                    <span style="float:left">
+                                            cn=?,dc=example,dc=com                                            
+                                    </span>
+                                </p>
                             </div>
                             <div class="clearfix"></div>
                             
@@ -64,21 +75,24 @@
                     </div>
                     <form ng-hide="loadModal" name="syslogForm" ng-submit="!syslogForm.hostname.$error.pattern && config.setConfig('syslog')">
                         <fieldset>
-                            <div class="col-md-6 col-md-pull-3">
-                                <div class="form-group"  id="syslog-hostname-container" ng-class="{'has-error':syslogForm.hostname.$error.pattern && config.validateResult.syslog_touched , 'has-success':!syslogForm.hostname.$error.pattern && config.validateResult.syslog_touched }">
-                                    <label> آدرس سرور Syslog </label>
-                                    <input id="syslog-host" type="text" class="form-control hostname-input" dir="ltr" name="hostname" ng-model = "config.obj.syslog.hostname"  ng-change="config.configChange('syslog')">
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
                             <div class="col-md-6 col-md-pull-3" title="فعال و غیر فعال کردن لاگ های سیستم">
                                 <div class="checkbox">
                                     <label>
                                         <input class="checkbox" ng-model="config.obj.syslog.syslog_on" id="syslog_on_off" type="checkbox" ng-change="config.configChange('syslog')">
-                                            ارسال لاگ ها به سرور Syslog
+                                        <b>
+                                                ارسال لاگ ها به سرور Syslog                                                
+                                        </b>    
                                     </label>
                                 </div>
                             </div>    
+                            <div class="clearfix"></div>
+                            
+                            <div class="col-md-6 col-md-pull-3">
+                                <div class="form-group"  id="syslog-hostname-container" ng-class="{'has-error':syslogForm.hostname.$error.pattern && config.validateResult.syslog_touched , 'has-success':!syslogForm.hostname.$error.pattern && config.validateResult.syslog_touched }">
+                                    <label> آدرس سرور Syslog </label>
+                                    <input id="syslog-host" type="text" class="form-control hostname-input" dir="ltr" name="hostname" ng-model = "config.obj.syslog.hostname"  ng-change="config.configChange('syslog')" ng-pattern="/^(((([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)+([A-Za-z]|[A-Za-z][A-Za-z\-]*[A-Za-z]))|((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])))(:[0-9]{1,4})?$/">
+                                </div>
+                            </div>
                             <div class="clearfix"></div>
                             
                             <div class="col-md-2 col-md-pull-8">
