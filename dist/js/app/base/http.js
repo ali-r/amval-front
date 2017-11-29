@@ -91,7 +91,9 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     else{
       notif.text = 'عملیات موفقیت آمیز نبود.';
     }
-          
+
+    PNotify.prototype.options.delay = notif.text.length * 30 ;
+    
     if(notif.type == 'warn'){ // handling confirm
       (new PNotify({
         title: notif.title,
@@ -131,6 +133,8 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
         });
     }
     else new PNotify(notif);
+
+    PNotify.prototype.options.delay = 2000 ;
     
     mainAsset.log(response);
     if (response.status === 401) {
