@@ -56,7 +56,11 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     if(notif.type == 'info') notif.title = 'موفق';
     else notif.title = 'هشدار'
 
-    if(response.data.message && response.data.message.fa) notif.text = response.data.message.fa;
+    if(response.data.message && response.data.message.fa){
+      mainAsset.convertMarkdownToHtml(response.data.message.fa,function(content_){
+        notif.text = content_;
+      })
+    } 
     else notif.text = 'عملیات موفقیت آمیز بود';
 
     if (notifyEnable)
@@ -70,7 +74,9 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     if(response.data.message && response.data.message.type == 'warn'){
       notif.type = 'warn';
       notif.title = 'هشدار';
-      notif.text = response.data.message.fa;
+      mainAsset.convertMarkdownToHtml(response.data.message.fa,function(content_){
+        notif.text = content_;
+      })
     }
     else{
       notif.type = 'error';
@@ -78,7 +84,9 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }
 
     if(response.data.message && response.data.message.fa){
-      notif.text = response.data.message.fa;
+      mainAsset.convertMarkdownToHtml(response.data.message.fa,function(content_){
+        notif.text = content_;
+      })
     }
     else{
       notif.text = 'عملیات موفقیت آمیز نبود.';
