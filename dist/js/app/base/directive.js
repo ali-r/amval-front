@@ -277,7 +277,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         if(!scope.productForm.productPic.$error.maxSize && scope.controller.qrCodeFile)
         {
           requestHelper.uploadFileReq(scope.controller.qrCodeFile, 'signature', scope, function(data){
-            scope.controller.product.qr_code = data.file_url;
+            scope.controller.product.qr_code = data.data.file_url;
           });
         }
       }

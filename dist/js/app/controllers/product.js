@@ -169,7 +169,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     {
       requestHelper.uploadFileReq(controller.qrCodeFile, 'qrcode', $scope, function(data){
         delete controller.qrCodeFile;
-        controller.obj.qr_code = data.file_url;
+        controller.obj.qr_code = data.data.file_url;
       });
     }
   }
