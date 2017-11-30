@@ -178,7 +178,10 @@
                 <div class="col-sm-6">
                   <div class="form-group">
 
-                    <label>کالا*</label>
+                    <label>
+                      کالا
+                      {{ (editMode ? '' : '*') }}
+                    </label>
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="transaction.obj.product.model" required disabled>
                       <span class="input-group-btn">
@@ -203,7 +206,10 @@
                 <hr>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label>مقصد*</label>
+                    <label>
+                      مقصد
+                      {{ (editMode ? '' : '*') }}                      
+                    </label>
 
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-hide="transaction.obj.destination.type=='Warehouse'" ng-model="transaction.obj.destination.obj.last_name" disabled>
@@ -252,7 +258,10 @@
                 <div class="col-xs-6">
 
                     <div class="form-group">
-                      <label>نوع تراکنش*</label>
+                      <label>
+                        نوع تراکنش
+                        {{ (editMode ? '' : '*') }}                        
+                      </label>
                       <div ng-hide="editMode">
                         <select class="form-control" ng-model="transaction.obj.transaction_type" required ng-disabled="editMode">
                           <option value="0">تخصیص</option>
@@ -270,7 +279,10 @@
               
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>علت تراکنش*</label>
+                    <label>
+                      علت تراکنش
+                      {{ (editMode ? '' : '*') }}                      
+                    </label>
 
                     <div ng-hide="editMode">
                       <select class="form-control" ng-model="transaction.obj.reason" required ng-disabled="editMode">
@@ -290,7 +302,10 @@
               
                 <div class="col-xs-12" >
                   <div class="form-group">
-                    <label>توضیحات تراکنش*</label>
+                    <label>
+                      توضیحات تراکنش
+                      {{ (editMode ? '' : '*') }}                      
+                    </label>
                     <div>
                       <textarea class="form-control" style="resize:none" rows="4" ng-model="transaction.obj.details" required
                       ng-disabled="editMode">
