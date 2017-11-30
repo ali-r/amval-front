@@ -90,13 +90,13 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('html', function () {
+gulp.task('html', ['templateCatch'], function () {
   gulp.src('dist/templates/*.html')
     .pipe(connect.reload());
 });
 
 gulp.task('watch', function () {
-  gulp.watch(['dist/templates/*.html'], ['html']);
+  gulp.watch(['dist/templates/*.html', 'dist/js/app/directive/*.html'], ['html']);
 });
 
 gulp.task('index',['copyFonts', 'templateCatch'] ,function(){
