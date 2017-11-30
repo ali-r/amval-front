@@ -134,6 +134,23 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
         console.log(logText)
       }
     };
+
+    this.convertMarkdownToHtml = function(data_,resultHandler_){
+      marked(data_,function(err,content){
+        if(err){
+          mainAsset.log(err);
+        }
+        else{
+          if(typeof(resultHandler_)==='function'){
+            resultHandler_(content);
+          }
+          else{
+            resultHandler_ = content          
+          }
+        }
+      })
+    }
+
 });
 
 app.filter('filterObjById',function(){

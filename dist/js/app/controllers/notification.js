@@ -12,9 +12,9 @@ function($scope, mainAsset, requestHelper, crud, $routeParams) {
     
     controller.doConvert = function(){
         for(var i =0;i<controller.note.length;i++){
-            marked(controller.note[i].message,function(err,content){
-                $('#notif-'+i)[0].innerHTML = content ;            
-            })
+          mainAsset.convertMarkdownToHtml(controller.note[i].message,function(content_){
+            $('#notif-'+i)[0].innerHTML = content_ ; 
+          })  
         }
     }
     
