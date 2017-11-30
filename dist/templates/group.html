@@ -155,7 +155,7 @@
       {{node.description | lengthLimit:40}}
     </div>
     <div class="col-md-2">
-      <a class="pull-left" ng-click="group.toDeleteId = node.id; group.toDeleteTitle = node.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+      <a class="pull-left" ng-if="checkWrite('group')" ng-click="group.toDeleteId = node.id; group.toDeleteTitle = node.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
         <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
       </a>
       <a class="pull-left" ng-click="group.getObject(node.id)" title="مشاهده" href style="margin-left: 15px;">
