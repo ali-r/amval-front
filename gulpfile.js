@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     minify = require('gulp-minify-css'),
     concat = require('gulp-concat'),
+    templateCache = require('gulp-angular-templatecache'),
     connect = require('gulp-connect');
 
 var devMode = true;
@@ -25,7 +26,7 @@ js = {
     vbase : 'vendors/base/**/*.js',
     plugins : 'vendors/plugins/**/*.js',
     custom : 'dist/js/*.js',
-    app : 'dist/js/app/app.js',
+    app : 'dist/js/app/*.js',
     base : 'dist/js/app/base/*.js',
     controllers : 'dist/js/app/controllers/*.js'
   },
@@ -72,6 +73,16 @@ gulp.task('copyFonts', function(){
 		      .pipe(gulp.dest(fonts.out));
 });
 
+gulp.task('templateCatch', function(){
+  gulp.src('dist/templates/*.html')
+    .pipe(templateCache('templates.js',{'module':'assetAdminPanel', 'root':'/dist/templates/'}))
+    .pipe(gulp.dest('dist/js/app'));
+    
+  gulp.src('dist/js/app/directive/*.html')
+    .pipe(templateCache('directiveTemplates.js',{'module':'assetAdminPanel', 'root':'/dist/js/app/directive/'}))
+    .pipe(gulp.dest('dist/js/app'));
+})
+
 gulp.task('connect', function() {
   connect.server({
     livereload: true,
@@ -88,7 +99,7 @@ gulp.task('watch', function () {
   gulp.watch(['dist/templates/*.html'], ['html']);
 });
 
-gulp.task('index',['copyFonts'] ,function(){
+gulp.task('index',['copyFonts', 'templateCatch'] ,function(){
   return index('panel/','index.html') ,index('','index.html') ,index('','logout.html');
 });
 

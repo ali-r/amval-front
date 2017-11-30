@@ -28,34 +28,29 @@ angular.module("assetAdminPanel").config(function($routeProvider) {
 
     for (var i = 0; i < assetPages.length; i++) {
       $routeProvider.when("/" + assetPages[i] , {
-          templateUrl : "../dist/templates/" + assetPages[i] + ".html",
+          templateUrl : "/dist/templates/" + assetPages[i] + ".html",
           controller : assetPages[i] + "Ctrl",
           controllerAs : assetPages[i]
       });
     };
     $routeProvider
     .when("/product/:id?" , {
-      templateUrl : "../dist/templates/product.html",
+      templateUrl : "/dist/templates/product.html",
       controller : "productCtrl",
       controllerAs : "product"
     })
     .when("/user/:id?" , {
-      templateUrl : "../dist/templates/user.html",
+      templateUrl : "/dist/templates/user.html",
       controller : "userCtrl",
       controllerAs : "user"
     })
     .when("/ticket/:id?" , {
-      templateUrl : "../dist/templates/ticket.html",
+      templateUrl : "/dist/templates/ticket.html",
       controller : "ticketCtrl",
       controllerAs : "ticket"
     })
-    /*.when("/mywarehouse/:id?" , {
-      templateUrl : "../dist/templates/mywarehouse.html",
-      controller : "mywarehouseCtrl",
-      controllerAs : "mywarehouse"
-    })*/
     .when("/transaction/:id?" , {
-      templateUrl : "../dist/templates/transaction.html",
+      templateUrl : "/dist/templates/transaction.html",
       controller : "transactionCtrl",
       controllerAs : "transaction"
     });
