@@ -354,7 +354,8 @@ $(document).ready(function() {
     PNotify.prototype.options.addclass = "stack-bottomleft";
     PNotify.prototype.options.stack = stack_bottomleft;
     PNotify.prototype.options.buttons.sticker = false;
-    PNotify.prototype.options.delay = 2000;
+	PNotify.prototype.options.delay = 2000;
+	PNotify.prototype.options.insert_brs = false;
 
     $('#preLoader').hide();
 
