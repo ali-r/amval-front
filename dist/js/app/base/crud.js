@@ -295,6 +295,10 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       if(controller.tmp.searchQuery && controller.tmp.searchQuery!=''){
         searchUrl += '&text_search='+ controller.tmp.searchQuery;        
       }
+
+      if(controller.relateWarehouseId != undefined && controller.relateWarehouseId!=''){
+        searchUrl += '&related_warehouse='+ controller.relateWarehouseId;
+      }
       
       mainAsset.log(searchUrl);
       scope.preRequest = {
