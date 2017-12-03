@@ -189,7 +189,8 @@
                       </span>
                     </div>
                     <p class="data-show" ng-show="editMode">
-                        {{ transaction.obj.unique_id | transactionIdDisplay | pNumber }}                      
+                        {{ transaction.obj.product.model | pNumber}}
+                        ({{transaction.obj.product.serial_number | pNumber}})
                     </p>
 
                   </div>
