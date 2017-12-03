@@ -148,7 +148,7 @@
       <div class="modal-header">
         <div class="pull-left">
           <button type="button" ng-if = "checkWrite('transaction')" ng-show = "stage == 0 && !editMode" ng-disabled="!transactionForm.$valid || !transaction.obj.destination" ng-click="transaction.sendOrEdit(editMode)" class="btn btn-success">ذخیره</button>
-          <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
+          <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="transaction.returnBtn()">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
         </div>
         <div class="pull-left single-export" ng-show="editMode">
@@ -223,10 +223,10 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
                           <li>
-                            <a ng-click="transaction.selectThings(2, 'user')" href>کاربر</a>
+                            <a ng-click="transaction.selectThings(2, 'user'); scope = 2" href>کاربر</a>
                           </li>
                           <li>
-                            <a ng-click="transaction.selectThings(3, 'warehouse')" href>انبار</a>
+                            <a ng-click="transaction.selectThings(3, 'warehouse'); scope = 3" href>انبار</a>
                           </li>
                         </ul>
                       </div>

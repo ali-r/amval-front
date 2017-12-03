@@ -322,6 +322,10 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       controller.search(object, field);
     };
 
+    controller.returnBtn = function(){
+      scope.stage = 0;
+    }
+
     controller.deleteKey = function(obj, key){
       delete obj[key];
     }
