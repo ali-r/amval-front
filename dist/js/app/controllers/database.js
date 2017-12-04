@@ -72,7 +72,6 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
             requestHelper.errorCallback(resp);
         }, function (evt) {
             $scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total) + '%';
-            console.log($scope.uploadPercentage)
         });
       }
     }
