@@ -18,6 +18,12 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       controller.tmp = {};
     }
 
+    controller.deleteWarehouse = function(){
+      controller.deleteKey(controller, 'warehouse');
+      $localStorage.assetData.selectedWarehouse = null;
+    };
+
+
     function setWarehouse(obj) {
       controller.warehouse = obj;
       setTimeout(
@@ -64,11 +70,12 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       if ($scope.assetData.warehouse_under_management) { //filter warehouse under management in select warehouse modal
         controller.warehouseFilter = $scope.assetData.warehouse_under_management.id;
       }
-
+/*
       if($localStorage.assetData.selectedWarehouse){  // a warehouse has been selected previously
         $routeParams.id = $localStorage.assetData.selectedWarehouse.id; // setting id for usage in ticket page
         setWarehouse($localStorage.assetData.selectedWarehouse);
-      }
+        controller.deleteWarehouse()
+      }*/
     }
     else{ // my_warehouse page
       if($scope.assetData.warehouse_under_management){
