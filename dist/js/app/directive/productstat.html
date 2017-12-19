@@ -118,6 +118,15 @@
           
           <div class="clearfix"></div>
 
+            <div ng-show="controller.productStat.invoice_no" class="col-xs-4">
+              <label>شماره فاکتور</label>
+              <h5 class="product-stat">
+                {{controller.productStat.invoice_no}}
+              </h5>
+            </div>
+
+          <div ng-show="controller.productStat.invoice_no" class="clearfix"></div>
+
           <div class="col-xs-4">
             <label ng-show="controller.productStat.parent_bundle">باندل پدر</label>
             <h5 class="product-stat" ng-show="controller.productStat.parent_bundle">
