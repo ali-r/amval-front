@@ -262,8 +262,10 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
         scope: scope,
         callback: function(response) {
           if( controller.note.length == 1 ){
-            if(scope.page != 1){scope.page -= 1;}
-            scope.getUrl = controller.makeUrl();
+            if(scope.page != 1){
+              scope.page -= 1;
+            }
+            scope.getUrl = controller.makeUrl(scope.page,controller.paginationConfig);
           }
           controller.getData();
           $('#deleteModal').modal('hide');
