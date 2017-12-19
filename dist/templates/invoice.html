@@ -167,6 +167,7 @@
                                 <thead>
                                     <tr>
                                         <th>نام کالا</th>
+                                        <th>سریال کالا</th>
                                         <th> قیمت (ریال) </th>
                                         <th></th>
                                     </tr>
@@ -174,6 +175,7 @@
                                 <tbody ng-repeat = "product in invoice.obj.products">
                                     <tr>
                                         <td> {{product.model | lengthLimit:30}} </td>
+                                        <td> {{product.serial_number | lengthLimit:30}} </td>
                                         <td>
                                             <input placeholder="بدون قیمت" dir="ltr" type="number" step="1" min="0" class="longer-limited-width-col" name="productPrice" ng-model="product.price" required>
                                         </td>
