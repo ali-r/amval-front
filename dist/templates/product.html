@@ -239,7 +239,7 @@
                             <td>{{list.title | lengthLimit:30}}</td>
                             <td>{{list.description | lengthLimit:30}}</td>
                             <td>
-                              <a ng-click="product.selectReportOption(list.id, list.title, 'title', 'group'); loadMeta(list.id)" href>
+                              <a ng-click="product.selectReportOption(list.id, list.title, 'title', 'group', product.addOne.reportFields); loadMeta(list.id)" href> 
                                 <i class="fa fa-check-square-o fa-lg"></i>
                               </a>
                             </td>
@@ -265,7 +265,7 @@
                                     <td>{{chd.title | lengthLimit:30}}</td>
                                     <td>{{chd.description | lengthLimit:30}}</td>
                                     <td>
-                                      <a ng-click="product.selectReportOption(chd.id, chd.title, 'title', 'group'); loadMeta(chd.id)" href>
+                                      <a ng-click="product.selectReportOption(chd.id, chd.title, 'title', 'group', product.addOne.reportFields); loadMeta(chd.id)" href>
                                         <i class="fa fa-check-square-o fa-lg"></i>
                                       </a>
                                     </td>
