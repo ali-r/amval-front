@@ -1,0 +1,43 @@
+<div class="row" ng-hide="uploading">
+  <div class="col-md-6 col-md-offset-3 dataBaseplace-box">
+    <div class="" id='myTabs' role="tabpanel" data-example-id="myTabs">
+      <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+        <li role="presentation">
+          <a href="#testid" role="tab" data-toggle="tab" aria-expanded="false">تخلیه اطلاعات دیتابیس</a>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade" id="testid" aria-labelledby="home-tab">
+          <p class="dataBaseMainText">
+            حتما قبل از تخلیه دیتابیس از طریق منوی مدیریت دیتابیس از آن فایل پشتیبان تهیه کنید.
+          </p>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              
+              <div style="text-align:center">
+                <form name='databaseForm'>
+                  <button type="button" ng-hide="emptydatabase.emptySuccess" ng-click="emptydatabase.empty()" class="btn btn-danger"> تخلیه دیتابیس</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="clearfix"></div>
+<br>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="alert alert-success alert-dismissible fade in" role="alert" ng-show="emptydatabase.emptySuccess">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+      </button>
+      <strong>اطلاعات موجود در انبار تخلیه شد</strong>
+    </div>
+  </div>
+</div>
