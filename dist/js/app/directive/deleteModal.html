@@ -1,5 +1,5 @@
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" enter-event="true,controller.deleteObject(controller.toDeleteId)">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
  <div class="modal-dialog modal-sm" role="document">
    <div class="modal-content">
      <div class="modal-header">
@@ -18,7 +18,7 @@
      </div>
      <div class="modal-footer" ng-hide ="$parent.loadModal">
        <button type="button" class="btn btn-danger" data-dismiss="modal">خیر</button>
-       <button type="button" class="btn btn-success" ng-click="controller.deleteObject(controller.toDeleteId)">بله</button>
+       <button type="button" class="btn btn-success" ng-click="controller.deleteObject(controller.toDeleteId,controller.afterDelete)">بله</button>
      </div>
    </div>
  </div>
