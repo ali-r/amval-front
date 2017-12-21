@@ -1,4 +1,4 @@
-app.service('crud', function($localStorage,requestHelper, mainAsset) {
+app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
   crudService = this
 
   this.initModals = function(scope, controller, apiName, variables, extraReset) {
@@ -368,6 +368,18 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       }
       else if(_reqObj.type == 'delete'){
         requestHelper.delete(_reqObj.url, _reqObj.scope, _reqObj.editedCallback, _reqObj.progressBar)
+      }
+      else if(_reqObj.type == 'uploadDatabase'){
+        _reqObj.successCallback = function(response){
+          _reqObj.editedCallback(response);
+          $localStorage.$reset();
+          setTimeout(
+          function () {
+            $window.location.href = "../index.html";
+          },500);  
+        }
+        
+        requestHelper.uploadDatabase(_reqObj.scope,_reqObj); 
       }
       else{
         mainAsset.log('confirm object with invalid type request');

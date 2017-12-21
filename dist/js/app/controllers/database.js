@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('databaseCtrl',
-  function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload){
+  function($scope, $http, $cookieStore, mainAsset, requestHelper, $window, Upload,crud){
 
     var controller = this;
     $scope.uploadPercentage = 0;
@@ -15,6 +15,8 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
 
     this.databaseUrl = $scope.serverUrl + 'database';
 
+    crud.init($scope, controller, '')
+  
     this.download = function(){
       controller.downloadUrl = null;
       requestHelper.post(controller.databaseUrl + '/backup', {}, $scope, function(response) {
@@ -35,23 +37,17 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
 
     this.upload = function(){
       if (!$scope.databaseForm.file.$error.pattern && controller.file) {
-        $scope.uploading = true;        
-        Upload.upload({
+        $scope.preRequest = {
+            type: 'uploadDatabase',
+            method: 'PUT',
+            scope: $scope,
             url: controller.databaseUrl,
-            method : 'PUT',
-            headers: {'Access-Token': $scope.assetData.access_token},
-            data: {'database' : controller.file}
-        }).then(function (resp) {
-            requestHelper.successCallback(resp);
-            $scope.uploading = false;
-            $scope.uploadPercentage = 0;
-        }, function (resp) {
-            $scope.uploading = false;
-            $scope.uploadPercentage = 0;
-            requestHelper.errorCallback(resp);
-        }, function (evt) {
-            $scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total) + '%';
-        });
+            data: controller.file,
+            successCallback: '',
+            errorCallback: '',
+            handler: ''
+        }
+        requestHelper.uploadDatabase($scope,$scope.preRequest)
       }
     }
 

@@ -16,6 +16,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     }else{
       headers['Access-Token'] = scope.assetData.access_token;
     }
+
   }
 
   httpService.startLoading = function(needProgressBar) {
@@ -127,7 +128,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
             'modal': true
         }
         })).get().on('pnotify.confirm', function() {
-            scope.doConfirm(scope.preRequest);
+            httpService.scope.doConfirm(httpService.scope.preRequest);
         }).on('pnotify.cancel', function() {
           // doing nothing
         });
@@ -222,12 +223,48 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     });
   }
 
-
   httpService.openConfirmModal = function(_message,scope){
     mainAsset.openModal('#confirmModal');
     scope.confirmMessage = _message;
   }
 
-  
+  httpService.uploadDatabase = function(_scope,_request){
+    httpService.init(_scope);
+    
+    httpService.scope.uploading = true;        
 
+    Upload.upload({
+      url: _request.url,
+      method : _request.method,
+      headers: httpService.headers,
+      data: {'database' : _request.data}
+    }).then(function (resp) {
+      httpService.scope.uploading = false;
+      httpService.scope.uploadPercentage = 0;
+          
+      if(typeof(_request.successCallback)==='function'){
+        _request.successCallback(resp);
+      }else{
+        httpService.successCallback(resp);
+      }
+            
+    }, function (resp) {
+      if(typeof(_request.errorCallback)==='function'){
+        _request.errorCallback(resp)
+      }else{
+        httpService.scope.uploading = false;
+        httpService.scope.uploadPercentage = 0;
+        httpService.errorCallback(resp);
+      }
+          
+    }, function (evt) {
+      if(typeof(_request.handler)==='function'){
+        _request.handler(evt)
+      }else{
+        httpService.scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total) + '%';
+      }
+    });
+  }
+    
+  
 });
