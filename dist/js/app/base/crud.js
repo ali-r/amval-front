@@ -253,7 +253,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
       }
     };
 
-    controller.deleteObject = function(id) {
+    controller.deleteObject = function(id,afterDelete) {
 
       scope.loadModal = true;
       scope.preRequest = {
@@ -269,6 +269,11 @@ app.service('crud', function($localStorage,requestHelper, mainAsset) {
           }
           controller.getData();
           $('#deleteModal').modal('hide');
+          
+          if(typeof(afterDelete)==='function'){
+            afterDelete(id);
+          }
+
         }, 
         progressBar: false
       }

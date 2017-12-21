@@ -1,5 +1,5 @@
 angular.module("assetAdminPanel").controller('warehouseCtrl',
-  function($scope, mainAsset, requestHelper, crud, $routeParams, $location) {
+  function($scope, mainAsset, requestHelper, crud, $routeParams, $location, $localStorage) {
 
   var controller = this;
   var apiName = 'warehouse';
@@ -83,5 +83,10 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   controller.openMywarehouse= function(_id){
     $location.url('/mywarehouse?linked_warehouse='+_id+'&pageType=2');
     
+  }
+
+  controller.afterDelete = function(_id){
+    if($localStorage.assetData.selectedWarehouse.id == _id)
+      $localStorage.assetData.selectedWarehouse = null;
   }
 });
