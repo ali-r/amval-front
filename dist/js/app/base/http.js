@@ -266,5 +266,46 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     });
   }
     
+
+  httpService.doConfirm = function(_reqObj){
+    httpService.scope.loadModal = true;
+    httpService.headers['Force-Action'] = true
+
+    _reqObj.editedCallback = function(response){
+      if(_reqObj.callback)
+        _reqObj.callback(response);
+      delete httpService.headers['Force-Action'];
+    }
+
+    if(_reqObj.type == 'get'){
+      httpService.get(_reqObj.url, _reqObj.scope, _reqObj.editedCallback ,_reqObj.progressBar)
+    }
+    else if(_reqObj.type == 'put'){
+      httpService.put(_reqObj.url, _reqObj.json, _reqObj.scope, _reqObj.editedCallback, _reqObj.progressBar)
+    }
+    else if(_reqObj.type == 'post'){
+      httpService.post(_reqObj.url, _reqObj.json, _reqObj.scope, _reqObj.editedCallback, _reqObj.progressBar)
+    }
+    else if(_reqObj.type == 'delete'){
+      httpService.delete(_reqObj.url, _reqObj.scope, _reqObj.editedCallback, _reqObj.progressBar)
+    }
+    else if(_reqObj.type == 'uploadDatabase'){
+      _reqObj.successCallback = function(response){
+        _reqObj.editedCallback(response);
+        $localStorage.$reset();
+        setTimeout(
+        function () {
+          $window.location.href = "../index.html";
+        },500);  
+      }
+      
+      httpService.uploadDatabase(_reqObj.scope,_reqObj); 
+    }
+    else{
+      mainAsset.log('confirm object with invalid type request');
+      httpService.scope.loadModal = false
+    }
+
+  }
   
 });
