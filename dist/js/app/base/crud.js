@@ -347,45 +347,5 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
       scope.reset();
     }
 
-    scope.doConfirm = function(_reqObj){
-      scope.loadModal = true;
-      requestHelper.headers['Force-Action'] = true
-
-      _reqObj.editedCallback = function(response){
-        if(_reqObj.callback)
-          _reqObj.callback(response);
-        delete requestHelper.headers['Force-Action'];
-      }
-  
-      if(_reqObj.type == 'get'){
-        requestHelper.get(_reqObj.url, _reqObj.scope, _reqObj.editedCallback ,_reqObj.progressBar)
-      }
-      else if(_reqObj.type == 'put'){
-        requestHelper.put(_reqObj.url, _reqObj.json, _reqObj.scope, _reqObj.editedCallback, _reqObj.progressBar)
-      }
-      else if(_reqObj.type == 'post'){
-        requestHelper.post(_reqObj.url, _reqObj.json, _reqObj.scope, _reqObj.editedCallback, _reqObj.progressBar)
-      }
-      else if(_reqObj.type == 'delete'){
-        requestHelper.delete(_reqObj.url, _reqObj.scope, _reqObj.editedCallback, _reqObj.progressBar)
-      }
-      else if(_reqObj.type == 'uploadDatabase'){
-        _reqObj.successCallback = function(response){
-          _reqObj.editedCallback(response);
-          $localStorage.$reset();
-          setTimeout(
-          function () {
-            $window.location.href = "../index.html";
-          },500);  
-        }
-        
-        requestHelper.uploadDatabase(_reqObj.scope,_reqObj); 
-      }
-      else{
-        mainAsset.log('confirm object with invalid type request');
-        scope.loadModal = false
-      }
-  
-    }
   }
 });
