@@ -39,8 +39,9 @@
               <div style="text-align:center">
                 <form name='uploadForm'>
                   <button type="button" ng-click="database.downloadFile()" class="btn btn-success"> پشتیبان گیری </button>
-                  <div class="btn btn-primary" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'" ngf-accept="'.zip'"
-                    ngf-max-size="1024MB">بازیابی پشتیبان</div>
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#filesConfirm">
+                    بازیابی پشتیبان
+                  </button>      
                 </form>
               </div>
               <p ng-show="uploadForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
@@ -125,3 +126,33 @@
       </div>
     </div>
    </div>
+
+<!-- Files Confirm -->
+<div class="modal fade" id="filesConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close" ng-hide ="loadModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="pull-left load-spinner" ng-show = "loadModal">
+          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+        </div>
+        <h4 class="modal-title" id="myModalLabel" >هشدار</h4>
+      </div>
+      <div class="modal-body" ng-hide ="loadModal">
+        .بعد از انجام این عمل فایل های موجود در سامانه از دست خواهند رفت
+        آیا ادامه می دهید؟ 
+      </div>
+      <div class="modal-footer" ng-hide ="loadModal">
+        
+        <form name="uploadForm">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>    
+            <div class="btn btn-primary" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'" ngf-accept="'.zip'"
+            ngf-max-size="1024MB" data-dismiss="modal">ادامه</div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+ </div>
