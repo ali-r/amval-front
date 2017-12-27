@@ -208,6 +208,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     scope.uploading = true;
     Upload.upload({
         url: mainAsset.getUploadUrl(),
+        headers: httpService.headers,
         data: {image: file, 'type': type}
     }).then(function (resp) {
         mainAsset.log('Success ' + 'uploaded. Response: ');
