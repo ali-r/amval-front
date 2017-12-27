@@ -128,7 +128,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
             'modal': true
         }
         })).get().on('pnotify.confirm', function() {
-            httpService.scope.doConfirm(httpService.scope.preRequest);
+            httpService.doConfirm(httpService.scope.preRequest);
         }).on('pnotify.cancel', function() {
           // doing nothing
         });
