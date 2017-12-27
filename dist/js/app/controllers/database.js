@@ -36,7 +36,7 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
     requestHelper.init($scope);
 
     this.upload = function(){
-      if (!$scope.databaseForm.file.$error.pattern && controller.file) {
+      if (!$scope.restoreForm.file.$error.pattern && controller.file) {
         $scope.preRequest = {
             type: 'uploadDatabase',
             method: 'PUT',
