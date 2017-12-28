@@ -206,9 +206,10 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
 
   httpService.uploadFileReq = function(file, type, scope, callback){
     scope.uploading = true;
+    uploadHeader = angular.copy(httpService.headers)
     Upload.upload({
         url: mainAsset.getUploadUrl(),
-        headers: httpService.headers,
+        headers: uploadHeader,
         data: {image: file, 'type': type}
     }).then(function (resp) {
         mainAsset.log('Success ' + 'uploaded. Response: ');
