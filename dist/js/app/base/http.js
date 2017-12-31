@@ -234,11 +234,14 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     httpService.init(_scope);
     
     httpService.scope.uploading = true;        
-
+    
+    uploadHeader = angular.copy(httpService.headers);
+    delete uploadHeader['Content-Type']
+    
     Upload.upload({
       url: _request.url,
       method : _request.method,
-      headers: httpService.headers,
+      headers: uploadHeader,
       data: {'database' : _request.data}
     }).then(function (resp) {
       httpService.scope.uploading = false;
