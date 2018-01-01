@@ -276,7 +276,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
       scope.controller.uploadProductPic = function() {
         if(!scope.productForm.productPic.$error.maxSize && scope.controller.qrCodeFile)
         {
-          requestHelper.uploadFileReq(scope.controller.qrCodeFile, 'signature', scope, function(data){
+          requestHelper.uploadFileReq(scope.controller.qrCodeFile, 'qrcode', scope, function(data){
             scope.controller.product.qr_code = data.data.file_url;
           });
         }

@@ -54,21 +54,17 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
     this.uploadServer = function(){
       if (!$scope.uploadForm.file.$error.pattern && controller.uploadFile) {
         $scope.uploading = true;
-        Upload.upload({
-            url: $scope.uploadUrl + '/database',
-            method : 'PUT',
-            data: {'database' : controller.uploadFile}
-        }).then(function (resp) {
-            requestHelper.successCallback(resp);
-            $scope.uploading = false;
-            $scope.uploadPercentage = 0;
-        }, function (resp) {
-            $scope.uploading = false;
-            $scope.uploadPercentage = 0;
-            requestHelper.errorCallback(resp);
-        }, function (evt) {
-            $scope.uploadPercentage = parseInt(100.0 * evt.loaded / evt.total) + '%';
-        });
+        $scope.preRequest = {
+          type: 'uploadServer',
+          method: 'PUT',
+          scope: $scope,
+          url: $scope.uploadUrl + 'database',
+          data: controller.uploadFile,
+          successCallback: '',
+          errorCallback: '',
+          handler: ''
+        }
+        requestHelper.uploadDatabase($scope,$scope.preRequest)
       }
     }
 

@@ -128,7 +128,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
             'modal': true
         }
         })).get().on('pnotify.confirm', function() {
-            httpService.scope.doConfirm(httpService.scope.preRequest);
+            httpService.doConfirm(httpService.scope.preRequest);
         }).on('pnotify.cancel', function() {
           // doing nothing
         });
@@ -206,8 +206,10 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
 
   httpService.uploadFileReq = function(file, type, scope, callback){
     scope.uploading = true;
+    uploadHeader = angular.copy(httpService.headers)
     Upload.upload({
         url: mainAsset.getUploadUrl(),
+        headers: uploadHeader,
         data: {image: file, 'type': type}
     }).then(function (resp) {
         mainAsset.log('Success ' + 'uploaded. Response: ');
@@ -232,11 +234,14 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     httpService.init(_scope);
     
     httpService.scope.uploading = true;        
-
+    
+    uploadHeader = angular.copy(httpService.headers);
+    delete uploadHeader['Content-Type']
+    
     Upload.upload({
       url: _request.url,
       method : _request.method,
-      headers: httpService.headers,
+      headers: uploadHeader,
       data: {'database' : _request.data}
     }).then(function (resp) {
       httpService.scope.uploading = false;
