@@ -24,10 +24,7 @@
             ویرایش کالا
           </h3>
         <h3 class="modal-title" ng-show="dParent.editMode && !dParent.loadModal">
-          ویرایش کالای
-          <small>
-              "{{controller.product.name}}"              
-          </small>
+          ویرایش کالا
         </h3>
       </div>
       <div class="modal-body">
@@ -39,6 +36,19 @@
                 <fieldset>
                 <div class="row">
                   <!-- model serial group -->
+                  <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
+                      <label>کد کالا*</label>
+                      <input type="text" class="form-control" name="codename" placeholder="مدل کالا" ng-model = "controller.product.code_name" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
+                      <label>نام کالا</label>
+                      <input type="text" class="form-control" name="pname" placeholder="نام کالا" ng-model = "controller.product.name" readonly>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
                   <div class="col-md-4">
                     <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
                       <label>مدل کالا*</label>

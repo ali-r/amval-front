@@ -59,6 +59,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
 
     delete sendCopyObj.level;
     delete sendCopyObj.depth;
+    delete sendCopyObj.products_name;
 
     if (sendCopyObj.parent)
       {

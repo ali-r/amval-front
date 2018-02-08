@@ -264,6 +264,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           function(response) {
             scope.controller.tmp.meta = response.data.data;
             var reqMetaData = response.data.data.meta_template;
+            scope.controller.product.name = response.data.data.products_name;
             scope.controller.product.meta_data = [];
             for (var i = 0; i < reqMetaData.length; i++) {
              scope.controller.product.meta_data[i] = {'key' : reqMetaData[i].key, 'value': null}
@@ -305,11 +306,12 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.is_bundle;
           delete sendCopyObj.price;
           delete sendCopyObj.id;
-          delete sendCopyObj.name;
         }else{
           if(!sendCopyObj.is_bundle)
             sendCopyObj.is_out_of_system = true;
         }
+
+        delete sendCopyObj.name;
 
         sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
         sendCopyObj.guarantee_start_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_start_date);
@@ -348,6 +350,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           scope.controller.creatProductCallback(data.data);
           if(scope.makeDuplicate){
             scope.controller.product.serial_number = '';
+            scope.controller.product.code_name = '';
             delete scope.controller.product.qr_code;
             scope.controller.product.children = [];
           }else{
