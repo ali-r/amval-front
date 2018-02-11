@@ -350,7 +350,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           scope.controller.creatProductCallback(data.data);
           if(scope.makeDuplicate){
             scope.controller.product.serial_number = '';
-            scope.controller.product.code_name = '';
+            scope.controller.product.internal_id = '';
             delete scope.controller.product.qr_code;
             scope.controller.product.children = [];
           }else{
