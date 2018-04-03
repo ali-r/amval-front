@@ -107,10 +107,11 @@
               ({{controller.productStat.holder.type | holderType}})
             </h5>
           </div>
-          <div class="col-xs-3">
+
+          <div class="col-xs-3" ng-if="controller.productStat.qr_code">
             <label>Qr Code</label>
           </div>
-          <div class="col-xs-1">
+          <div class="col-xs-1" ng-if="controller.productStat.qr_code">
             <a href="{{controller.productStat.qr_code}}" data-lightbox="بارکد کالا" data-title="بارکد کالا">
               <img ng-src="{{controller.productStat.qr_code}}" class="img-responsive img-thumbnail" >
             </a>

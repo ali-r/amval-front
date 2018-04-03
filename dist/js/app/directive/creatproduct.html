@@ -8,8 +8,8 @@
             <input type="checkbox" ng-model="makeDuplicate">
             ایجاد کالای مشابه
           </label>
-          <button type="button" ng-disabled="!productForm.$valid || !controller.product.qr_code"
-          ng-click="sendOrEdit(dParent.editMode)" ng-show = "dParent.stage == 0" ng-show = "dParent.checkWrite('product')" class="btn btn-success">ذخیره</button>
+          <button type="button" ng-disabled="!productForm.$valid" ng-click="sendOrEdit(dParent.editMode)" ng-show = "dParent.stage == 0" 
+          ng-show = "dParent.checkWrite('product')" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-danger" ng-show = "dParent.stage == 0" ng-click="controller.productReset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "dParent.stage != 0" ng-click="dParent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
@@ -96,10 +96,10 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label>*Qr Code</label>
+                      <label>Qr Code</label>
                       <br/>
                       <div class="btn btn-info btn-sm" ng-hide = "uploading" ngf-select="controller.uploadProductPic()" ng-model="controller.qrCodeFile" name="productPic" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && dParent.checkWrite('product')" ng-required="!controller.product.qr_code" ng-disabled="uploading">
+                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && dParent.checkWrite('product')" ng-disabled="uploading">
                         بارگذاری بارکد
                         <i class="fa fa-qrcode fa-lg"></i>
                       </div>
