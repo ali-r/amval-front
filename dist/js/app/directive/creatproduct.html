@@ -3,13 +3,15 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="pull-left">
+        <div class="pull-left" ng-hide = "dParent.loadModal">
           <label ng-hide="dParent.editMode || dParent.stage != 0">
             <input type="checkbox" ng-model="makeDuplicate">
             ایجاد کالای مشابه
           </label>
+          <button type="button" ng-disabled="!productForm.$valid || makeDuplicate" ng-click="sendOrEdit(dParent.editMode)" ng-show = "dParent.stage == 0" 
+          ng-show = "dParent.checkWrite('product', true)" class="btn btn-warning">ذخیره و بستن</button>
           <button type="button" ng-disabled="!productForm.$valid" ng-click="sendOrEdit(dParent.editMode)" ng-show = "dParent.stage == 0" 
-          ng-show = "dParent.checkWrite('product')" class="btn btn-success">ذخیره</button>
+          ng-show = "dParent.checkWrite('product', false)" class="btn btn-success">ذخیره و جدید</button>
           <button type="button" class="btn btn-danger" ng-show = "dParent.stage == 0" ng-click="controller.productReset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "dParent.stage != 0" ng-click="dParent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
@@ -31,7 +33,7 @@
           <div class="box-body">
             <div ng-show = "dParent.stage == 0">
               <form name="productForm" role="form" ng-hide="dParent.loadModal" novalidate 
-              ng-submit="productForm.$valid && sendOrEdit(dParent.editMode)">
+              ng-submit="productForm.$valid && sendOrEdit(dParent.editMode, false)">
               <button type="submit" hidden></button>
                 <fieldset>
                 <div class="row">
@@ -39,7 +41,7 @@
                   <div class="col-md-4">
                     <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
                       <label>بارکد کالا*</label>
-                      <input type="text" class="form-control" name="codename" placeholder="مدل کالا" ng-model = "controller.product.internal_id" required>
+                      <input type="text" id="productBarcode" class="form-control" name="codename" placeholder="مدل کالا" ng-model = "controller.product.internal_id" required>
                     </div>
                   </div>
                   <div class="col-md-4">

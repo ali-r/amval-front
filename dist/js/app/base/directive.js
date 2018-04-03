@@ -345,7 +345,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
       }
 
-      scope.sendOrEdit = function(eMode){
+      scope.sendOrEdit = function(eMode, colse){
+        if( !close ){ close = true }
         scope.controller.sendOrEdit(eMode, scope.objConfig(scope.controller.product), mainAsset.getUrl() + 'product', function(data){
           scope.controller.creatProductCallback(data.data);
           if(scope.makeDuplicate){
@@ -353,6 +354,11 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
             scope.controller.product.internal_id = '';
             delete scope.controller.product.qr_code;
             scope.controller.product.children = [];
+          }else if( !colse ){
+            scope.controller.productReset();
+            setTimeout(function(){
+              document.getElementById("productBarcode").focus();
+            }, 400)
           }else{
             $('#productModal').modal('hide');
             scope.controller.productReset();
