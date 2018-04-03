@@ -33,7 +33,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     },
     table : [
       {fa:'مدل کالا',en:'model'},
-      {fa:'شماره سریال',en:'serial_number'}
+      {fa:'شماره سریال کارخانه',en:'serial_number'}
     ],
     searchFilter : {
       key: 'use_case',

@@ -6,7 +6,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   controller.searchObject = [
     {'fname' : 'مدل کالا', 'field' : 'model'},
-    {'fname' : 'شماره سریال', 'field' : 'serial_number'},
+    {'fname' : 'شماره سریال کارخانه', 'field' : 'serial_number'},
     {'fname' : 'قیمت', 'field' : 'price', 'show_in_search' : false}
   ];
 
@@ -88,7 +88,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     },
     table : [
       {fa:'مدل',en:'model'},
-      {fa:'سریال کالا',en:'serial_number'},
+      {fa:'سریال کارخانه کالا',en:'serial_number'},
     ],
     searchFilter:{
       key: 'is_bundle',

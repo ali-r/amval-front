@@ -18,7 +18,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     },
     table : [
       {fa:'مدل',en:'model'},
-      {fa:'سریال کالا',en:'serial_number'}
+      {fa:'شماره سریال کارخانه',en:'serial_number'}
     ],
     searchFilter:{
       key: 'use_case',
