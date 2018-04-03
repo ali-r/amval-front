@@ -133,7 +133,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
           controller.obj.products = [];
         }
         goods.price = null;
-        controller.obj.products.push(goods);
+        controller.obj.products.push(goods.data);
       }
 
       this.checkDuplicate = function (obj, array) {
