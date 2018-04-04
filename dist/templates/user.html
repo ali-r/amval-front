@@ -5,6 +5,7 @@
       <div class="x_title">
         <h2><i class="fa fa-users"></i> کاربران</h2>
         <button type="button" ng-if = "checkWrite('user')" class="btn btn-success btn-sm pull-left" ng-click="openModal('#userModal')" name="button">افزودن کاربر</button>
+        <export-file exptype="user_list"></export-file>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -69,6 +70,9 @@
           ng-click="user.sendOrEdit(editMode)" ng-show = "stage == 0" ng-if = "checkWrite('user')" class="btn btn-success">ذخیره</button>
           <button type="button" class="btn btn-info" ng-show = "stage == 1" ng-click="stage = 0">بازگشت</button>
           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+        </div>
+        <div class="pull-left single-export" ng-show="editMode">
+          <export-file exptype="user" id="user.obj.id"></export-file>
         </div>
         <div class="pull-left load-spinner" ng-show = "loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
