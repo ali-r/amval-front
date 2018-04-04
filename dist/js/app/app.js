@@ -364,7 +364,7 @@ app.filter('userOrWarehouseName',function(){
 app.filter('productName',function(){
   return function(input){
     if(input){
-      return (input.model || '')
+      return (input.name || '')
     }
   }
 });

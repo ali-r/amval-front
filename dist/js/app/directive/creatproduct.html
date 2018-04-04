@@ -40,7 +40,7 @@
                   <!-- model serial group -->
                   
                   <div class="col-md-4 col-md-offset-2">
-                    <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
+                    <div class="form-group" ng-class="{'has-success' : productForm.name.$valid && controller.product.name}">
                       <label>بارکد کالا*</label>
                       <input type="text" id="productBarcode" class="form-control" name="codename" placeholder="بارکد کالا" ng-model = "controller.product.internal_id" required>
                     </div>
@@ -219,7 +219,7 @@
                       <tbody>
                         <tr ng-repeat="goods in controller.product.children">
                           <td>{{ $index + 1 }}</td>
-                          <td>{{ goods.model | lengthLimit:30 }}</td>
+                          <td>{{ goods.name | lengthLimit:30 }}</td>
                           <td>{{ goods.serial_number | lengthLimit:30 }}</td>
                           <td>
                             <a class="fa-lg" ng-click="controller.deleteChild($index)" href>×</a>
@@ -247,7 +247,7 @@
                     <ul class="remove-box">
                       <li dir="auto" ng-repeat = "goods in controller.product.children track by $index">
                         <span ng-click="controller.deleteChild($index)">×</span>
-                        {{goods.model | lengthLimit:20}}({{goods.serial_number | lengthLimit:20}})
+                        {{goods.name | lengthLimit:20}}({{goods.serial_number | lengthLimit:20}})
                       </li>
                     </ul>
                   </div>

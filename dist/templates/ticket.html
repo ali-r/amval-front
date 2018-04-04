@@ -138,7 +138,7 @@
                   <div class="form-group" >
                     <label>کالا</label>
                     <div class="input-group" ng-hide="editMode">
-                      <input type="text" class="form-control" ng-model="ticket.obj.product.model" disabled>
+                      <input type="text" class="form-control" ng-model="ticket.obj.product.name" disabled>
                       <span class="input-group-btn">
                         <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelectionModal(0,'product','')">انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
@@ -154,7 +154,7 @@
                 <div class="col-sm-6" ng-show="editMode && ticket.obj.product">
                   <label>کالا</label>
                   <p> 
-                    {{ticket.obj.product.model | lengthLimit:20}} 
+                    {{ticket.obj.product.name | lengthLimit:20}} 
                     ({{ticket.obj.product.serial_number | lengthLimit:20}}) </p>
                 </div>
 

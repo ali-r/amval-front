@@ -24,7 +24,7 @@
     <div id="report-field" style="display:none" class="report-field">
       
       <div title="فیلتر براساس کالا" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.reportFields.product.model" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1')">
+        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.reportFields.product.name" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1')">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.product"
           ng-click="transaction.deleteKey(transaction.addOne.reportFields,'product')">
@@ -116,7 +116,7 @@
             <tr ng-repeat = "list in transaction.note" ng-class="{'obj-info-border':list.transaction_type==0, 'obj-danger-border':list.transaction_type==1, 'obj-success-border':list.transaction_type==2}">
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.unique_id | transactionIdDisplay | pNumber}}</td>              
-              <td>{{list.product.model | lengthLimit:30}}</td>
+              <td>{{list.product.name | lengthLimit:30}}</td>
               <td>{{list.source | userOrWarehouseName| lengthLimit:30}}</td>
               <td>{{list.destination | userOrWarehouseName | lengthLimit:30}}</td>
               <td>{{list.reason | reasonType}}</td>
@@ -183,13 +183,13 @@
                       {{ (editMode ? '' : '*') }}
                     </label>
                     <div class="input-group" ng-hide="editMode">
-                      <input type="text" class="form-control" ng-model="transaction.obj.product.model" required disabled>
+                      <input type="text" class="form-control" ng-model="transaction.obj.product.name" required disabled>
                       <span class="input-group-btn">
                         <button type="button" ng-disabled="!checkWrite('transaction') || editMode" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?use_case=1')">انتخاب</button>
                       </span>
                     </div>
                     <p class="data-show" ng-show="editMode">
-                        {{ transaction.obj.product.model | pNumber}}
+                        {{ transaction.obj.product.name | pNumber}}
                         ({{transaction.obj.product.serial_number | pNumber}})
                     </p>
 
