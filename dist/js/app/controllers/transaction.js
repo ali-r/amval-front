@@ -13,11 +13,11 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
       en : 'product'
     },
     searchAt : {
-      fa : 'مدل',
-      en : 'model'
+      fa : 'نام',
+      en : 'subgroup'
     },
     table : [
-      {fa:'مدل',en:'model'},
+      {fa:'نام',en:'name'},
       {fa:'شماره سریال کارخانه',en:'serial_number'}
     ],
     searchFilter:{

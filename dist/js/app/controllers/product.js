@@ -5,7 +5,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   var apiName = 'product';
 
   controller.searchObject = [
-    {'fname' : 'مدل کالا', 'field' : 'model'},
+    {'fname' : 'نام', 'field' : 'subgroup'},
     {'fname' : 'شماره سریال کارخانه', 'field' : 'serial_number'},
     {'fname' : 'قیمت', 'field' : 'price', 'show_in_search' : false}
   ];
@@ -61,10 +61,10 @@ angular.module("assetAdminPanel").controller('productCtrl',
   };
 
   controller.selectGroupObj = {
-    title : { fa : 'زیرگروه', en : 'group'},
+    title : { fa : 'نام', en : 'name'},
     searchItem : {
-      fa : 'زیر گروه',
-      en : 'group'
+      fa : 'نام',
+      en : 'subgroup'
     },
     searchAt : {
       fa : 'عنوان',
@@ -83,11 +83,11 @@ angular.module("assetAdminPanel").controller('productCtrl',
       en : 'product'
     },
     searchAt : {
-      fa : 'مدل',
-      en : 'model'
+      fa : 'نام',
+      en : 'subgroup'
     },
     table : [
-      {fa:'مدل',en:'model'},
+      {fa:'نام',en:'name'},
       {fa:'سریال کارخانه کالا',en:'serial_number'},
     ],
     searchFilter:{

@@ -38,23 +38,11 @@
                 <fieldset>
                 <div class="row">
                   <!-- model serial group -->
-                  <div class="col-md-4">
+                  
+                  <div class="col-md-4 col-md-offset-2">
                     <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
                       <label>بارکد کالا*</label>
-                      <input type="text" id="productBarcode" class="form-control" name="codename" placeholder="مدل کالا" ng-model = "controller.product.internal_id" required>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
-                      <label>نام کالا</label>
-                      <input type="text" class="form-control" name="pname" placeholder="نام کالا" ng-model = "controller.product.name" readonly>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="col-md-4">
-                    <div class="form-group" ng-class="{'has-success' : productForm.model.$valid && controller.product.model}">
-                      <label>مدل کالا*</label>
-                      <input type="text" class="form-control" name="model" placeholder="مدل کالا" ng-model = "controller.product.model" required>
+                      <input type="text" id="productBarcode" class="form-control" name="codename" placeholder="بارکد کالا" ng-model = "controller.product.internal_id" required>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -63,17 +51,20 @@
                       <input type="text" class="form-control" name="serial" placeholder="شماره سریال کارخانه" ng-model = "controller.product.serial_number" required>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="clearfix"></div>
+                  
+                  <div class="col-md-8 col-md-offset-2">
                     <div class="form-group">
-                      <label>زیرگروه*</label>
+                      <label>نام کالا*</label>
                       <div class="input-group">
-                        <input type="text" class="form-control" ng-model="controller.product.subgroup.title" disabled>
+                        <input type="text" class="form-control" placeholder="نام کالا" ng-model="controller.product.name" disabled>
                         <span class="input-group-btn">
                           <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="setGroupStage()">انتخاب</button>
                         </span>
                       </div>
                     </div>
                   </div>
+                  
                   <div class="clearfix"></div>
                   <hr>
                   <!-- end of model serial group -->
@@ -220,7 +211,7 @@
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>مدل کالا</th>
+                          <th>نام کالا</th>
                           <th>شماره سریال کارخانه</th>
                           <th>حذف</th>
                         </tr>
@@ -284,13 +275,10 @@
                           <tr>
                             <th>ردیف</th>
                             <th>
-                              مدل
+                              نام
                             </th>
                             <th>
                               شماره سریال کارخانه
-                            </th>
-                            <th>
-                              زیر گروه
                             </th>
                             <th>
                               نگهدارنده
@@ -303,11 +291,8 @@
                             <td>
                               {{ $index + 1 }}
                             </td>
-                            <td>{{list.model | lengthLimit:30}}</td>
+                            <td>{{list.name | lengthLimit:30}}</td>
                             <td>{{list.serial_number | lengthLimit:30}}</td>
-                            <td>
-                              {{list.subgroup.title | lengthLimit:30}}
-                            </td>
                             <td>
                               {{list.holder | userOrWarehouseName}}
                             </td>
@@ -331,7 +316,7 @@
               <div class="col-md-12">
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    انتخاب زیرگروه
+                    انتخاب نام
                     <div class="pull-left">
                       <i ng-show = "dParent.loadSearch" class="fa fa-refresh fa-spin"></i>
                     </div>

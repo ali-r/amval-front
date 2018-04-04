@@ -639,7 +639,7 @@ blockquote.pull-left {
   }
   .col-md-offset-2 {
     margin-right: 16.66666667%;
-    margin-left: 0;
+    margin-left: 0 !important;
   }
   .col-md-offset-1 {
     margin-right: 8.33333333%;

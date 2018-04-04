@@ -17,36 +17,37 @@
       <div class="modal-body">
         <div class="row" ng-hide="dParent.loadModal">
 
-            <div class="col-xs-4">
-              <label>نام کالا</label>
-              <h5 class="product-stat">
-                {{controller.productStat.name}}
-              </h5>
-            </div>
-
           <div class="col-xs-4">
-            <label>مدل</label>
+            <label>نام کالا</label>
             <span class="label label-danger pull-left" ng-show="controller.productStat.is_out_of_system">خارج از سامانه</span>
             <span class="label label-info pull-left" ng-show="controller.productStat.is_bundle">باندل</span>
-            
             <h5 class="product-stat">
-              {{controller.productStat.model}}
-              
+              {{controller.productStat.name}}
             </h5>
-
           </div>
+
           <div class="col-xs-4">
             <label>شماره سریال کارخانه</label>
             <h5 class="product-stat">
               {{controller.productStat.serial_number}}
             </h5>
           </div>
+
+          <div class="col-xs-4">
+            <label>بارکد کالا</label>
+            <h5 class="product-stat">
+              {{controller.productStat.internal_id}}
+            </h5>
+          </div>
           
           <div class="clearfix"></div>
+
           <div class="col-xs-4">
-            <label>زیرگروه</label>
+            <label>نگهدارنده</label>
             <h5 class="product-stat">
-              {{controller.productStat.subgroup.title}}
+              {{controller.productStat.holder.obj.title}}
+              {{controller.productStat.holder.obj.first_name + " " + controller.productStat.holder.obj.last_name}}
+              ({{controller.productStat.holder.type | holderType}})
             </h5>
           </div>
 
@@ -99,12 +100,10 @@
             </h5>
           </div>
 
-          <div class="col-xs-4">
-            <label>نگهدارنده</label>
+          <div ng-show="controller.productStat.invoice_no" class="col-xs-4">
+            <label>شماره فاکتور</label>
             <h5 class="product-stat">
-              {{controller.productStat.holder.obj.title}}
-              {{controller.productStat.holder.obj.first_name + " " + controller.productStat.holder.obj.last_name}}
-              ({{controller.productStat.holder.type | holderType}})
+              {{controller.productStat.invoice_no}}
             </h5>
           </div>
 
@@ -117,22 +116,6 @@
             </a>
           </div>
           
-          <div class="clearfix"></div>
-
-          <div ng-show="controller.productStat.invoice_no" class="col-xs-4">
-            <label>شماره فاکتور</label>
-            <h5 class="product-stat">
-              {{controller.productStat.invoice_no}}
-            </h5>
-          </div>
-
-          <div class="col-xs-4">
-            <label>بارکد کالا</label>
-            <h5 class="product-stat">
-              {{controller.productStat.internal_id}}
-            </h5>
-          </div>
-
           <div class="clearfix"></div>
 
           <div class="col-xs-4">
@@ -166,7 +149,7 @@
                   <tr>
                     <th>#</th>
                     <th>شناسه</th>
-                    <th>مدل کالا</th>                    
+                    <th>نام کالا</th>                    
                     <th>مبدا</th>
                     <th>مقصد</th>
                     <th>علت تراکنش</th>
@@ -179,7 +162,7 @@
                   ng-class="{'info':t.transaction_type==0,'danger':t.transaction_type==1,'default':t.transaction_type==2}">
                     <td>{{$index + 1 | pNumber}}</td>
                     <td>{{ t.unique_id | transactionIdDisplay | pNumber}}</td>
-                    <td>{{ t.product.model | lengthLimit:20}}</td>                                        
+                    <td>{{ t.product.name | lengthLimit:20}}</td>                                        
                     <td>
                       {{t.source.obj.last_name}}
                       {{t.source.obj.title}}
@@ -252,7 +235,7 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>مدل</th>
+                    <th>نام</th>
                     <th>شماره سریال کارخانه</th>
                     <th> قیمت (ریال) </th>
                   </tr>
@@ -261,7 +244,7 @@
                   <tr ng-repeat="c in controller.productStat.children">
                     <td>{{$index + 1 | pNumber}}</td>
                     <td>
-                      {{c.model}}
+                      {{c.name}}
                     </td>
                     <td>
                       {{c.serial_number}}

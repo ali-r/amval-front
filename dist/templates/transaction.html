@@ -103,7 +103,7 @@
             <tr>
               <th>#</th>
               <th> شناسه </th>              
-              <th>مدل کالا</th>
+              <th>نام کالا</th>
               <th>مبدا</th>
               <th>مقصد</th>
               <th>علت تراکنش</th>
@@ -357,13 +357,10 @@
                       <tr>
                         <th>ردیف</th>
                         <th>
-                          مدل
+                          نام
                         </th>
                         <th>
                           شماره سریال کارخانه
-                        </th>
-                        <th>
-                          زیر گروه
                         </th>
                         <th>انتخاب</th>
                       </tr>
@@ -373,11 +370,8 @@
                         <td>
                           {{ $index + 1 }}
                         </td>
-                        <td>{{list.model | lengthLimit:25}}</td>
+                        <td>{{list.name | lengthLimit:25}}</td>
                         <td>{{list.serial_number | lengthLimit:20}}</td>
-                        <td>
-                          {{list.subgroup.title | lengthLimit:20}}
-                        </td>
                         <td>
                           <a ng-click="transaction.addProduct(list)" href>
                             <i class="fa fa-check-square-o fa-lg"></i>

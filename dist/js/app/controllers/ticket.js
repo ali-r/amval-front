@@ -28,11 +28,11 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       en : 'product'
     },
     searchAt : {
-      fa : 'مدل',
-      en : 'model'
+      fa : 'نام',
+      en : 'subgroup'
     },
     table : [
-      {fa:'مدل کالا',en:'model'},
+      {fa:'نام', en:'name'},
       {fa:'شماره سریال کارخانه',en:'serial_number'}
     ],
     searchFilter : {
@@ -52,7 +52,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     },
     table : [
       {fa:'شناسه',en:'unique_id'},      
-      {fa:'مدل کالا',en:'product',filter:'productName'},
+      {fa:'نام کالا',en:'product',filter:'productName'},
       {fa:'مبدا',en:'source',filter:'userOrWarehouseName'},
       {fa:'مقصد',en:'destination',filter:'userOrWarehouseName'},
       {fa:'علت تراکنش',en:'reason',filter:'reasonType'},

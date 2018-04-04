@@ -407,7 +407,7 @@
                                         <tbody>
                                           <tr>
                                             <th>ردیف</th>
-                                            <th>مدل کالا</th>
+                                            <th>نام کالا</th>
                                             <th>شماره سریال کارخانه</th>
                                             <th>انتخاب</th>
                                           </tr>
@@ -415,7 +415,7 @@
                                           <tr  ng-repeat = "list in invoice.tmp.searchResult">
                                             <td >{{$index+1}}</td>
                                             <td>
-                                              {{list.model | lengthLimit:15}}
+                                              {{list.name | lengthLimit:15}}
                                             </td>
                                             <td>
                                               {{list.serial_number | lengthLimit:15}}

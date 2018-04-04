@@ -13,8 +13,8 @@
     </select>
     <div id="report-field" style="display:none" class="report-field">
       
-      <div title="فیلتر گروه" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب گروه" ng-model="product.addOne.reportFields.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group')" readonly>
+      <div title="فیلتر نام" class="input-group report-field-option">
+        <input type="text" class="form-control" placeholder="انتخاب نام" ng-model="product.addOne.reportFields.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group')" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.group"
             ng-click="product.deleteKey(product.addOne.reportFields,'group')">
@@ -117,7 +117,6 @@
             <tr>
               <th>#</th>
               <th>نام کالا</th>
-              <th>مدل کالا</th>
               <th> قیمت (ریال) </th>
               <th>تاریخ تولید</th>
               <th>پایان گارانتی</th>
@@ -130,7 +129,6 @@
             <tr ng-repeat = "list in product.note">
               <td>{{ (page-1)*perPage + $index + 1 | pNumber}}</td>
               <td>{{list.name | lengthLimit:30}}</td>              
-              <td>{{list.model | lengthLimit:30}}</td>
               <td dir="ltr">
                 {{list.price | currency:'':0 | productPrice | pNumber | lengthLimit:15}}
               </td>
@@ -188,7 +186,7 @@
               <div class="col-md-12">
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    انتخاب زیرگروه
+                    انتخاب نام
                     <div class="pull-left">
                       <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
                     </div>
