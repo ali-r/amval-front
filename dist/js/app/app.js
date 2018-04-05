@@ -277,7 +277,7 @@ app.filter('productPrice', function() {
   return function(input) {
     var output;
     if (input == -1) {
-      output = '− بدون قیمت −'
+      output = 'ندارد'
     }else{
       output = input;
     }

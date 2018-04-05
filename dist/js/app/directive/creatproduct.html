@@ -8,10 +8,10 @@
             <input type="checkbox" ng-model="makeDuplicate">
             ایجاد کالای مشابه
           </label>
-          <button type="button" ng-disabled="!productForm.$valid || makeDuplicate" ng-click="sendOrEdit(dParent.editMode)" ng-show = "dParent.stage == 0" 
-          ng-show = "dParent.checkWrite('product', true)" class="btn btn-warning">ذخیره و بستن</button>
-          <button type="button" ng-disabled="!productForm.$valid" ng-click="sendOrEdit(dParent.editMode)" ng-show = "dParent.stage == 0" 
-          ng-show = "dParent.checkWrite('product', false)" class="btn btn-success">ذخیره و جدید</button>
+          <button type="button" ng-disabled="!productForm.$valid || makeDuplicate" ng-click="sendOrEdit(dParent.editMode, true)" ng-show = "dParent.stage == 0" 
+          ng-show = "dParent.checkWrite('product')" class="btn btn-warning">ذخیره و بستن</button>
+          <button type="button" ng-disabled="!productForm.$valid" ng-click="sendOrEdit(dParent.editMode, false)" ng-show = "dParent.stage == 0 && !dParent.editMode" 
+          ng-show = "dParent.checkWrite('product')" class="btn btn-success">ذخیره و جدید</button>
           <button type="button" class="btn btn-danger" ng-show = "dParent.stage == 0" ng-click="controller.productReset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "dParent.stage != 0" ng-click="dParent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
