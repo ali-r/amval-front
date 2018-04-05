@@ -33,7 +33,7 @@
           <div class="box-body">
             <div ng-show = "dParent.stage == 0">
               <form name="productForm" role="form" ng-hide="dParent.loadModal" novalidate 
-              ng-submit="productForm.$valid && sendOrEdit(dParent.editMode, false)">
+              ng-submit="productForm.$valid && sendOrEdit(dParent.editMode, dParent.editMode)">
               <button type="submit" hidden></button>
                 <fieldset>
                 <div class="row">
