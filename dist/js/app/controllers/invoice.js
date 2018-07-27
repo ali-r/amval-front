@@ -115,7 +115,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.tmp.searchQuery = '';
         $scope.selectStage = 3;
         controller.openModal('select');
-        controller.search('product','?use_case=0');
+        controller.getProducts(1);
       };
 
       controller.pushProduct = function(item){
@@ -260,5 +260,30 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
         controller.getData();
       }
+
+
+      controller.getProducts = function(page){
+        $scope.loadSearch = true;
+        controller.productPageConf.searchOpt.text_search = controller.tmp.searchQuery;
+        var getUrl = controller.makeUrl(page, controller.productPageConf);
+
+        requestHelper.get(getUrl, $scope, function(response){
+          mainAsset.log(response.data.data)
+          controller.tmp.searchResult = response.data.data.products;
+          controller.productsMeta = response.data.meta;
+          controller.productsPage = response.data.meta.page;
+          $scope.loadSearch = false;
+        });
+      };
+    
+      controller.productPageConf = {
+        getFunc : controller.getProducts,
+        url: mainAsset.getUrl()+ '/product',
+        searchOpt : {
+          'use_case':'0',
+          'text_search': ''
+        }
+      };
+
   }
 );

@@ -24,7 +24,7 @@
     <div id="report-field" style="display:none" class="report-field">
       
       <div title="فیلتر براساس کالا" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.reportFields.product.name" readonly ng-click="transaction.openSelectionModal(0,'product','use_case=1')">
+        <input type="text" class="form-control" placeholder="انتخاب کالا" ng-model="transaction.addOne.reportFields.product.name" readonly ng-click="transaction.openProductSelectionModal(0)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="transaction.addOne.reportFields.product"
           ng-click="transaction.deleteKey(transaction.addOne.reportFields,'product')">
@@ -185,7 +185,7 @@
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="transaction.obj.product.name" required disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('transaction') || editMode" class="btn btn-info btn-beside-input" ng-click="transaction.selectThings(1, 'product', '?use_case=1')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('transaction') || editMode" class="btn btn-info btn-beside-input" ng-click="transaction.openProductSelection(1)">انتخاب</button>
                       </span>
                     </div>
                     <p class="data-show" ng-show="editMode">
@@ -334,8 +334,8 @@
                   <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
                 </div>
               </div>
-              <div class="panel-body">
-                <form name="searchForm" role="form" novalidate ng-submit="transaction.search('product', '?use_case=1')">
+              <div ng-hide="loadSearch" class="panel-body">
+                <form name="searchForm" role="form" novalidate ng-submit="transaction.getProducts(1)">
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="transaction.tmp.searchQuery" >
                         <span class="input-group-btn">
@@ -368,7 +368,7 @@
                     <tbody>
                       <tr ng-repeat = "list in transaction.tmp.searchResult">
                         <td>
-                          {{ $index + 1 }}
+                          {{ (transaction.productsMeta.page-1)*(transaction.productsMeta.per_page) + $index + 1 }}
                         </td>
                         <td>{{list.name | lengthLimit:25}}</td>
                         <td>{{list.serial_number | lengthLimit:20}}</td>
@@ -380,6 +380,7 @@
                       </tr>
                     </tbody>
                 </table>
+                <req-pagination itemmeta="transaction.productsMeta" itempage="transaction.productsPage" controller="transaction" config="transaction.productPageConf"></req-pagination>              
               </div>
             </div>
           <!-- /.box-body -->
@@ -539,7 +540,71 @@
 
       <div class="modal-body">
         <!-- stage = 0 for product selection -->
-        <search-stage ng-show = "stage == 0" obj="transaction.selectProductObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <!-- <search-stage ng-show = "stage == 0" obj="transaction.selectProductObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage> -->
+
+        <div class="row" ng-show="stage == 0">
+          <div class="col-md-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                انتخاب کالا
+                <div class="pull-left">
+                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
+                </div>
+              </div>
+              <div ng-hide="loadSearch" class="panel-body">
+                <form name="searchForm" role="form" novalidate ng-submit="transaction.getProducts(1)">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="transaction.tmp.searchQuery" >
+                        <span class="input-group-btn">
+                          <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input">
+                            جستجو
+                          </button>
+                        </span>
+                      </div>
+                  </form>
+                  <table class="table table-hover table-border" ng-hide = "transaction.tmp.searchResult == '' || loadSearch">
+                    <colgroup>
+                      <col span="1" style="width: 10%;">
+                      <col span="1" style="width: 30%;">
+                      <col span="1" style="width: 30%;">
+                      <col span="1" style="width: 20%;">
+                      <col span="1" style="width: 10%;">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th>ردیف</th>
+                        <th>
+                          نام
+                        </th>
+                        <th>
+                          شماره سریال کارخانه
+                        </th>
+                        <th>انتخاب</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "list in transaction.tmp.searchResult">
+                        <td>
+                          {{ (transaction.productsMeta.page-1)*(transaction.productsMeta.per_page) + $index + 1 }}
+                        </td>
+                        <td>{{list.name | lengthLimit:25}}</td>
+                        <td>{{list.serial_number | lengthLimit:20}}</td>
+                        <td>
+                          <a ng-click="transaction.addProductFilter(list)" href>
+                            <i class="fa fa-check-square-o fa-lg"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+                <req-pagination itemmeta="transaction.productsMeta" itempage="transaction.productsPage" controller="transaction" config="transaction.productPageConf"></req-pagination>              
+              </div>
+            </div>
+          <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- End of stage 1 -->
+
 
         <!-- stage = 1 for user source selection -->
         <search-stage ng-show = "stage == 1" obj="transaction.selectUserSourceObj" controller = "transaction" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>

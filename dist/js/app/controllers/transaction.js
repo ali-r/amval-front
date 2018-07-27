@@ -219,4 +219,49 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     });
   }
   
+  controller.openProductSelection = function(selectStage){
+    controller.tmp.searchQuery = '';
+    $scope.stage = selectStage;
+    // controller.openModal('select');
+    controller.getProducts(1);
+  };
+  
+  controller.openProductSelectionModal = function(selectStage){
+    controller.tmp.searchQuery = '';
+    $scope.stage = selectStage;
+    mainAsset.openModal('#selectModal');
+    controller.getProducts(1);
+  };
+
+  controller.addProductFilter = function(obj){
+    controller.addOne.reportFields.product = obj;
+    controller.closeSelectionModal();
+  }
+
+  controller.getProducts = function(page){
+    $scope.loadSearch = true;
+    controller.productPageConf.searchOpt.text_search = controller.tmp.searchQuery;
+    var getUrl = controller.makeUrl(page, controller.productPageConf);
+
+    requestHelper.get(getUrl, $scope, function(response){
+      mainAsset.log(response.data.data)
+      controller.tmp.searchResult = response.data.data.products;
+      controller.productsMeta = response.data.meta;
+      controller.productsPage = response.data.meta.page;
+      $scope.loadSearch = false;
+    });
+  };
+
+  controller.productPageConf = {
+    getFunc : controller.getProducts,
+    url: mainAsset.getUrl()+ 'product',
+    searchOpt : {
+      'use_case':'1',
+      'text_search': ''
+    }
+  };
+
+
+
+
 });

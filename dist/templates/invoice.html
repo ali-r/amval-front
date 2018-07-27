@@ -382,7 +382,7 @@
                                       <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
                                     </div>
                                 </div>
-                                <div class="panel-body">
+                                <div ng-if="!loadSearch" class="panel-body">
                                     <div class="row" ng-show="invoice.obj.products.length>0">
                                         <ul class="remove-box">
                                             <li ng-repeat="item in invoice.obj.products track by item.id">
@@ -397,7 +397,7 @@
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="جستجو" ng-model="invoice.tmp.searchQuery" >
                                         <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('product','?use_case=0')">جستجوی کالا</button>
+                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.getProducts(1)">جستجوی کالا</button>
                                         </span>
                                       </div>
                                     </form>
@@ -413,7 +413,9 @@
                                           </tr>
 
                                           <tr  ng-repeat = "list in invoice.tmp.searchResult">
-                                            <td >{{$index+1}}</td>
+                                            <td >
+                                                {{ (invoice.productsMeta.page-1)*(invoice.productsMeta.per_page) + $index + 1 }}
+                                            </td>
                                             <td>
                                               {{list.name | lengthLimit:15}}
                                             </td>
@@ -429,6 +431,7 @@
                                           </tr>
                                         </tbody>
                                     </table>
+                                    <req-pagination itemmeta="invoice.productsMeta" itempage="invoice.productsPage" controller="invoice" config="invoice.productPageConf"></req-pagination>                                    
                                 </div>
 
                             </div><!-- /.panel -->
