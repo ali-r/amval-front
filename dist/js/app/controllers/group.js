@@ -9,26 +9,6 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   ];
 
   controller.resetExt = function(){
-    
-    controller.selectGroupObj = {
-      title : { fa : 'پدر', en : 'parent'},
-      searchItem : {
-        fa : 'گروه',
-        en : 'group'
-      },
-      searchAt : {
-        fa : 'عنوان',
-        en : 'title'
-      },
-      table : [
-        {fa:'عنوان',en:'title'},
-        {fa:'توضیحات',en:'description'}
-      ],
-      searchFilter:{
-        key: 'depth__lt',
-        value: '6'
-      }
-    };
   }
 
   controller.resetExt();
@@ -47,8 +27,8 @@ angular.module("assetAdminPanel").controller('groupCtrl',
   $scope.apiUrl = mainAsset.getUrl() + apiName;
 
   controller.getConfig = function(obj){
-    controller.selectGroupObj.searchFilter.key = "parent_for"
-    controller.selectGroupObj.searchFilter.value = obj.id
+    // controller.selectGroupObj.searchFilter.key = "parent_for"
+    // controller.selectGroupObj.searchFilter.value = obj.id
     return obj;
   };
 
@@ -102,4 +82,48 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }
+
+
+  controller.selectGroupObj = {
+    title : { fa : 'پدر', en : 'parent'},
+    searchItem : {
+      fa : 'نام',
+      en : 'subgroup'
+    },
+    searchAt : {
+      fa : 'عنوان',
+      en : 'title'
+    },
+    table : [
+      {fa:'عنوان',en:'title'},
+      {fa:'توضیحات',en:'description'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'group',
+      getFunc: controller.searchWithPagination,
+      cat: 'group',
+      searchOpt: {
+        'depth__lt': '6',
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  };
+
+  controller.openGroupSelctionWithPagination = function(stage,obj){
+    if(controller.obj.id) {
+      obj.pageConfig.searchOpt.parent_for = controller.obj.id;
+      delete obj.pageConfig.searchOpt.depth__lt;
+    }
+    else{
+      obj.pageConfig.searchOpt.depth__lt = '6';
+      delete obj.pageConfig.searchOpt.parent_for;
+      
+    }
+    controller.openSelectionModalWithPagination(stage,obj,false);
+  }
+
 });

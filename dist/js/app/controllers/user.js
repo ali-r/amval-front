@@ -12,22 +12,7 @@ angular.module("assetAdminPanel").controller('userCtrl',
     {'fname' : 'شماره کارت', 'field' : 'card_no'}
   ];
 
-  controller.selectWarehouseUnderManagementObj = {
-    title : { fa : 'انبار تحت مدیریت', en : 'warehouse_under_management'},
-    searchItem : {
-      fa : 'انبار',
-      en : 'warehouse'
-    },
-    searchAt : {
-      fa : 'عنوان',
-      en : 'title'
-    },
-    table : [
-      {fa:'نام انبار',en:'title'},
-      {fa:'محل',en:'location'}
-    ],
-    searchFilter: {key:'parent_warehouse__ne',value:'None'}
-  };
+  
 
   $scope.page = 1;
 
@@ -94,6 +79,64 @@ angular.module("assetAdminPanel").controller('userCtrl',
       });
     }
   }
+
+  controller.selectWarehouseUnderManagementObj = {
+    title : { fa : 'انبار تحت مدیریت', en : 'warehouse_under_management'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'عنوان',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام انبار',en:'title'},
+      {fa:'محل',en:'location'}
+    ],
+    searchFilter: {key:'parent_warehouse__ne',value:'None'},
+    pageConfig: {
+      url: mainAsset.getUrl()+'warehouse',
+      getFunc: controller.searchWithPagination,
+      cat: 'warehouse',
+      searchOpt: {
+        'parent_warehouse__ne': 'None',
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  };
+
+  controller.selectRefrenceWarehouseObj = {
+    title : { fa : 'انبار مرجع تحویل کالا', en : 'warehouse'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'عنوان',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام انبار',en:'title'},
+      {fa:'محل',en:'location'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'warehouse',
+      getFunc: controller.searchWithPagination,
+      cat: 'warehouse',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  };
 
   controller.selectWareHouse = function() {
     $scope.stage = 1;

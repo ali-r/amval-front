@@ -21,75 +21,7 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
   controller.addOne={};
   controller.addOne.extra={};
   controller.addOne.reportFields={};
-  controller.selectProductObj = {
-    title : { fa : 'کالا', en : 'product'},
-    searchItem : {
-      fa : 'کالا',
-      en : 'product'
-    },
-    searchAt : {
-      fa : 'نام',
-      en : 'subgroup'
-    },
-    table : [
-      {fa:'نام', en:'name'},
-      {fa:'شماره سریال کارخانه',en:'serial_number'}
-    ],
-    searchFilter : {
-      key: 'use_case',
-      value: '0'
-    }
-  }
-  controller.selectTransactionObj = {
-    title : { fa : 'تراکنش', en : 'transaction'},
-    searchItem : {
-      fa : 'تراکنش',
-      en : 'transaction'
-    },
-    searchAt : {
-      fa : 'شناسه',
-      en : 'unique_id'
-    },
-    table : [
-      {fa:'شناسه',en:'unique_id'},      
-      {fa:'نام کالا',en:'product',filter:'productName'},
-      {fa:'مبدا',en:'source',filter:'userOrWarehouseName'},
-      {fa:'مقصد',en:'destination',filter:'userOrWarehouseName'},
-      {fa:'علت تراکنش',en:'reason',filter:'reasonType'},
-      {fa:'نوع تراکنش',en:'transaction_type',filter:'transactionType'}
-    ]
-  }
-  controller.selectDestinationObj = {
-    title : { fa : 'انبار مقصد', en : 'to_warehouse'},
-    searchItem : {
-      fa : 'انبار',
-      en : 'warehouse'
-    },
-    searchAt : {
-      fa : 'نام',
-      en : 'title'
-    },
-    table : [
-      {fa:'نام انبار',en:'title'},
-      {fa:'محل',en:'location'}
-      ]
-  }
-
-  controller.selectFromWarehouseObj = {
-    title : { fa : 'انبار مبدا', en : 'from_warehouse'},
-    searchItem : {
-      fa : 'انبار',
-      en : 'warehouse'
-    },
-    searchAt : {
-      fa : 'نام',
-      en : 'title'
-    },
-    table : [
-      {fa:'نام انبار',en:'title'},
-      {fa:'محل',en:'location'}
-      ]
-  }
+  
 
   controller.paginationConfig = {
     'addOne' : controller.addOne
@@ -335,6 +267,125 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     setTimeout(function(){
       $('#myTabs li#tab1').tab('show');      
     },200)
+  }
+
+  controller.selectProductObj = {
+    title : { fa : 'کالا', en : 'product'},
+    searchItem : {
+      fa : 'کالا',
+      en : 'product'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'subgroup'
+    },
+    table : [
+      {fa:'نام', en:'name'},
+      {fa:'شماره سریال کارخانه',en:'serial_number'}
+    ],
+    searchFilter : {
+      key: 'use_case',
+      value: '0'
+    },
+    pageConfig: {
+      url: mainAsset.getUrl()+'product',
+      getFunc: controller.searchWithPagination,
+      cat: 'product',
+      searchOpt: {
+        'use_case': '0',
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
+  controller.selectTransactionObj = {
+    title : { fa : 'تراکنش', en : 'transaction'},
+    searchItem : {
+      fa : 'تراکنش',
+      en : 'transaction'
+    },
+    searchAt : {
+      fa : 'شناسه',
+      en : 'unique_id'
+    },
+    table : [
+      {fa:'شناسه',en:'unique_id'},      
+      {fa:'نام کالا',en:'product',filter:'productName'},
+      {fa:'مبدا',en:'source',filter:'userOrWarehouseName'},
+      {fa:'مقصد',en:'destination',filter:'userOrWarehouseName'},
+      {fa:'علت تراکنش',en:'reason',filter:'reasonType'},
+      {fa:'نوع تراکنش',en:'transaction_type',filter:'transactionType'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'transaction',
+      getFunc: controller.searchWithPagination,
+      cat: 'transaction',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
+  controller.selectDestinationObj = {
+    title : { fa : 'انبار مقصد', en : 'to_warehouse'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام انبار',en:'title'},
+      {fa:'محل',en:'location'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'warehouse',
+      getFunc: controller.searchWithPagination,
+      cat: 'warehouse',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
+
+  controller.selectFromWarehouseObj = {
+    title : { fa : 'انبار مبدا', en : 'from_warehouse'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام انبار',en:'title'},
+      {fa:'محل',en:'location'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'warehouse',
+      getFunc: controller.searchWithPagination,
+      cat: 'warehouse',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
   }
 
 });

@@ -122,7 +122,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="invoice.obj.buyer.last_name" placeholder="خریدار" disabled>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.selectBuyer()">انتخاب</button>
+                                            <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.openSelectionModalWithPagination(1,invoice.selectBuyerObj)">انتخاب</button>
                                         </span>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" ng-model="invoice.obj.seller.last_name" placeholder="فروشنده" disabled>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.selectSeller()">انتخاب</button>
+                                            <button type="button" class="btn btn-info btn-beside-input" ng-click="invoice.openSelectionModalWithPagination(2,invoice.selectSellerObj)">انتخاب</button>
                                         </span>
                                     </div>
                                 </div>
@@ -266,7 +266,7 @@
 
 <!-- Select Modal -->
 <div class="modal fade" id="selectModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="pull-left">
@@ -278,100 +278,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <!-- Stage 1 for buyer select -->
-                            <div class="panel panel-info" ng-show="selectStage == 1">
-                                <div class="panel-heading">
-                                    انتخاب خریدار
-                                    <div class="pull-left">
-                                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                    <form name="selectBuyerForm" role="form" novalidate>
-                                      <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery"  placeholder="جستجو">
-                                        <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectBuyerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('user')">جستجوی خریدار</button>
-                                        </span>
-                                      </div>
-                                    </form>
-
-                                    <table class="table table-hover table-border" ng-hide = "invoice.tmp.searchResult == '' || loadSearch">
-                                        <tbody>
-                                          <tr>
-                                            <th>ردیف</th>
-                                            <th>نام</th>
-                                            <th>نام خانوادگی</th>
-                                            <th>انتخاب</th>
-                                          </tr>
-
-                                          <tr ng-repeat = "list in invoice.tmp.searchResult">
-                                            <td>{{$index+1}}</td>
-                                            <td>
-                                              {{list.first_name | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              {{list.last_name | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              <a ng-click="invoice.selectTarget(list, invoice.obj, 'buyer', null, invoice.closeModal('select'))" href>
-                                                <i class="fa fa-check-square-o fa-lg"></i>
-                                              </a>
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div><!-- /.panel -->
+                            <div class="panel panel-info" ng-show="stage == 1">
+                                <search-modal obj="invoice.selectBuyerObj" controller = "invoice" func="controller.closeSelectionModal()"></search-modal>
+                            </div>
                             <!-- End of Stage 1 -->
 
                             <!-- Stage 2 for seller select -->
-                            <div class="panel panel-info" ng-show="selectStage == 2">
-                                <div class="panel-heading">
-                                    انتخاب فروشنده
-                                    <div class="pull-left">
-                                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                    <form name="selectSellerForm" role="form" novalidate>
-                                      <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" ng-model="invoice.tmp.searchQuery"  placeholder="جستجو">
-                                        <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectSellerForm.$invalid" class="btn btn-info btn-beside-input" ng-click="invoice.search('seller')">جستجوی فروشنده</button>
-                                        </span>
-                                      </div>
-                                    </form>
-
-                                    <table class="table table-hover table-border" ng-hide = "invoice.tmp.searchResult == '' || loadSearch">
-                                        <tbody>
-                                          <tr>
-                                            <th>ردیف</th>
-                                            <th>نام</th>
-                                            <th>نام خانوادگی</th>
-                                            <th>انتخاب</th>
-                                          </tr>
-
-                                          <tr ng-repeat = "list in invoice.tmp.searchResult">
-                                            <td>{{$index+1}}</td>
-                                            <td>
-                                              {{list.first_name | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              {{list.last_name | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              <a ng-click="invoice.selectTarget(list, invoice.obj, 'seller', null, invoice.closeModal('select'))" href>
-                                                <i class="fa fa-check-square-o fa-lg"></i>
-                                              </a>
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-
-
-
-                                </div>
-                            </div><!-- /.panel -->
+                            <div class="panel panel-info" ng-show="stage == 2">
+                                <search-modal obj="invoice.selectSellerObj" controller = "invoice" func="controller.closeSelectionModal()"></search-modal>
+                            </div>
                             <!-- End of Stage 2 -->
 
                             <!-- Stage 3 for product select -->
@@ -382,7 +297,7 @@
                                       <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
                                     </div>
                                 </div>
-                                <div ng-if="!loadSearch" class="panel-body">
+                                <div class="panel-body">
                                     <div class="row" ng-show="invoice.obj.products.length>0">
                                         <ul class="remove-box">
                                             <li ng-repeat="item in invoice.obj.products track by item.id">
@@ -393,7 +308,7 @@
                                         <hr/>
                                     </div>
 
-                                    <form name="selectProductForm" role="form" novalidate>
+                                    <form ng-hide="loadSearch" name="selectProductForm" role="form" novalidate>
                                       <div class="input-group">
                                         <input type="text" class="form-control" name="searchText" placeholder="جستجو" ng-model="invoice.tmp.searchQuery" >
                                         <span class="input-group-btn">
@@ -403,7 +318,7 @@
                                     </form>
 
 
-                                    <table class="table table-hover table-border" ng-hide = "invoice.tmp.searchResult == '' || loadSearch">
+                                    <table  ng-hide="loadSearch" class="table table-hover table-border" ng-hide = "invoice.tmp.searchResult == '' || loadSearch">
                                         <tbody>
                                           <tr>
                                             <th>ردیف</th>
@@ -431,7 +346,7 @@
                                           </tr>
                                         </tbody>
                                     </table>
-                                    <req-pagination itemmeta="invoice.productsMeta" itempage="invoice.productsPage" controller="invoice" config="invoice.productPageConf"></req-pagination>                                    
+                                    <req-pagination ng-hide="loadSearch" itemmeta="invoice.productsMeta" itempage="invoice.productsPage" controller="invoice" config="invoice.productPageConf"></req-pagination>                                    
                                 </div>
 
                             </div><!-- /.panel -->

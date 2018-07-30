@@ -13,8 +13,8 @@
     </select>
     <div id="report-field" style="display:none" class="report-field">
       
-      <div title="فیلتر نام" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب نام" ng-model="product.addOne.reportFields.group.title" ng-click="product.openSelectionModal(0,'group','group_type=group')" readonly>
+      <div title="فیلتر گروه" class="input-group report-field-option">
+        <input type="text" class="form-control" placeholder="انتخاب گروه" ng-model="product.addOne.reportFields.group.title" ng-click="product.openSelectionModalWithPagination(0,product.selectGroupObj)" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.group"
             ng-click="product.deleteKey(product.addOne.reportFields,'group')">
@@ -24,7 +24,7 @@
       </div><!-- / group filter -->
       
       <div title="فیلتر شخص نگهدارنده" class="input-group report-field-option">
-        <input type="text" class="form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.reportFields.holder.last_name" ng-click="product.openSelectionModal(1,'user','')" readonly>
+        <input type="text" class="form-control dropdown-toggle" placeholder="انتخاب شخص نگهدارنده" data-toggle="dropdown" aria-expanded="false" ng-model="product.addOne.reportFields.holder.last_name" ng-click="product.openSelectionModalWithPagination(1,product.selectUserHolderObj)" readonly>
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.holder"
             ng-click="product.deleteKey(product.addOne.reportFields,'holder')">
@@ -34,7 +34,7 @@
       </div><!-- / holder filter -->
       
       <div title="فیلتر تولید کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.reportFields.producer.brand_name" readonly ng-click="product.openSelectionModal(2,'producer','')">
+        <input type="text" class="form-control" placeholder="انتخاب تولید کننده" ng-model="product.addOne.reportFields.producer.brand_name" readonly ng-click="product.openSelectionModalWithPagination(2,product.selectProducerObj)">
         <span class="input-group-btn">
         <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.producer"
           ng-click="product.deleteKey(product.addOne.reportFields,'producer')">
@@ -44,7 +44,7 @@
       </div><!-- / producer filter -->
 
       <div title="فیلتر فروشنده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.reportFields.seller.last_name" readonly ng-click="product.openSelectionModal(3,'seller','')">
+        <input type="text" class="form-control" placeholder="انتخاب فروشنده" ng-model="product.addOne.reportFields.seller.last_name" readonly ng-click="product.openSelectionModalWithPagination(3,product.selectSellerObj)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.seller"
           ng-click="product.deleteKey(product.addOne.reportFields,'seller')">
@@ -54,7 +54,7 @@
       </div><!-- / seller filter -->
   
       <div title="فیلتر گارانتی کننده" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.reportFields.guarantor.company_name" readonly ng-click="product.openSelectionModal(4,'guarantor','')">
+        <input type="text" class="form-control" placeholder="انتخاب گارانتی کننده" ng-model="product.addOne.reportFields.guarantor.company_name" readonly ng-click="product.openSelectionModalWithPagination(4,product.selectGuarantorObj)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="product.addOne.reportFields.guarantor"        ng-click="product.deleteKey(product.addOne.reportFields,'guarantor')">
             <i class="fa fa-remove"></i>  
@@ -182,116 +182,20 @@
       <div class="modal-body">
 
         <!-- stage 0 for group selection -->
-        <div class="row" ng-show="stage == 0">
-              <div class="col-md-12">
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    انتخاب نام
-                    <div class="pull-left">
-                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                    </div>
-                  </div>
-                  <div class="panel-body">
-                    <form name="searchForm" role="form" novalidate>
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="product.tmp.searchQuery">
-                            <span class="input-group-btn">
-                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="product.search('group'); product.tmp.searchD = true">
-                                جستجو
-                              </button>
-                            </span>
-                          </div>
-                      </form>
-                      <table class="table table-hover table-border" ng-hide = "product.tmp.searchResult == '' || loadSearch">
-                        <colgroup>
-                          <col span="1" style="width: 5%;">
-                          <col span="1" style="width: 5%;">
-                          <col span="1" style="width: 25%;">
-                          <col span="1" style="width: 45%;">
-                          <col span="1" style="width: 20%;">
-                        </colgroup>
-                        <thead>
-                          <tr>
-                            <th ng-if="!product.tmp.searchD"></th>
-                            <th>ردیف</th>
-                            <th>
-                              عنوان
-                            </th>
-                            <th>
-                              توضیحات
-                            </th>
-                            <th>انتخاب</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr ng-repeat-start = "list in product.tmp.searchResult">
-                            <td style="text-align : right" ng-if="!product.tmp.searchD">
-                              <button class="colaps-btn" type="button" data-toggle="collapse" data-target="#coll{{$index}}" aria-expanded="false" aria-controls="collapseExample"
-                              ng-click="collaps[$index] = !collaps[$index]" ng-if="list.children" >
-                                <i class="fa fa-lg" ng-class = "{'fa-plus-square':!collaps[$index] , 'fa-minus-square' : collaps[$index]}"></i>
-                              </button>
-                            </td>
-                            <td>
-                              {{ $index + 1 }}
-                            </td>
-                            <td>{{list.title | lengthLimit:30}}</td>
-                            <td>{{list.description | lengthLimit:30}}</td>
-                            <td>
-                              <a ng-click="product.selectReportOption(list.id, list.title, 'title', 'group', product.addOne.reportFields); loadMeta(list.id)" href> 
-                                <i class="fa fa-check-square-o fa-lg"></i>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr ng-hide="product.tmp.searchD" ng-repeat-end class="collapse" id="coll{{$index}}">
-                            <td colspan="6" style="padding:0px;">
-                              <table class="table">
-                                <colgroup>
-                                  <col span="1" style="width: 5%;">
-                                  <col span="1" style="width: 5%;">
-                                  <col span="1" style="width: 25%;">
-                                  <col span="1" style="width: 45%;">
-                                  <col span="1" style="width: 20%;">
-                                </colgroup>
-                                <tbody>
-                                  <tr ng-repeat="chd in list.children" class="group-chd">
-                                    <td style="text-align : right">
-                                      <i class = "fa fa-lg fa-level-down fa-rotate-90"></i>
-                                    </td>
-                                    <td class="chd-td">
-                                      {{$index+1}}-{{$parent.$index+1}}
-                                    </td>
-                                    <td>{{chd.title | lengthLimit:30}}</td>
-                                    <td>{{chd.description | lengthLimit:30}}</td>
-                                    <td>
-                                      <a ng-click="product.selectReportOption(chd.id, chd.title, 'title', 'group', product.addOne.reportFields); loadMeta(chd.id)" href>
-                                        <i class="fa fa-check-square-o fa-lg"></i>
-                                      </a>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-              <!-- /.box-body -->
-              </div>
-        </div>
+        <search-modal ng-show = "stage == 0" obj="product.selectGroupObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-modal>
         <!-- end of Stage 0 -->
 
         <!-- stage = 1 for holder type user selection -->
-        <search-stage ng-show = "stage == 1" obj="product.selectUserHolderObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-modal ng-show = "stage == 1" obj="product.selectUserHolderObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-modal>
         
         <!-- stage = 2 for producer selection -->
-        <search-stage ng-show = "stage == 2" obj="product.selectProducerObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-modal ng-show = "stage == 2" obj="product.selectProducerObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-modal>
 
         <!-- stage = 3 for seller selection -->
-        <search-stage ng-show = "stage == 3" obj="product.selectSellerObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-modal ng-show = "stage == 3" obj="product.selectSellerObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-modal>
 
         <!-- stage = 4 for gaurantor selection -->
-        <search-stage ng-show = "stage == 4" obj="product.selectGuarantorObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-stage>
+        <search-modal ng-show = "stage == 4" obj="product.selectGuarantorObj" controller = "product" target="reportFields" subbase="addOne" func="controller.closeSelectionModal()"></search-modal>
 
         
       </div>

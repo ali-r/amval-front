@@ -181,65 +181,19 @@
               <div class="input-group">
                 <input type="text" class="form-control" ng-model="warehouse.obj.clerk.last_name" disabled>
                 <span class="input-group-btn">
-                  <button type="button" ng-if="!warehouse.obj.clerk.last_name" class="btn btn-primary btn-beside-input" ng-disabled = "!checkWrite('warehouse')" ng-click="warehouse.selectUser()">انتخاب انباردار</button>
+                  <button type="button" ng-if="!warehouse.obj.clerk.last_name" class="btn btn-primary btn-beside-input" ng-disabled = "!checkWrite('warehouse')" ng-click="warehouse.openSelectionModalWithPagination(1,warehouse.selectUserObj)">انتخاب انباردار</button>
                   <button type="button" ng-if="warehouse.obj.clerk.last_name" class="btn btn-danger btn-beside-input" ng-disabled = "!checkWrite('warehouse')" ng-click="warehouse.deleteKey(warehouse.obj, 'clerk')">حذف انباردار</button>
                 </span>
               </div>
             </form>
           </fieldset>
         </div>
-        <div class="row" ng-show = "stage == 1">
-          <div class="col-md-12">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                انتخاب کاربر
-                <div class="pull-left">
-                  <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                </div>
-              </div>
-              <div class="panel-body">
-                <form name="searchForm" role="form" novalidate>
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="searchText" ng-model="warehouse.tmp.searchQuery" placeholder="جستجو">
-                    <span class="input-group-btn">
-                      <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="warehouse.search('user')">جستجوی کاربر</button>
-                    </span>
-                  </div>
-                </form>
-                  <table class="table table-hover table-border" ng-hide = "warehouse.tmp.searchResult == '' || loadSearch">
-                    <tbody>
-                      <tr>
-                        <th>ردیف</th>
-                        <th>نام</th>
-                        <th>نام خانوادگی</th>
-                        <th>نقش کاربری</th>
-                        <th>انتخاب</th>
-                      </tr>
+        <!-- End of Stage 0 -->
 
-                      <tr ng-repeat = "list in warehouse.tmp.searchResult | filterObjById:assetData.id">
-                        <td>{{$index+1}}</td>
-                        <td>
-                          {{list.first_name | lengthLimit:30}}
-                        </td>
-                        <td>
-                          {{list.last_name | lengthLimit:30}}
-                        </td>
-                        <td>
-                          {{list.clearance_level | userType}}
-                        </td>
-                        <td>
-                          <a ng-click="warehouse.selectTarget(list, warehouse.obj, 'clerk', 0)" href>
-                            <i class="fa fa-check-square-o fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-              </div>
-            </div>
-          <!-- /.box-body -->
-          </div>
-        </div>
+        <search-modal ng-show = "stage == 1" obj="warehouse.selectUserObj" controller = "warehouse" ></search-modal>        
+        <!-- End of Stage 1 -->
+        
+
       </div>
       <div class="modal-footer">
         <p ng-show = "stage === 0"> −

@@ -6,7 +6,8 @@ app.directive('reqPagination', function() {
       itempage : '=',
       itemmeta : '=',
       config : '=',
-      controller : '='
+      controller : '=',
+      obj: '=?'
     },
     link: function(scope, element, attr){
       
@@ -100,7 +101,7 @@ app.directive('reqPagination', function() {
           safeApply(scope.itempage);
         }
         if(paginationConfig.url){
-          paginationConfig.getFunc(scope.itempage);
+          paginationConfig.getFunc(scope.itempage, scope.obj);
         }else{
           scope.dParent.getUrl = scope.controller.makeUrl(scope.itempage, paginationConfig);
           scope.controller.getData();
@@ -149,6 +150,7 @@ app.directive('searchTools', function() {
   }
 });
 
+// search stage is deprycated, please use search modal
 app.directive('searchStage', function() {
   return {
     restrict: 'E',
@@ -176,6 +178,38 @@ app.directive('searchStage', function() {
       }
     },
     templateUrl: '/dist/js/app/directive/searchStage.html'
+  }
+});
+
+// Search Modal is a refactored version of search Stage
+app.directive('searchModal', function(mainAsset, requestHelper) {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      obj : '=',
+      controller : '=',
+      filterId: '@',
+      target : '@',
+      subbase: '@',
+      func: '@'
+    },
+    link : function(scope, element, attr){
+
+      if (!scope.target) {
+        scope.target = 'obj';
+      }
+      if(!scope.subbase || scope.subbase==''){
+        scope.subbase = undefined;
+      }
+      if(!scope.func || scope.func==''){
+        scope.func = undefined
+      }
+      if(!scope.filterId || scope.filterId==''){
+        scope.filterId = undefined
+      }
+    },
+    templateUrl: '/dist/js/app/directive/searchModal.html'
   }
 });
 
@@ -209,7 +243,19 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         },
         table : [
           {fa:'نام برند',en:'brand_name'}
-        ]
+        ],
+        pageConfig: {
+          url: mainAsset.getUrl()+'producer',
+          getFunc: scope.controller.searchWithPagination,
+          cat: 'producer',
+          searchOpt: {
+            'text_search': '',
+          }
+        },
+        searchResult:[],
+        searchMeta:{},
+        searchPage: 1,
+        searchQuery: '',
       };
 
       scope.selectGuarantorObj = {
@@ -224,9 +270,51 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         },
         table : [
           {fa:'نام شرکت',en:'company_name'},
-          {fa:'تلفن',en:'office_phone'}
-        ]
+          {fa:'آدرس',en:'address'}
+        ],
+        pageConfig: {
+          url: mainAsset.getUrl()+'guarantor',
+          getFunc: scope.controller.searchWithPagination,
+          cat: 'guarantor',
+          searchOpt: {
+            'text_search': '',
+          }
+        },
+        searchResult:[],
+        searchMeta:{},
+        searchPage: 1,
+        searchQuery: '',
       };
+
+      scope.selectGroupObj = {
+        title : { fa : 'نام گروه', en : 'subgroup'},
+        searchItem : {
+          fa : 'نام',
+          en : 'subgroup'
+        },
+        searchAt : {
+          fa : 'عنوان',
+          en : 'title'
+        },
+        table : [
+          {fa:'عنوان',en:'title'},
+          {fa:'توضیحات',en:'description'}
+        ],
+        pageConfig: {
+          url: mainAsset.getUrl()+'group',
+          getFunc: scope.controller.searchWithPagination,
+          cat: 'group',
+          searchOpt: {
+            'text_search': '',
+          }
+        },
+        searchResult:[],
+        searchMeta:{},
+        searchPage: 1,
+        searchQuery: '',
+      };
+
+      
 
       scope.controller.productReset = function(){
         scope.dParent.load = false;
@@ -392,37 +480,66 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         if(!scope.controller.product.children)
           scope.controller.product.children = [];
                  
-        if(scope.controller.product.children.length==0 && !scope.controller.product.holder){
+        if(scope.controller.product.children.length===0 && (!scope.controller.product.holder || scope.controller.product.holder==='' )){
           scope.controller.bundleHolderId = list.holder.obj.id;
-          scope.controller.bundleProductSearch();
+          scope.controller.bundleProductSearch(1);
         }
 
         scope.controller.product.children.push(list);
       };
 
       scope.controller.openBundleSelection = function(){
-        var searchQuery = '?use_case=2';  //must be packable
-        
-        if(scope.controller.product.holder)
-          scope.controller.bundleHolderId = scope.controller.product.holder.obj.id;
-        else if(!scope.controller.bundleHolderId)
-          scope.controller.bundleHolderId = '';
-        
-        if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
-          searchQuery += '&holder='+ scope.controller.bundleHolderId;
+        scope.dParent.loadSearch = true;
+        scope.controller.tmp.searchD = false;
+        scope.controller.productPageConf.searchOpt.text_search = scope.controller.tmp.searchQuery;
+        if(scope.controller.product.holder){
+          scope.controller.productPageConf.searchOpt.holder = scope.controller.product.holder.obj.id;          
         }
-
-        scope.controller.selectThings(2, 'product', searchQuery)
+        else if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
+          scope.controller.productPageConf.searchOpt.holder = scope.controller.bundleHolderId;
+        }
+        var getUrl = scope.controller.makeUrl(1, scope.controller.productPageConf);
+        scope.dParent.stage = 2;
+        requestHelper.get(getUrl, scope, function(response){
+          mainAsset.log(response.data.data)
+          scope.controller.tmp.searchResult = response.data.data.products;
+          scope.controller.productsMeta = response.data.meta;
+          scope.controller.productsPage = response.data.meta.page;
+          scope.dParent.loadSearch = false;
+        });
+        scope.controller.tmp.searchD = true;
+        
       }
 
-      scope.controller.bundleProductSearch = function(){
-        var searchQuery = '?use_case=2';  //must be packable
-        if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
-          searchQuery += '&holder='+ scope.controller.bundleHolderId;
+      scope.controller.bundleProductSearch = function(page){
+        scope.dParent.loadSearch = true;
+        scope.controller.tmp.searchD = false;
+        scope.controller.productPageConf.searchOpt.text_search = scope.controller.tmp.searchQuery;
+        if(scope.controller.product.holder){
+          scope.controller.productPageConf.searchOpt.holder = scope.controller.product.holder.obj.id;          
         }
-        scope.controller.search('product', searchQuery); 
+        else if(typeof(scope.controller.bundleHolderId)=="string" && scope.controller.bundleHolderId != ''){
+          scope.controller.productPageConf.searchOpt.holder = scope.controller.bundleHolderId;
+        }
+        var getUrl = scope.controller.makeUrl(page, scope.controller.productPageConf);
+        requestHelper.get(getUrl, scope, function(response){
+          mainAsset.log(response.data.data)
+          scope.controller.tmp.searchResult = response.data.data.products;
+          scope.controller.productsMeta = response.data.meta;
+          scope.controller.productsPage = response.data.meta.page;
+          scope.dParent.loadSearch = false;
+        });
         scope.controller.tmp.searchD = true;
       }
+    
+      scope.controller.productPageConf = {
+        getFunc : scope.controller.bundleProductSearch,
+        url: mainAsset.getUrl()+ '/product',
+        searchOpt : {
+          'use_case':'2', // must be packable
+          'text_search': ''
+        }
+      };
     },
     templateUrl: '/dist/js/app/directive/creatproduct.html'
   }
