@@ -76,7 +76,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="controller.product.producer.brand_name" disabled required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(4, 'producer')">انتخاب</button>
+                          <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.openSelectionModalWithPagination(4,selectProducerObj,false)">انتخاب</button>
                         </span>
                       </div>
                     </div>
@@ -122,7 +122,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="controller.product.guarantor.company_name" disabled required>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.selectThings(1, 'guarantor')">انتخاب</button>
+                          <button type="button" ng-disabled="!dParent.checkWrite('product')" class="btn btn-info btn-beside-input" ng-click="controller.openSelectionModalWithPagination(1,selectGuarantorObj,false)">انتخاب</button>
                         </span>
                       </div>
                     </div>
@@ -234,7 +234,7 @@
             </div>
             <!-- end of Stage 0 -->
 
-            <search-stage ng-show = "dParent.stage == 1" obj="selectGuarantorObj" controller = "controller" target="product"></search-stage>
+            <search-modal ng-show = "dParent.stage == 1" obj="selectGuarantorObj" controller = "controller" target="product"></search-modal>
             <!-- end of Stage 1 -->
             
             <div class="row" ng-show="dParent.stage == 2">
@@ -259,7 +259,7 @@
                       <i ng-show = "dParent.loadSearch" class="fa fa-refresh fa-spin"></i>
                     </div>
                   </div>
-                  <div class="panel-body">
+                  <div ng-hide="dParent.loadSearch" class="panel-body">
                     <form name="searchForm" role="form" novalidate>
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="controller.tmp.searchQuery">
@@ -304,7 +304,8 @@
                             </td>
                           </tr>
                         </tbody>
-                    </table>
+                    </table>                                    
+                    <req-pagination itemmeta="controller.productsMeta" itempage="controller.productsPage" controller="controller" config="controller.productPageConf"></req-pagination>                                    
                   </div>
                 </div>
               <!-- /.box-body -->
@@ -348,7 +349,7 @@
             </div>
             <!-- end of Stage 3 -->
 
-            <search-stage ng-show = "dParent.stage == 4" obj="selectProducerObj" controller = "controller" target="product"></search-stage>
+            <search-modal ng-show = "dParent.stage == 4" obj="selectProducerObj" controller = "controller" target="product"></search-modal>
             <!-- end of Stage 4 -->
             
           </div>

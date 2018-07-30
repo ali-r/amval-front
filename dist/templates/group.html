@@ -1,171 +1,172 @@
 <div class="row">
- <search-tools sobject="group.searchObject" scontroller="group">
-    <select class="form-control sort-option" ng-model="group.addOne.extra.depth__lt" title="نمایش گروه یا زیر گروه">
-      <option value="2">
-        گروه
-      </option>
-      <option value="7">
-        گروه و زیرگروه
-      </option>
-    </select>
-  </search-tools>
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2><i class="fa"></i>گروه ها</h2>
-        <button type="button" ng-if = "checkWrite('group')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
-          افزودن گروه
-        </button>
-        <div class="clearfix"></div>
-      </div>
-      <div class="x_content">
-
-        <div ui-tree id="tree-root" ng-show = "group.note.length>0">
-          <ol ui-tree-nodes ng-model="group.note">
-            <li ng-repeat="node in group.note" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-          </ol>
-        </div>
-        
-        <req-pagination itemmeta="meta" itempage="page" controller="group" config="group.paginationConfig"></req-pagination>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- group Modal -->
-<div class="modal fade" id="groupModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="pull-left">
-          <button type="button" ng-disabled="!groupForm.$valid" ng-click="group.sendOrEdit(editMode)" ng-if = "checkWrite('group')" class="btn btn-success" ng-show = "stage == 0">ذخیره</button>
-          <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
-          <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
-        </div>
-        <div class="pull-left load-spinner" ng-show = "loadModal">
-          <i class="fa fa-spinner fa-pulse fa-2x" ></i>
-        </div>
-        <h3 class="modal-title" ng-hide="editMode">افزودن گروه</h3>
-        <h3 class="modal-title" ng-show="editMode">ویرایش گروه</h3>
-      </div>
-      <div class="modal-body" ng-hide = "loadModal">
-        <div ng-show = "stage == 0">
-          <form name="groupForm" role="form" novalidate  ng-submit="groupForm.$valid && group.sendOrEdit(editMode)">
-            <button type="submit" hidden></button>
-            <fieldset ng-disabled="!checkWrite('group')">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group" ng-class="{'has-success' : groupForm.title.$valid && group.obj.title}">
-                    <label>عنوان*</label>
-                    <input type="text" class="form-control" name="title" placeholder="عنوان" ng-model = "group.obj.title" required>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group" ng-hide="group.obj.level >= 6">
-                      <label>پدر</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" ng-model="group.obj.parent.title" disabled>
-                        <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent.title" ng-click="group.selectThings(1, 'group', ( (group.obj.id) ? 'parent_for=' + group.obj.id : 'depth__lt=6') + '')">انتخاب پدر</button>
-                          <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-danger btn-beside-input" ng-show="group.obj.parent.title" ng-click="group.deleteKey(group.obj, 'parent')">حذف پدر</button>
-                        </span>
-                      </div>
-                    </div>
-                </div>
-              </div>
-              <div class="form-group" ng-class="{'has-success' : groupForm.dsc.$valid && group.obj.description}">
-                <label>توضیحات*</label>
-                <input type="text" class="form-control" name="dsc" placeholder="توضیحات" ng-model = "group.obj.description" required>
-              </div>
-              
-              <h4>
-                فیلد ها 
-              </h4>
-
-              <div class="meta-case">
-                <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('num')">
-                  <i class="fa fa-plus"></i>
-                  عدد
-                </button>
-
-                <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('str')">
-                  <i class="fa fa-plus"></i>
-                  متن
-                </button>
-
-                <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('bool')">
-                  <i class="fa fa-plus"></i>
-                  دوحالتی
-                </button>
-              </div>
-              <br>
-              <table class="table table-hover">
-                <thead>
-                  <th>نوع فیلد</th>
-                  <th>عنوان فیلد</th>
-                  <th>حذف</th>
-                </thead>
-                <tbody>
-                  <tr ng-repeat = "meta in group.obj.self_meta_template">
-                    <td>
-                      <h5>
-                        {{meta.type | metaType}}
-                      </h5>
-                    </td>
-                    <td>
-                      <input type="text" class="form-control" placeholder="عنوان فیلد" ng-model = "meta.key" required>
-                    </td>
-                    <td>
-                      <a class="fa-2x" ng-click="group.deleteMeta($index)" href>×</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </fieldset>
-          </form>
-        </div>
-        <!-- end of Stage 0 -->
-
-        <search-stage ng-show = "stage == 1" obj="group.selectGroupObj" controller = "group"></search-stage>
-        <!-- end of Stage 1 -->
-        
-      </div>
-      <div class="modal-footer">
-        <p ng-show = "stage === 0"> −
-          پر کردن فیلد هایی که با * مشخص شده اجباری است
-        </p>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<delete-modal controller = "group"></delete-modal>
-<script type="text/ng-template" id="nodes_renderer.html">
-  <div class="tree-node tree-node-content row">
-    <div class="col-md-1">
-      <a title="باز و بسته کردن زیرگروه ها" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
-        <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed,'fa-minus-square': !collapsed}"></span>
-      </a>
-    </div>
-    <div class="col-md-3">
-      {{node.title | lengthLimit:30}}
-    </div>
-    <div class="col-md-6 text-center">
-      {{node.description | lengthLimit:40}}
-    </div>
-    <div class="col-md-2">
-      <a class="pull-left" ng-if="checkWrite('group')" ng-click="group.toDeleteId = node.id; group.toDeleteTitle = node.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
-        <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
-      </a>
-      <a class="pull-left" ng-click="group.getObject(node.id)" title="مشاهده" href style="margin-left: 15px;">
-        <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
-      </a>
-    </div>
-  </div>
-
-  <ol ui-tree-nodes="" class="tree-chd" ng-model="node.children" ng-class="{hidden: collapsed}">
-    <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
-    </li>
-  </ol>
-</script>
+  <search-tools sobject="group.searchObject" scontroller="group">
+     <select class="form-control sort-option" ng-model="group.addOne.extra.depth__lt" title="نمایش گروه یا زیر گروه">
+       <option value="2">
+         گروه
+       </option>
+       <option value="7">
+         گروه و زیرگروه
+       </option>
+     </select>
+   </search-tools>
+   <div class="col-md-12 col-sm-12 col-xs-12">
+     <div class="x_panel">
+       <div class="x_title">
+         <h2><i class="fa"></i>گروه ها</h2>
+         <button type="button" ng-if = "checkWrite('group')" class="btn btn-success btn-sm pull-left" name="button" ng-click="openModal()">
+           افزودن گروه
+         </button>
+         <div class="clearfix"></div>
+       </div>
+       <div class="x_content">
+ 
+         <div ui-tree id="tree-root" ng-show = "group.note.length>0">
+           <ol ui-tree-nodes ng-model="group.note">
+             <li ng-repeat="node in group.note" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+           </ol>
+         </div>
+         
+         <req-pagination itemmeta="meta" itempage="page" controller="group" config="group.paginationConfig"></req-pagination>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- group Modal -->
+ <div class="modal fade" id="groupModal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <div class="pull-left">
+           <button type="button" ng-disabled="!groupForm.$valid" ng-click="group.sendOrEdit(editMode)" ng-if = "checkWrite('group')" class="btn btn-success" ng-show = "stage == 0">ذخیره</button>
+           <button type="button" class="btn btn-info" ng-show = "stage != 0" ng-click="stage = 0">بازگشت</button>
+           <button type="button" class="btn btn-danger" ng-click="reset()" data-dismiss="modal">بستن</button>
+         </div>
+         <div class="pull-left load-spinner" ng-show = "loadModal">
+           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
+         </div>
+         <h3 class="modal-title" ng-hide="editMode">افزودن گروه</h3>
+         <h3 class="modal-title" ng-show="editMode">ویرایش گروه</h3>
+       </div>
+       <div class="modal-body" ng-hide = "loadModal">
+         <div ng-show = "stage == 0">
+           <form name="groupForm" role="form" novalidate  ng-submit="groupForm.$valid && group.sendOrEdit(editMode)">
+             <button type="submit" hidden></button>
+             <fieldset ng-disabled="!checkWrite('group')">
+               <div class="row">
+                 <div class="col-sm-6">
+                   <div class="form-group" ng-class="{'has-success' : groupForm.title.$valid && group.obj.title}">
+                     <label>عنوان*</label>
+                     <input type="text" class="form-control" name="title" placeholder="عنوان" ng-model = "group.obj.title" required>
+                   </div>
+                 </div>
+                 <div class="col-sm-6">
+                   <div class="form-group" ng-hide="group.obj.level >= 6">
+                       <label>پدر</label>
+                       <div class="input-group">
+                         <input type="text" class="form-control" ng-model="group.obj.parent.title" disabled>
+                         <span class="input-group-btn">
+                           <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-info btn-beside-input" ng-hide="group.obj.parent.title" 
+                           ng-click="group.openGroupSelctionWithPagination(1,group.selectGroupObj)">انتخاب پدر</button>
+                           <button type="button" ng-disabled="!checkWrite('product')" class="btn btn-danger btn-beside-input" ng-show="group.obj.parent.title" ng-click="group.deleteKey(group.obj, 'parent')">حذف پدر</button>
+                         </span>
+                       </div>
+                     </div>
+                 </div>
+               </div>
+               <div class="form-group" ng-class="{'has-success' : groupForm.dsc.$valid && group.obj.description}">
+                 <label>توضیحات*</label>
+                 <input type="text" class="form-control" name="dsc" placeholder="توضیحات" ng-model = "group.obj.description" required>
+               </div>
+               
+               <h4>
+                 فیلد ها 
+               </h4>
+ 
+               <div class="meta-case">
+                 <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('num')">
+                   <i class="fa fa-plus"></i>
+                   عدد
+                 </button>
+ 
+                 <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('str')">
+                   <i class="fa fa-plus"></i>
+                   متن
+                 </button>
+ 
+                 <button type="button" class="btn btn-round btn-sm btn-info" ng-click="group.addMeta('bool')">
+                   <i class="fa fa-plus"></i>
+                   دوحالتی
+                 </button>
+               </div>
+               <br>
+               <table class="table table-hover">
+                 <thead>
+                   <th>نوع فیلد</th>
+                   <th>عنوان فیلد</th>
+                   <th>حذف</th>
+                 </thead>
+                 <tbody>
+                   <tr ng-repeat = "meta in group.obj.self_meta_template">
+                     <td>
+                       <h5>
+                         {{meta.type | metaType}}
+                       </h5>
+                     </td>
+                     <td>
+                       <input type="text" class="form-control" placeholder="عنوان فیلد" ng-model = "meta.key" required>
+                     </td>
+                     <td>
+                       <a class="fa-2x" ng-click="group.deleteMeta($index)" href>×</a>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+ 
+             </fieldset>
+           </form>
+         </div>
+         <!-- end of Stage 0 -->
+ 
+         <search-modal ng-show = "stage == 1" obj="group.selectGroupObj" controller = "group"></search-modal>
+         <!-- end of Stage 1 -->
+         
+       </div>
+       <div class="modal-footer">
+         <p ng-show = "stage === 0"> −
+           پر کردن فیلد هایی که با * مشخص شده اجباری است
+         </p>
+       </div>
+     </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+ </div><!-- /.modal -->
+ 
+ <delete-modal controller = "group"></delete-modal>
+ <script type="text/ng-template" id="nodes_renderer.html">
+   <div class="tree-node tree-node-content row">
+     <div class="col-md-1">
+       <a title="باز و بسته کردن زیرگروه ها" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+         <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed,'fa-minus-square': !collapsed}"></span>
+       </a>
+     </div>
+     <div class="col-md-3">
+       {{node.title | lengthLimit:30}}
+     </div>
+     <div class="col-md-6 text-center">
+       {{node.description | lengthLimit:40}}
+     </div>
+     <div class="col-md-2">
+       <a class="pull-left" ng-if="checkWrite('group')" ng-click="group.toDeleteId = node.id; group.toDeleteTitle = node.title" title="حذف" data-toggle="modal" data-target="#deleteModal" href>
+         <i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>
+       </a>
+       <a class="pull-left" ng-click="group.getObject(node.id)" title="مشاهده" href style="margin-left: 15px;">
+         <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('group') , 'fa-eye' : !checkWrite('group')}" aria-hidden="true"></i>
+       </a>
+     </div>
+   </div>
+ 
+   <ol ui-tree-nodes="" class="tree-chd" ng-model="node.children" ng-class="{hidden: collapsed}">
+     <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+     </li>
+   </ol>
+ </script>

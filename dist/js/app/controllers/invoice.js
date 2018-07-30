@@ -113,6 +113,9 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       controller.selectProduct = function(){
         controller.tmp.searchQuery = '';
+        controller.productPageConf.searchOpt.text_search = '';
+        controller.productPageConf.searchOpt.use_case = '0';
+        
         $scope.selectStage = 3;
         controller.openModal('select');
         controller.getProducts(1);
@@ -285,5 +288,69 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         }
       };
 
+      controller.selectBuyerObj = {
+        title : { fa : 'خریدار', en : 'buyer'},
+        searchItem : {
+          fa : 'کاربر',
+          en : 'user'
+        },
+        searchAt : {
+          fa : 'نام خانوادگی',
+          en : 'last_name'
+        },
+        table : [
+          {fa:'نام',en:'first_name'},
+          {fa:'نام خانوادگی',en:'last_name'},
+          {fa:'شماره کارت',en:'card_no'},
+          {fa:'نوع کاربر',en:'clearance_level',filter:'userType'}
+        ],
+        pageConfig: {
+          url: mainAsset.getUrl()+'user',
+          getFunc: controller.searchWithPagination,
+          cat: 'user',
+          searchOpt: {
+            'text_search': '',
+          }
+        },
+        searchResult:[],
+        searchMeta:{},
+        searchPage: 1,
+        searchQuery: '',
+      };
+
+      controller.selectSellerObj = {
+        title : { fa : 'فروشنده', en : 'seller'},
+        searchItem : {
+          fa : 'فروشنده',
+          en : 'seller'
+        },
+        searchAt : {
+          fa : 'نام خانوادگی',
+          en : 'last_name'
+        },
+        table : [
+          {fa:'نام',en:'first_name'},
+          {fa:'نام خانوادگی',en:'last_name'},
+          {fa:'نام فروشگاه',en:'store_name'},
+          {fa:'آدرس',en:'address'},
+          
+        ],
+        pageConfig: {
+          url: mainAsset.getUrl()+'seller',
+          getFunc: controller.searchWithPagination,
+          cat: 'seller',
+          searchOpt: {
+            'text_search': '',
+          }
+        },
+        searchResult:[],
+        searchMeta:{},
+        searchPage: 1,
+        searchQuery: '',
+      };
+
+      controller.closeSelectionModal = function(){
+        mainAsset.closeModal('#selectModal');
+      }
   }
 );

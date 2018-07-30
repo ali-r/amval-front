@@ -163,7 +163,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
     };
 
     controller.selectTarget = function(_source, _base, _target, _stage, _callback){
-      
       _base[_target] = _source;
       
       if( typeof(_stage) != 'undefined'){
@@ -322,6 +321,35 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
         scope.preRequest.url, scope.preRequest.scope,scope.preRequest.callback);
     };
 
+    controller.searchWithPagination = function(page, obj){
+      scope.loadSearch = true;
+
+      // fetching pageConfig from searchtmp:
+      var pageConfig = obj.pageConfig; 
+      
+      // inserting search query into page config:
+      pageConfig.searchOpt.text_search = obj.searchQuery;
+
+      var searchUrl = controller.makeUrl(page, pageConfig);
+      var cat = pageConfig.cat;
+      mainAsset.log(searchUrl);
+      scope.preRequest = {
+        type: 'get',
+        url: searchUrl,
+        scope: scope, 
+        callback: function(response) {
+          obj.searchResult = response.data.data[cat + 's'];
+          obj.searchMeta = response.data.meta;
+          obj.searchPage = response.data.meta.page;    
+          scope.loadSearch = false;
+        },
+        progressBar: false
+      }
+      requestHelper.get(
+        scope.preRequest.url, scope.preRequest.scope,scope.preRequest.callback);
+    };
+
+
     controller.selectThings = function(stage, object, field){
       scope.stage = stage;
       controller.tmp.searchQuery = '';
@@ -340,6 +368,17 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
     controller.openSelectionModal = function(stage_, field_, var_){
       mainAsset.openModal('#selectModal');
       controller.selectThings(stage_,field_,var_);
+    }
+  
+    controller.openSelectionModalWithPagination = function(stage_,obj,selectModal_){
+      if(selectModal_ !== false)
+        mainAsset.openModal('#selectModal');
+      scope.stage = stage_;
+      obj.searchResult = [];
+      obj.searchMeta = {};
+      obj.searchPage = 1;
+      obj.searchQuery = '';
+      controller.searchWithPagination(1,obj);
     }
   
     controller.closeSelectionModal = function(){

@@ -36,12 +36,6 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   ]);
   crud.init($scope, controller, apiName, controller.objConfig)
 
-  controller.selectUser = function(){
-    $scope.stage = 1;
-    controller.tmp.searchQuery = '';
-    controller.search('user');
-  };
-
   controller.getProducts = function(page){
     $scope.loadSide = true;
     var getUrl = controller.makeUrl(page, controller.productPageConf);
@@ -89,4 +83,35 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
     if($localStorage.assetData.selectedWarehouse.id == _id)
       $localStorage.assetData.selectedWarehouse = null;
   }
+
+  controller.selectUserObj = {
+    title : { fa : 'کاربر', en : 'user'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'user',
+      getFunc: controller.searchWithPagination,
+      cat: 'user',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
+
 });

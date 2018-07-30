@@ -25,7 +25,7 @@
     <div id="report-field" style="display:none" class="report-field" >
       <label class="report-label" ng-if="ticket.centralWarehouse"> درخواست خرید کالا از انبار:</label>
       <div ng-if="ticket.centralWarehouse" title="درخواست خرید کالا از انبار" class="input-group report-field-option">
-        <input type="text" class="form-control" placeholder="انتخاب انبار مبدا" ng-model="ticket.addOne.reportFields.from_warehouse.title" readonly ng-click="ticket.openSelectionModal(2,'warehouse','')">
+        <input type="text" class="form-control" placeholder="انتخاب انبار مبدا" ng-model="ticket.addOne.reportFields.from_warehouse.title" readonly ng-click="ticket.openSelectionModalWithPagination(2,ticket.selectFromWarehouseObj)">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-beside-input" ng-show="ticket.addOne.reportFields.from_warehouse"
             ng-click="ticket.clearPurchaseReport()">
@@ -140,7 +140,8 @@
                     <div class="input-group" ng-hide="editMode">
                       <input type="text" class="form-control" ng-model="ticket.obj.product.name" disabled>
                       <span class="input-group-btn">
-                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" ng-click="ticket.openSelectionModal(0,'product','')">انتخاب</button>
+                        <button type="button" ng-disabled="!checkWrite('ticket') || editMode" class="btn btn-info btn-beside-input" ng-hide="ticket.obj.product && ticket.obj.product!=''" 
+                        ng-click="ticket.openSelectionModalWithPagination(0,ticket.selectProductObj)">انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
                         ng-show="ticket.obj.product && ticket.obj.product!=''" 
                         ng-click="ticket.deleteKey(ticket.obj,'product')"> 
@@ -237,7 +238,7 @@
                         <button type="button" class="btn btn-info btn-beside-input"
                         ng-disabled="editMode || !checkWrite('ticket') || !ticket.allowedSource"  
                         ng-hide="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
-                        ng-click="ticket.openSelectionModal(1,'warehouse','')">
+                        ng-click="ticket.openSelectionModalWithPagination(1,ticket.selectDestinationObj)">
                           انتخاب</button>
                         <button class="btn btn-danger btn-beside-input" type="button"
                         ng-show="ticket.obj.to_warehouse && ticket.obj.to_warehouse!=''" 
@@ -323,7 +324,7 @@
                         ارسال
                       </button>
                       <button type="button" ng-disabled="sendingMessage" ng-hide="(!!ticket.tmp.text && ticket.tmp.text!='') || ticket.tmp.transaction"
-                      ng-click="ticket.openSelectionModal(3,'transaction','')" class="btn btn-primary" title="پیوست تراکنش"> 
+                      ng-click="ticket.openSelectionModalWithPagination(3,ticket.selectTransactionObj)" class="btn btn-primary" title="پیوست تراکنش"> 
                         پیوست تراکنش
                       </button>
                       <button type="button" ng-show="ticket.tmp.transaction && !sendingMessage" class="btn btn-danger" ng-click="ticket.deleteKey(ticket.tmp,'transaction')" title="حذف پیوست" style="width:100%;">
@@ -362,112 +363,16 @@
                     <div class="row">
                         <div class="col-md-12">
                           <!-- Stage == 0 -> product -->
-                          <div class="panel panel-info" ng-show="stage == 0">
-                                <div class="panel-heading">
-                                    انتخاب کالا
-                                    <div class="pull-left">
-                                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-
-                                    <form name="selectProductForm" role="form" novalidate>
-                                      <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" placeholder="جستجو" ng-model="ticket.tmp.searchQuery">
-                                        <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectProductForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('product','')">جستجوی کالا</button>
-                                        </span>
-                                      </div>
-                                    </form>
-
-
-                                    <table class="table table-hover table-border" ng-hide = "ticket.tmp.searchResult == '' || loadSearch">
-                                        <tbody>
-                                          <tr>
-                                            <th>ردیف</th>
-                                            <th>نام کالا</th>
-                                            <th>شماره سریال کارخانه</th>
-                                            <th>انتخاب</th>
-                                          </tr>
-
-                                          <tr  ng-repeat = "list in ticket.tmp.searchResult">
-                                            <td >{{$index+1}}</td>
-                                            <td>
-                                              {{list.name | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              {{list.serial_number | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              <a  ng-click="ticket.selectObj('product',list)" href>
-                                                <i class="fa fa-check-square-o fa-lg"></i>
-                                              </a>
-                                                
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                          </div>
-
+                          <search-modal ng-show = "stage === 0" obj="ticket.selectProductObj" controller = "ticket" func="controller.closeModal()"></search-modal>
+                          
                           <!-- Stage == 1 -> to_warehouse -->
-                          <div class="panel panel-info" ng-show="stage == 1">
-                                <div class="panel-heading">
-                                    انتخاب انبار مقصد
-                                    <div class="pull-left">
-                                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-
-                                    <form name="selectWarehouseForm" role="form" novalidate>
-                                      <div class="input-group">
-                                        <input type="text" class="form-control" name="searchText" placeholder="جستجو" ng-model="ticket.tmp.searchQuery">
-                                        <span class="input-group-btn">
-                                          <button type="submit" ng-disabled = "selectWarehouseForm.$invalid" class="btn btn-info btn-beside-input" ng-click="ticket.search('warehouse')">جستجوی انبار</button>
-                                        </span>
-                                      </div>
-                                    </form>
-
-
-                                    <table class="table table-hover table-border" ng-hide = "ticket.tmp.searchResult == '' || loadSearch">
-                                        <tbody>
-                                          <tr>
-                                            <th>ردیف</th>
-                                            <th>نام انبار</th>
-                                            <th>محل</th>
-                                            <th>شماره تلفن</th>
-                                            <th></th>
-                                          </tr>
-
-                                          <tr  ng-repeat = "list in ticket.tmp.searchResult | filterObjById:ticket.relateWarehouseId">
-                                            <td >{{$index+1}}</td>
-                                            <td>
-                                              {{list.title | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              {{list.location | lengthLimit:15}}
-                                            </td>
-                                            <td dir="ltr">
-                                              {{list.phone | lengthLimit:15}}
-                                            </td>
-                                            <td>
-                                              <a  ng-click="ticket.selectObj('to_warehouse',list)" href>
-                                                <i class="fa fa-check-square-o fa-lg"></i>
-                                              </a>
-                                                
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                          </div>
+                          <search-modal ng-show = "stage === 1" obj="ticket.selectDestinationObj" controller = "ticket" func="controller.closeModal()" ></search-modal>
 
                           <!-- Stage == 2 -> from_warehouse -->
-                          <search-stage ng-show = "stage == 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.setPurchaseReport()" ,filterId="-1"></search-stage>
+                          <search-modal ng-show = "stage === 2" obj="ticket.selectFromWarehouseObj" controller = "ticket" target="reportFields" subbase="addOne" func="controller.setPurchaseReport()" ,filterId="-1"></search-modal>
 
                           <!-- Stage == 3 -> transaction for message attachment -->
-                          <search-stage ng-show = "stage == 3" obj="ticket.selectTransactionObj" controller = "ticket" target="tmp"  func="controller.closeModal()" ,filterId="-1"></search-stage>
+                          <search-modal ng-show = "stage === 3" obj="ticket.selectTransactionObj" controller = "ticket" target="tmp"  func="controller.closeModal()" ,filterId="-1"></search-modal>
                           
                         </div>
                     </div>

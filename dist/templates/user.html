@@ -192,7 +192,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="user.obj.warehouse.title" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse.title" ng-click="user.selectWareHouse()">انتخاب انبار</button>
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse.title" ng-click="user.openSelectionModalWithPagination(1,user.selectRefrenceWarehouseObj)">انتخاب انبار</button>
                           <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-danger btn-beside-input" ng-show="user.obj.warehouse.title" ng-click="user.deleteKey(user.obj, 'warehouse')">حذف انبار</button>
                         </span>
                       </div>
@@ -203,7 +203,7 @@
                       <div class="input-group">
                         <input type="text" class="form-control" ng-model="user.obj.warehouse_under_management.title" ng-required="user.obj.clearance_level == 1" disabled>
                         <span class="input-group-btn">
-                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse_under_management.title" ng-click="user.selectThings(2, 'warehouse', '?parent_warehouse__ne=None')">انتخاب انبار</button>
+                          <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-primary btn-beside-input" ng-hide="user.obj.warehouse_under_management.title" ng-click="user.openSelectionModalWithPagination(2,user.selectWarehouseUnderManagementObj)">انتخاب انبار</button>
                           <button type="button" ng-disabled="!checkWrite('user')" class="btn btn-danger btn-beside-input" ng-show="user.obj.warehouse_under_management.title" ng-click="user.deleteKey(user.obj, 'warehouse_under_management')">حذف انبار</button>
                         </span>
                       </div>
@@ -241,58 +241,11 @@
             </form>
             </div>
             <!-- end of Stage 0 -->
-
-            <div class="row" ng-show = "stage == 1">
-              <div class="col-md-12">
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    انتخاب انبار
-                    <div class="pull-left">
-                      <i ng-show = "loadSearch" class="fa fa-refresh fa-spin"></i>
-                    </div>
-                  </div>
-                  <div class="panel-body">
-                    <form name="searchForm" role="form" novalidate>
-                          <div class="input-group">
-                            <input type="text" class="form-control" name="searchText" ng-model="user.tmp.searchQuery" placeholder="جستجو">
-                            <span class="input-group-btn">
-                              <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="user.search('warehouse')">جستجو</button>
-                            </span>
-                          </div>
-                      </form>
-                      <table class="table table-hover table-border" ng-hide = "user.tmp.searchResult == '' || loadSearch">
-                        <tbody>
-                          <tr>
-                            <th>ردیف</th>
-                            <th>نام انبار</th>
-                            <th>محل</th>
-                            <th>انتخاب</th>
-                          </tr>
-
-                          <tr ng-repeat = "list in user.tmp.searchResult">
-                            <td>{{$index+1}}</td>
-                            <td>
-                              {{list.title | lengthLimit:20}}
-                            </td>
-                            <td>
-                              {{list.location | lengthLimit:20}}
-                            </td>
-                            <td>
-                              <a ng-click="user.selectTarget(list, user.obj, 'warehouse', 0)" href>
-                                <i class="fa fa-check-square-o fa-lg"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-              <!-- /.box-body -->
-              </div>
-            </div>
+            
+            <search-modal ng-show = "stage == 1" obj="user.selectRefrenceWarehouseObj" controller = "user"></search-modal>        
             <!-- end of Stage 1 -->
 
-            <search-stage ng-show = "stage == 2" obj="user.selectWarehouseUnderManagementObj" controller = "user"></search-stage>
+            <search-modal ng-show = "stage == 2" obj="user.selectWarehouseUnderManagementObj" controller = "user"></search-modal>        
             <!-- end of Stage 2 -->
 
           </div>

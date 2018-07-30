@@ -95,21 +95,8 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       {'src':'../dist/templates/user.html' ,'ctrl':'userCtrl as user'}
     ];
 
-
-    this.selectWareHouseModal = function(){
-      controller.tmp.searchQuery = '';
-      mainAsset.openModal('#warehouseModal');
-      controller.search('warehouse');
-    }
-
+    crud.init($scope, controller);
     
-    this.selectWarehouse = function(obj){
-      mainAsset.closeModal('#warehouseModal');
-      $routeParams.id = obj.id;
-      $localStorage.assetData.selectedWarehouse = obj;
-      setWarehouse(obj);
-    }
-
     controller.search = function(cat, field,filter){
       var filterSection = '';
       if(!!filter && !!filter.key && !!filter.value){
@@ -145,5 +132,42 @@ angular.module("assetAdminPanel").controller('mywarehouseCtrl',
       controller.deleteKey(controller, 'warehouse');
       $localStorage.assetData.selectedWarehouse = null;
     };
+
+    controller.getWarehouses = function(page){
+      $scope.loadSearch = true;
+      controller.warehousePageConf.searchOpt.text_search = controller.tmp.searchQuery;
+      var getUrl = controller.makeUrl(page, controller.warehousePageConf);
+
+      requestHelper.get(getUrl, $scope, function(response){
+        mainAsset.log(response.data.data)
+        controller.tmp.searchResult = response.data.data.warehouses;
+        controller.warehousesMeta = response.data.meta;
+        controller.warehousesPage = response.data.meta.page;
+        $scope.loadSearch = false;
+      });
+    };
+  
+    controller.warehousePageConf = {
+      getFunc : controller.getWarehouses,
+      url: mainAsset.getUrl()+ '/warehouse',
+      searchOpt : {
+        'text_search': ''
+      }
+    };
+
+    this.selectWareHouseModal = function(){
+      controller.tmp.searchQuery = '';
+      mainAsset.openModal('#warehouseModal');
+      controller.getWarehouses(1);
+    }
+
+    
+    this.selectWarehouse = function(obj){
+      mainAsset.closeModal('#warehouseModal');
+      $routeParams.id = obj.id;
+      $localStorage.assetData.selectedWarehouse = obj;
+      setWarehouse(obj);
+    }
+
 
 });

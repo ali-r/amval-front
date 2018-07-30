@@ -164,7 +164,7 @@
                 </div>
               </div>
               <div class="panel-body">
-                <form name="searchForm" role="form" novalidate ng-submit="searchForm.$valid && mywarehouse.search('warehouse');">
+                <form name="searchForm" role="form" novalidate ng-submit="searchForm.$valid && mywarehouse.getWarehouses(1);">
                       <div class="input-group">
                         <input title="جستجو در بین فیلدهای متنی" type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="mywarehouse.tmp.searchQuery">
                         <span class="input-group-btn">
@@ -205,6 +205,7 @@
                       </tr>
                     </tbody>
                 </table>
+                <req-pagination ng-hide="loadSearch" itemmeta="mywarehouse.warehousesMeta" itempage="mywarehouse.warehousesPage" controller="mywarehouse" config="mywarehouse.warehousePageConf"></req-pagination>                                                    
               </div>
             </div>
           <!-- /.box-body -->

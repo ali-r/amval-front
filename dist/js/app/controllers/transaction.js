@@ -6,25 +6,9 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
   controller.searchObject = [
     {'fname' : 'شناسه', 'field' : 'unique_id'}
   ];
-  controller.selectProductObj = {
-    title : { fa : 'کالا', en : 'product'},
-    searchItem : {
-      fa : 'کالا',
-      en : 'product'
-    },
-    searchAt : {
-      fa : 'نام',
-      en : 'subgroup'
-    },
-    table : [
-      {fa:'نام',en:'name'},
-      {fa:'شماره سریال کارخانه',en:'serial_number'}
-    ],
-    searchFilter:{
-      key: 'use_case',
-      value: '1'
-    }
-  }
+  
+  
+
   controller.selectUserSourceObj = {
     title : { fa : 'کاربر مبدا', en : 'source'},
     searchItem : {
@@ -151,7 +135,8 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     $scope.stage = 0;
   };
 
-  controller.addDestination = function(type_,item){
+  controller.addDestination = function(type_){
+    var item = controller.obj.destination;
     controller.obj.destination = {
       type: type_,
       id: item.id,
@@ -219,49 +204,183 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     });
   }
   
-  controller.openProductSelection = function(selectStage){
-    controller.tmp.searchQuery = '';
-    $scope.stage = selectStage;
-    // controller.openModal('select');
-    controller.getProducts(1);
-  };
-  
-  controller.openProductSelectionModal = function(selectStage){
-    controller.tmp.searchQuery = '';
-    $scope.stage = selectStage;
-    mainAsset.openModal('#selectModal');
-    controller.getProducts(1);
-  };
-
-  controller.addProductFilter = function(obj){
-    controller.addOne.reportFields.product = obj;
-    controller.closeSelectionModal();
+  controller.selectProductObj = {
+    title : { fa : 'کالا', en : 'product'},
+    searchItem : {
+      fa : 'کالا',
+      en : 'product'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'subgroup'
+    },
+    table : [
+      {fa:'نام',en:'name'},
+      {fa:'شماره سریال کارخانه',en:'serial_number'}
+    ],
+    searchFilter:{
+      key: 'use_case',
+      value: '1'
+    },
+    pageConfig: {
+      url: mainAsset.getUrl()+'product',
+      getFunc: controller.searchWithPagination,
+      cat: 'product',
+      searchOpt: {
+        'use_case': '1',
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
   }
 
-  controller.getProducts = function(page){
-    $scope.loadSearch = true;
-    controller.productPageConf.searchOpt.text_search = controller.tmp.searchQuery;
-    var getUrl = controller.makeUrl(page, controller.productPageConf);
+  controller.selectUserSourceObj = {
+    title : { fa : 'کاربر مبدا', en : 'source'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'user',
+      getFunc: controller.searchWithPagination,
+      cat: 'user',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
 
-    requestHelper.get(getUrl, $scope, function(response){
-      mainAsset.log(response.data.data)
-      controller.tmp.searchResult = response.data.data.products;
-      controller.productsMeta = response.data.meta;
-      controller.productsPage = response.data.meta.page;
-      $scope.loadSearch = false;
-    });
-  };
+  controller.selectUserDestinationObj = {
+    title : { fa : 'کاربر مقصد', en : 'destination'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'user',
+      getFunc: controller.searchWithPagination,
+      cat: 'user',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
+  
+  controller.selectWarehouseSourceObj = {
+    title : { fa : 'انبار مبدا', en : 'source'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام',en:'title'},
+      {fa:'آدرس',en:'location'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'warehouse',
+      getFunc: controller.searchWithPagination,
+      cat: 'warehouse',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
 
-  controller.productPageConf = {
-    getFunc : controller.getProducts,
-    url: mainAsset.getUrl()+ 'product',
-    searchOpt : {
-      'use_case':'1',
-      'text_search': ''
-    }
-  };
+  controller.selectWarehouseDestinationObj = {
+    title : { fa : 'انبار مقصد', en : 'destination'},
+    searchItem : {
+      fa : 'انبار',
+      en : 'warehouse'
+    },
+    searchAt : {
+      fa : 'نام',
+      en : 'title'
+    },
+    table : [
+      {fa:'نام',en:'title'},
+      {fa:'آدرس',en:'location'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'warehouse',
+      getFunc: controller.searchWithPagination,
+      cat: 'warehouse',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
 
-
-
+  controller.selectAuthorObj = {
+    title : { fa : 'کاربر اعمال کننده تراکنش', en : 'auth_by'},
+    searchItem : {
+      fa : 'کاربر',
+      en : 'user'
+    },
+    searchAt : {
+      fa : 'نام خانوادگی',
+      en : 'last_name'
+    },
+    table : [
+      {fa:'نام',en:'first_name'},
+      {fa:'نام خانوادگی',en:'last_name'},
+      {fa:'شماره کارت',en:'card_no'},
+      {fa:'نوع کاربری',en:'clearance_level',filter:'userType'}
+    ],
+    pageConfig: {
+      url: mainAsset.getUrl()+'user',
+      getFunc: controller.searchWithPagination,
+      cat: 'user',
+      searchOpt: {
+        'text_search': '',
+      }
+    },
+    searchResult:[],
+    searchMeta:{},
+    searchPage: 1,
+    searchQuery: '',
+  }
 
 });
