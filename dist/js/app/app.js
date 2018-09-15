@@ -405,3 +405,21 @@ app.filter('transactionIdDisplay', function() {
     return output;
   }
 });
+
+app.filter('boolToText', function() {
+  return function(input) {
+    var output;
+    if(typeof(input)==='boolean'){
+      if(input === true) output = 'بله';
+      else output = 'خیر';
+    }
+    else{
+      if (!input || input=='') {
+        output = '− بدون مقدار −'
+      }else{
+        output = input;
+      }
+    }
+    return output;
+  }
+});
