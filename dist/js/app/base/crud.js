@@ -141,8 +141,6 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
               callback(response);
             }else{
               scope.meta = response.data.meta;
-              if(response.data.data.total_price) scope.total_price = response.data.data.total_price;
-              else delete scope['total_price']
               controller.note = response.data.data[apiName + 's'];
             }
           mainAsset.log(response)  
