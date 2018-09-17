@@ -5,7 +5,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
   var apiName = 'product';
 
   controller.searchObject = [
-    {'fname' : 'نام', 'field' : 'subgroup'},
+    {'fname' : 'بارکد', 'field' : 'internal_id'},
     {'fname' : 'شماره سریال کارخانه', 'field' : 'serial_number'},
     {'fname' : 'قیمت', 'field' : 'price', 'show_in_search' : false}
   ];
@@ -24,6 +24,19 @@ angular.module("assetAdminPanel").controller('productCtrl',
   // controller.addOne.extra.group = {};
   controller.relateWarehouseId = $routeParams.id;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
+  controller.priceLoaded = false;
+  
+  controller.getTotalPrice = function(){
+    controller.priceLoaded = false;
+    requestHelper.get(
+      $scope.apiUrl + '?page=1&per_page=1&get_total_price=true',
+      $scope, function(response){
+        $scope.total_price = response.data.data.total_price;
+        controller.priceLoaded = true;        
+      }
+    )
+  }
+  controller.getTotalPrice();
 
   controller.creatProductCallback = function(){
     controller.getData();
@@ -57,8 +70,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
-
-  
 
   controller.obj.qr_code = '';
   this.uploadPic = function() {
@@ -123,7 +134,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }
-
 
   controller.selectProducerObj = {
     title : { fa : 'تولید کننده', en : 'producer'},
@@ -302,7 +312,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
     searchPage: 1,
     searchQuery: '',
   }
-
 
 
 });
