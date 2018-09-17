@@ -24,13 +24,15 @@ angular.module("assetAdminPanel").controller('productCtrl',
   // controller.addOne.extra.group = {};
   controller.relateWarehouseId = $routeParams.id;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
-
+  controller.priceLoaded = false;
+  
   controller.getTotalPrice = function(){
+    controller.priceLoaded = false;
     requestHelper.get(
       $scope.apiUrl + '?page=1&per_page=1&get_total_price=true',
       $scope, function(response){
-        console.log('response: ',response.data);
-        $scope.total_price = response.data.data.total_price;        
+        $scope.total_price = response.data.data.total_price;
+        controller.priceLoaded = true;        
       }
     )
   }
