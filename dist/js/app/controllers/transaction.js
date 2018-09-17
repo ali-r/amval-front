@@ -158,12 +158,12 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     
     if(ex.datetime__gte){
       if(ex.datetime__gte=="") delete ex['datetime__gte'];
-      else ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte,{noTime:true});
+      else ex.datetime__gte = mainAsset.toGregorianDateTime2(ex.datetime__gte,true,'HH:mm jYYYY-jM-jD');
     }
 
     if(ex.datetime__lte){
       if(ex.datetime__lte=="") delete ex['datetime__lte']; 
-      else ex.datetime__lte = mainAsset.toGregorianDate(ex.datetime__lte,{noTime:true});
+      else ex.datetime__lte = mainAsset.toGregorianDateTime2(ex.datetime__lte,true,'HH:mm jYYYY-jM-jD');
     }
 
     if(ex.product) ex.product = ex.product.id;

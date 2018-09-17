@@ -129,6 +129,36 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       return output;
     };
 
+    this.toJalaliDateTime2 = function(pDate,utcNeeded,inputFormat,outputFormat){
+      // The new version of jalali convertor is more general
+      if(!pDate) pDate = '';
+      if(utcNeeded===undefined || utcNeeded===null) utcNeeded = true;
+      if(!inputFormat) inputFormat = 'YYYY-MM-DDTHH:mm:ss';
+      if(!outputFormat) outputFormat = 'HH:mm - jYYYY/jM/jD' ;
+
+      pDate = moment(pDate,inputFormat)
+      if(utcNeeded){
+        if(moment(pDate).isDST()){
+          pDate = pDate.add(270,'m');
+        }
+        else{
+          pDate = pDate.add(210,'m');
+        }
+      }
+      var outDate = pDate.format(outputFormat);
+      return(outDate)
+    }
+
+    this.toGregorianDateTime2 = function(pDate,utcNeeded,inputFormat,outputFormat){
+      if(!pDate) pDate = '';
+      if(utcNeeded===undefined || utcNeeded===null) utcNeeded = true;
+      if(!inputFormat) inputFormat = 'hh:mm - jYYYY/jM/jD';
+      if(!outputFormat) outputFormat = 'YYYY-MM-DDTHH:mm:ss';
+      if(utcNeeded) pDate = moment(pDate,inputFormat).utc();
+      var outDate = pDate.format(outputFormat);
+      return(outDate)
+    }
+
     this.log = function(logText){
       if(assetPanelData.devMode){
         console.log(logText)
