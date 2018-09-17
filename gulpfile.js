@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     templateCache = require('gulp-angular-templatecache'),
     connect = require('gulp-connect');
 
-var devMode = false;
+var devMode = true;
 
 var css = {
   in : {
