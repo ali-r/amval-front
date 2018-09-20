@@ -31,6 +31,17 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
       $scope.apiUrl = mainAsset.getUrl() + controller.apiName;
 
+      controller.getTotalPrice = function(){
+        controller.priceLoaded = false;
+        requestHelper.get(
+          $scope.apiUrl + '?page=1&per_page=1&get_total_price=true',
+          $scope, function(response){
+            $scope.total_price = response.data.data.total_price;
+            controller.priceLoaded = true;        
+          }
+        )
+      }
+      controller.getTotalPrice();
 
       controller.objConfig = function(obj){
         var obj2 = new Object();

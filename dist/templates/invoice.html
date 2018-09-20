@@ -29,9 +29,13 @@
                     </small>
                 
                     <small ng-if="total_price && !load">
-                        (قیمت کل: {{total_price | currency:'':0 | productPrice | pNumber}}
+                        ( قیمت کل: {{total_price | currency:'':0 | productPrice | pNumber}}
                         {{ "ریال" + " " }}
                         )
+                    </small>
+
+                    <small ng-if="!total_price || load">
+                     ( قیمت کل: ‌درحال محاسبه... )
                     </small>
                 </h2>
                 <button type="button" ng-if = "checkWrite('invoice')" class="btn btn-success btn-sm pull-left" name="button" ng-click="invoice.setNewInvoiceForm()">
