@@ -203,6 +203,23 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
         $scope.loadModal = false;
     });
   }
+
+  controller.searchDestinationWithPagination = function(page,obj_){
+    if(controller.obj.product){
+      obj_.pageConfig.searchOpt.destination_for = controller.obj.product.id;
+      controller.searchWithPagination(page,obj_);
+    }
+    else{
+      obj_.pageConfig.searchOpt.destination_for = "-1";      
+      new PNotify({
+        title: 'اخطار',
+        text: 'ابتدا کالا را انتخاب نمایید!',
+        type: 'warn',
+      });
+      $scope.stage = 0;
+    }
+
+  }
   
   controller.selectProductObj = {
     title : { fa : 'کالا', en : 'product'},
@@ -285,7 +302,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     ],
     pageConfig: {
       url: mainAsset.getUrl()+'user',
-      getFunc: controller.searchWithPagination,
+      getFunc: controller.searchDestinationWithPagination,
       cat: 'user',
       searchOpt: {
         'text_search': '',
@@ -341,7 +358,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     ],
     pageConfig: {
       url: mainAsset.getUrl()+'warehouse',
-      getFunc: controller.searchWithPagination,
+      getFunc: controller.searchDestinationWithPagination,
       cat: 'warehouse',
       searchOpt: {
         'text_search': '',

@@ -20,7 +20,7 @@
                 </span>
               </div>
           </form>
-          <table class="table table-hover table-border" ng-hide = "obj.searchResult == '' || $parent.loadSearch || $parent.$parent.loadSearch">
+          <table class="table table-hover table-border" ng-hide = "obj.searchResult.length===0 || $parent.loadSearch || $parent.$parent.loadSearch">
             <tbody>
               <tr>
                 <th>ردیف</th>
@@ -45,7 +45,13 @@
               </tr>
             </tbody>
         </table>
-        <req-pagination itemmeta="obj.searchMeta" itempage="obj.searchPage" controller="controller" config="obj.pageConfig" obj="obj" ></req-pagination>                      
+        
+        <req-pagination ng-hide="obj.searchResult.length===0" itemmeta="obj.searchMeta" itempage="obj.searchPage" controller="controller" config="obj.pageConfig" obj="obj" ></req-pagination>                      
+      </div>
+      <div ng-show="obj.searchResult.length===0 && !$parent.loadSearch" >
+        <p class="text-center" >
+          موردی یافت نشد.
+        </p>
       </div>
     </div>
   <!-- /.box-body -->
