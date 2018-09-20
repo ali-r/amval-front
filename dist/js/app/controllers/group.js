@@ -126,16 +126,4 @@ angular.module("assetAdminPanel").controller('groupCtrl',
     controller.openSelectionModalWithPagination(stage,obj,false);
   }
 
-  controller.getSubgroup = function(collapsed,group_){
-    if(!group_.children && !collapsed){
-      requestHelper.get(
-        $scope.apiUrl + '?parent='+group_.id,
-        $scope,function(response){
-          if(response.data.data.groups.length > 0) group_.children = response.data.data.groups;
-        }
-      )
-    }
-  }
-
-
 });
