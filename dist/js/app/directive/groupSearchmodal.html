@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        انتخاب
+        {{obj.title.fa  | lengthLimit:30}}
+        <div class="pull-left">
+          <i ng-show = "loadSearch || $parent.loadSearch || $parent.$parent.loadSearch" class="fa fa-refresh fa-spin"></i>
+        </div>
+      </div>
+      <div ng-hide="loadSearch || $parent.loadSearch || $parent.$parent.loadSearch" class="panel-body">
+        <form name="searchForm" role="form" novalidate>
+            <div class="input-group">
+              <input title="جستجو در بین عبارت های متنی" type="text" class="form-control" placeholder="جستجو" name="searchText" ng-model="obj.searchQuery">
+              <span class="input-group-btn">
+                <button type="submit" ng-disabled = "searchForm.$invalid" class="btn btn-info btn-beside-input" ng-click="obj.pageConfig.getFunc(1,obj)">
+                  جستجوی 
+                  {{obj.searchItem.fa  | lengthLimit:30}}
+                </button>
+              </span>
+            </div>
+        </form>
+
+        <table class="table table-hover table-border" ng-hide = "obj.pageConfig.searchOpt.text_search==='' || obj.searchResult == '' || $parent.loadSearch || $parent.$parent.loadSearch">
+            <tbody>
+                <tr>
+                  <th>ردیف</th>
+                  <th ng-repeat="item in obj.table">
+                    {{item.fa | lengthLimit:20}}
+                  </th>
+                  <th>انتخاب</th>
+                </tr>                
+                <tr  ng-repeat = "list in obj.searchResult | filterObjById:(filterId || controller.obj.id)">
+                  <td>
+                    {{ (obj.searchMeta.page-1)*(obj.searchMeta.per_page) + $index + 1 }}
+                  </td>
+                  <td ng-repeat="att in obj.table">
+                    {{list[att.en] | useFilter:(att.filter || null) | lengthLimit:30}}
+                  </td>
+                  <td>
+                    <a title="انتخاب ردیف" ng-click="controller.selectTarget(list,controller[subbase][target] || controller[target], obj.title.en, 0, func)" href>
+                      <i class="fa fa-check-square-o fa-lg"></i>
+                    </a>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div ui-tree id="tree-root" ng-show = "obj.searchResult.length>0 && obj.pageConfig.searchOpt.text_search===''">
+          <ol ui-tree-nodes ng-model="obj.searchResult">
+            <li ng-repeat="node in obj.searchResult" ui-tree-node ng-include="'subgroup_renderer.html'"></li>
+          </ol>
+        </div>
+        <req-pagination itemmeta="obj.searchMeta" itempage="obj.searchPage" controller="controller" config="obj.pageConfig" obj="obj" ></req-pagination>                      
+      </div>
+    </div>
+  <!-- /.box-body -->
+  </div>
+  <script type="text/ng-template" id="subgroup_renderer.html">
+    <div class="tree-node tree-node-content row">
+      <div class="col-md-1">
+        <a title="باز و بسته کردن زیرگروه ها" data-nodrag ng-click="toggle(this);controller.getSubgroup(collapsed,node)">
+          <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed,'fa-minus-square': !collapsed}"></span>
+        </a>
+      </div>
+      <div class="col-md-3">
+        {{node.title | lengthLimit:30}}
+      </div>
+      <div class="col-md-6 text-center">
+        {{node.description | lengthLimit:40}}
+      </div>
+      <div class="col-md-2">
+        <a class="pull-left" title="انتخاب ردیف" ng-click="controller.selectTarget(node,controller[subbase][target] || controller[target], obj.title.en, 0, func)" href>
+          <i class="fa fa-check-square-o fa-lg"></i>
+        </a>
+      </div>
+    </div>
+  
+    <ol ui-tree-nodes="" class="tree-chd" ng-model="node.children" ng-class="{hidden: collapsed}">
+      <li ng-repeat="node in node.children" ui-tree-node ng-include="'subgroup_renderer.html'">
+      </li>
+    </ol>
+  </script>
+</div>
+

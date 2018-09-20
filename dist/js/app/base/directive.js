@@ -213,6 +213,38 @@ app.directive('searchModal', function(mainAsset, requestHelper) {
   }
 });
 
+// Search Modal Specified for groups
+app.directive('groupSearchmodal', function(mainAsset, requestHelper) {
+  return {
+    restrict: 'E',
+    replace : true,
+    scope : {
+      obj : '=',
+      controller : '=',
+      filterId: '@',
+      target : '@',
+      subbase: '@',
+      func: '@'
+    },
+    link : function(scope, element, attr){
+
+      if (!scope.target) {
+        scope.target = 'obj';
+      }
+      if(!scope.subbase || scope.subbase==''){
+        scope.subbase = undefined;
+      }
+      if(!scope.func || scope.func==''){
+        scope.func = undefined
+      }
+      if(!scope.filterId || scope.filterId==''){
+        scope.filterId = undefined
+      }
+    },
+    templateUrl: '/dist/js/app/directive/groupSearchmodal.html'
+  }
+});
+
 app.directive('creatProduct', function(mainAsset, requestHelper) {
   return {
     restrict: 'E',
@@ -302,7 +334,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         ],
         pageConfig: {
           url: mainAsset.getUrl()+'group',
-          getFunc: scope.controller.searchWithPagination,
+          getFunc: scope.controller.searchGroupWithPagination,
           cat: 'group',
           searchOpt: {
             'text_search': '',
@@ -400,7 +432,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         }
 
         delete sendCopyObj.name;
-
+        
         sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
         sendCopyObj.guarantee_start_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_start_date);
         sendCopyObj.production_date = mainAsset.toGregorianDate(sendCopyObj.production_date);

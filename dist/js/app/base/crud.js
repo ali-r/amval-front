@@ -376,13 +376,30 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
       obj.searchMeta = {};
       obj.searchPage = 1;
       obj.searchQuery = '';
-      controller.searchWithPagination(1,obj);
+      obj.pageConfig.getFunc(1,obj);
     }
   
     controller.closeSelectionModal = function(){
       mainAsset.closeModal('#selectModal');
       scope.reset();
     }
+
+    controller.getSubgroup = function(collapsed,group_){
+      if(!group_.children && !collapsed){
+        requestHelper.get(
+          mainAsset.getUrl() + 'group?parent='+group_.id,
+          scope,function(response){
+            if(response.data.data.groups.length > 0) group_.children = response.data.data.groups;
+          }
+        )
+      }
+    }
+
+  controller.searchGroupWithPagination = function(page,obj){
+    if(obj.searchQuery==='') obj.pageConfig.searchOpt['depth__lt'] = 2;
+    else delete obj.pageConfig.searchOpt['depth__lt'];
+    controller.searchWithPagination(page,obj);
+  }
 
   }
 });

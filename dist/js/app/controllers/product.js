@@ -237,10 +237,9 @@ angular.module("assetAdminPanel").controller('productCtrl',
     ],
     pageConfig: {
       url: mainAsset.getUrl()+'group',
-      getFunc: controller.searchWithPagination,
+      getFunc: controller.searchGroupWithPagination,
       cat: 'group',
       searchOpt: {
-        'group_type': 'group',
         'text_search': '',
       }
     },
