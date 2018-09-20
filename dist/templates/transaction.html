@@ -223,10 +223,10 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
                           <li>
-                            <a ng-click="transaction.openSelectionModalWithPagination(2,transaction.selectUserDestinationObj,false)" href>کاربر</a>
+                            <a ng-click="transaction.openSelectionModalWithPagination(2,transaction.selectUserDestinationForObj,false)" href>کاربر</a>
                           </li>
                           <li>
-                            <a ng-click="transaction.openSelectionModalWithPagination(3,transaction.selectWarehouseDestinationObj,false)" href>انبار</a>
+                            <a ng-click="transaction.openSelectionModalWithPagination(3,transaction.selectWarehouseDestinationForObj,false)" href>انبار</a>
                           </li>
                         </ul>
                       </div>
@@ -329,11 +329,11 @@
         <!-- End of stage 1 -->
 
         <!-- User selection -->
-        <search-modal ng-show = "stage === 2" obj="transaction.selectUserDestinationObj" controller = "transaction" func="controller.addDestination('User')" ></search-modal>        
+        <search-modal ng-show = "stage === 2" obj="transaction.selectUserDestinationForObj" controller = "transaction" func="controller.addDestination('User')" ></search-modal>        
         <!-- End of stage 2 -->
 
         <!-- Warehouse selection -->
-        <search-modal ng-show = "stage === 3" obj="transaction.selectWarehouseDestinationObj" controller = "transaction" func="controller.addDestination('Warehouse')" ></search-modal>        
+        <search-modal ng-show = "stage === 3" obj="transaction.selectWarehouseDestinationForObj" controller = "transaction" func="controller.addDestination('Warehouse')" ></search-modal>        
         <!-- End of stage 3 -->
 
       </div>

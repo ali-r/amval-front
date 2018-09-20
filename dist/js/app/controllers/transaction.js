@@ -284,7 +284,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     searchQuery: '',
   }
 
-  controller.selectUserDestinationObj = {
+  controller.selectUserDestinationForObj = {
     title : { fa : 'کاربر مقصد', en : 'destination'},
     searchItem : {
       fa : 'کاربر',
@@ -313,7 +313,9 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     searchPage: 1,
     searchQuery: '',
   }
-  
+  controller.selectUserDestinationObj = angular.copy(controller.selectUserDestinationForObj);
+  controller.selectUserDestinationObj.pageConfig.getFunc = controller.searchWithPagination;
+
   controller.selectWarehouseSourceObj = {
     title : { fa : 'انبار مبدا', en : 'source'},
     searchItem : {
@@ -342,7 +344,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     searchQuery: '',
   }
 
-  controller.selectWarehouseDestinationObj = {
+  controller.selectWarehouseDestinationForObj = {
     title : { fa : 'انبار مقصد', en : 'destination'},
     searchItem : {
       fa : 'انبار',
@@ -369,6 +371,9 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     searchPage: 1,
     searchQuery: '',
   }
+
+  controller.selectWarehouseDestinationObj = angular.copy(controller.selectWarehouseDestinationForObj);
+  controller.selectWarehouseDestinationObj.pageConfig.getFunc = controller.searchWithPagination;
 
   controller.selectAuthorObj = {
     title : { fa : 'کاربر اعمال کننده تراکنش', en : 'auth_by'},
