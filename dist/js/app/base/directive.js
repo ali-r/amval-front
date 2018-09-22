@@ -250,7 +250,8 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
     restrict: 'E',
     replace : true,
     scope : {
-      controller : '='
+      controller : '=',
+      editproduct: '='
     },
     link : function(scope, element, attr){
 
@@ -355,7 +356,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         scope.dParent.uploadPercentage = 0;
         scope.dParent.uploading = false;
         scope.dParent.stage = 0;
-        scope.dParent.editMode = false;
+        scope.editproduct = false;
         scope.makeDuplicate = false;
         scope.controller.product = {};
         scope.controller.tmp.meta = {};
@@ -419,7 +420,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.children;
         }
 
-        if(scope.dParent.editMode){
+        if(scope.editproduct){
           delete sendCopyObj.deprication_time;
           delete sendCopyObj.holder;
           delete sendCopyObj.parent_bundle;
@@ -436,18 +437,22 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
         sendCopyObj.guarantee_start_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_start_date);
         sendCopyObj.production_date = mainAsset.toGregorianDate(sendCopyObj.production_date);
-
-        if(sendCopyObj.children){
+        if(!!sendCopyObj.children){
           sendCopyObj.children = [];
           for (var i = 0; i < obj.children.length; i++) {
             sendCopyObj.children.push(obj.children[i].id);
           }
         }
-
-        if(!sendCopyObj.meta_data){sendCopyObj.meta_data = [];}
+        var tempList = [];
+        if(!obj.meta_data){
+          sendCopyObj.meta_data = [];
+        }
+        else{
+          tempList = obj.meta_data;
+        }
         
-        for (var i = obj.meta_data.length-1 ; i >= 0; i--) {
-          if( !obj.meta_data[i]['value'] )
+        for (var i = tempList.length-1 ; i >= 0; i--) {
+          if( !tempList[i]['value'] )
             {
               sendCopyObj.meta_data.splice(i, 1);
             }
