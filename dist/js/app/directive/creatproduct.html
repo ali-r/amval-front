@@ -92,7 +92,7 @@
                       <label>Qr Code</label>
                       <br/>
                       <div class="btn btn-info btn-sm" ng-hide = "uploading" ngf-select="controller.uploadProductPic()" ng-model="controller.qrCodeFile" name="productPic" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                        ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!controller.product.qr_code && dParent.checkWrite('product')" ng-disabled="uploading">
+                        ngf-accept="'image/*'" ngf-max-size="5MB" ng-if="!controller.product.qr_code && dParent.checkWrite('product')" ng-disabled="uploading">
                         بارگذاری بارکد
                         <i class="fa fa-qrcode fa-lg"></i>
                       </div>

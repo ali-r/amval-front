@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="btn btn-info btn-sm" ngf-select="invoice.uploadPic()" ng-model="invoice.scannedFile" name="file" ngf-pattern="'.jpg,.png,.jpeg,.png'"
-                                            ngf-accept="'image/*'" ngf-max-size="2MB" ng-if="!invoice.obj.scanned_invoice && checkWrite('invoice')" ng-hide="uploading" required>افزودن تصویر</div>
+                                            ngf-accept="'image/*'" ngf-max-size="5MB" ng-if="!invoice.obj.scanned_invoice && checkWrite('invoice')" ng-hide="uploading" required>افزودن تصویر</div>
 
                                     <button type="button" class="btn btn-sm btn-danger" ng-if="invoice.obj.scanned_invoice && checkWrite('invoice')"
                                             ng-click=" invoice.obj.scanned_invoice = null">حذف تصویر</button>
