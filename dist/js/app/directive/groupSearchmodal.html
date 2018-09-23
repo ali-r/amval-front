@@ -60,7 +60,7 @@
   <script type="text/ng-template" id="subgroup_renderer.html">
     <div class="tree-node tree-node-content row">
       <div class="col-md-1">
-        <a title="باز و بسته کردن زیرگروه ها" data-nodrag ng-click="toggle(this);controller.getSubgroup(collapsed,node)">
+        <a  ng-if="node.level>1" title="باز و بسته کردن زیرگروه ها" data-nodrag ng-click="toggle(this);controller.getSubgroup(collapsed,node)">
           <span class="fa fa-lg" ng-class="{'fa-plus-square': collapsed,'fa-minus-square': !collapsed}"></span>
         </a>
       </div>
