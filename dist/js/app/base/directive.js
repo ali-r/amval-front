@@ -434,9 +434,9 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
 
         delete sendCopyObj.name;
         
-        sendCopyObj.guarantee_end_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_end_date);
-        sendCopyObj.guarantee_start_date = mainAsset.toGregorianDate(sendCopyObj.guarantee_start_date);
-        sendCopyObj.production_date = mainAsset.toGregorianDate(sendCopyObj.production_date);
+        sendCopyObj.guarantee_end_date = mainAsset.toGregorianDateTime2(sendCopyObj.guarantee_end_date,false,'jYYYY-jM-jD');
+        sendCopyObj.guarantee_start_date = mainAsset.toGregorianDateTime2(sendCopyObj.guarantee_start_date,false,'jYYYY-jM-jD');
+        sendCopyObj.production_date = mainAsset.toGregorianDateTime2(sendCopyObj.production_date,false,'jYYYY-jM-jD');
         if(!!sendCopyObj.children){
           sendCopyObj.children = [];
           for (var i = 0; i < obj.children.length; i++) {

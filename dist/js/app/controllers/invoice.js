@@ -47,7 +47,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         var obj2 = new Object();
         obj2 = angular.copy(obj);
 
-        obj2.datetime = mainAsset.toGregorianDate(controller.obj.datetime);
+        obj2.datetime = mainAsset.toGregorianDateTime2(controller.obj.datetime,false,'jYYYY-jM-jD');
         
         obj2.price = 0
         controller.obj.products.forEach(function(item,index){
@@ -70,7 +70,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       controller.getConfig = function(obj){
-        obj.datetime = mainAsset.toJalaliDate(obj.datetime,{deleteTime:true});
+        obj.datetime = mainAsset.toJalaliDateTime2(obj.datetime,false,false,'jYYYY-jM-jD');
         $scope.editMode = true;
         controller.tmp.formShow = true;
         return obj;
@@ -265,9 +265,9 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         var ex = editedObj.extra;
         Object.assign(ex,controller.addOne.reportFields);    //merge extra with reportFields
         
-        if(ex.datetime__gte) ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte);
+        if(ex.datetime__gte) ex.datetime__gte = mainAsset.toGregorianDateTime2(ex.datetime__gte,true,'HH:mm jYYYY-jM-jD');
     
-        if(ex.datetime__lte) ex.datetime__lte = mainAsset.toGregorianDate(ex.datetime__lte);
+        if(ex.datetime__lte) ex.datetime__lte = mainAsset.toGregorianDateTime2(ex.datetime__lte,true,'HH:mm jYYYY-jM-jD');
     
         $scope.page = 1;
         controller.paginationConfig.addOne = editedObj;

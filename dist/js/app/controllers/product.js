@@ -44,9 +44,9 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   controller.getConfig = function(obj){
     obj.deprication_type += '';
-    obj.guarantee_end_date = mainAsset.toJalaliDate(obj.guarantee_end_date);
-    obj.guarantee_start_date = mainAsset.toJalaliDate(obj.guarantee_start_date);
-    obj.production_date = mainAsset.toJalaliDate(obj.production_date);
+    obj.guarantee_end_date = mainAsset.toJalaliDateTime2(obj.guarantee_end_date,true,false,'jYYYY/jM/jD');
+    obj.guarantee_start_date = mainAsset.toJalaliDateTime2(obj.guarantee_start_date,true,false,'jYYYY/jM/jD');
+    obj.production_date = mainAsset.toJalaliDateTime2(obj.production_date,true,false,'jYYYY/jM/jD');
     controller.tmp.meta = {meta_template:[]};    
     controller.tmp.meta = obj.subgroup;
     /*
@@ -114,9 +114,9 @@ angular.module("assetAdminPanel").controller('productCtrl',
     
     if(ex.seller) ex.seller = ex.seller.id;
 
-    if(ex.return_datetime__gte) ex.return_datetime__gte = mainAsset.toGregorianDate(ex.return_datetime__gte);
+    if(ex.return_datetime__gte) ex.return_datetime__gte = mainAsset.toGregorianDateTime2(ex.return_datetime__gte,true,'HH:mm jYYYY-jM-jD');
 
-    if(ex.return_datetime__lte) ex.return_datetime__lte = mainAsset.toGregorianDate(ex.return_datetime__lte);
+    if(ex.return_datetime__lte) ex.return_datetime__lte = mainAsset.toGregorianDateTime2(ex.return_datetime__lte,true,'HH:mm jYYYY-jM-jD');
 
     if(ex.deprecated)
       ex.deprication_time__lte = moment().utcOffset(0).format('YYYY-MM-DDTHH:mm:ss');
