@@ -120,7 +120,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     return(finalObj);
   }
   controller.trGetConfig = function(obj){
-    obj.datetime = mainAsset.toJalaliDate(obj.datetime);
+    obj.datetime = mainAsset.toJalaliDateTime2(obj.datetime,true,false,'jYYYY/jM/jD ساعت H:mm');
     obj.reason = obj.reason +'';
     obj.transaction_type = obj.transaction_type+'';
     return(obj);

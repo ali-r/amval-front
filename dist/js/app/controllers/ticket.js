@@ -220,11 +220,11 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
     Object.assign(editedObj.extra,controller.addOne.reportFields);    //merge extra with reportFields
     
     if(editedObj.extra.datetime__gte){
-      editedObj.extra.datetime__gte = mainAsset.toGregorianDate(controller.addOne.extra.datetime__gte);
+      editedObj.extra.datetime__gte = mainAsset.toGregorianDateTime2(controller.addOne.extra.datetime__gte,true,'HH:mm jYYYY-jM-jD');
     }
     else{editedObj.extra.datetime__gte=""}
     if(editedObj.extra.datetime__lte){
-      editedObj.extra.datetime__lte = mainAsset.toGregorianDate(controller.addOne.extra.datetime__lte);
+      editedObj.extra.datetime__lte = mainAsset.toGregorianDateTime2(controller.addOne.extra.datetime__lte,true,'HH:mm jYYYY-jM-jD');
     }
     else{editedObj.extra.datetime__lte=""}
 

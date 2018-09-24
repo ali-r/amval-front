@@ -77,58 +77,6 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       $(modal).modal('hide');
     };
 
-    this.toGregorianDate = function(pDate,config){
-      if(!pDate)
-        pDate = '';
-
-      if(!config) config = {}
-      var outDate = ''
-      if(pDate.indexOf(' ') >= 0){
-        var splitted = pDate.split(' ');
-        var time = splitted[0];
-        var dateArray = splitted[1].split('-');
-        var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        outDate = moment( gDate.year + '-' + gDate.month + '-' + gDate.day + ' ' + time + ':00' ,"YYYY-MM-DD HH:mm:ss");
-        outDate = moment(outDate).utcOffset(0).format('YYYY-MM-DDTHH:mm:ss')
-      }
-      else{
-        var dateArray = pDate.split('-');
-        var gDate = ADMdtpConvertor.toGregorian(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-        outDate = gDate.year + '-' + gDate.month + '-' + gDate.day;
-      }
-
-      if(config.noTime && outDate.indexOf('T')>=0) outDate = outDate.split('T')[0];
-      return (outDate);        
-    }
-
-    this.toJalaliDate = function(pDate,config){
-      if(!pDate)
-        pDate = '';
-
-      if(!config) config = {};
-      if(!config.baseOffset) config.baseOffset = 480;
-      if(!config.timeText) config.timeText = "در ساعت";
-      if(config.deleteTime && pDate.indexOf('T')>=0) pDate = pDate.split('T')[0]; 
-
-      if( pDate.indexOf('T') >= 0 )
-        {
-          if ( moment(pDate).isDST() ) {
-            pDate = moment(pDate).utcOffset(config.baseOffset+60).format('YYYY-MM-DDTHH:mm');
-          }else{
-            pDate = moment(pDate).utcOffset(config.baseOffset).format('YYYY-MM-DDTHH:mm');
-          }
-        }
-      pDate = pDate.split('T');
-      var dateArray = pDate[0].split('-');
-      var transactionTime = pDate[1];
-      var gDate = ADMdtpConvertor.toJalali(Number(dateArray[0]), Number(dateArray[1]), Number(dateArray[2]));
-      var output = gDate.year + '/' + gDate.month + '/' + gDate.day;
-      if ( typeof(transactionTime) != 'undefined') {
-        output = output + "  ساعت " + transactionTime
-      }
-      return output;
-    };
-
     this.toJalaliDateTime2 = function(pDate,utcNeeded,inputFormat,outputFormat){
       // The new version of jalali convertor is more general
       if(!pDate) pDate = '';
@@ -136,16 +84,25 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       if(!inputFormat) inputFormat = 'YYYY-MM-DDTHH:mm:ss';
       if(!outputFormat) outputFormat = 'HH:mm - jYYYY/jM/jD' ;
 
-      pDate = moment(pDate,inputFormat)
-      if(utcNeeded){
-        if(moment(pDate).isDST()){
-          pDate = pDate.add(270,'m');
+
+      try{
+        var dstDate = moment(pDate,inputFormat);
+        if(utcNeeded){
+          if(moment(dstDate).isDST()){
+            dstDate = dstDate.add(270,'m');
+          }
+          else{
+            dstDate = dstDate.add(210,'m');
+          }
         }
-        else{
-          pDate = pDate.add(210,'m');
-        }
+        var outDate ="- تاریخ نامعتبر -" ;
+        outDate = dstDate.format(outputFormat);
       }
-      var outDate = pDate.format(outputFormat);
+      catch(err){
+        this.log('error in converting date to jalali: ');
+        this.log(pDate);
+        this.log(err);
+      }
       return(outDate)
     }
 
@@ -155,6 +112,7 @@ app.service('mainAsset', function($window, $http, ADMdtpConvertor) {
       if(!inputFormat) inputFormat = 'hh:mm - jYYYY/jM/jD';
       if(!outputFormat) outputFormat = 'YYYY-MM-DDTHH:mm:ss';
       if(utcNeeded) pDate = moment(pDate,inputFormat).utc();
+      else pDate = moment(pDate,inputFormat);
       var outDate = pDate.format(outputFormat);
       return(outDate)
     }
@@ -197,16 +155,16 @@ app.filter('filterObjById',function(){
 
 app.filter('jalaliDate', function (mainAsset) {
       return function (inputDate) {
-        var date = mainAsset.toJalaliDate(inputDate);
+        var date = mainAsset.toJalaliDateTime2(inputDate,false,"YYYY/MM/DD",'jYYYY/jM/jD');
         return date;
     }
 });
 
 app.filter('currentJalaliDate', function (mainAsset) {
   return function (inputDate) {
-    var date = mainAsset.toJalaliDate(inputDate,{baseOffset:210});
+    var date = mainAsset.toJalaliDateTime2(inputDate,false,'YYYY-MM-DDTHH:mm','jYYYY/jM/jD ساعت H:mm ');
     return date;
-}
+  }
 });
 
 app.filter('userType', function() {

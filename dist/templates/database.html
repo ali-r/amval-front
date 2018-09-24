@@ -25,7 +25,8 @@
                   </button>
                 </form>
               </div>
-              <p ng-show="databaseForm.file.$error.pattern || restoreForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+              <p ng-show="restoreForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+              <p ng-show="restoreForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۱۰۰ مگابایت است</p>
             </div>
           </div>
         </div>
@@ -45,6 +46,7 @@
                 </form>
               </div>
               <p ng-show="uploadForm.file.$error.pattern" class="input-error-p">فرمت فایل انتخابی مجاز نیست</p>
+              <p ng-show="uploadForm.file.$error.maxSize" class="input-error-p">حجم فایل انتخابی بیشتر از ۲ گیگابایت است</p>              
             </div>
           </div>
         </div>
@@ -111,7 +113,7 @@
           <h4 class="modal-title" id="myModalLabel" ng-hide = "editMode">هشدار</h4>
         </div>
         <div class="modal-body" ng-hide ="$parent.loadModal">
-          .بعد از انجام این عمل داده های موجود در سامانه از دست خواهند رفت
+          بعد از انجام این عمل داده های موجود در سامانه از دست خواهند رفت.
           آیا ادامه می دهید؟ 
         </div>
         <div class="modal-footer" ng-hide ="$parent.loadModal">
@@ -119,7 +121,8 @@
           <form name="restoreForm">
               <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>    
               <div class="btn btn-primary" ngf-select="database.upload()" ng-model="database.file" name="file" ngf-pattern="'.mdb'" ngf-accept="'.mdb'"
-              ngf-max-size="2MB" data-dismiss="modal"> ادامه</div>
+              ngf-max-size="100MB" ngf-model-invalid="restoreErrors" data-dismiss="modal"> ادامه</div>
+              
           </form>
           
         </div>
@@ -141,7 +144,7 @@
         <h4 class="modal-title" id="myModalLabel" >هشدار</h4>
       </div>
       <div class="modal-body" ng-hide ="loadModal">
-        .بعد از انجام این عمل فایل های موجود در سامانه از دست خواهند رفت
+        بعد از انجام این عمل فایل های موجود در سامانه از دست خواهند رفت.
         آیا ادامه می دهید؟ 
       </div>
       <div class="modal-footer" ng-hide ="loadModal">
@@ -149,8 +152,10 @@
         <form name="uploadForm">
             <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>    
             <div class="btn btn-primary" ngf-select="database.uploadServer()" ng-model="database.uploadFile" name="file" ngf-pattern="'.zip'" ngf-accept="'.zip'"
-            ngf-max-size="1024MB" data-dismiss="modal">ادامه</div>
+            ngf-max-size="2048MB" data-dismiss="modal">ادامه</div>
         </form>
+
+
         
       </div>
     </div>

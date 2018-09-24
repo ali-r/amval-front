@@ -30,24 +30,13 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         'addOne' : controller.addOne
       }
       $scope.apiUrl = mainAsset.getUrl() + controller.apiName;
-
-      controller.getTotalPrice = function(){
-        controller.priceLoaded = false;
-        requestHelper.get(
-          $scope.apiUrl + '?page=1&per_page=1&get_total_price=true',
-          $scope, function(response){
-            $scope.total_price = response.data.data.total_price;
-            controller.priceLoaded = true;        
-          }
-        )
-      }
-      controller.getTotalPrice();
+      controller.priceLoaded = false;
 
       controller.objConfig = function(obj){
         var obj2 = new Object();
         obj2 = angular.copy(obj);
 
-        obj2.datetime = mainAsset.toGregorianDate(controller.obj.datetime);
+        obj2.datetime = mainAsset.toGregorianDateTime2(controller.obj.datetime,false,'jYYYY-jM-jD');
         
         obj2.price = 0
         controller.obj.products.forEach(function(item,index){
@@ -70,7 +59,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       }
 
       controller.getConfig = function(obj){
-        obj.datetime = mainAsset.toJalaliDate(obj.datetime,{deleteTime:true});
+        obj.datetime = mainAsset.toJalaliDateTime2(obj.datetime,false,false,'jYYYY-jM-jD');
         $scope.editMode = true;
         controller.tmp.formShow = true;
         return obj;
@@ -87,7 +76,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       crud.initModals($scope, controller, controller.apiName, []);
       crud.init($scope, controller, controller.apiName,controller.objConfig, controller.getConfig);
       controller.tmp.formShow = false;
-
+      controller.getTotalPrice();
+      
       controller.setNewInvoiceForm = function(){
         $scope.reset();
         controller.tmp.formShow = true;
@@ -265,14 +255,16 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         var ex = editedObj.extra;
         Object.assign(ex,controller.addOne.reportFields);    //merge extra with reportFields
         
-        if(ex.datetime__gte) ex.datetime__gte = mainAsset.toGregorianDate(ex.datetime__gte);
+        if(ex.datetime__gte) ex.datetime__gte = mainAsset.toGregorianDateTime2(ex.datetime__gte,true,'HH:mm jYYYY-jM-jD');
     
-        if(ex.datetime__lte) ex.datetime__lte = mainAsset.toGregorianDate(ex.datetime__lte);
+        if(ex.datetime__lte) ex.datetime__lte = mainAsset.toGregorianDateTime2(ex.datetime__lte,true,'HH:mm jYYYY-jM-jD');
     
         $scope.page = 1;
         controller.paginationConfig.addOne = editedObj;
         $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
         controller.getData();
+        controller.getTotalPrice($scope.getUrl);
+      
       }
 
 
