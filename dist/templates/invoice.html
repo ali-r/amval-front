@@ -28,13 +28,13 @@
                       (تعداد کل: {{meta.total | pNumber}})
                     </small>
                 
-                    <small ng-if="total_price && !load">
+                    <small ng-if="invoice.priceLoaded">
                         ( قیمت کل: {{total_price | currency:'':0 | productPrice | pNumber}}
                         {{ "ریال" + " " }}
                         )
                     </small>
 
-                    <small ng-if="!total_price || load">
+                    <small ng-if="!invoice.priceLoaded">
                      ( قیمت کل: ‌درحال محاسبه... )
                     </small>
                 </h2>

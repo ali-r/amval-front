@@ -30,18 +30,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         'addOne' : controller.addOne
       }
       $scope.apiUrl = mainAsset.getUrl() + controller.apiName;
-
-      controller.getTotalPrice = function(){
-        controller.priceLoaded = false;
-        requestHelper.get(
-          $scope.apiUrl + '?page=1&per_page=1&get_total_price=true',
-          $scope, function(response){
-            $scope.total_price = response.data.data.total_price;
-            controller.priceLoaded = true;        
-          }
-        )
-      }
-      controller.getTotalPrice();
+      controller.priceLoaded = false;
 
       controller.objConfig = function(obj){
         var obj2 = new Object();
@@ -87,7 +76,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       crud.initModals($scope, controller, controller.apiName, []);
       crud.init($scope, controller, controller.apiName,controller.objConfig, controller.getConfig);
       controller.tmp.formShow = false;
-
+      controller.getTotalPrice();
+      
       controller.setNewInvoiceForm = function(){
         $scope.reset();
         controller.tmp.formShow = true;
@@ -273,6 +263,8 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         controller.paginationConfig.addOne = editedObj;
         $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
         controller.getData();
+        controller.getTotalPrice($scope.getUrl);
+      
       }
 
 

@@ -25,18 +25,6 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.relateWarehouseId = $routeParams.id;
   $scope.apiUrl = mainAsset.getUrl() + apiName;
   controller.priceLoaded = false;
-  
-  controller.getTotalPrice = function(){
-    controller.priceLoaded = false;
-    requestHelper.get(
-      $scope.apiUrl + '?page=1&per_page=1&get_total_price=true',
-      $scope, function(response){
-        $scope.total_price = response.data.data.total_price;
-        controller.priceLoaded = true;        
-      }
-    )
-  }
-  controller.getTotalPrice();
 
   controller.creatProductCallback = function(){
     controller.getData();
@@ -70,7 +58,8 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
-
+  controller.getTotalPrice();
+  
   controller.obj.qr_code = '';
   this.uploadPic = function() {
     mainAsset.log($scope.productForm.file.$error)
@@ -133,6 +122,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
     controller.paginationConfig.addOne = editedObj;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
+    controller.getTotalPrice($scope.getUrl);    
   }
 
   controller.selectProducerObj = {

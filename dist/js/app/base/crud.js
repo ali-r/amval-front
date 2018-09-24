@@ -401,5 +401,18 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
     controller.searchWithPagination(page,obj);
   }
 
+  controller.getTotalPrice = function(url_){
+    if(!url_) url_ = scope.apiUrl + '?page=1&per_page=1&get_total_price=true';
+    else url_ += '&get_total_price=true';
+    controller.priceLoaded = false;
+    requestHelper.get(
+      url_,
+      scope, function(response){
+        scope.total_price = response.data.data.total_price;
+        controller.priceLoaded = true;        
+      }
+    )
+  }
+
   }
 });
