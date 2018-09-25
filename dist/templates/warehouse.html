@@ -83,14 +83,20 @@
       <div class="x_title">
         <h2><i class="fa"></i>کالا های انبار 
           "{{selectedWarehouse | lengthLimit:30}}"
+          <br>
           <small ng-if="warehouse.productsMeta.total && !load">
             (تعداد کل: {{warehouse.productsMeta.total | pNumber}})
           </small>
 
-          <small ng-if="products_total_price && !load">
-              (قیمت کل: {{products_total_price | currency:'':0 | productPrice | pNumber}}
+          <small ng-if="warehouse.priceLoaded">
+              (قیمت کل: {{total_price | currency:'':0 | productPrice | pNumber}}
               {{ "ریال" + " " }}
               )
+          </small>
+          <small ng-if="!warehouse.priceLoaded" >
+            (
+              قیمت کل: در حال محاسبه...
+            )
           </small>
         </h2>
         <button type="button" class="btn btn-warning btn-sm pull-left" name="button" ng-click="closeSide()">
