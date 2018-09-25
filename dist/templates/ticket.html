@@ -156,7 +156,10 @@
                   <label>کالا</label>
                   <p> 
                     {{ticket.obj.product.name | lengthLimit:20}} 
-                    ({{ticket.obj.product.serial_number | lengthLimit:20}}) </p>
+                    <small dir="ltr" >
+                      ({{ticket.obj.product.serial_number | lengthLimit:20}}) 
+                    </small>
+                  </p>
                 </div>
 
                 <div class="clearfix"></div>
