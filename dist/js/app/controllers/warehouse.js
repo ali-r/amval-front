@@ -39,6 +39,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   controller.getProducts = function(page){
     $scope.loadSide = true;
     var getUrl = controller.makeUrl(page, controller.productPageConf);
+    controller.getTotalPrice(getUrl);
     requestHelper.get(getUrl, $scope, function(response){
       mainAsset.log(response.data.data)
       controller.products = response.data.data.products;
@@ -58,9 +59,10 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   controller.openSide = function(obj){
     $scope.wareHouseId = obj.id;
     controller.productPageConf.searchOpt = {};
-    controller.productPageConf.searchOpt.product_filter = "0";
+    controller.productPageConf.searchOpt.product_filter = "4";
+    controller.productPageConf.searchOpt.holder = $scope.wareHouseId;
     $scope.selectedWarehouse = obj.title;
-    controller.productPageConf.url = $scope.apiUrl + '/' + $scope.wareHouseId + '/products';
+    controller.productPageConf.url = mainAsset.getUrl() + 'product';
     $scope.productShow = true;
     controller.getProducts();
   }
