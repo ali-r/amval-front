@@ -87,7 +87,7 @@ angular.module("assetAdminPanel").controller('warehouseCtrl',
   }
 
   controller.selectUserObj = {
-    title : { fa : 'کاربر', en : 'user'},
+    title : { fa : 'کاربر', en : 'clerk'},
     searchItem : {
       fa : 'کاربر',
       en : 'user'
