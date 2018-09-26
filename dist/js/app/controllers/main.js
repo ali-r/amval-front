@@ -56,6 +56,7 @@ angular.module("assetAdminPanel").controller('mainCtrl',
       function(response){
         if(!angular.equals($scope.notifList,response.data.data.notifications)){
           $scope.notifList = response.data.data.notifications;
+          $scope.notifTotalNumber = response.data.meta.total;
           setTimeout(
             function () {
               for(var i =0;i<Math.min($scope.notifDisplayLimit,$scope.notifList.length);i++){
