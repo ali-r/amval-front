@@ -181,7 +181,7 @@ app.filter('userType', function() {
           output = "انباردار";
         break;
         case 0:
-          output = "کاربر";
+          output = "کارمند";
         break;
     }
     return output;
