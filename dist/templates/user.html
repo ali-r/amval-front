@@ -110,7 +110,7 @@
                     <div class="form-group">
                       <label>نوع کاربر*</label>
                       <select class="form-control" ng-model="user.obj.clearance_level" required>
-                        <option ng-value="0">کاربر</option>
+                        <option ng-value="0">کارمند</option>
                         <option ng-value="1">انباردار</option>
                         <option ng-value="2">انباردار مرکزی</option>
                         <option ng-value="3">مدیر</option>
@@ -295,7 +295,7 @@
       </div>
       <div class="modal-body">
         <form name="resetPassForm" ng-hide="loadModal" novalidate 
-        ng-submit="resetPassForm.$valid && user.resetPass(user.toResetPassId)">
+        ng-submit="user.passToResetConf === user.passToReset && resetPassForm.$valid && user.resetPass(user.toResetPassId)">
         <button type="submit" hidden></button>
           <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine ,
             'has-success' : !resetPassForm.password.$invalid && !resetPassForm.pass.$pristine }">
