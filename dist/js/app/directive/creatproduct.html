@@ -289,7 +289,7 @@
                         <tbody>
                           <tr ng-repeat = "list in controller.tmp.searchResult">
                             <td>
-                              {{ $index + 1 }}
+                              {{ (controller.productsPage-1)*controller.productsMeta.per_page + $index  + 1 }}
                             </td>
                             <td>{{list.name | lengthLimit:30}}</td>
                             <td>{{list.serial_number | lengthLimit:30}}</td>
