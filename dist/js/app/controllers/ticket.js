@@ -283,16 +283,11 @@ angular.module("assetAdminPanel").controller('ticketCtrl',
       {fa:'نام', en:'name'},
       {fa:'شماره سریال کارخانه',en:'serial_number'}
     ],
-    searchFilter : {
-      key: 'use_case',
-      value: '0'
-    },
     pageConfig: {
       url: mainAsset.getUrl()+'product',
       getFunc: controller.searchWithPagination,
       cat: 'product',
       searchOpt: {
-        'use_case': '0',
         'text_search': '',
       }
     },
