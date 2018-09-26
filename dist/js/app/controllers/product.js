@@ -16,7 +16,9 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.product = {};
   controller.obj = {};
   controller.addOne={};
-  controller.addOne.extra={};
+  controller.addOne.extra={
+    'product_filter': '4'
+  };
   controller.addOne.reportFields = {}
   controller.paginationConfig = {
     'addOne' : controller.addOne
