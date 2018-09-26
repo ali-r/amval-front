@@ -76,7 +76,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
       crud.initModals($scope, controller, controller.apiName, []);
       crud.init($scope, controller, controller.apiName,controller.objConfig, controller.getConfig);
       controller.tmp.formShow = false;
-      controller.getTotalPrice();
+      controller.getTotalPrice(controller.makeUrl($scope.page, controller.paginationConfig));
       
       controller.setNewInvoiceForm = function(){
         $scope.reset();
