@@ -69,7 +69,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     httpService.stopLoading();
   }
 
-  httpService.errorCallback = function(response,scope) {
+  httpService.errorCallback = function(response,scope,file_) {
     var notif = {};
 
     if(response.data.message && response.data.message.type == 'warn'){
@@ -96,6 +96,9 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     PNotify.prototype.options.delay = notif.text.length * 30 ;
     
     if(notif.type == 'warn'){ // handling confirm
+      if(file_){
+        httpService.scope.preRequest.data = file_;
+      }
       (new PNotify({
         title: notif.title,
         text: notif.text,
@@ -230,7 +233,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
     scope.confirmMessage = _message;
   }
 
-  httpService.uploadDatabase = function(_scope,_request){
+  httpService.uploadDatabase = function(_scope,_request,_file){
     httpService.init(_scope);
     
     httpService.scope.uploading = true;        
@@ -259,7 +262,7 @@ app.service('requestHelper', function($localStorage, $http, Upload, mainAsset, $
       }else{
         httpService.scope.uploading = false;
         httpService.scope.uploadPercentage = 0;
-        httpService.errorCallback(resp);
+        httpService.errorCallback(resp,scope,_file);
       }
           
     }, function (evt) {
