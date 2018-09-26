@@ -295,7 +295,7 @@
       </div>
       <div class="modal-body">
         <form name="resetPassForm" ng-hide="loadModal" novalidate 
-        ng-submit="resetPassForm.$valid && user.resetPass(user.toResetPassId)">
+        ng-submit="user.passToResetConf === user.passToReset && resetPassForm.$valid && user.resetPass(user.toResetPassId)">
         <button type="submit" hidden></button>
           <div class="form-group" ng-class="{ 'has-error' : resetPassForm.pass.$invalid && !resetPassForm.pass.$pristine ,
             'has-success' : !resetPassForm.password.$invalid && !resetPassForm.pass.$pristine }">
