@@ -16,7 +16,9 @@ angular.module("assetAdminPanel").controller('productCtrl',
   controller.product = {};
   controller.obj = {};
   controller.addOne={};
-  controller.addOne.extra={};
+  controller.addOne.extra={
+    'product_filter': '4',
+  };
   controller.addOne.reportFields = {}
   controller.paginationConfig = {
     'addOne' : controller.addOne
@@ -58,7 +60,7 @@ angular.module("assetAdminPanel").controller('productCtrl',
 
   crud.initModals($scope, controller, apiName)
   crud.init($scope, controller, apiName, controller.objConfig, controller.getConfig)
-  controller.getTotalPrice();
+  controller.getTotalPrice(controller.makeUrl($scope.page, controller.paginationConfig));
   
   controller.obj.qr_code = '';
   this.uploadPic = function() {

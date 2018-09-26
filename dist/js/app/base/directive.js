@@ -647,8 +647,9 @@ app.directive('exportFile', function(mainAsset, requestHelper) {
 
           var exportConf = {
             'file_type' : expFromat,
-            'request_url' : scope.dParent.getUrl
+            'request_url' : scope.dParent.getUrl 
           };
+          if(scope.dParent.apiUrl=== mainAsset.getUrl()+'product' || scope.dParent.apiUrl===mainAsset.getUrl()+'invoice') exportConf['request_url'] += '&get_total_price=true';
 
         }
 

@@ -1,7 +1,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x-panel-search">
-    <form class="filter-form">
+    <form class="filter-form" ng-submit="$parent.load && scontroller.getFilteredData()">
       <input type="text" ng-repeat="opt in sobject" class="form-control search-option" title="{{opt.fname}}" id="{{opt.field}}" placeholder="{{opt.fname}}" ng-model="scontroller.searchValue[opt.field]" 
       ng-if="opt.show_in_search != false">
       <ng-transclude></ng-transclude>
@@ -16,7 +16,7 @@
         <option value="">صعودی</option>
         <option value="-">  نزولی</option>
       </select>
-      <button type="submit" class="btn btn-info filter-btn" ng-click = "scontroller.getFilteredData()">جستجو</button>
+      <button type="submit" ng-disabled="$parent.load" class="btn btn-info filter-btn" ng-click = "scontroller.getFilteredData()">جستجو</button>
     </form>
     <div class="row more-filter-link-container" >
         <a title="نمایش فیلدهای جستجوی پیشرفته" id="more-filters" class="more-filters-link" href>جستجوی پیشرفته</a>
