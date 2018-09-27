@@ -261,6 +261,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
         if(ex.datetime__lte) ex.datetime__lte = mainAsset.toGregorianDateTime2(ex.datetime__lte,true,'HH:mm jYYYY-jM-jD');
     
         $scope.page = 1;
+        $scope.$$childHead.page = 1;
         controller.paginationConfig.addOne = editedObj;
         $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
         controller.getData();

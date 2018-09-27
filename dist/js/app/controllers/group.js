@@ -79,6 +79,7 @@ angular.module("assetAdminPanel").controller('groupCtrl',
         editedObj.extra.depth__lt = '2';
       }
     $scope.page = 1;
+    $scope.$$childHead.page = 1;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
   }

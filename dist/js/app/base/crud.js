@@ -156,6 +156,7 @@ app.service('crud', function($localStorage,requestHelper, mainAsset, $window) {
     
     controller.getFilteredData = function() {
       scope.page = 1;
+      scope.$$childHead.page = 1;
       scope.getUrl = controller.makeUrl(scope.page,controller.paginationConfig);
       controller.getData();
     };

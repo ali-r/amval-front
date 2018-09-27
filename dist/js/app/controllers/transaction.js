@@ -176,6 +176,7 @@ angular.module("assetAdminPanel").controller('transactionCtrl',
     delete ex['destination_type'];
     
     $scope.page = 1;
+    $scope.$$childHead.page = 1;
     controller.paginationConfig.addOne = editedObj;
     $scope.getUrl = controller.makeUrl($scope.page, controller.paginationConfig);
     controller.getData();
