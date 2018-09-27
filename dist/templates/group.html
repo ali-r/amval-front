@@ -20,13 +20,15 @@
        </div>
        <div class="x_content">
  
-         <div ui-tree id="tree-root" ng-show = "group.note.length>0">
+         <div ng-hide="load" ui-tree id="tree-root" ng-show = "group.note.length>0">
            <ol ui-tree-nodes ng-model="group.note">
              <li ng-repeat="node in group.note" ui-tree-node ng-include="'nodes_renderer.html'"></li>
            </ol>
          </div>
          
-         <req-pagination itemmeta="meta" itempage="page" controller="group" config="group.paginationConfig"></req-pagination>
+         <req-pagination ng-hide="load" itemmeta="meta" itempage="page" controller="group" config="group.paginationConfig"></req-pagination>
+         <loading-div ng-show="load" ></loading-div>
+         
        </div>
      </div>
    </div>

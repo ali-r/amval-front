@@ -100,7 +100,9 @@
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="meta" itempage="page" controller="ticket" config="ticket.paginationConfig"></req-pagination>
+        <req-pagination ng-hide="load" itemmeta="meta" itempage="page" controller="ticket" config="ticket.paginationConfig"></req-pagination>
+        <loading-div ng-show="load" ></loading-div>
+        
       </div>
     </div>
   </div>

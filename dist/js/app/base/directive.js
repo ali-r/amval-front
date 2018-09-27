@@ -702,6 +702,14 @@ app.directive('deleteModal', function(){
   }
 });
 
+app.directive('loadingDiv', function(){
+  return {
+    restrict: 'E',
+    replace : true,
+    templateUrl: '/dist/js/app/directive/loadingDiv.html'
+  }
+});
+
 app.directive('enterEvent', function () { //sample usage: enterEvent = "checkMark,function"
   return function (scope, element, attrs) {
     element.bind("keydown keypress", function (event) {
