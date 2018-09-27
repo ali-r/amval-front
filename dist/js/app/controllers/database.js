@@ -59,12 +59,12 @@ angular.module("assetAdminPanel").controller('databaseCtrl',
           method: 'PUT',
           scope: $scope,
           url: $scope.uploadUrl + 'database',
-          data: null,
+          data: controller.uploadFile,
           successCallback: '',
           errorCallback: '',
           handler: ''
         }
-        requestHelper.uploadDatabase($scope,$scope.preRequest,controller.uploadFile)
+        requestHelper.uploadDatabase($scope,$scope.preRequest)
       }
     }
 
