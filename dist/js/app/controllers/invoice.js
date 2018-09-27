@@ -22,6 +22,7 @@ angular.module("assetAdminPanel").controller('invoiceCtrl',
 
       $scope.page = 1;
       $scope.assetData = $cookieStore.get('assetData');
+      $scope.editproduct = false;
       controller.obj = {};
       controller.addOne={};
       controller.addOne.extra={};

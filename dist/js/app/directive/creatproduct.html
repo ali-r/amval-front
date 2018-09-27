@@ -4,28 +4,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left" ng-hide = "dParent.loadModal">
-          <label ng-hide="editproduct || dParent.stage != 0">
+          <label ng-hide="dParent.editproduct || dParent.stage != 0">
             <input type="checkbox" ng-model="makeDuplicate">
             ایجاد کالای مشابه
           </label>
-          <button type="button" ng-disabled="!productForm.$valid || makeDuplicate" ng-click="sendOrEdit(editproduct, true)" ng-show = "dParent.stage == 0" 
+          <button type="button" ng-disabled="!productForm.$valid || makeDuplicate" ng-click="sendOrEdit(dParent.editproduct, true)" ng-show = "dParent.stage == 0" 
           ng-show = "dParent.checkWrite('product')" class="btn btn-warning">ذخیره و بستن</button>
-          <button type="button" ng-disabled="!productForm.$valid" ng-click="sendOrEdit(editproduct, false)" ng-show = "dParent.stage == 0 && !editproduct" 
+          <button type="button" ng-disabled="!productForm.$valid" ng-click="sendOrEdit(dParent.editproduct, false)" ng-show = "dParent.stage == 0 && !dParent.editproduct" 
           ng-show = "dParent.checkWrite('product')" class="btn btn-success">ذخیره و جدید</button>
           <button type="button" class="btn btn-danger" ng-show = "dParent.stage == 0" ng-click="controller.productReset()" data-dismiss="modal">بستن</button>
           <button type="button" class="btn btn-info" ng-show = "dParent.stage != 0" ng-click="dParent.stage = 0; controller.tmp.searchQuery = '' ">بازگشت</button>
         </div>
-        <div class="pull-left single-export" ng-show="editproduct">
+        <div class="pull-left single-export" ng-show="dParent.editproduct">
             <export-file exptype="product" id="controller.obj.id"></export-file>
         </div>
         <div class="pull-left load-spinner" ng-show = "dParent.loadModal">
           <i class="fa fa-spinner fa-pulse fa-2x" ></i>
         </div>
-        <h3 class="modal-title" ng-hide="editproduct">افزودن کالای جدید</h3>
-        <h3 class="modal-title" ng-show="editproduct && dParent.loadModal">
-            ویرایش کالا
-          </h3>
-        <h3 class="modal-title" ng-show="editproduct && !dParent.loadModal">
+        <h3 class="modal-title" ng-hide="dParent.editproduct">افزودن کالای جدید</h3>
+        
+        <h3 class="modal-title" ng-show="dParent.editproduct && !dParent.loadModal">
           ویرایش کالا
         </h3>
       </div>
@@ -33,7 +31,7 @@
           <div class="box-body">
             <div ng-show = "dParent.stage == 0">
               <form name="productForm" role="form" ng-hide="dParent.loadModal" novalidate 
-              ng-submit="productForm.$valid && sendOrEdit(editproduct, editproduct)">
+              ng-submit="productForm.$valid && sendOrEdit(dParent.editproduct, dParent.editproduct)">
               <button type="submit" hidden></button>
                 <fieldset>
                 <div class="row">
@@ -161,7 +159,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <div class="form-group" ng-hide = "!editproduct && !controller.product.is_bundle">
+                    <div class="form-group" ng-hide = "!dParent.editproduct && !controller.product.is_bundle">
                       <label></label>  
                       <div class="row">
                         <div class="col-sm-6">
@@ -192,7 +190,7 @@
                 <hr ng-show = "controller.apiName != 'invoice'">
                 <div class="row" ng-show = "controller.apiName != 'invoice'">
                   <div class="col-md-6">
-                    <div class="checkbox" ng-hide="editproduct">
+                    <div class="checkbox" ng-hide="dParent.editproduct">
                       <label>
                         <input type="checkbox" ng-model="controller.product.is_bundle">
                         آیا کالا باندل است؟

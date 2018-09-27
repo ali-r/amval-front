@@ -127,6 +127,16 @@ angular.module("assetAdminPanel").controller('productCtrl',
     controller.getTotalPrice($scope.getUrl);    
   }
 
+  this.getProduct = function(productId){
+    $scope.editproduct = true;
+    this.getObject(productId);
+  }
+
+  this.openCreateModal = function(){
+    $scope.editproduct = false;
+    $scope.openModal('#productModal');
+  }
+
   controller.selectProducerObj = {
     title : { fa : 'تولید کننده', en : 'producer'},
     searchItem : {

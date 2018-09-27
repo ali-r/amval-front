@@ -111,7 +111,7 @@
 
           
         </h2>        
-        <button type="button" ng-if = "checkWrite('product')" class="btn btn-success btn-sm pull-left" ng-click="openModal('#productModal')" name="button">
+        <button type="button" ng-if = "checkWrite('product')" class="btn btn-success btn-sm pull-left" ng-click="product.openCreateModal()" name="button">
           افزودن کالا
         </button>
         <export-file exptype="product_list"></export-file>
@@ -141,7 +141,7 @@
               <td>{{list.production_date | jalaliDate | pNumber}}</td>
               <td>{{list.guarantee_end_date | jalaliDate | pNumber}}</td>
               <td >
-                <a title="ویرایش" ng-click="product.getObject(list.id)" href>
+                <a title="ویرایش" ng-click="product.getProduct(list.id);" href>
                   <i class="fa fa-lg" ng-class = "{'fa-pencil-square-o':checkWrite('product')}" aria-hidden="true"></i>
                 </a>
               </td>
@@ -165,7 +165,7 @@
   </div>
 </div>
 
-<creat-product controller = "product" editproduct="editMode"></creat-product>
+<creat-product controller = "product"></creat-product>
 
 <product-stat controller = "product"></product-stat>
 

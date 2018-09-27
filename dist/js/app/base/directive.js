@@ -251,7 +251,6 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
     replace : true,
     scope : {
       controller : '=',
-      editproduct: '='
     },
     link : function(scope, element, attr){
 
@@ -356,7 +355,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
         scope.dParent.uploadPercentage = 0;
         scope.dParent.uploading = false;
         scope.dParent.stage = 0;
-        scope.editproduct = false;
+        scope.dParent.editproduct = false;
         scope.makeDuplicate = false;
         scope.controller.product = {};
         scope.controller.tmp.meta = {};
@@ -420,7 +419,7 @@ app.directive('creatProduct', function(mainAsset, requestHelper) {
           delete sendCopyObj.children;
         }
 
-        if(scope.editproduct){
+        if(scope.dParent.editproduct){
           delete sendCopyObj.deprication_time;
           delete sendCopyObj.holder;
           delete sendCopyObj.parent_bundle;
