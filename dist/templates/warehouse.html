@@ -59,7 +59,8 @@
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="meta" itempage="page" controller="warehouse"></req-pagination>
+        <req-pagination ng-hide="load" itemmeta="meta" itempage="page" controller="warehouse"></req-pagination>
+        <loading-div ng-show="load" ></loading-div>
       </div>
     </div>
   </div>
@@ -136,7 +137,8 @@
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="warehouse.productsMeta" itempage="warehouse.productsPage" controller="warehouse" config="warehouse.productPageConf"></req-pagination>
+        <req-pagination ng-hide="loadSide" itemmeta="warehouse.productsMeta" itempage="warehouse.productsPage" controller="warehouse" config="warehouse.productPageConf"></req-pagination>
+        <loading-div ng-show="loadSide" ></loading-div>
       </div>
     </div>
   </div>

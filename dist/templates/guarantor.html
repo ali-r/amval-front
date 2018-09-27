@@ -49,7 +49,9 @@
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="meta" itempage="page" controller="guarantor"></req-pagination>
+        <req-pagination ng-hide="load" itemmeta="meta" itempage="page" controller="guarantor"></req-pagination>
+        <loading-div ng-show="load" ></loading-div>
+        
       </div>
     </div>
   </div>

@@ -158,7 +158,8 @@
             </tr>
           </tbody>
         </table>
-        <req-pagination itemmeta="meta" itempage="page" controller="product" config="product.paginationConfig"></req-pagination>
+        <req-pagination ng-hide="load" itemmeta="meta" itempage="page" controller="product" config="product.paginationConfig"></req-pagination>
+        <loading-div ng-show="load" ></loading-div>
       </div>
     </div>
   </div>

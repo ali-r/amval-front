@@ -73,7 +73,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <req-pagination itemmeta="meta" itempage="page" controller="invoice" config="invoice.paginationConfig"></req-pagination>
+                <req-pagination ng-hide="load" itemmeta="meta" itempage="page" controller="invoice" config="invoice.paginationConfig"></req-pagination>
+                <loading-div ng-show="load" ></loading-div>
+                
             </div><!-- /.x_content-->
         </div><!-- /.x_panel-->
     </div>
